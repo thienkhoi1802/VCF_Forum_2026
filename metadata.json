@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix Remix Diễn Đàn CEO Việt Nam (VCF)",
+  "description": "Website Diễn đàn CEO Việt Nam (VCF) - Hệ thống Wireframe \u0026 Nguyên mẫu tương tác đầy đủ theo PRD và Wireframe Spec.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

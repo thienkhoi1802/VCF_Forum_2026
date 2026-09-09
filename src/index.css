@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    font-family: 'Adobe Clean', -apple-system, BlinkMacSystemFont, 'Trebuchet MS', 'Segoe UI', Roboto, sans-serif;
+    color-scheme: light;
+    scroll-behavior: smooth;
+    background-color: #ffffff;
+    color: #000000;
+  }
+
+  code, kbd, samp, pre {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+}
+
+/* Adobe Typography Rules */
+.adobe-display {
+  font-family: 'Adobe Clean Display Black', 'Adobe Clean Display', 'Arial Bold Adjusted', 'Trebuchet MS', -apple-system, sans-serif;
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.adobe-heading {
+  font-family: 'Adobe Clean Display Black', 'Adobe Clean Display', 'Arial Bold Adjusted', 'Trebuchet MS', -apple-system, sans-serif;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.adobe-body {
+  font-family: 'Adobe Clean', 'Trebuchet MS', -apple-system, sans-serif;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+/* Adobe Inset Shadows & Borders */
+.shadow-adobe-inset {
+  box-shadow: rgba(255, 255, 255, 0.11) 0px 0px 0px 1px inset;
+}
+
+.shadow-adobe-dark-inset {
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px inset;
+}
+
+/* Adobe Snappy Motion */
+.adobe-transition {
+  transition: all 150ms cubic-bezier(0.42, 0, 0, 1);
+}
+
+/* Clean minimal scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #eb1000;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.15s cubic-bezier(0.42, 0, 0, 1) forwards;
+}
+
