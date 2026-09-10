@@ -1,14 +1,4 @@
 import React, { useState } from 'react';
-import { 
-  Image as ImageIcon, 
-  User, 
-  BookOpen, 
-  GraduationCap, 
-  Building2, 
-  Layers,
-  Sparkles,
-  Maximize2
-} from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
 export interface WireframeImageProps {
@@ -144,71 +134,22 @@ export const WireframeImage: React.FC<WireframeImageProps> = ({
   // Clean formatted label
   const cleanLabel = (label || 'Ảnh minh họa').trim();
 
-  // If in High Wireframe Mode (default), render high-fidelity wireframe placeholder directly
+  // Minimalist Wireframe Mode: gray background + crossed diagonal line "X" only (no text, labels, badges, or icons)
   if (wireframeImageMode === 'wireframe') {
     return (
       <div
-        className={`relative w-full bg-neutral-100 border border-neutral-300/90 rounded-lg overflow-hidden select-none group/wf flex items-center justify-center p-3 text-center transition-all duration-200 ${aspectStyle} ${heightClass || ''} ${className}`}
-        style={{
-          backgroundImage: 'radial-gradient(#d4d4d8 1px, transparent 1px)',
-          backgroundSize: '16px 16px'
-        }}
+        className={`relative w-full bg-neutral-100 border border-neutral-300/80 rounded-lg overflow-hidden select-none flex items-center justify-center transition-colors ${aspectStyle} ${heightClass || ''} ${className}`}
+        aria-label={alt || label || 'Image placeholder'}
       >
-        {/* Architectural Diagonal Wireframe Guide Lines (Classic "X") */}
+        {/* Wireframe Diagonal Cross Guide Lines ("X") */}
         <svg 
           className="absolute inset-0 w-full h-full pointer-events-none text-neutral-300" 
           preserveAspectRatio="none"
           aria-hidden="true"
         >
-          <line x1="0" y1="0" x2="100%" y2="100%" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
-          <line x1="100%" y1="0" x2="0" y2="100%" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
+          <line x1="0" y1="0" x2="100%" y2="100%" stroke="currentColor" strokeWidth="1.2" />
+          <line x1="100%" y1="0" x2="0" y2="100%" stroke="currentColor" strokeWidth="1.2" />
         </svg>
-
-        {/* 4 Corner Alignment Markers */}
-        <div className="absolute top-1.5 left-1.5 text-[9px] font-mono text-neutral-400 select-none pointer-events-none">+</div>
-        <div className="absolute top-1.5 right-1.5 text-[9px] font-mono text-neutral-400 select-none pointer-events-none">+</div>
-        <div className="absolute bottom-1.5 left-1.5 text-[9px] font-mono text-neutral-400 select-none pointer-events-none">+</div>
-        <div className="absolute bottom-1.5 right-1.5 text-[9px] font-mono text-neutral-400 select-none pointer-events-none">+</div>
-
-        {/* Top-Right Ratio Tag */}
-        <div className="absolute top-2 right-2 px-1.5 py-0.5 bg-white/90 border border-neutral-300 rounded font-mono text-[9px] font-bold text-neutral-600 shadow-2xs tracking-wider">
-          {aspectRatio.toUpperCase()}
-        </div>
-
-        {/* Centered High-Wireframe Content Badge */}
-        <div className="relative z-1 flex flex-col items-center justify-center max-w-[88%] gap-1 p-2 bg-white/95 border border-neutral-200/90 rounded-md shadow-xs backdrop-blur-xs transition-transform duration-200 group-hover/wf:scale-[1.02]">
-          <div className="w-8 h-8 rounded-full bg-neutral-100 border border-neutral-200 flex items-center justify-center text-neutral-600 shrink-0 shadow-2xs">
-            {isAvatar ? (
-              <User className="w-4 h-4 text-neutral-600 stroke-[1.8]" />
-            ) : isDoc ? (
-              <BookOpen className="w-4 h-4 text-neutral-600 stroke-[1.8]" />
-            ) : isCourse ? (
-              <GraduationCap className="w-4 h-4 text-neutral-600 stroke-[1.8]" />
-            ) : isVenue ? (
-              <Building2 className="w-4 h-4 text-neutral-600 stroke-[1.8]" />
-            ) : (
-              <ImageIcon className="w-4 h-4 text-neutral-600 stroke-[1.8]" />
-            )}
-          </div>
-
-          <div className="space-y-0.5 w-full">
-            <span className="text-[10px] font-mono font-bold text-neutral-500 uppercase tracking-wider block">
-              [ Wireframe Placeholder ]
-            </span>
-            <span className="text-xs font-medium text-neutral-900 leading-snug line-clamp-2 px-1 font-mono">
-              {cleanLabel}
-            </span>
-            <span className="text-[10px] font-mono text-neutral-400 block pt-0.5">
-              {dimensionText}
-            </span>
-          </div>
-        </div>
-
-        {/* Subtle Bottom Hover Info */}
-        <div className="absolute bottom-1.5 left-2 right-2 flex items-center justify-between opacity-0 group-hover/wf:opacity-100 transition-opacity text-[9px] font-mono text-neutral-500 pointer-events-none">
-          <span>HIGH-FIDELITY WIREFRAME</span>
-          <span>PTIT • VLGM • PRD 2026</span>
-        </div>
       </div>
     );
   }
@@ -240,12 +181,11 @@ export const WireframeImage: React.FC<WireframeImageProps> = ({
         />
       ) : (
         /* Fallback wireframe box if photo fails */
-        <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center bg-slate-100 border border-slate-200">
-          <ImageIcon className="w-6 h-6 text-slate-400 stroke-[1.5] mb-1" />
-          <span className="text-xs font-mono font-medium text-slate-700 leading-tight bg-white px-2 py-0.5 border border-slate-200 rounded">
-            {cleanLabel}
-          </span>
-          <span className="text-[10px] font-mono text-slate-400 mt-1">{dimensionText}</span>
+        <div className="w-full h-full relative bg-neutral-100 border border-neutral-300/80">
+          <svg className="absolute inset-0 w-full h-full pointer-events-none text-neutral-300" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="0" y1="0" x2="100%" y2="100%" stroke="currentColor" strokeWidth="1.2" />
+            <line x1="100%" y1="0" x2="0" y2="100%" stroke="currentColor" strokeWidth="1.2" />
+          </svg>
         </div>
       )}
 
