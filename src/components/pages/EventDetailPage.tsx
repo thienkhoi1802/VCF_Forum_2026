@@ -852,40 +852,6 @@ export const EventDetailPage: React.FC = () => {
                 </p>
               </div>
 
-              {/* 4 Key Pillars */}
-              <div className="pt-4 border-t border-neutral-100">
-                <h3 className="text-sm font-bold uppercase tracking-wider text-black mb-4 flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-[#eb1000]" />
-                  4 Trụ Cột Thảo Luận Chiến Lược
-                </h3>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {[
-                    {
-                      title: '1. Chiến lược Tăng trưởng & Tái cấu trúc',
-                      desc: 'Mô hình kinh doanh linh hoạt thích ứng với biến động kinh tế vĩ mô và sức ép dòng tiền.'
-                    },
-                    {
-                      title: '2. Ứng dụng AI & Công nghệ đột phá',
-                      desc: 'Từ tầm nhìn đến thực thi: Tối ưu hoá vận hành, tự động hoá chuỗi giá trị và phân tích quyết định.'
-                    },
-                    {
-                      title: '3. Chuyển đổi Xanh & Tiêu chuẩn ESG',
-                      desc: 'Giải pháp thực tế cho doanh nghiệp Việt Nam để đáp ứng hàng rào kỹ thuật và thu hút vốn quốc tế.'
-                    },
-                    {
-                      title: '4. Năng lực Lãnh đạo & Văn hoá Đột phá',
-                      desc: 'Đúc kết hệ phương pháp quản trị LGM dành cho người đứng đầu trong việc dẫn dắt đội ngũ.'
-                    }
-                  ].map((pillar, idx) => (
-                    <div key={idx} className="p-4 bg-neutral-50 rounded-lg border border-neutral-200">
-                      <div className="font-bold text-sm text-black mb-1.5">{pillar.title}</div>
-                      <div className="text-xs text-neutral-600 leading-relaxed font-sans">{pillar.desc}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
               {/* Target Audience */}
               <div className="pt-4 border-t border-neutral-100">
                 <h3 className="text-sm font-bold uppercase tracking-wider text-black mb-3 flex items-center gap-2">
@@ -913,8 +879,8 @@ export const EventDetailPage: React.FC = () => {
               </div>
             </section>
 
-            {/* SECTION 2: CHƯƠNG TRÌNH NGHỊ SỰ CHI TIẾT (WAN-IFRA Agenda Format) */}
-            <section id="section-agenda" className="bg-white border border-neutral-200 rounded-xl p-6 sm:p-8 shadow-xs space-y-6 scroll-mt-36 sm:scroll-mt-44">
+            {/* SECTION 2: CHƯƠNG TRÌNH NGHỊ SỰ CHI TIẾT */}
+            <section id="section-agenda" className="bg-white border border-neutral-200 rounded-xl p-6 sm:p-8 shadow-xs space-y-5 scroll-mt-36 sm:scroll-mt-44">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-100 pb-4">
                 <div>
                   <span className="text-[11px] uppercase font-bold tracking-wider text-[#eb1000]">
@@ -934,88 +900,63 @@ export const EventDetailPage: React.FC = () => {
                 </button>
               </div>
 
-              {/* Agenda Timeline */}
-              <div className="space-y-4 pt-2">
+              {/* Agenda Timeline: chỉ tiêu đề chính + kèm thời gian + Diễn giả */}
+              <div className="space-y-3 pt-1">
                 {[
                   {
                     time: '08:00 - 08:30',
-                    tag: 'Đón tiếp đại biểu',
                     title: 'Đón tiếp đại biểu, Check-in vé điện tử QR & Networking trà sáng',
-                    desc: 'Khu vực sảnh đón tiếp VIP Grand Ballroom. Đại biểu xuất trình mã QR cá nhân để nhận Thẻ Đại biểu chính thức và bộ ấn phẩm Summit.',
                     speaker: 'Ban Thư ký Diễn đàn CEO & Đội ngũ lễ tân'
                   },
                   {
                     time: '08:30 - 09:15',
-                    tag: 'Phiên Toàn Thể Khai Mạc',
                     title: 'Phát biểu khai mạc & Báo cáo: "Toàn cảnh Kinh tế Vĩ mô và Năng lực Cạnh tranh Doanh nghiệp Việt Nam 2026 - 2030"',
-                    desc: 'Đánh giá các cơ hội, rủi ro vĩ mô, biến động lãi suất toàn cầu và động lực tăng trưởng mới của nền kinh tế số.',
                     speaker: 'TS. Lê Đăng Doanh & Đại diện Ban Điều hành VCF / PTIT'
                   },
                   {
                     time: '09:15 - 10:30',
-                    tag: 'Keynote Chính',
                     title: 'Keynote 1: "Chuyển Đổi Kép (Digital & Green) — Vũ Khí Đột Phá Năng Suất Cho Doanh Nghiệp Việt"',
-                    desc: 'Phân tích phương pháp luận quản trị LGM trong việc tích hợp công nghệ AI và tiêu chuẩn xanh vào chiến lược kinh doanh cốt lõi.',
                     speaker: 'BT. Nguyễn Mạnh Hùng (Cố vấn danh dự VLGM)'
                   },
                   {
                     time: '10:30 - 10:50',
-                    tag: 'Tea Break',
                     title: 'Giải lao, Thưởng trà & Giao lưu kết nối Hội viên tại Triển lãm Giải pháp Doanh nghiệp',
-                    desc: 'Tham quan 15 gian hàng trưng bày sáng kiến công nghệ và mô hình quản trị số tiêu biểu.',
                     speaker: ''
                   },
                   {
                     time: '10:50 - 12:00',
-                    tag: 'Tọa Đàm Bàn Tròn (Panel)',
                     title: 'Tọa đàm C-Level: "Thực Thi Chuyển Đổi AI Trong Điều Hành: Bài Học Thành Công Và Thất Bại Của Các Tập Đoàn"',
-                    desc: 'Đối thoại trực tiếp giữa 4 Tổng Giám đốc tập đoàn đa ngành về chi phí đầu tư, xây dựng văn hoá dữ liệu và quản trị rủi ro an ninh mạng.',
                     speaker: 'Host: Ông Phạm Minh Đức (CEO VCF) cùng 4 Khách mời C-Level'
                   },
                   {
                     time: '12:00 - 13:30',
-                    tag: 'VIP Networking Lunch',
                     title: 'Tiệc trưa kết nối C-Level (Executive Networking Lunch)',
-                    desc: 'Dành riêng cho Hội viên VCF VIP Pass và Khách mời danh dự. Cơ hội kết nối giao thương trực tiếp 1-1.',
                     speaker: 'Nhà hàng NCC VIP Lounge'
                   },
                   {
                     time: '13:30 - 15:30',
-                    tag: 'Phiên Chuyên Đề Song Song',
                     title: '3 Phòng Hội Thảo Chuyên Sâu Theo Trục Chiến Lược',
-                    desc: '• Track A: Quản trị Tài chính & Cấu trúc Dòng tiền trong giai đoạn mới\n• Track B: Ứng dụng GenAI vào Quản trị Khách hàng & Chuỗi cung ứng\n• Track C: Xây dựng Đội ngũ Kế cận & Năng lực Lãnh đạo cấp cao',
                     speaker: 'Chủ trì bởi các Chuyên gia Viện LGM & Hội đồng Cố vấn'
                   },
                   {
                     time: '15:30 - 17:00',
-                    tag: 'Phiên Tổng Kết & Ký Kết',
                     title: 'Phiên Đúc Kết Chiến Lược 2026 & Công Bố Sáng Kiến Hợp Tác Liên Minh Doanh Nghiệp VCF',
-                    desc: 'Đúc kết 10 hành động ưu tiên cho CEO trong năm 2026. Lễ trao chứng nhận Hội viên mới và phát động Quỹ học bổng Lãnh đạo Trẻ.',
                     speaker: 'Ban Điều hành VCF'
                   }
                 ].map((item, i) => (
-                  <div key={i} className="border border-neutral-200 rounded-lg p-4 sm:p-5 hover:border-[#eb1000] transition-colors bg-neutral-50/50">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                      <div className="flex items-center gap-2">
-                        <Clock className="w-3.5 h-3.5 text-[#eb1000]" />
-                        <span className="font-mono text-xs font-bold text-black">{item.time}</span>
-                      </div>
-                      <span className="text-[10px] uppercase font-bold text-neutral-600 bg-white px-2.5 py-0.5 border border-neutral-200 rounded-full w-fit">
-                        {item.tag}
-                      </span>
+                  <div key={i} className="border border-neutral-200 rounded-lg p-4 hover:border-[#eb1000] transition-colors bg-neutral-50/50 space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <Clock className="w-3.5 h-3.5 text-[#eb1000] shrink-0" />
+                      <span className="font-mono text-xs font-bold text-black">{item.time}</span>
                     </div>
 
                     <h4 className="text-sm sm:text-base font-black text-black leading-snug">
                       {item.title}
                     </h4>
 
-                    <p className="text-xs text-neutral-600 mt-2 leading-relaxed whitespace-pre-line font-sans">
-                      {item.desc}
-                    </p>
-
                     {item.speaker && (
-                      <div className="mt-3 pt-2.5 border-t border-neutral-200/60 flex items-center gap-2 text-xs text-neutral-700">
-                        <span className="text-neutral-500 font-medium">Diễn giả / Chủ trì:</span>
+                      <div className="pt-1 flex items-center gap-2 text-xs text-neutral-700">
+                        <span className="text-neutral-500 font-medium">Diễn giả:</span>
                         <strong className="text-black">{item.speaker}</strong>
                       </div>
                     )}
@@ -1024,7 +965,7 @@ export const EventDetailPage: React.FC = () => {
               </div>
             </section>
 
-            {/* SECTION 3: DIỄN GIẢ & KHÁCH MỜI DANH DỰ (WAN-IFRA Speakers Grid) */}
+            {/* SECTION 3: DIỄN GIẢ & KHÁCH MỜI DANH DỰ (Avatar + Tên + Chức vụ) */}
             <section id="section-speakers" className="bg-white border border-neutral-200 rounded-xl p-6 sm:p-8 shadow-xs space-y-6 scroll-mt-36 sm:scroll-mt-44">
               <div>
                 <span className="text-[11px] uppercase font-bold tracking-wider text-[#eb1000]">
@@ -1038,45 +979,35 @@ export const EventDetailPage: React.FC = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   {
                     name: 'BT. Nguyễn Mạnh Hùng',
-                    role: 'Cố vấn Danh dự VLGM',
-                    org: 'Bộ trưởng Bộ Thông tin & Truyền thông',
-                    topic: 'Keynote: Chuyển đổi kép & Quản trị LGM'
+                    role: 'Cố vấn Danh dự VLGM (Bộ trưởng Bộ Thông tin & Truyền thông)'
                   },
                   {
                     name: 'TS. Lê Đăng Doanh',
-                    role: 'Chuyên gia Kinh tế Cao cấp',
-                    org: 'Nguyên Viện trưởng Viện Nghiên cứu Quản lý Kinh tế Trung ương (CIEM)',
-                    topic: 'Báo cáo Vĩ mô: Cơ hội & Thách thức 2026 - 2030'
+                    role: 'Chuyên gia Kinh tế Cao cấp (Nguyên Viện trưởng CIEM)'
                   },
                   {
                     name: 'Ông Phạm Minh Đức',
-                    role: 'Tổng Giám Đốc Điều Hành',
-                    org: 'Diễn Đàn CEO Việt Nam (VCF) & Cố vấn Cấp cao VLGM',
-                    topic: 'Chủ trì Tọa đàm C-Level Panel'
+                    role: 'Tổng Giám Đốc Điều Hành (Diễn Đàn CEO Việt Nam)'
                   },
                   {
                     name: 'Bà Hoàng Lan Anh',
-                    role: 'Phó Chủ tịch Chiến lược',
-                    org: 'Tập đoàn Công nghệ & Viễn thông Đa quốc gia',
-                    topic: 'Track AI: Triển khai GenAI trong Chuỗi Cung Ứng'
+                    role: 'Phó Chủ tịch Chiến lược (Tập đoàn Công nghệ & Viễn thông)'
                   }
                 ].map((spk, idx) => (
-                  <div key={idx} className="border border-neutral-200 rounded-lg p-4 flex gap-4 bg-neutral-50 hover:bg-white hover:border-[#eb1000] transition-all group">
-                    <div className="w-16 h-16 rounded-full bg-neutral-200 border-2 border-white shadow-xs shrink-0 flex items-center justify-center font-bold text-base text-neutral-600 group-hover:bg-[#eb1000] group-hover:text-white transition-colors">
+                  <div key={idx} className="border border-neutral-200 rounded-lg p-4 flex items-center gap-4 bg-neutral-50 hover:bg-white hover:border-[#eb1000] transition-all group">
+                    <div className="w-14 h-14 rounded-full bg-neutral-200 border-2 border-white shadow-xs shrink-0 flex items-center justify-center font-bold text-base text-neutral-700 group-hover:bg-[#eb1000] group-hover:text-white transition-colors">
                       {spk.name.charAt(0)}
                     </div>
-                    <div className="space-y-1">
+                    <div className="space-y-0.5">
                       <h4 className="text-sm font-black text-black leading-tight group-hover:text-[#eb1000] transition-colors">
                         {spk.name}
                       </h4>
-                      <div className="text-xs text-[#eb1000] font-bold">{spk.role}</div>
-                      <div className="text-[11px] text-neutral-600 font-sans leading-tight">{spk.org}</div>
-                      <div className="text-[11px] text-neutral-500 italic pt-1">
-                        Chủ đề: {spk.topic}
+                      <div className="text-xs text-neutral-600 font-medium leading-snug">
+                        {spk.role}
                       </div>
                     </div>
                   </div>
@@ -1084,94 +1015,87 @@ export const EventDetailPage: React.FC = () => {
               </div>
             </section>
 
-            {/* SECTION 4: ĐỊA ĐIỂM & DI CHUYỂN (WAN-IFRA Venue & Travel Guide) */}
-            <section id="section-venue" className="bg-white border border-neutral-200 rounded-xl p-6 sm:p-8 shadow-xs space-y-6 scroll-mt-36 sm:scroll-mt-44">
+            {/* SECTION 4: ĐỊA ĐIỂM (Chỉ giữ địa điểm + button Điều hướng Google Maps) */}
+            <section id="section-venue" className="bg-white border border-neutral-200 rounded-xl p-6 sm:p-8 shadow-xs space-y-4 scroll-mt-36 sm:scroll-mt-44">
               <div>
                 <span className="text-[11px] uppercase font-bold tracking-wider text-[#eb1000]">
-                  Địa điểm & Hướng dẫn
+                  Địa điểm
                 </span>
                 <h2 className="text-xl sm:text-2xl font-black text-black tracking-tight mt-1">
-                  Địa Điểm Tổ Chức & Hướng Dẫn Đại Biểu
+                  Địa Điểm Tổ Chức
                 </h2>
               </div>
 
-              <div className="border border-neutral-200 rounded-lg p-5 bg-neutral-50 space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="flex items-start gap-3">
-                    <Building className="w-5 h-5 text-[#eb1000] shrink-0 mt-0.5" />
-                    <div>
-                      <div className="font-bold text-base text-black">Trung tâm Hội nghị Quốc gia (NCC) — Sảnh Grand Ballroom</div>
-                      <div className="text-xs text-neutral-600 mt-0.5">
-                        Cổng số 1, Đại lộ Thăng Long, Phường Mễ Trì, Quận Nam Từ Liêm, Hà Nội
-                      </div>
+              <div className="border border-neutral-200 rounded-lg p-5 bg-neutral-50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-start gap-3">
+                  <Building className="w-5 h-5 text-[#eb1000] shrink-0 mt-0.5" />
+                  <div>
+                    <div className="font-bold text-base text-black">Trung tâm Hội nghị Quốc gia (NCC) — Sảnh Grand Ballroom</div>
+                    <div className="text-xs text-neutral-600 mt-0.5">
+                      Cổng số 1, Đại lộ Thăng Long, Phường Mễ Trì, Quận Nam Từ Liêm, Hà Nội
                     </div>
                   </div>
-
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Trung+t%C3%A2m+H%E1%BB%99i+ngh%E1%BB%8B+Qu%E1%BB%91c+gia%2C+%C4%90%E1%BA%A1i+l%E1%BB%99+Th%C4%83ng+Long%2C+H%C3%A0+N%E1%BB%99i"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-bold text-white bg-[#eb1000] hover:bg-[#c90d00] transition-colors shadow-xs shrink-0 cursor-pointer w-fit"
-                  >
-                    <Navigation className="w-4 h-4" />
-                    <span>Mở Google Maps chỉ đường</span>
-                    <ExternalLink className="w-3 h-3 opacity-80" />
-                  </a>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs">
-                  <div className="p-3 bg-white border border-neutral-200 rounded-md">
-                    <div className="font-bold text-black mb-1">Bãi đỗ xe đại biểu:</div>
-                    <div className="text-neutral-600">Bãi xe NCC Cổng số 1 (Miễn phí cho đại biểu có Thẻ Summit).</div>
-                  </div>
-                  <div className="p-3 bg-white border border-neutral-200 rounded-md">
-                    <div className="font-bold text-black mb-1">Quy chuẩn trang phục:</div>
-                    <div className="text-neutral-600">Trang phục trang trọng (Business Formal / Vest công sở).</div>
-                  </div>
-                  <div className="p-3 bg-white border border-neutral-200 rounded-md">
-                    <div className="font-bold text-black mb-1">Check-in tại bàn VIP:</div>
-                    <div className="text-neutral-600">Mở tiếp đón từ 07:30 sáng. Quét mã QR trên email hoặc SMS.</div>
-                  </div>
-                </div>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Trung+t%C3%A2m+H%E1%BB%99i+ngh%E1%BB%8B+Qu%E1%BB%91c+gia%2C+%C4%90%E1%BA%A1i+l%E1%BB%99+Th%C4%83ng+Long%2C+H%C3%A0+N%E1%BB%99i"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-bold text-white bg-[#eb1000] hover:bg-[#c90d00] transition-colors shadow-xs shrink-0 cursor-pointer w-fit"
+                >
+                  <Navigation className="w-4 h-4" />
+                  <span>Điều hướng Google Maps</span>
+                  <ExternalLink className="w-3 h-3 opacity-80" />
+                </a>
               </div>
             </section>
 
-            {/* SECTION 5: ĐỐI TÁC & BAN TỔ CHỨC */}
-            <section id="section-partners" className="bg-white border border-neutral-200 rounded-xl p-6 sm:p-8 shadow-xs space-y-6 scroll-mt-36 sm:scroll-mt-44">
+            {/* SECTION 5: ĐƠN VỊ CHỦ TRÌ & NHÀ TÀI TRỢ (Chỉ listing các nhà tài trợ + cắt giảm text tối đa) */}
+            <section id="section-partners" className="bg-white border border-neutral-200 rounded-xl p-6 sm:p-8 shadow-xs space-y-5 scroll-mt-36 sm:scroll-mt-44">
               <div>
                 <span className="text-[11px] uppercase font-bold tracking-wider text-[#eb1000]">
                   Hệ sinh thái đồng hành
                 </span>
                 <h2 className="text-xl sm:text-2xl font-black text-black tracking-tight mt-1">
-                  Đơn Vị Chủ Trì & Đối Tác Đồng Hành
+                  Đơn Vị Chủ Trì & Nhà Tài Trợ
                 </h2>
               </div>
 
-              <div className="space-y-4">
-                <div className="border border-neutral-200 rounded-lg p-4 bg-neutral-50">
-                  <div className="text-xs font-bold uppercase text-neutral-500 mb-2">Đơn vị chủ trì & Tổ chức:</div>
+              <div className="space-y-3">
+                {/* Đơn vị chủ trì */}
+                <div className="border border-neutral-200 rounded-lg p-3.5 bg-neutral-50 flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-[#eb1000] text-white rounded-md flex items-center justify-center font-black text-lg">
+                    <div className="w-9 h-9 bg-[#eb1000] text-white rounded-md flex items-center justify-center font-black text-sm shrink-0">
                       VCF
                     </div>
                     <div>
-                      <div className="font-bold text-sm text-black">Diễn Đàn CEO Việt Nam (Vietnam CEO Forum)</div>
-                      <div className="text-xs text-neutral-500">Mạng lưới kết nối và kiến tạo giá trị cho 1.000+ lãnh đạo doanh nghiệp</div>
+                      <span className="text-[10px] uppercase font-bold text-neutral-400 block">Đơn vị chủ trì</span>
+                      <strong className="text-sm font-bold text-black">Diễn Đàn CEO Việt Nam (Vietnam CEO Forum)</strong>
                     </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="border border-neutral-200 rounded-lg p-4 bg-white">
-                    <div className="text-[11px] font-bold uppercase text-neutral-500 mb-1">Bảo trợ học thuật:</div>
-                    <div className="font-bold text-sm text-black">Viện Lãnh đạo & Quản trị LGM</div>
-                    <div className="text-xs text-neutral-500 mt-0.5">Học viện Công nghệ Bưu chính Viễn thông (PTIT)</div>
-                  </div>
-                  <div className="border border-neutral-200 rounded-lg p-4 bg-white">
-                    <div className="text-[11px] font-bold uppercase text-neutral-500 mb-1">Bảo trợ truyền thông:</div>
-                    <div className="font-bold text-sm text-black">Báo điện tử VnExpress</div>
-                    <div className="text-xs text-neutral-500 mt-0.5">Kênh thông tin kinh tế & kinh doanh hàng đầu</div>
-                  </div>
+                {/* Listing Nhà tài trợ & Đối tác */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+                  {[
+                    { tier: 'Bảo trợ học thuật', name: 'Viện Quản trị LGM' },
+                    { tier: 'Bảo trợ truyền thông', name: 'VnExpress' },
+                    { tier: 'Tài trợ Kim Cương', name: 'VinaSteel Corp' },
+                    { tier: 'Tài trợ Vàng', name: 'Techcombank' },
+                    { tier: 'Tài trợ Vàng', name: 'FPT Corporation' },
+                    { tier: 'Đối tác Công nghệ', name: 'Viettel Solutions' },
+                    { tier: 'Tài trợ Bạc', name: 'Thaco Group' },
+                    { tier: 'Đồng hành', name: 'PTIT Academy' }
+                  ].map((sponsor, idx) => (
+                    <div key={idx} className="border border-neutral-200 rounded-lg p-3 bg-white hover:border-[#eb1000] transition-colors text-center">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block mb-1">
+                        {sponsor.tier}
+                      </span>
+                      <span className="text-xs font-black text-black block">
+                        {sponsor.name}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </section>
