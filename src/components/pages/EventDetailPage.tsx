@@ -494,267 +494,209 @@ export const EventDetailPage: React.FC = () => {
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#eb1000]/10 rounded-full blur-3xl pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <div className="lg:col-span-8 space-y-5">
-              {/* Event Badges */}
-              <div className="flex flex-wrap items-center gap-2.5">
-                <span className="text-xs font-bold uppercase tracking-wider bg-[#eb1000] text-white px-3.5 py-1 rounded-full shadow-xs">
-                  {event.activityName}
-                </span>
+          <div className="max-w-4xl space-y-6">
+            {/* Event Badges */}
+            <div className="flex flex-wrap items-center gap-2.5">
+              <span className="text-xs font-bold uppercase tracking-wider bg-[#eb1000] text-white px-3.5 py-1 rounded-full shadow-xs">
+                {event.activityName}
+              </span>
 
-                {/* Event Status Badges - Trình tự ưu tiên: Đã kết thúc (3.3) > Đã đầy (3.1) / Đang mở, xét kèm trạng thái đăng ký của user */}
-                {isPast ? (
-                  isConfirmed ? (
-                    <span className="text-xs font-bold text-neutral-200 bg-neutral-800 border border-neutral-600 px-3.5 py-1 rounded-full flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                      ĐÃ THAM DỰ (VÉ ĐÃ SỬ DỤNG)
-                    </span>
-                  ) : (isPendingApproval || isWaitlisted) ? (
-                    <span className="text-xs font-bold text-amber-300 bg-amber-950/90 border border-amber-500/50 px-3.5 py-1 rounded-full flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5 text-amber-400" />
-                      SỰ KIỆN ĐÃ KẾT THÚC (CHƯA KỊP XỬ LÝ)
-                    </span>
-                  ) : (
-                    <span className="text-xs font-bold text-neutral-300 bg-neutral-800 border border-neutral-700 px-3.5 py-1 rounded-full">
-                      SỰ KIỆN ĐÃ KẾT THÚC
-                    </span>
-                  )
-                ) : isConfirmed ? (
-                  <span className="text-xs font-bold text-emerald-300 bg-emerald-900/90 border border-emerald-500/50 px-3.5 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
+              {/* Event Status Badges */}
+              {isPast ? (
+                isConfirmed ? (
+                  <span className="text-xs font-bold text-neutral-200 bg-neutral-800 border border-neutral-600 px-3.5 py-1 rounded-full flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                    ĐÃ ĐƯỢC DUYỆT (MÃ QR SẴN SÀNG)
+                    ĐÃ THAM DỰ (VÉ ĐÃ SỬ DỤNG)
                   </span>
-                ) : isPendingApproval ? (
-                  <span className="text-xs font-bold text-amber-300 bg-amber-950/90 border border-amber-500/50 px-3.5 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
-                    <Clock className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
-                    ĐANG CHỜ DUYỆT
-                  </span>
-                ) : isWaitlisted ? (
-                  <span className="text-xs font-bold text-amber-300 bg-amber-950/90 border border-amber-500/50 px-3.5 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
+                ) : (isPendingApproval || isWaitlisted) ? (
+                  <span className="text-xs font-bold text-amber-300 bg-amber-950/90 border border-amber-500/50 px-3.5 py-1 rounded-full flex items-center gap-1.5">
                     <Clock className="w-3.5 h-3.5 text-amber-400" />
-                    DANH SÁCH CHỜ (WAITLIST)
-                  </span>
-                ) : isFullEffective ? (
-                  <span className="text-xs font-bold text-rose-300 bg-rose-950/90 border border-rose-600/70 px-3.5 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
-                    <span className="w-2 h-2 rounded-full bg-rose-500" />
-                    HẾT CHỖ (ĐĂNG KÝ CHỜ)
+                    SỰ KIỆN ĐÃ KẾT THÚC
                   </span>
                 ) : (
-                  <span className="text-xs font-bold text-emerald-400 bg-emerald-950/80 border border-emerald-800/80 px-3.5 py-1 rounded-full flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    Còn chỗ ({event.availableSeats}/{event.totalSeats})
+                  <span className="text-xs font-bold text-neutral-300 bg-neutral-800 border border-neutral-700 px-3.5 py-1 rounded-full">
+                    SỰ KIỆN ĐÃ KẾT THÚC
                   </span>
-                )}
-              </div>
+                )
+              ) : isConfirmed ? (
+                <span className="text-xs font-bold text-emerald-300 bg-emerald-900/90 border border-emerald-500/50 px-3.5 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  ĐÃ ĐƯỢC DUYỆT (MÃ QR SẴN SÀNG)
+                </span>
+              ) : isPendingApproval ? (
+                <span className="text-xs font-bold text-amber-300 bg-amber-950/90 border border-amber-500/50 px-3.5 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
+                  <Clock className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+                  ĐANG CHỜ DUYỆT
+                </span>
+              ) : isWaitlisted ? (
+                <span className="text-xs font-bold text-amber-300 bg-amber-950/90 border border-amber-500/50 px-3.5 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
+                  <Clock className="w-3.5 h-3.5 text-amber-400" />
+                  DANH SÁCH CHỜ (WAITLIST)
+                </span>
+              ) : isFullEffective ? (
+                <span className="text-xs font-bold text-rose-300 bg-rose-950/90 border border-rose-600/70 px-3.5 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
+                  <span className="w-2 h-2 rounded-full bg-rose-500" />
+                  HẾT CHỖ (ĐĂNG KÝ CHỜ)
+                </span>
+              ) : (
+                <span className="text-xs font-bold text-emerald-400 bg-emerald-950/80 border border-emerald-800/80 px-3.5 py-1 rounded-full flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  Còn chỗ ({event.availableSeats}/{event.totalSeats})
+                </span>
+              )}
+            </div>
 
-              {/* Title */}
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight leading-tight uppercase font-sans">
-                {event.title}
-              </h1>
+            {/* Title */}
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight leading-tight uppercase font-sans">
+              {event.title}
+            </h1>
 
-              {/* HIGHLIGHTED TIME & VENUE CARD WITH ACTIONS */}
-              <div className="bg-neutral-800/95 border-2 border-neutral-700/80 rounded-xl p-4 sm:p-5 shadow-2xl grid grid-cols-1 sm:grid-cols-2 gap-4 my-2">
-                {/* Thời gian + Button Thêm vào lịch */}
-                <div className="flex flex-col justify-between p-3.5 rounded-lg bg-neutral-900/90 border border-neutral-700/80 relative">
-                  <div className="flex items-start gap-3.5">
-                    <div className="w-11 h-11 rounded-lg bg-[#eb1000]/20 border border-[#eb1000]/40 flex items-center justify-center shrink-0 text-[#eb1000]">
-                      <Calendar className="w-5 h-5" />
-                    </div>
-                    <div className="min-w-0">
-                      <div className="text-[11px] font-black uppercase tracking-wider text-[#eb1000] flex items-center gap-1.5">
-                        <span>Thời gian diễn ra</span>
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#eb1000]" />
-                      </div>
-                      <div className="text-base sm:text-lg font-black text-white leading-snug mt-1">
-                        {event.datetime}
-                      </div>
-                    </div>
+            {/* Tối giản thông tin Thời gian & Địa điểm */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
+              {/* Thời gian */}
+              <div className="flex items-start gap-3 p-3.5 rounded-xl bg-neutral-900/80 border border-neutral-800">
+                <div className="w-10 h-10 rounded-lg bg-[#eb1000]/15 border border-[#eb1000]/30 flex items-center justify-center shrink-0 text-[#eb1000] mt-0.5">
+                  <Calendar className="w-5 h-5" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-400">
+                    Thời gian diễn ra
                   </div>
+                  <div className="font-bold text-white text-sm sm:text-base mt-0.5">
+                    {event.datetime}
+                  </div>
+                  <div className="relative mt-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowCalendarMenu(!showCalendarMenu)}
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold text-neutral-300 hover:text-white bg-neutral-800/80 hover:bg-neutral-700 border border-neutral-700 transition-colors cursor-pointer"
+                    >
+                      <CalendarPlus className="w-3.5 h-3.5 text-[#eb1000]" />
+                      <span>Thêm vào lịch</span>
+                      <ChevronDown className="w-3 h-3 text-neutral-400" />
+                    </button>
 
-                  {/* Add to Calendar Button & Popover */}
-                  <div className="mt-3 pt-2.5 border-t border-neutral-800/80 flex items-center justify-between">
-                    <div className="relative">
-                      <button
-                        type="button"
-                        onClick={() => setShowCalendarMenu(!showCalendarMenu)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-neutral-800 hover:bg-[#eb1000] border border-neutral-700 hover:border-[#eb1000] transition-colors cursor-pointer group"
-                      >
-                        <CalendarPlus className="w-3.5 h-3.5 text-red-400 group-hover:text-white transition-colors" />
-                        <span>Thêm vào lịch</span>
-                        <ChevronDown className="w-3 h-3 text-neutral-400 group-hover:text-white transition-colors" />
-                      </button>
-
-                      {showCalendarMenu && (
-                        <>
-                          <div 
-                            className="fixed inset-0 z-20" 
-                            onClick={() => setShowCalendarMenu(false)} 
-                          />
-                          <div className="absolute left-0 top-full mt-1.5 w-52 bg-neutral-900 border border-neutral-700 rounded-xl shadow-2xl p-1.5 z-30 text-xs font-sans animate-in fade-in zoom-in-95">
-                            <button
-                              type="button"
-                              onClick={handleAddToGoogleCalendar}
-                              className="w-full text-left px-3 py-2 rounded-lg text-white hover:bg-neutral-800 flex items-center justify-between transition-colors cursor-pointer"
-                            >
-                              <div className="flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-red-500" />
-                                <span className="font-semibold">Google Calendar</span>
-                              </div>
-                              <ExternalLink className="w-3 h-3 text-neutral-400" />
-                            </button>
-                            <button
-                              type="button"
-                              onClick={handleDownloadIcs}
-                              className="w-full text-left px-3 py-2 rounded-lg text-white hover:bg-neutral-800 flex items-center justify-between transition-colors cursor-pointer"
-                            >
-                              <div className="flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-blue-500" />
-                                <span className="font-semibold">Apple / Outlook (.ics)</span>
-                              </div>
-                              <Download className="w-3 h-3 text-neutral-400" />
-                            </button>
-                          </div>
-                        </>
-                      )}
-                    </div>
-
-                    <span className="text-[11px] text-neutral-400 font-sans">
-                      Khung giờ C-Level
-                    </span>
+                    {showCalendarMenu && (
+                      <>
+                        <div 
+                          className="fixed inset-0 z-20" 
+                          onClick={() => setShowCalendarMenu(false)} 
+                        />
+                        <div className="absolute left-0 top-full mt-1.5 w-52 bg-neutral-900 border border-neutral-700 rounded-xl shadow-2xl p-1.5 z-30 text-xs font-sans">
+                          <button
+                            type="button"
+                            onClick={handleAddToGoogleCalendar}
+                            className="w-full text-left px-3 py-2 rounded-lg text-white hover:bg-neutral-800 flex items-center justify-between transition-colors cursor-pointer"
+                          >
+                            <div className="flex items-center gap-2">
+                              <span className="w-2 h-2 rounded-full bg-red-500" />
+                              <span className="font-semibold">Google Calendar</span>
+                            </div>
+                            <ExternalLink className="w-3 h-3 text-neutral-400" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleDownloadIcs}
+                            className="w-full text-left px-3 py-2 rounded-lg text-white hover:bg-neutral-800 flex items-center justify-between transition-colors cursor-pointer"
+                          >
+                            <div className="flex items-center gap-2">
+                              <span className="w-2 h-2 rounded-full bg-blue-500" />
+                              <span className="font-semibold">Apple / Outlook (.ics)</span>
+                            </div>
+                            <Download className="w-3 h-3 text-neutral-400" />
+                          </button>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
+              </div>
 
-                {/* Địa điểm + Button Chỉ đường Google Maps */}
-                <div className="flex flex-col justify-between p-3.5 rounded-lg bg-neutral-900/90 border border-neutral-700/80">
-                  <div className="flex items-start gap-3.5">
-                    <div className="w-11 h-11 rounded-lg bg-[#eb1000]/20 border border-[#eb1000]/40 flex items-center justify-center shrink-0 text-[#eb1000]">
-                      <MapPin className="w-5 h-5" />
-                    </div>
-                    <div className="min-w-0">
-                      <div className="text-[11px] font-black uppercase tracking-wider text-[#eb1000] flex items-center gap-1.5">
-                        <span>Địa điểm tổ chức</span>
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#eb1000]" />
-                      </div>
-                      <div className="text-base sm:text-lg font-black text-white leading-snug mt-1">
-                        {event.location}
-                      </div>
-                    </div>
+              {/* Địa điểm */}
+              <div className="flex items-start gap-3 p-3.5 rounded-xl bg-neutral-900/80 border border-neutral-800">
+                <div className="w-10 h-10 rounded-lg bg-[#eb1000]/15 border border-[#eb1000]/30 flex items-center justify-center shrink-0 text-[#eb1000] mt-0.5">
+                  <MapPin className="w-5 h-5" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-400">
+                    Địa điểm tổ chức
                   </div>
-
-                  {/* Navigation link to Google Maps */}
-                  <div className="mt-3 pt-2.5 border-t border-neutral-800/80 flex items-center justify-between">
+                  <div className="font-bold text-white text-sm sm:text-base mt-0.5">
+                    {event.location}
+                  </div>
+                  <div className="mt-2">
                     <a
                       href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location || 'Trung tâm Hội nghị Quốc gia, Đại lộ Thăng Long, Hà Nội')}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-neutral-800 hover:bg-[#eb1000] border border-neutral-700 hover:border-[#eb1000] transition-colors cursor-pointer group w-fit"
-                      title="Mở ứng dụng Google Maps để điều hướng đường đi"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold text-neutral-300 hover:text-white bg-neutral-800/80 hover:bg-neutral-700 border border-neutral-700 transition-colors cursor-pointer"
                     >
-                      <Navigation className="w-3.5 h-3.5 text-red-400 group-hover:text-white transition-colors" />
+                      <Navigation className="w-3.5 h-3.5 text-[#eb1000]" />
                       <span>Chỉ đường Google Maps</span>
-                      <ExternalLink className="w-3 h-3 text-neutral-400 group-hover:text-white opacity-70" />
+                      <ExternalLink className="w-3 h-3 text-neutral-400 opacity-80" />
                     </a>
-
-                    <span className="text-[11px] text-neutral-400 font-sans">
-                      Sảnh Grand Ballroom
-                    </span>
                   </div>
                 </div>
-              </div>
-
-              {/* Quick Action Buttons */}
-              <div className="flex flex-wrap items-center gap-3 pt-1">
-                <CustomButton
-                  variant={
-                    isPast
-                      ? 'secondary'
-                      : registeredItem?.status === 'confirmed'
-                      ? 'success'
-                      : (isFullEffective || registeredItem?.status === 'waitlisted')
-                      ? 'gray'
-                      : 'primary'
-                  }
-                  size="lg"
-                  onClick={() => {
-                    if (isPast) {
-                      scrollToSection('overview');
-                    } else if (isAlreadyRegistered) {
-                      scrollToSection('tickets');
-                    } else if (isFullEffective) {
-                      setIsWaitlistModal(true);
-                      setIsMemberModalOpen(true);
-                    } else {
-                      setIsWaitlistModal(false);
-                      setIsMemberModalOpen(true);
-                    }
-                  }}
-                  className={isPast ? 'bg-neutral-800 text-neutral-400 border-neutral-700' : ''}
-                >
-                  {isPast
-                    ? 'Sự kiện đã kết thúc'
-                    : registeredItem?.status === 'confirmed'
-                    ? 'Đã xác nhận tham dự'
-                    : registeredItem?.status === 'pending_approval'
-                    ? 'Đang chờ Ban tổ chức duyệt'
-                    : registeredItem?.status === 'waitlisted'
-                    ? `Đang trong danh sách chờ (#${registeredItem?.waitlistPosition ? String(registeredItem.waitlistPosition).padStart(2, '0') : '07'})`
-                    : isFullEffective
-                    ? 'Đăng ký danh sách chờ'
-                    : 'Đăng ký sự kiện ngay'}
-                </CustomButton>
-
-                <button
-                  onClick={() => scrollToSection('agenda')}
-                  className="px-5 py-3 rounded-full text-xs font-bold border border-neutral-700 bg-neutral-800/80 hover:bg-neutral-800 text-white transition-colors flex items-center gap-2 cursor-pointer"
-                >
-                  <FileText className="w-4 h-4 text-neutral-300" />
-                  <span>Xem khung chương trình</span>
-                </button>
-
-                <button
-                  onClick={handleCopyLink}
-                  className="px-4 py-3 rounded-full text-xs font-medium border border-neutral-700 hover:border-neutral-500 text-neutral-300 transition-colors flex items-center gap-1.5 cursor-pointer"
-                  title="Sao chép liên kết sự kiện"
-                >
-                  <Share2 className="w-3.5 h-3.5" />
-                  <span>{copiedLink ? 'Đã sao chép!' : 'Chia sẻ'}</span>
-                </button>
               </div>
             </div>
 
-            {/* Right Column: Event Venue & Atmosphere Showcase Card */}
-            <div className="lg:col-span-4 space-y-3 self-center">
-              <div className="bg-neutral-900/90 border border-neutral-700/80 rounded-2xl p-3 shadow-2xl backdrop-blur-md relative overflow-hidden group">
-                <div className="relative aspect-16/10 rounded-xl overflow-hidden border border-neutral-700/70">
-                  <img
-                    src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80"
-                    alt="Toàn cảnh Sảnh Grand Ballroom - Hội nghị Thượng đỉnh CEO 2026"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/90 via-neutral-950/20 to-transparent" />
-                  <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-[11px] text-white">
-                    <span className="bg-black/80 backdrop-blur-xs px-2.5 py-1 rounded-md font-semibold border border-white/10 flex items-center gap-1.5">
-                      <Building className="w-3 h-3 text-[#eb1000]" />
-                      <span>Sảnh Grand Ballroom (NCC)</span>
-                    </span>
-                    <span className="bg-[#eb1000] text-white text-[10px] font-black uppercase px-2 py-0.5 rounded-md shadow-xs">
-                      Trực tiếp
-                    </span>
-                  </div>
-                </div>
+            {/* Quick Action Buttons */}
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <CustomButton
+                variant={
+                  isPast
+                    ? 'secondary'
+                    : registeredItem?.status === 'confirmed'
+                    ? 'success'
+                    : (isFullEffective || registeredItem?.status === 'waitlisted')
+                    ? 'gray'
+                    : 'primary'
+                }
+                size="lg"
+                onClick={() => {
+                  if (isPast) {
+                    scrollToSection('overview');
+                  } else if (isAlreadyRegistered) {
+                    scrollToSection('tickets');
+                  } else if (isFullEffective) {
+                    setIsWaitlistModal(true);
+                    setIsMemberModalOpen(true);
+                  } else {
+                    setIsWaitlistModal(false);
+                    setIsMemberModalOpen(true);
+                  }
+                }}
+                className={isPast ? 'bg-neutral-800 text-neutral-400 border-neutral-700' : ''}
+              >
+                {isPast
+                  ? 'Sự kiện đã kết thúc'
+                  : registeredItem?.status === 'confirmed'
+                  ? 'Đã xác nhận tham dự'
+                  : registeredItem?.status === 'pending_approval'
+                  ? 'Đang chờ Ban tổ chức duyệt'
+                  : registeredItem?.status === 'waitlisted'
+                  ? `Đang trong danh sách chờ (#${registeredItem?.waitlistPosition ? String(registeredItem.waitlistPosition).padStart(2, '0') : '07'})`
+                  : isFullEffective
+                  ? 'Đăng ký danh sách chờ'
+                  : 'Đăng ký sự kiện ngay'}
+              </CustomButton>
 
-                {/* Organizer & Academic Partner Strip */}
-                <div className="p-2 text-xs text-neutral-300 space-y-2">
-                  <div className="flex items-center justify-between text-[11px] text-neutral-400 border-b border-neutral-800 pb-2">
-                    <span>Đơn vị tổ chức:</span>
-                    <strong className="text-white">Diễn Đàn CEO Việt Nam (VCF)</strong>
-                  </div>
-                  <div className="flex items-center justify-between text-[11px] text-neutral-400">
-                    <span>Bảo trợ học thuật:</span>
-                    <strong className="text-white">Viện LGM & PTIT</strong>
-                  </div>
-                </div>
-              </div>
+              <button
+                onClick={() => scrollToSection('agenda')}
+                className="px-5 py-3 rounded-full text-xs font-bold border border-neutral-700 bg-neutral-800/80 hover:bg-neutral-800 text-white transition-colors flex items-center gap-2 cursor-pointer"
+              >
+                <FileText className="w-4 h-4 text-neutral-300" />
+                <span>Xem khung chương trình</span>
+              </button>
+
+              <button
+                onClick={handleCopyLink}
+                className="px-4 py-3 rounded-full text-xs font-medium border border-neutral-700 hover:border-neutral-500 text-neutral-300 transition-colors flex items-center gap-1.5 cursor-pointer"
+                title="Sao chép liên kết sự kiện"
+              >
+                <Share2 className="w-3.5 h-3.5" />
+                <span>{copiedLink ? 'Đã sao chép!' : 'Chia sẻ'}</span>
+              </button>
             </div>
           </div>
         </div>
