@@ -15,10 +15,10 @@ export const AuthorMentorCard: React.FC<AuthorMentorCardProps> = ({
   showAction = true
 }) => {
   return (
-    <div className="border border-neutral-200 bg-white p-5 flex flex-col justify-between hover:border-[#eb1000] hover:shadow-xs transition-all duration-150 rounded-lg">
+    <div className="border border-hairline bg-white p-5 flex flex-col justify-between hover:border-brand-primary hover:shadow-xs transition-all duration-150 rounded-lg">
       <div className="space-y-3">
         {/* Portrait 1:1 ratio */}
-        <div className="w-full aspect-square max-w-[140px] mx-auto rounded-lg overflow-hidden border border-neutral-200">
+        <div className="w-full aspect-square max-w-[140px] mx-auto rounded-lg overflow-hidden border border-hairline">
           <WireframeImage
             label={mentor.avatarPlaceholder}
             imageUrl={mentor.avatarUrl}
@@ -29,18 +29,18 @@ export const AuthorMentorCard: React.FC<AuthorMentorCardProps> = ({
         </div>
 
         <div className="text-center space-y-1">
-          <h4 className="font-black text-base text-black leading-snug">
+          <h4 className="font-semibold text-base text-ink leading-snug">
             {mentor.name}
           </h4>
-          <p className="text-xs font-bold text-[#eb1000]">
+          <p className="text-xs font-semibold text-brand-primary">
             {mentor.role}
           </p>
-          <p className="text-[11px] text-neutral-500 font-medium">
+          <p className="text-[11px] text-ink-secondary font-medium">
             {mentor.organization}
           </p>
         </div>
 
-        <p className="text-xs text-neutral-600 leading-relaxed text-center line-clamp-3">
+        <p className="text-xs text-ink-secondary leading-relaxed text-center line-clamp-3">
           {mentor.bio}
         </p>
 
@@ -49,7 +49,7 @@ export const AuthorMentorCard: React.FC<AuthorMentorCardProps> = ({
             {mentor.specialties.map((spec, i) => (
               <span
                 key={i}
-                className="text-[10px] bg-neutral-100 border border-neutral-200 rounded-full px-2.5 py-0.5 text-neutral-700 font-semibold"
+                className="text-[10px] bg-neutral-100 border border-hairline rounded-full px-2.5 py-0.5 text-neutral-700 font-semibold"
               >
                 {spec}
               </span>

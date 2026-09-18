@@ -75,50 +75,50 @@ export const KnowledgeCategoryPage: React.FC = () => {
       />
 
       {/* Category Header */}
-      <div className="space-y-4 pb-6 border-b border-neutral-200">
+      <div className="space-y-4 pb-6 border-b border-hairline">
         <div className="flex items-center justify-between flex-wrap gap-3">
-          <span className="text-xs font-bold uppercase bg-red-50 text-[#eb1000] border border-red-200 px-3 py-1 rounded-full inline-block">
+          <span className="text-xs font-semibold uppercase bg-red-50 text-brand-primary border border-red-200 px-3 py-1 rounded-full inline-block">
             {currentCatInfo.code}
           </span>
           <div className="flex gap-2">
             <button
               onClick={() => navigateTo('knowledge-category', { category: 'hung-bt' })}
-              className={`px-3 py-1 text-xs rounded-full border transition-all duration-150 ${selectedKnowledgeCategory === 'hung-bt' ? 'bg-[#eb1000] text-white border-[#eb1000] font-bold' : 'bg-white text-neutral-700 border-neutral-200 hover:bg-neutral-50'}`}
+              className={`px-3 py-1 text-xs rounded-full border transition-all duration-150 ${selectedKnowledgeCategory === 'hung-bt' ? 'bg-brand-primary text-white border-brand-primary font-semibold' : 'bg-white text-neutral-700 border-hairline hover:bg-parchment'}`}
             >
               BT N.M.Hùng
             </button>
             <button
               onClick={() => navigateTo('knowledge-category', { category: 'other-authors' })}
-              className={`px-3 py-1 text-xs rounded-full border transition-all duration-150 ${selectedKnowledgeCategory === 'other-authors' ? 'bg-[#eb1000] text-white border-[#eb1000] font-bold' : 'bg-white text-neutral-700 border-neutral-200 hover:bg-neutral-50'}`}
+              className={`px-3 py-1 text-xs rounded-full border transition-all duration-150 ${selectedKnowledgeCategory === 'other-authors' ? 'bg-brand-primary text-white border-brand-primary font-semibold' : 'bg-white text-neutral-700 border-hairline hover:bg-parchment'}`}
             >
               Tác giả khác
             </button>
             <button
               onClick={() => navigateTo('knowledge-category', { category: 'derived-knowledge' })}
-              className={`px-3 py-1 text-xs rounded-full border transition-all duration-150 ${selectedKnowledgeCategory === 'derived-knowledge' ? 'bg-[#eb1000] text-white border-[#eb1000] font-bold' : 'bg-white text-neutral-700 border-neutral-200 hover:bg-neutral-50'}`}
+              className={`px-3 py-1 text-xs rounded-full border transition-all duration-150 ${selectedKnowledgeCategory === 'derived-knowledge' ? 'bg-brand-primary text-white border-brand-primary font-semibold' : 'bg-white text-neutral-700 border-hairline hover:bg-parchment'}`}
             >
               Tri thức phái sinh
             </button>
           </div>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-black text-black tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
           {currentCatInfo.title}
         </h1>
-        <p className="text-sm text-neutral-600 leading-relaxed max-w-3xl font-sans">
+        <p className="text-sm text-ink-secondary leading-relaxed max-w-3xl font-sans">
           {currentCatInfo.desc}
         </p>
 
         {/* Subfolder tabs in category page */}
         {subCategories.length > 0 && (
           <div className="pt-2 flex items-center gap-2 flex-wrap">
-            <div className="flex items-center gap-1.5 text-xs font-bold text-neutral-500 mr-2">
-              <Tag className="w-3.5 h-3.5 text-[#eb1000]" />
-              <span className="uppercase text-[10px] tracking-wider text-black font-black">Tiểu mục:</span>
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-ink-secondary mr-2">
+              <Tag className="w-3.5 h-3.5 text-brand-primary" />
+              <span className="uppercase text-[10px] tracking-wider text-ink font-semibold">Tiểu mục:</span>
             </div>
             <button
               onClick={() => setSelectedSubCategory('all')}
-              className={`px-3 py-1 text-xs rounded-full transition-all duration-150 font-semibold ${selectedSubCategory === 'all' ? 'bg-black text-white' : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'}`}
+              className={`px-3 py-1 text-xs rounded-full transition-all duration-150 font-semibold ${selectedSubCategory === 'all' ? 'bg-ink text-white' : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'}`}
             >
               Tất cả ({allArticlesInCat.length})
             </button>
@@ -126,7 +126,7 @@ export const KnowledgeCategoryPage: React.FC = () => {
               <button
                 key={sub}
                 onClick={() => setSelectedSubCategory(sub)}
-                className={`px-3 py-1 text-xs rounded-full transition-all duration-150 font-semibold ${selectedSubCategory === sub ? 'bg-[#eb1000] text-white' : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'}`}
+                className={`px-3 py-1 text-xs rounded-full transition-all duration-150 font-semibold ${selectedSubCategory === sub ? 'bg-brand-primary text-white' : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'}`}
               >
                 {sub} ({allArticlesInCat.filter(a => a.subCategory === sub).length})
               </button>
@@ -137,13 +137,13 @@ export const KnowledgeCategoryPage: React.FC = () => {
 
       {/* Filter by Tag / Topic */}
       {tags.length > 0 && (
-        <div className="flex items-center gap-2 flex-wrap text-xs bg-white p-4 border border-neutral-200 rounded-lg shadow-xs">
-          <Filter className="w-4 h-4 text-[#eb1000]" />
-          <span className="font-bold text-neutral-800">Lọc theo chủ đề:</span>
+        <div className="flex items-center gap-2 flex-wrap text-xs bg-white p-4 border border-hairline rounded-lg shadow-xs">
+          <Filter className="w-4 h-4 text-brand-primary" />
+          <span className="font-semibold text-neutral-800">Lọc theo chủ đề:</span>
           
           <button
             onClick={() => setSelectedTag('all')}
-            className={`px-3 py-1.5 border rounded-full transition-all duration-150 ${selectedTag === 'all' ? 'bg-[#eb1000] text-white border-[#eb1000] font-bold shadow-xs' : 'bg-white text-neutral-700 border-neutral-200 hover:border-neutral-400'}`}
+            className={`px-3 py-1.5 border rounded-full transition-all duration-150 ${selectedTag === 'all' ? 'bg-brand-primary text-white border-brand-primary font-semibold shadow-xs' : 'bg-white text-neutral-700 border-hairline hover:border-neutral-400'}`}
           >
             Tất cả ({allArticlesInCat.length})
           </button>
@@ -152,7 +152,7 @@ export const KnowledgeCategoryPage: React.FC = () => {
             <button
               key={tag}
               onClick={() => setSelectedTag(tag)}
-              className={`px-3 py-1.5 border rounded-full transition-all duration-150 ${selectedTag === tag ? 'bg-[#eb1000] text-white border-[#eb1000] font-bold shadow-xs' : 'bg-white text-neutral-700 border-neutral-200 hover:border-neutral-400'}`}
+              className={`px-3 py-1.5 border rounded-full transition-all duration-150 ${selectedTag === tag ? 'bg-brand-primary text-white border-brand-primary font-semibold shadow-xs' : 'bg-white text-neutral-700 border-hairline hover:border-neutral-400'}`}
             >
               #{tag}
             </button>
@@ -162,8 +162,8 @@ export const KnowledgeCategoryPage: React.FC = () => {
 
       {/* Articles Grid */}
       {filteredArticles.length === 0 ? (
-        <div className="border border-neutral-200 p-12 text-center bg-white rounded-lg space-y-3 shadow-xs">
-          <div className="font-black text-black">[S-EMPTY] Không có bài viết nào với bộ lọc này</div>
+        <div className="border border-hairline p-12 text-center bg-white rounded-lg space-y-3 shadow-xs">
+          <div className="font-semibold text-ink">[S-EMPTY] Không có bài viết nào với bộ lọc này</div>
           <CustomButton variant="secondary" size="sm" onClick={() => setSelectedTag('all')}>
             Xem tất cả bài viết
           </CustomButton>
@@ -177,8 +177,8 @@ export const KnowledgeCategoryPage: React.FC = () => {
       )}
 
       {/* Pagination / Load More Button */}
-      <div className="pt-8 border-t border-neutral-200 flex flex-col items-center gap-3">
-        <div className="text-xs text-neutral-500 font-medium">
+      <div className="pt-8 border-t border-hairline flex flex-col items-center gap-3">
+        <div className="text-xs text-ink-secondary font-medium">
           Hiển thị <strong>{filteredArticles.length}</strong> trên tổng số <strong>{allArticlesInCat.length}</strong> bài viết
         </div>
         <CustomButton

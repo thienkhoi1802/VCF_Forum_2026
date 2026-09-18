@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { UserProfile } from '../../types';
-import { 
-  Check, 
-  ArrowRight, 
-  ArrowLeft, 
-  X, 
-  Lock, 
-  CheckCircle2, 
+import {
+  Check,
+  ArrowRight,
+  ArrowLeft,
+  X,
+  Lock,
+  CheckCircle2,
   AlertCircle,
   Clock,
   Send,
@@ -67,11 +67,11 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
   eventActivityName = 'CEO Summit',
   isWaitlist = false
 }) => {
-  const { 
-    currentUser, 
+  const {
+    currentUser,
     loginWithAccount,
-    registerMember, 
-    registerForEventWithDetails, 
+    registerMember,
+    registerForEventWithDetails,
     checkEmailExistsInSystem,
     showNotification,
     navigateTo,
@@ -91,7 +91,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showEmailPreview, setShowEmailPreview] = useState(false);
   const [regCode, setRegCode] = useState(`VCF-REG-${Math.floor(100000 + Math.random() * 900000)}`);
-  
+
   // Section 5.4: Tùy chọn cập nhật ngược vào User Profile gốc (mặc định false / UNCHECKED)
   const [updateBaseProfile, setUpdateBaseProfile] = useState(false);
 
@@ -224,26 +224,26 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
 
   // Rule: disable nút "Tiếp tục" nếu bước hiện tại chưa validate đủ field bắt buộc
   const isStep1Valid = Boolean(
-    formData.fullName.trim() && 
-    formData.phone.trim() && 
+    formData.fullName.trim() &&
+    formData.phone.trim() &&
     formData.jobTitle.trim()
   );
 
   const isStep2Valid = Boolean(
-    formData.companyName.trim() && 
-    formData.industry.trim() && 
+    formData.companyName.trim() &&
+    formData.industry.trim() &&
     formData.companySize.trim()
   );
 
   const isStep3Valid = Boolean(
-    formData.interestedActivities && 
-    formData.interestedActivities.length > 0 && 
+    formData.interestedActivities &&
+    formData.interestedActivities.length > 0 &&
     formData.leadSource.trim()
   );
 
   const isStep4Valid = Boolean(
-    formData.businessPainPoints.trim() && 
-    formData.questionForMentor.trim() && 
+    formData.businessPainPoints.trim() &&
+    formData.questionForMentor.trim() &&
     formData.agreedToTerms
   );
 
@@ -513,7 +513,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
       setIsSubmitting(false);
       const socialEmail = formData.email || `ceo.${provider}@enterprise.vn`;
       loginWithAccount(socialEmail, formData.fullName || 'Đại biểu C-Level', formData.companyName);
-      
+
       const loggedUser: UserProfile = {
         id: `usr-${Date.now().toString().slice(-4)}`,
         fullName: formData.fullName || 'Đại biểu Hội viên VCF',
@@ -539,16 +539,16 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-xs p-3 sm:p-4 overflow-y-auto">
-      <div className="bg-white rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl border border-neutral-200 my-8 animate-in fade-in zoom-in-95 duration-200">
-        
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm sm:p-4 overflow-y-auto">
+      <div role="dialog" aria-modal="true" aria-labelledby="event-registration-title" className="bg-white rounded-none sm:rounded-lg w-full max-w-2xl min-h-screen sm:min-h-0 overflow-hidden shadow-2xl border border-hairline sm:my-8 animate-fadeIn">
+
         {/* =========================================================================
             MODAL HEADER
             ========================================================================= */}
         <div className="bg-neutral-900 px-5 sm:px-6 py-4 text-white relative">
           <div className="flex items-center justify-between gap-3 mb-1 pr-10">
             <div className="flex items-center gap-2">
-              <span className="bg-[#eb1000] text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full">
+              <span className="bg-brand-primary text-white text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full">
                 {isWaitlist ? 'Hàng chờ (Waitlist)' : 'Hội Viên VCF'}
               </span>
               <span className="text-neutral-400 text-xs font-mono">
@@ -557,24 +557,25 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
             </div>
 
             {currentStep === 6 && (
-              <span className="bg-[#eb5a00] text-white text-[10px] sm:text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-md shadow-xs">
+              <span className="bg-[#eb5a00] text-white text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-md shadow-xs">
                 {isWaitlist ? 'HÀNG CHỜ (WAITLIST)' : 'ĐANG CHỜ DUYỆT'}
               </span>
             )}
           </div>
 
           <button
+            type="button"
             onClick={onClose}
-            className="absolute top-4 right-4 text-neutral-400 hover:text-white p-1 rounded-full hover:bg-neutral-800 transition-colors cursor-pointer"
+            className="absolute top-3 right-3 flex size-11 items-center justify-center text-neutral-400 hover:text-white rounded-full hover:bg-neutral-800 transition-colors cursor-pointer"
             aria-label="Đóng"
           >
             <X className="w-5 h-5" />
           </button>
 
-          <h2 className="text-base sm:text-lg font-black text-white leading-snug flex items-center gap-2">
+          <h2 id="event-registration-title" className="text-base sm:text-lg font-semibold text-white leading-snug flex items-center gap-2">
             {currentStep === 6 ? (
               <>
-                <UserCheck className="w-5 h-5 text-[#eb1000] shrink-0" />
+                <UserCheck className="w-5 h-5 text-brand-primary shrink-0" />
                 <span>Tình Trạng Hồ Sơ Đăng Ký</span>
               </>
             ) : isWaitlist ? (
@@ -584,8 +585,8 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
             )}
           </h2>
           <p className="text-xs text-neutral-300 mt-1 leading-relaxed truncate">
-            {currentStep === 6 
-              ? 'Yêu cầu tham dự đang được Ban Thư ký VCF xem xét và thẩm định' 
+            {currentStep === 6
+              ? 'Yêu cầu tham dự đang được Ban Thư ký VCF xem xét và thẩm định'
               : eventTitle}
           </p>
 
@@ -604,11 +605,11 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                 return (
                   <div key={item.step} className="flex flex-col items-center text-center">
                     <div className="flex items-center justify-center mb-1">
-                      <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[10px] sm:text-[11px] font-black transition-all ${
-                        isPassed 
-                          ? 'bg-emerald-500 text-white' 
-                          : isCurrent 
-                          ? 'bg-[#eb1000] text-white ring-2 ring-red-300' 
+                      <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[10px] sm:text-[11px] font-semibold transition-all ${
+                        isPassed
+                          ? 'bg-emerald-500 text-white'
+                          : isCurrent
+                          ? 'bg-brand-primary text-white ring-2 ring-red-300'
                           : 'bg-neutral-800 text-neutral-400'
                       }`}>
                         {isPassed ? <Check className="w-3 h-3" /> : item.step}
@@ -629,7 +630,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
         {/* =========================================================================
             MODAL BODY
             ========================================================================= */}
-        <div className="p-5 sm:p-6 max-h-[75vh] overflow-y-auto">
+        <div className="p-5 sm:p-6 max-h-[calc(100vh-9.5rem)] sm:max-h-[75vh] overflow-y-auto">
 
           {/* =====================================================================
               MÀN 1: THÔNG TIN ĐẠI BIỂU & LIÊN HỆ
@@ -638,16 +639,16 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
               ===================================================================== */}
           {currentStep === 1 && (
             <div className="space-y-4">
-              <div className="border-b border-neutral-200 pb-3 flex items-center justify-between">
+              <div className="border-b border-hairline pb-3 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-neutral-900 text-white text-xs font-bold flex items-center justify-center">
+                  <span className="w-6 h-6 rounded-full bg-neutral-900 text-white text-xs font-semibold flex items-center justify-center">
                     1
                   </span>
-                  <h3 className="text-sm sm:text-base font-black uppercase text-neutral-900 tracking-tight">
+                  <h3 className="text-sm sm:text-base font-semibold uppercase text-neutral-900 tracking-tight">
                     Thông Tin Đại Biểu & Liên Hệ
                   </h3>
                 </div>
-                <span className="text-xs text-neutral-500 font-mono font-bold bg-neutral-100 px-2 py-0.5 rounded">
+                <span className="text-xs text-ink-secondary font-mono font-semibold bg-neutral-100 px-2 py-0.5 rounded">
                   Bước 1 / {currentUser ? '4' : '5'}
                 </span>
               </div>
@@ -657,10 +658,10 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                 <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 flex items-start gap-2.5 text-xs shadow-2xs">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                   <div className="flex-1">
-                    <div className="font-bold text-emerald-950 flex items-center gap-1.5 justify-between">
+                    <div className="font-semibold text-emerald-950 flex items-center gap-1.5 justify-between">
                       <div className="flex items-center gap-1.5">
                         <span>Đại biểu Hội viên: {currentUser.fullName}</span>
-                        <span className="text-[10px] bg-emerald-200/80 text-emerald-800 font-mono px-1.5 py-0.2 rounded font-bold">
+                        <span className="text-[10px] bg-emerald-200/80 text-emerald-800 font-mono px-1.5 py-0.2 rounded font-semibold">
                           {hasPriorRegistrations ? 'Điền tự động từ sự kiện trước' : 'Autofill'}
                         </span>
                       </div>
@@ -668,14 +669,14 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                         <button
                           type="button"
                           onClick={handleQuickComplete}
-                          className="text-[11px] bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-2.5 py-1 rounded-lg cursor-pointer transition-colors shadow-2xs"
+                          className="text-[11px] bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-2.5 py-1 rounded-lg cursor-pointer transition-colors shadow-2xs"
                         >
                           Hoàn tất ngay →
                         </button>
                       )}
                     </div>
                     <p className="text-emerald-700 text-[11px] mt-0.5 leading-relaxed">
-                      {hasPriorRegistrations 
+                      {hasPriorRegistrations
                         ? 'Tất cả thông tin 4 bước đã được tự động điền lại từ sự kiện gần nhất. Quý vị có thể để nguyên và bấm "Hoàn tất đăng ký sự kiện" ngay ở bất kỳ bước nào, hoặc chỉnh sửa nếu có thay đổi.'
                         : 'Thông tin đã được điền sẵn. Quý vị có thể điều chỉnh bất kỳ trường nào độc lập. Đăng ký sẽ được gửi trực tiếp mà không cần bước tạo tài khoản.'}
                     </p>
@@ -686,16 +687,17 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
               <div className="space-y-3.5">
                 {/* Họ và tên đại biểu * */}
                 <div>
-                  <label className="text-xs font-bold text-neutral-800 block mb-1">
+                  <label htmlFor="registration-full-name" className="text-xs font-semibold text-neutral-800 block mb-1">
                     Họ và tên đại biểu *
                   </label>
                   <input
+                    id="registration-full-name"
                     type="text"
                     value={formData.fullName}
                     onChange={(e) => handleFieldChange('fullName', e.target.value)}
                     placeholder="VD: Nguyễn Văn A"
                     className={`w-full px-3.5 py-2.5 text-xs sm:text-sm border rounded-xl bg-white focus:outline-none transition-colors ${
-                      errors.fullName ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-[#eb1000]'
+                      errors.fullName ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-brand-primary'
                     }`}
                   />
                   {errors.fullName && <p className="text-[11px] text-red-600 mt-1">{errors.fullName}</p>}
@@ -703,16 +705,17 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
 
                 {/* Email nhận vé & thông báo */}
                 <div>
-                  <label className="text-xs font-bold text-neutral-800 block mb-1">
+                  <label htmlFor="registration-email" className="text-xs font-semibold text-neutral-800 block mb-1">
                     Email nhận vé & thông báo {currentUser ? '*' : '(Tùy chọn)'}
                   </label>
                   <input
+                    id="registration-email"
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleFieldChange('email', e.target.value)}
                     placeholder="VD: ceo@vinasteel.com.vn"
                     className={`w-full px-3.5 py-2.5 text-xs sm:text-sm border rounded-xl bg-white focus:outline-none transition-colors ${
-                      errors.email ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-[#eb1000]'
+                      errors.email ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-brand-primary'
                     }`}
                   />
                   {currentUser && (
@@ -726,16 +729,17 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
 
                 {/* Số điện thoại liên hệ * */}
                 <div>
-                  <label className="text-xs font-bold text-neutral-800 block mb-1">
+                  <label htmlFor="registration-phone" className="text-xs font-semibold text-neutral-800 block mb-1">
                     Số điện thoại liên hệ (Di động / Zalo) *
                   </label>
                   <input
+                    id="registration-phone"
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => handleFieldChange('phone', e.target.value)}
                     placeholder="VD: 0912 345 678"
                     className={`w-full px-3.5 py-2.5 text-xs sm:text-sm border rounded-xl bg-white focus:outline-none transition-colors ${
-                      errors.phone ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-[#eb1000]'
+                      errors.phone ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-brand-primary'
                     }`}
                   />
                   {errors.phone && <p className="text-[11px] text-red-600 mt-1">{errors.phone}</p>}
@@ -743,14 +747,15 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
 
                 {/* Chức danh điều hành * */}
                 <div>
-                  <label className="text-xs font-bold text-neutral-800 block mb-1">
+                  <label htmlFor="registration-job-title" className="text-xs font-semibold text-neutral-800 block mb-1">
                     Chức danh điều hành (C-Level / Ban Lãnh đạo) *
                   </label>
                   <select
+                    id="registration-job-title"
                     value={formData.jobTitle}
                     onChange={(e) => handleFieldChange('jobTitle', e.target.value)}
                     className={`w-full px-3.5 py-2.5 text-xs sm:text-sm border rounded-xl bg-white focus:outline-none transition-colors ${
-                      errors.jobTitle ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-[#eb1000]'
+                      errors.jobTitle ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-brand-primary'
                     }`}
                   >
                     <option value="">-- Chọn chức danh điều hành --</option>
@@ -768,12 +773,12 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
               </div>
 
               {/* Navigation Footer */}
-              <div className="pt-4 border-t border-neutral-200 flex items-center justify-between gap-3">
+              <div className="pt-4 border-t border-hairline flex items-center justify-between gap-3">
                 {!currentUser && onSwitchToLogin ? (
                   <button
                     type="button"
                     onClick={onSwitchToLogin}
-                    className="text-xs font-semibold text-neutral-600 hover:text-[#eb1000] underline cursor-pointer"
+                    className="text-xs font-semibold text-ink-secondary hover:text-brand-primary underline cursor-pointer"
                   >
                     Đã có tài khoản Hội viên? Đăng nhập
                   </button>
@@ -786,7 +791,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                     <button
                       type="button"
                       onClick={handleQuickComplete}
-                      className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-neutral-800 bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 flex items-center gap-1.5 transition-colors cursor-pointer"
+                      className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-neutral-800 bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 flex items-center gap-1.5 transition-colors cursor-pointer"
                     >
                       <Check className="w-4 h-4 text-emerald-600" />
                       <span>Hoàn tất đăng ký ngay</span>
@@ -795,7 +800,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                       type="button"
                       onClick={handleNext}
                       disabled={!isStep1Valid}
-                      className="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-[#eb1000] hover:bg-[#c90d00] disabled:bg-neutral-300 disabled:cursor-not-allowed flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+                      className="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-white bg-brand-primary hover:bg-brand-primary-hover disabled:bg-neutral-300 disabled:cursor-not-allowed flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
                     >
                       <span>Tiếp tục Bước 2</span>
                       <ArrowRight className="w-4 h-4" />
@@ -806,7 +811,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                     type="button"
                     onClick={handleNext}
                     disabled={!isStep1Valid}
-                    className="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-[#eb1000] hover:bg-[#c90d00] disabled:bg-neutral-300 disabled:cursor-not-allowed flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs ml-auto"
+                    className="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-white bg-brand-primary hover:bg-brand-primary-hover disabled:bg-neutral-300 disabled:cursor-not-allowed flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs ml-auto"
                   >
                     <span>Tiếp tục Bước 2</span>
                     <ArrowRight className="w-4 h-4" />
@@ -822,16 +827,16 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
               ===================================================================== */}
           {currentStep === 2 && (
             <div className="space-y-4">
-              <div className="border-b border-neutral-200 pb-3 flex items-center justify-between">
+              <div className="border-b border-hairline pb-3 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-neutral-900 text-white text-xs font-bold flex items-center justify-center">
+                  <span className="w-6 h-6 rounded-full bg-neutral-900 text-white text-xs font-semibold flex items-center justify-center">
                     2
                   </span>
-                  <h3 className="text-sm sm:text-base font-black uppercase text-neutral-900 tracking-tight">
+                  <h3 className="text-sm sm:text-base font-semibold uppercase text-neutral-900 tracking-tight">
                     Thông Tin Doanh Nghiệp / Tổ Chức
                   </h3>
                 </div>
-                <span className="text-xs text-neutral-500 font-mono font-bold bg-neutral-100 px-2 py-0.5 rounded">
+                <span className="text-xs text-ink-secondary font-mono font-semibold bg-neutral-100 px-2 py-0.5 rounded">
                   Bước 2 / {currentUser ? '4' : '5'}
                 </span>
               </div>
@@ -839,16 +844,17 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
               <div className="space-y-3.5">
                 {/* Tên doanh nghiệp * */}
                 <div>
-                  <label className="text-xs font-bold text-neutral-800 block mb-1">
+                  <label htmlFor="registration-company-name" className="text-xs font-semibold text-neutral-800 block mb-1">
                     Tên doanh nghiệp / Tổ chức *
                   </label>
                   <input
+                    id="registration-company-name"
                     type="text"
                     value={formData.companyName}
                     onChange={(e) => handleFieldChange('companyName', e.target.value)}
                     placeholder="VD: Công ty Cổ phần Tập đoàn Thép Việt Nhật"
                     className={`w-full px-3.5 py-2.5 text-xs sm:text-sm border rounded-xl bg-white focus:outline-none transition-colors ${
-                      errors.companyName ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-[#eb1000]'
+                      errors.companyName ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-brand-primary'
                     }`}
                   />
                   {errors.companyName && <p className="text-[11px] text-red-600 mt-1">{errors.companyName}</p>}
@@ -856,14 +862,15 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
 
                 {/* Lĩnh vực hoạt động * */}
                 <div>
-                  <label className="text-xs font-bold text-neutral-800 block mb-1">
+                  <label htmlFor="registration-industry" className="text-xs font-semibold text-neutral-800 block mb-1">
                     Lĩnh vực hoạt động / Ngành nghề *
                   </label>
                   <select
+                    id="registration-industry"
                     value={formData.industry}
                     onChange={(e) => handleFieldChange('industry', e.target.value)}
                     className={`w-full px-3.5 py-2.5 text-xs sm:text-sm border rounded-xl bg-white focus:outline-none transition-colors ${
-                      errors.industry ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-[#eb1000]'
+                      errors.industry ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-brand-primary'
                     }`}
                   >
                     <option value="Sản xuất & Công nghiệp chế tạo">Sản xuất & Công nghiệp chế tạo</option>
@@ -882,14 +889,15 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
 
                 {/* Quy mô doanh nghiệp * */}
                 <div>
-                  <label className="text-xs font-bold text-neutral-800 block mb-1">
+                  <label htmlFor="registration-company-size" className="text-xs font-semibold text-neutral-800 block mb-1">
                     Quy mô nhân sự doanh nghiệp *
                   </label>
                   <select
+                    id="registration-company-size"
                     value={formData.companySize}
                     onChange={(e) => handleFieldChange('companySize', e.target.value)}
                     className={`w-full px-3.5 py-2.5 text-xs sm:text-sm border rounded-xl bg-white focus:outline-none transition-colors ${
-                      errors.companySize ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-[#eb1000]'
+                      errors.companySize ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-brand-primary'
                     }`}
                   >
                     <option value="">-- Chọn quy mô nhân sự --</option>
@@ -904,7 +912,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
               </div>
 
               {/* Navigation Footer */}
-              <div className="pt-4 border-t border-neutral-200 flex items-center justify-between gap-3">
+              <div className="pt-4 border-t border-hairline flex items-center justify-between gap-3">
                 <button
                   type="button"
                   onClick={handleBack}
@@ -919,7 +927,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                     <button
                       type="button"
                       onClick={handleQuickComplete}
-                      className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-neutral-800 bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 flex items-center gap-1.5 transition-colors cursor-pointer"
+                      className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-neutral-800 bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 flex items-center gap-1.5 transition-colors cursor-pointer"
                     >
                       <Check className="w-4 h-4 text-emerald-600" />
                       <span>Hoàn tất đăng ký ngay</span>
@@ -929,7 +937,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                     type="button"
                     onClick={handleNext}
                     disabled={!isStep2Valid}
-                    className="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-[#eb1000] hover:bg-[#c90d00] disabled:bg-neutral-300 disabled:cursor-not-allowed flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+                    className="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-white bg-brand-primary hover:bg-brand-primary-hover disabled:bg-neutral-300 disabled:cursor-not-allowed flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
                   >
                     <span>Tiếp tục Bước 3</span>
                     <ArrowRight className="w-4 h-4" />
@@ -945,16 +953,16 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
               ===================================================================== */}
           {currentStep === 3 && (
             <div className="space-y-4">
-              <div className="border-b border-neutral-200 pb-3 flex items-center justify-between">
+              <div className="border-b border-hairline pb-3 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-neutral-900 text-white text-xs font-bold flex items-center justify-center">
+                  <span className="w-6 h-6 rounded-full bg-neutral-900 text-white text-xs font-semibold flex items-center justify-center">
                     3
                   </span>
-                  <h3 className="text-sm sm:text-base font-black uppercase text-neutral-900 tracking-tight">
+                  <h3 className="text-sm sm:text-base font-semibold uppercase text-neutral-900 tracking-tight">
                     Quan Tâm & Kết Nối VCF
                   </h3>
                 </div>
-                <span className="text-xs text-neutral-500 font-mono font-bold bg-neutral-100 px-2 py-0.5 rounded">
+                <span className="text-xs text-ink-secondary font-mono font-semibold bg-neutral-100 px-2 py-0.5 rounded">
                   Bước 3 / {currentUser ? '4' : '5'}
                 </span>
               </div>
@@ -962,7 +970,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
               <div className="space-y-3.5">
                 {/* Hoạt động VCF quan tâm * */}
                 <div>
-                  <label className="text-xs font-bold text-neutral-800 block mb-1">
+                  <label className="text-xs font-semibold text-neutral-800 block mb-1">
                     Các hoạt động VCF đại biểu quan tâm (Chọn ít nhất 1) *
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
@@ -979,15 +987,16 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                           onClick={() => toggleInterestedActivity(act.id)}
                           className={`p-3 rounded-xl border text-xs cursor-pointer transition-all flex items-start gap-2.5 ${
                             isChecked
-                              ? 'border-[#eb1000] bg-red-50/60 font-semibold text-[#eb1000]'
-                              : 'border-neutral-200 bg-white text-neutral-700 hover:border-neutral-300'
+                              ? 'border-brand-primary bg-red-50/60 font-semibold text-brand-primary'
+                              : 'border-hairline bg-white text-neutral-700 hover:border-neutral-300'
                           }`}
                         >
                           <input
+                            aria-label={act.title}
                             type="checkbox"
                             checked={isChecked}
                             onChange={() => {}}
-                            className="mt-0.5 rounded text-[#eb1000] focus:ring-[#eb1000]"
+                            className="mt-0.5 rounded text-brand-primary focus:ring-brand-primary"
                           />
                           <span className="leading-snug text-[11px] sm:text-xs">{act.title}</span>
                         </div>
@@ -1001,14 +1010,15 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
 
                 {/* Nguồn tiếp cận * */}
                 <div>
-                  <label className="text-xs font-bold text-neutral-800 block mb-1">
+                  <label htmlFor="registration-lead-source" className="text-xs font-semibold text-neutral-800 block mb-1">
                     Nguồn biết đến Diễn Đàn CEO Việt Nam (VCF) *
                   </label>
                   <select
+                    id="registration-lead-source"
                     value={formData.leadSource}
                     onChange={(e) => handleFieldChange('leadSource', e.target.value)}
                     className={`w-full px-3.5 py-2.5 text-xs sm:text-sm border rounded-xl bg-white focus:outline-none transition-colors ${
-                      errors.leadSource ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-[#eb1000]'
+                      errors.leadSource ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-brand-primary'
                     }`}
                   >
                     <option value="Giới thiệu từ Hội viên VCF">Giới thiệu từ Hội viên VCF</option>
@@ -1023,7 +1033,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
               </div>
 
               {/* Navigation Footer */}
-              <div className="pt-4 border-t border-neutral-200 flex items-center justify-between gap-3">
+              <div className="pt-4 border-t border-hairline flex items-center justify-between gap-3">
                 <button
                   type="button"
                   onClick={handleBack}
@@ -1038,7 +1048,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                     <button
                       type="button"
                       onClick={handleQuickComplete}
-                      className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-neutral-800 bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 flex items-center gap-1.5 transition-colors cursor-pointer"
+                      className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-neutral-800 bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 flex items-center gap-1.5 transition-colors cursor-pointer"
                     >
                       <Check className="w-4 h-4 text-emerald-600" />
                       <span>Hoàn tất đăng ký ngay</span>
@@ -1048,7 +1058,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                     type="button"
                     onClick={handleNext}
                     disabled={!isStep3Valid}
-                    className="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-[#eb1000] hover:bg-[#c90d00] disabled:bg-neutral-300 disabled:cursor-not-allowed flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+                    className="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-white bg-brand-primary hover:bg-brand-primary-hover disabled:bg-neutral-300 disabled:cursor-not-allowed flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
                   >
                     <span>Tiếp tục Bước 4</span>
                     <ArrowRight className="w-4 h-4" />
@@ -1066,16 +1076,16 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
               ===================================================================== */}
           {currentStep === 4 && (
             <form onSubmit={handleSubmitScreen4} className="space-y-4">
-              <div className="border-b border-neutral-200 pb-3 flex items-center justify-between">
+              <div className="border-b border-hairline pb-3 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-neutral-900 text-white text-xs font-bold flex items-center justify-center">
+                  <span className="w-6 h-6 rounded-full bg-neutral-900 text-white text-xs font-semibold flex items-center justify-center">
                     4
                   </span>
-                  <h3 className="text-sm sm:text-base font-black uppercase text-neutral-900 tracking-tight">
+                  <h3 className="text-sm sm:text-base font-semibold uppercase text-neutral-900 tracking-tight">
                     Đối Thoại Chuyên Gia & Vấn Đề Doanh Nghiệp
                   </h3>
                 </div>
-                <span className="text-xs text-neutral-500 font-mono font-bold bg-neutral-100 px-2 py-0.5 rounded">
+                <span className="text-xs text-ink-secondary font-mono font-semibold bg-neutral-100 px-2 py-0.5 rounded">
                   Bước 4 / {currentUser ? '4' : '5'}
                 </span>
               </div>
@@ -1083,19 +1093,20 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
               <div className="space-y-3.5">
                 {/* Vấn đề doanh nghiệp đang đối mặt * */}
                 <div>
-                  <label className="text-xs font-bold text-neutral-800 block mb-1">
+                  <label htmlFor="registration-business-pain" className="text-xs font-semibold text-neutral-800 block mb-1">
                     Vấn đề doanh nghiệp đang đối mặt *
                   </label>
                   <textarea
+                    id="registration-business-pain"
                     rows={3}
                     value={formData.businessPainPoints}
                     onChange={(e) => handleFieldChange('businessPainPoints', e.target.value)}
                     placeholder="VD: Doanh nghiệp đang gặp khó khăn trong tối ưu dòng tiền ngắn hạn, áp lực tái cơ cấu nợ và cần tìm giải pháp số hoá quản trị kho bãi..."
                     className={`w-full px-3.5 py-2.5 text-xs sm:text-sm border rounded-xl bg-white focus:outline-none transition-colors ${
-                      errors.businessPainPoints ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-[#eb1000]'
+                      errors.businessPainPoints ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-brand-primary'
                     }`}
                   />
-                  <p className="text-[11px] text-neutral-500 mt-1">
+                  <p className="text-[11px] text-ink-secondary mt-1">
                     Nêu vắn tắt thách thức lớn nhất để Ban Tổ chức xếp nhóm bàn tròn thảo luận phù hợp.
                   </p>
                   {errors.businessPainPoints && (
@@ -1105,19 +1116,20 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
 
                 {/* Câu hỏi cho Diễn giả / Mentor cố vấn * */}
                 <div>
-                  <label className="text-xs font-bold text-neutral-800 block mb-1">
+                  <label htmlFor="registration-mentor-question" className="text-xs font-semibold text-neutral-800 block mb-1">
                     Câu hỏi cho Diễn giả / Mentor cố vấn *
                   </label>
                   <textarea
+                    id="registration-mentor-question"
                     rows={2}
                     value={formData.questionForMentor}
                     onChange={(e) => handleFieldChange('questionForMentor', e.target.value)}
                     placeholder="VD: Làm thế nào để giải quyết xung đột mục tiêu giữa HĐQT và Ban Điều hành khi mở rộng sang thị trường quốc tế?"
                     className={`w-full px-3.5 py-2.5 text-xs sm:text-sm border rounded-xl bg-white focus:outline-none transition-colors ${
-                      errors.questionForMentor ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-[#eb1000]'
+                      errors.questionForMentor ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-brand-primary'
                     }`}
                   />
-                  <p className="text-[11px] text-neutral-500 mt-1">
+                  <p className="text-[11px] text-ink-secondary mt-1">
                     Câu hỏi của quý vị sẽ được tổng hợp gửi trước cho ban chuyên gia điều phối phiên tọa đàm.
                   </p>
                   {errors.questionForMentor && (
@@ -1129,10 +1141,12 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                 <div className="pt-1">
                   <label className="flex items-start gap-2.5 text-xs text-neutral-700 cursor-pointer">
                     <input
+                      id="registration-terms"
+                      aria-label="Tôi đồng ý với quy chế VCF"
                       type="checkbox"
                       checked={formData.agreedToTerms}
                       onChange={(e) => handleFieldChange('agreedToTerms', e.target.checked)}
-                      className="mt-0.5 rounded text-[#eb1000] focus:ring-[#eb1000]"
+                      className="mt-0.5 rounded text-brand-primary focus:ring-brand-primary"
                     />
                     <span>
                       Tôi cam kết thông tin cung cấp là chính xác, đồng ý tuân thủ <strong>Quy chế sinh hoạt Diễn Đàn CEO Việt Nam (VCF)</strong> và tiếp nhận thông báo xác thực từ Ban Thư ký.
@@ -1143,15 +1157,15 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
 
                 {/* Section 5.4 Checkbox (Dành cho User đã đăng nhập): Tùy chọn cập nhật User Profile gốc */}
                 {currentUser && (
-                  <div className="bg-neutral-50 border border-neutral-200 rounded-xl p-3 text-xs">
+                  <div className="bg-parchment border border-hairline rounded-xl p-3 text-xs">
                     <label className="flex items-start gap-2 text-neutral-700 cursor-pointer">
                       <input
                         type="checkbox"
                         checked={updateBaseProfile}
                         onChange={(e) => setUpdateBaseProfile(e.target.checked)}
-                        className="mt-0.5 rounded text-[#eb1000] focus:ring-[#eb1000]"
+                        className="mt-0.5 rounded text-brand-primary focus:ring-brand-primary"
                       />
-                      <span className="text-[11px] text-neutral-600 leading-relaxed">
+                      <span className="text-[11px] text-ink-secondary leading-relaxed">
                         Cập nhật các thông tin này vào <strong>Hồ sơ cá nhân của tôi</strong> (Mặc định không ghi đè hồ sơ gốc).
                       </span>
                     </label>
@@ -1160,7 +1174,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
               </div>
 
               {/* Navigation Footer */}
-              <div className="pt-4 border-t border-neutral-200 flex items-center justify-between gap-3">
+              <div className="pt-4 border-t border-hairline flex items-center justify-between gap-3">
                 <button
                   type="button"
                   onClick={handleBack}
@@ -1173,7 +1187,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                 <button
                   type="submit"
                   disabled={!isStep4Valid || isSubmitting}
-                  className="px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-[#eb1000] hover:bg-[#c90d00] disabled:bg-neutral-300 disabled:cursor-not-allowed flex items-center gap-2 transition-all cursor-pointer shadow-sm"
+                  className="px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-white bg-brand-primary hover:bg-brand-primary-hover disabled:bg-neutral-300 disabled:cursor-not-allowed flex items-center gap-2 transition-all cursor-pointer shadow-sm"
                 >
                   {currentUser ? <Send className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
                   <span>
@@ -1196,16 +1210,16 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
               ===================================================================== */}
           {currentStep === 5 && (
             <form onSubmit={handleStep5Submit} className="space-y-4">
-              <div className="border-b border-neutral-200 pb-3">
+              <div className="border-b border-hairline pb-3">
                 <div className="flex items-center gap-2 mb-1">
-                  <div className="w-6 h-6 rounded-full bg-red-100 text-[#eb1000] flex items-center justify-center">
+                  <div className="w-6 h-6 rounded-full bg-red-100 text-brand-primary flex items-center justify-center">
                     <KeyRound className="w-3.5 h-3.5" />
                   </div>
-                  <h3 className="text-base sm:text-lg font-black text-neutral-900 tracking-tight">
+                  <h3 className="text-base sm:text-lg font-semibold text-neutral-900 tracking-tight">
                     Bước 5: Hoàn Tất Đăng Ký
                   </h3>
                 </div>
-                <p className="text-xs text-neutral-600 font-sans leading-relaxed">
+                <p className="text-xs text-ink-secondary font-sans leading-relaxed">
                   Đại biểu: <strong>{formData.fullName || 'Đại biểu Hội viên'}</strong> ({formData.companyName || 'Doanh nghiệp'}). Vui lòng tạo mật khẩu và nhập lại mật khẩu để hoàn tất đăng ký tài khoản và nhận vé tham dự.
                 </p>
               </div>
@@ -1213,15 +1227,15 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
               {/* Email Input Field */}
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-bold text-neutral-800 block">
+                  <label className="text-xs font-semibold text-neutral-800 block">
                     Email nhận vé & thông báo đại biểu *
                   </label>
                   {userExists ? (
-                    <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
+                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
                       Email đã có tài khoản
                     </span>
                   ) : formData.email.trim() && formData.email.includes('@') ? (
-                    <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300">
+                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300">
                       Tạo tài khoản mới
                     </span>
                   ) : null}
@@ -1232,7 +1246,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                   onChange={(e) => handleFieldChange('email', e.target.value)}
                   placeholder="VD: ceo@vinasteel.com.vn hoặc email.congty@gmail.com"
                   className={`w-full px-3.5 py-2.5 text-xs sm:text-sm border rounded-xl bg-white focus:outline-none transition-colors ${
-                    errors.email ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-[#eb1000]'
+                    errors.email ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-brand-primary'
                   }`}
                 />
                 {errors.email && <p className="text-[11px] text-red-600 font-medium">{errors.email}</p>}
@@ -1244,7 +1258,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                   <div className="flex items-center justify-between pb-2 border-b border-amber-200/80">
                     <div className="flex items-center gap-2">
                       <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
-                      <span className="text-xs font-black text-amber-950 uppercase tracking-tight">
+                      <span className="text-xs font-semibold text-amber-950 uppercase tracking-tight">
                         Email đã tồn tại trong hệ thống
                       </span>
                     </div>
@@ -1265,7 +1279,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
 
                   {/* Nhập mật khẩu truy cập */}
                   <div className="space-y-1.5 pt-1">
-                    <label className="text-xs font-bold text-neutral-800 block">
+                    <label className="text-xs font-semibold text-neutral-800 block">
                       Nhập mật khẩu truy cập *
                     </label>
                     <div className="relative">
@@ -1274,7 +1288,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                         value={existingUserPassword}
                         onChange={(e) => setExistingUserPassword(e.target.value)}
                         placeholder="Nhập mật khẩu tài khoản của quý vị"
-                        className="w-full px-3.5 py-2.5 text-xs sm:text-sm border border-neutral-300 rounded-xl bg-white focus:outline-none focus:border-[#eb1000] pr-10"
+                        className="w-full px-3.5 py-2.5 text-xs sm:text-sm border border-neutral-300 rounded-xl bg-white focus:outline-none focus:border-brand-primary pr-10"
                       />
                       <button
                         type="button"
@@ -1292,7 +1306,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                         onClick={() => {
                           setForgotPasswordMessage(`Liên kết đặt lại mật khẩu đã được gửi tới ${formData.email}. Quý vị vui lòng kiểm tra hòm thư.`);
                         }}
-                        className="text-neutral-600 hover:text-[#eb1000] underline cursor-pointer"
+                        className="text-ink-secondary hover:text-brand-primary underline cursor-pointer"
                       >
                         Quên mật khẩu?
                       </button>
@@ -1300,7 +1314,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                       <button
                         type="button"
                         onClick={() => setExistingUserPassword('Password123!')}
-                        className="text-amber-800 hover:text-amber-950 font-mono font-bold underline cursor-pointer"
+                        className="text-amber-800 hover:text-amber-950 font-mono font-semibold underline cursor-pointer"
                       >
                         [Demo: Điền mật khẩu mẫu]
                       </button>
@@ -1316,14 +1330,14 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
 
                   {/* Social Login Options */}
                   <div className="pt-2.5 border-t border-amber-200/80">
-                    <span className="text-[11px] text-neutral-600 font-medium block mb-2">
+                    <span className="text-[11px] text-ink-secondary font-medium block mb-2">
                       Hoặc đăng nhập nhanh qua:
                     </span>
                     <div className="grid grid-cols-2 gap-2">
                       <button
                         type="button"
                         onClick={() => handleSocialAuthAtStep5('google')}
-                        className="py-2 px-3 border border-neutral-300 hover:bg-white bg-white/80 rounded-lg text-[11px] font-bold text-neutral-700 flex items-center justify-center gap-1.5 shadow-2xs transition-colors cursor-pointer"
+                        className="py-2 px-3 border border-neutral-300 hover:bg-white bg-white/80 rounded-lg text-[11px] font-semibold text-neutral-700 flex items-center justify-center gap-1.5 shadow-2xs transition-colors cursor-pointer"
                       >
                         <LogIn className="w-3.5 h-3.5 text-red-500" />
                         <span>Google Workspace</span>
@@ -1331,7 +1345,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                       <button
                         type="button"
                         onClick={() => handleSocialAuthAtStep5('linkedin')}
-                        className="py-2 px-3 border border-neutral-300 hover:bg-white bg-white/80 rounded-lg text-[11px] font-bold text-neutral-700 flex items-center justify-center gap-1.5 shadow-2xs transition-colors cursor-pointer"
+                        className="py-2 px-3 border border-neutral-300 hover:bg-white bg-white/80 rounded-lg text-[11px] font-semibold text-neutral-700 flex items-center justify-center gap-1.5 shadow-2xs transition-colors cursor-pointer"
                       >
                         <LogIn className="w-3.5 h-3.5 text-blue-600" />
                         <span>LinkedIn Business</span>
@@ -1341,30 +1355,30 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                 </div>
               ) : (
                 /* TRƯỜNG HỢP MẶC ĐỊNH / TẠO TÀI KHOẢN MỚI: YÊU CẦU TẠO MẬT KHẨU & NHẬP LẠI MẬT KHẨU */
-                <div className="bg-neutral-50/90 border border-neutral-200 rounded-xl p-4 space-y-4 shadow-2xs">
-                  <div className="flex items-center justify-between pb-2 border-b border-neutral-200">
+                <div className="bg-parchment/90 border border-hairline rounded-xl p-4 space-y-4 shadow-2xs">
+                  <div className="flex items-center justify-between pb-2 border-b border-hairline">
                     <div className="flex items-center gap-2">
-                      <KeyRound className="w-4 h-4 text-[#eb1000] shrink-0" />
-                      <span className="text-xs font-black text-neutral-900 uppercase tracking-tight">
+                      <KeyRound className="w-4 h-4 text-brand-primary shrink-0" />
+                      <span className="text-xs font-semibold text-neutral-900 uppercase tracking-tight">
                         Tạo mật khẩu tài khoản
                       </span>
                     </div>
-                    <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">
+                    <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">
                       Tài khoản Hội viên VCF
                     </span>
                   </div>
 
-                  <p className="text-xs text-neutral-600 leading-relaxed font-sans">
+                  <p className="text-xs text-ink-secondary leading-relaxed font-sans">
                     Quý vị vui lòng thiết lập mật khẩu để hoàn tất đăng ký sự kiện và kích hoạt tài khoản Hội viên:
                   </p>
 
                   {/* FIELD 1: Tạo mật khẩu */}
                   <div className="space-y-1">
                     <div className="flex items-center justify-between">
-                      <label className="text-xs font-bold text-neutral-800 block">
+                      <label className="text-xs font-semibold text-neutral-800 block">
                         Tạo mật khẩu *
                       </label>
-                      <span className="text-[11px] text-neutral-500 font-sans">
+                      <span className="text-[11px] text-ink-secondary font-sans">
                         Tối thiểu 6 ký tự
                       </span>
                     </div>
@@ -1375,7 +1389,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                         onChange={(e) => handleFieldChange('password', e.target.value)}
                         placeholder="Nhập mật khẩu mới của quý vị"
                         className={`w-full px-3.5 py-2.5 text-xs sm:text-sm border rounded-xl bg-white focus:outline-none pr-10 transition-colors ${
-                          errors.password ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-[#eb1000]'
+                          errors.password ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-brand-primary'
                         }`}
                       />
                       <button
@@ -1399,7 +1413,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                       <div className={`h-1.5 flex-1 rounded-full transition-colors ${
                         formData.password.length >= 10 ? 'bg-emerald-500' : 'bg-neutral-200'
                       }`} />
-                      <span className="text-[10px] font-semibold pl-1 font-mono text-neutral-600">
+                      <span className="text-[10px] font-semibold pl-1 font-mono text-ink-secondary">
                         {formData.password.length >= 8 ? 'Mạnh' : formData.password.length >= 6 ? 'Đủ điều kiện' : 'Tối thiểu 6 ký tự'}
                       </span>
                     </div>
@@ -1408,7 +1422,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
 
                   {/* FIELD 2: Nhập lại mật khẩu */}
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-neutral-800 block">
+                    <label className="text-xs font-semibold text-neutral-800 block">
                       Nhập lại mật khẩu *
                     </label>
                     <div className="relative">
@@ -1418,7 +1432,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                         onChange={(e) => handleFieldChange('confirmPassword', e.target.value)}
                         placeholder="Nhập lại chính xác mật khẩu trên"
                         className={`w-full px-3.5 py-2.5 text-xs sm:text-sm border rounded-xl bg-white focus:outline-none pr-10 transition-colors ${
-                          errors.confirmPassword ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-[#eb1000]'
+                          errors.confirmPassword ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-brand-primary'
                         }`}
                       />
                       <button
@@ -1439,7 +1453,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                       </p>
                     )}
                     {formData.confirmPassword && formData.password === formData.confirmPassword && formData.password.length >= 6 && (
-                      <p className="text-[11px] text-emerald-600 mt-1 flex items-center gap-1 font-bold">
+                      <p className="text-[11px] text-emerald-600 mt-1 flex items-center gap-1 font-semibold">
                         <Check className="w-3.5 h-3.5 shrink-0" />
                         <span>Mật khẩu trùng khớp ✓</span>
                       </p>
@@ -1448,7 +1462,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                   </div>
 
                   {/* Ghi chú tạo tài khoản */}
-                  <div className="bg-white border border-neutral-200 rounded-lg p-2.5 text-[11px] text-neutral-600 flex items-center gap-2">
+                  <div className="bg-white border border-hairline rounded-lg p-2.5 text-[11px] text-ink-secondary flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
                     <span>Mật khẩu này sẽ được dùng để đăng nhập Hội viên VCF và theo dõi vé tham dự sự kiện.</span>
                   </div>
@@ -1456,7 +1470,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
               )}
 
               {/* Demo Helper Bar */}
-              <div className="flex items-center justify-between text-[11px] text-neutral-500 px-1 pt-1">
+              <div className="flex items-center justify-between text-[11px] text-ink-secondary px-1 pt-1">
                 <span>Thử nhanh:</span>
                 <div className="flex items-center gap-2">
                   <button
@@ -1468,7 +1482,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                       setUserExists(false);
                       setEmailChecked(true);
                     }}
-                    className="text-neutral-600 hover:text-[#eb1000] underline font-medium cursor-pointer"
+                    className="text-ink-secondary hover:text-brand-primary underline font-medium cursor-pointer"
                   >
                     [Điền mẫu email mới & mật khẩu]
                   </button>
@@ -1489,7 +1503,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
               </div>
 
               {/* Navigation Footer */}
-              <div className="pt-4 border-t border-neutral-200 flex items-center justify-between gap-3">
+              <div className="pt-4 border-t border-hairline flex items-center justify-between gap-3">
                 <button
                   type="button"
                   onClick={handleBack}
@@ -1505,7 +1519,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                     isSubmitting ||
                     (userExists ? !isStep5ExistingUserValid : !isStep5NewUserValid)
                   }
-                  className="px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-[#eb1000] hover:bg-[#c90d00] disabled:bg-neutral-300 disabled:cursor-not-allowed flex items-center gap-2 transition-all cursor-pointer shadow-sm"
+                  className="px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-white bg-brand-primary hover:bg-brand-primary-hover disabled:bg-neutral-300 disabled:cursor-not-allowed flex items-center gap-2 transition-all cursor-pointer shadow-sm"
                 >
                   <CheckCircle2 className="w-4 h-4" />
                   <span>
@@ -1536,10 +1550,10 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                     <Clock className="w-6 h-6 animate-pulse" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider bg-amber-200/90 text-amber-900 px-2 py-0.5 rounded-md">
+                    <span className="text-[10px] font-semibold uppercase tracking-wider bg-amber-200/90 text-amber-900 px-2 py-0.5 rounded-md">
                       Trạng thái hồ sơ
                     </span>
-                    <h4 className="text-base sm:text-lg font-black text-amber-950 mt-0.5">
+                    <h4 className="text-base sm:text-lg font-semibold text-amber-950 mt-0.5">
                       {isWaitlist ? 'Đang Trong Danh Sách Chờ (Waitlist)' : 'Đang Chờ Ban Thư Ký Duyệt'}
                     </h4>
                   </div>
@@ -1571,15 +1585,15 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                       <Mail className="w-4 h-4" />
                     </div>
                     <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-blue-700 block">
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-700 block">
                         Xác nhận qua email
                       </span>
-                      <strong className="text-xs sm:text-sm text-blue-950 font-black">
+                      <strong className="text-xs sm:text-sm text-blue-950 font-semibold">
                         Vui lòng kiểm tra email của quý vị
                       </strong>
                     </div>
                   </div>
-                  <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full border border-emerald-200">
+                  <span className="text-[10px] bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded-full border border-emerald-200">
                     Đã gửi thư tiếp nhận ✓
                   </span>
                 </div>
@@ -1588,11 +1602,11 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                   <p>
                     Hệ thống đã tự động gửi email biên nhận thông tin đăng ký sự kiện tới địa chỉ:
                   </p>
-                  <div className="flex items-center gap-2 font-mono font-bold text-neutral-900 bg-blue-50/70 px-2.5 py-1.5 rounded border border-blue-200 text-[11px] sm:text-xs">
+                  <div className="flex items-center gap-2 font-mono font-semibold text-neutral-900 bg-blue-50/70 px-2.5 py-1.5 rounded border border-blue-200 text-[11px] sm:text-xs">
                     <Mail className="w-3.5 h-3.5 text-blue-600 shrink-0" />
                     <span className="truncate">{formData.email || currentUser?.email || 'duc.pham@vinasteel.com.vn'}</span>
                   </div>
-                  <p className="text-[11px] text-neutral-600 pt-1">
+                  <p className="text-[11px] text-ink-secondary pt-1">
                     Quý đại biểu vui lòng mở hòm thư <strong>Inbox</strong> (hoặc kiểm tra thêm mục <strong>Spam / Quảng cáo</strong>) để xem lại chi tiết thông tin đã đăng ký và chuẩn bị cho sự kiện.
                   </p>
                 </div>
@@ -1602,7 +1616,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                   <button
                     type="button"
                     onClick={() => setShowEmailPreview(!showEmailPreview)}
-                    className="text-[11px] text-blue-700 hover:text-blue-900 font-bold flex items-center gap-1.5 underline cursor-pointer"
+                    className="text-[11px] text-blue-700 hover:text-blue-900 font-semibold flex items-center gap-1.5 underline cursor-pointer"
                   >
                     <FileText className="w-3.5 h-3.5" />
                     <span>{showEmailPreview ? 'Ẩn xem trước email xác nhận' : 'Xem trước nội dung Email biên nhận đã gửi →'}</span>
@@ -1611,22 +1625,22 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
 
                   {showEmailPreview && (
                     <div className="mt-2.5 bg-white border border-neutral-300 rounded-lg p-3.5 text-xs text-neutral-800 space-y-2 font-sans shadow-inner animate-in fade-in duration-150">
-                      <div className="flex items-center justify-between pb-1.5 border-b border-neutral-200 text-[11px] text-neutral-500 font-mono">
+                      <div className="flex items-center justify-between pb-1.5 border-b border-hairline text-[11px] text-ink-secondary font-mono">
                         <span>Từ: Ban Thư ký Diễn Đàn CEO Việt Nam &lt;bth@vcf.org.vn&gt;</span>
                         <span className="font-sans font-semibold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">Đã gửi</span>
                       </div>
-                      <div className="text-[11px] text-neutral-500 pb-1 border-b border-neutral-100 font-mono">
+                      <div className="text-[11px] text-ink-secondary pb-1 border-b border-neutral-100 font-mono">
                         <span>Đến: {formData.email || currentUser?.email || 'duc.pham@vinasteel.com.vn'}</span>
                       </div>
-                      <div className="font-bold text-black text-xs pt-1">
+                      <div className="font-semibold text-ink text-xs pt-1">
                         Tiêu đề: [VCF] Tiếp nhận hồ sơ đăng ký tham dự: {eventTitle}
                       </div>
                       <div className="text-[11px] text-neutral-700 space-y-1.5 leading-relaxed pt-1">
                         <p>Kính gửi Đại biểu <strong>{formData.fullName || 'Phạm Minh Đức'}</strong> ({formData.jobTitle || 'Tổng Giám Đốc (CEO)'} - {formData.companyName || 'Công ty Cổ phần Thép VinaSteel'}),</p>
                         <p>Ban Thư ký Diễn Đàn CEO Việt Nam (VCF) trân trọng thông báo đã tiếp nhận hồ sơ đăng ký tham dự của Quý vị với <strong>Mã hồ sơ: {regCode}</strong>.</p>
                         <p>Hồ sơ của Quý vị đang được Ban Thư ký thẩm định theo quy chuẩn C-Level. Kết quả xét duyệt kèm Mã QR Check-in chính thức sẽ được gửi tới Quý vị qua email này và số điện thoại <strong>{formData.phone || '0912 345 678'}</strong> trong vòng 24 - 48 giờ làm việc.</p>
-                        <div className="bg-neutral-50 p-2.5 rounded border border-neutral-200 text-[10px] space-y-1 text-neutral-600">
-                          <div>• Sự kiện: <strong className="text-black">{eventTitle}</strong></div>
+                        <div className="bg-parchment p-2.5 rounded border border-hairline text-[10px] space-y-1 text-ink-secondary">
+                          <div>• Sự kiện: <strong className="text-ink">{eventTitle}</strong></div>
                           <div>• Thời gian: <strong>{eventDatetime}</strong></div>
                           <div>• Địa điểm: <strong>{eventLocation}</strong></div>
                           <div>• Trạng thái: <strong className="text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">Đang chờ Ban Thư ký duyệt</strong></div>
@@ -1638,47 +1652,47 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
               </div>
 
               {/* KHỐI 3: THÔNG TIN ĐÃ KHAI BÁO    ✓ ĐẦY ĐỦ 8 TRƯỜNG (Khớp 100% ảnh chụp) */}
-              <div className="border border-neutral-200 rounded-xl p-3.5 sm:p-4 bg-neutral-50/90 space-y-2.5 text-xs font-sans shadow-2xs">
-                <div className="text-[11px] font-black uppercase text-neutral-600 tracking-wider flex items-center justify-between pb-1.5 border-b border-neutral-200">
+              <div className="border border-hairline rounded-xl p-3.5 sm:p-4 bg-parchment/90 space-y-2.5 text-xs font-sans shadow-2xs">
+                <div className="text-[11px] font-semibold uppercase text-ink-secondary tracking-wider flex items-center justify-between pb-1.5 border-b border-hairline">
                   <span>Thông tin đã khai báo</span>
-                  <span className="text-emerald-700 font-bold flex items-center gap-1 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                  <span className="text-emerald-700 font-semibold flex items-center gap-1 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
                     <Check className="w-3.5 h-3.5" /> Đầy đủ 8 trường
                   </span>
                 </div>
 
                 <div className="grid grid-cols-1 gap-2 text-neutral-700 pt-1">
-                  <div className="flex items-center justify-between pb-1.5 border-b border-neutral-200">
-                    <span className="text-neutral-500">Mã hồ sơ tiếp nhận:</span>
-                    <span className="font-mono font-bold text-neutral-900 bg-white border border-neutral-200 px-2 py-0.5 rounded text-[11px]">
+                  <div className="flex items-center justify-between pb-1.5 border-b border-hairline">
+                    <span className="text-ink-secondary">Mã hồ sơ tiếp nhận:</span>
+                    <span className="font-mono font-semibold text-neutral-900 bg-white border border-hairline px-2 py-0.5 rounded text-[11px]">
                       {regCode}
                     </span>
                   </div>
                   <div>
-                    <span className="text-neutral-500">Đại biểu:</span>{' '}
-                    <strong className="text-black">{formData.jobTitle || 'Tổng Giám Đốc (CEO)'} - {formData.fullName || 'Phạm Minh Đức'}</strong>
+                    <span className="text-ink-secondary">Đại biểu:</span>{' '}
+                    <strong className="text-ink">{formData.jobTitle || 'Tổng Giám Đốc (CEO)'} - {formData.fullName || 'Phạm Minh Đức'}</strong>
                   </div>
                   <div>
-                    <span className="text-neutral-500">Số điện thoại:</span>{' '}
-                    <strong className="text-black">{formData.phone || '0912 345 678'}</strong>
+                    <span className="text-ink-secondary">Số điện thoại:</span>{' '}
+                    <strong className="text-ink">{formData.phone || '0912 345 678'}</strong>
                   </div>
                   <div>
-                    <span className="text-neutral-500">Doanh nghiệp:</span>{' '}
-                    <strong className="text-black">{formData.companyName || 'Công ty Cổ phần Thép VinaSteel'}</strong>
+                    <span className="text-ink-secondary">Doanh nghiệp:</span>{' '}
+                    <strong className="text-ink">{formData.companyName || 'Công ty Cổ phần Thép VinaSteel'}</strong>
                   </div>
                   <div>
-                    <span className="text-neutral-500">Lĩnh vực:</span>{' '}
+                    <span className="text-ink-secondary">Lĩnh vực:</span>{' '}
                     <span>{formData.industry || 'Sản xuất & Công nghiệp chế tạo'}</span>
                   </div>
                   <div>
-                    <span className="text-neutral-500">Quy mô:</span>{' '}
+                    <span className="text-ink-secondary">Quy mô:</span>{' '}
                     <span>{formData.companySize || 'Từ 100 - 300 nhân sự'}</span>
                   </div>
                   <div>
-                    <span className="text-neutral-500">Vấn đề trọng tâm:</span>{' '}
+                    <span className="text-ink-secondary">Vấn đề trọng tâm:</span>{' '}
                     <span className="italic">"{formData.businessPainPoints || 'Tối ưu hoá chi phí chuỗi cung ứng và chuyển đổi số quy trình quản lý chất lượng.'}"</span>
                   </div>
                   <div>
-                    <span className="text-neutral-500">Câu hỏi gửi Mentor:</span>{' '}
+                    <span className="text-ink-secondary">Câu hỏi gửi Mentor:</span>{' '}
                     <span className="italic">"{formData.questionForMentor || 'Làm thế nào để duy trì động lực đổi mới sáng tạo trong doanh nghiệp sản xuất truyền thống?'}"</span>
                   </div>
                 </div>
@@ -1689,7 +1703,7 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 py-3 px-5 bg-[#eb1000] hover:bg-[#c90d00] text-white font-bold rounded-xl text-xs sm:text-sm transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer"
+                  className="flex-1 py-3 px-5 bg-brand-primary hover:bg-brand-primary-hover text-white font-semibold rounded-xl text-xs sm:text-sm transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <CheckCircle2 className="w-4 h-4" />
                   <span>Về trang sự kiện & Xem trạng thái hồ sơ</span>

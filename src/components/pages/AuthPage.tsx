@@ -9,7 +9,7 @@ export const AuthPage: React.FC = () => {
   const [authMode, setAuthMode] = useState<'password' | 'otp'>('password');
   const [email, setEmail] = useState('duc.pham@vinasteel.com.vn');
   const [password, setPassword] = useState('••••••••');
-  
+
   // OTP state
   const [otpCode, setOtpCode] = useState('');
   const [otpSent, setOtpSent] = useState(false);
@@ -103,53 +103,53 @@ export const AuthPage: React.FC = () => {
   return (
     <div className="max-w-md mx-auto px-4 py-8 sm:py-12 pb-24 space-y-6 font-sans">
       {showSpecAnnotations && (
-        <div className="bg-neutral-100 border border-neutral-200 p-2.5 rounded-lg text-xs font-mono flex items-center justify-between">
+        <div className="bg-neutral-100 border border-hairline p-2.5 rounded-lg text-xs font-mono flex items-center justify-between">
           <SpecBadge label="Cổng Đăng nhập Hội viên VCF [Luồng duy nhất]" type="page" />
-          <span className="text-neutral-500">Email & Social Login • OTP</span>
+          <span className="text-ink-secondary">Email & Social Login • OTP</span>
         </div>
       )}
 
       {/* Main Login Card - Exact Match with Screenshot 2 */}
-      <div className="border border-neutral-200 bg-white p-6 sm:p-8 space-y-5 shadow-sm rounded-2xl">
+      <div className="border border-hairline bg-white p-6 sm:p-8 space-y-5 shadow-sm rounded-2xl">
         {/* Logo & Title */}
         <div className="text-center space-y-2 pb-2">
-          <div className="w-12 h-12 rounded-full bg-[#eb1000] text-white mx-auto flex items-center justify-center font-black font-mono shadow-xs text-base">
+          <div className="w-12 h-12 rounded-full bg-brand-primary text-white mx-auto flex items-center justify-center font-semibold font-mono shadow-xs text-base">
             VCF
           </div>
-          <h1 className="text-xl sm:text-2xl font-black text-black tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-semibold text-ink tracking-tight">
             Đăng Nhập Hội Viên VCF
           </h1>
-          <p className="text-xs text-neutral-500 font-sans leading-relaxed">
+          <p className="text-xs text-ink-secondary font-sans leading-relaxed">
             Cổng thông tin dành riêng cho thành viên Diễn đàn CEO Việt Nam
           </p>
         </div>
 
         {/* Tab switch between Password and OTP Email */}
-        <div className="flex border border-neutral-200 p-1 bg-neutral-100 text-xs rounded-full">
+        <div className="flex border border-hairline p-1 bg-neutral-100 text-xs rounded-full">
           <button
             type="button"
-            onClick={() => { 
-              setAuthMode('password'); 
-              setErrorMessage(''); 
+            onClick={() => {
+              setAuthMode('password');
+              setErrorMessage('');
             }}
-            className={`flex-1 py-2 font-bold rounded-full transition-all duration-150 cursor-pointer ${
-              authMode === 'password' 
-                ? 'bg-[#eb1000] text-white shadow-xs' 
-                : 'text-neutral-700 hover:text-black'
+            className={`flex-1 py-2 font-semibold rounded-full transition-all duration-150 cursor-pointer ${
+              authMode === 'password'
+                ? 'bg-brand-primary text-white shadow-xs'
+                : 'text-neutral-700 hover:text-ink'
             }`}
           >
             Mật khẩu
           </button>
           <button
             type="button"
-            onClick={() => { 
-              setAuthMode('otp'); 
-              setErrorMessage(''); 
+            onClick={() => {
+              setAuthMode('otp');
+              setErrorMessage('');
             }}
-            className={`flex-1 py-2 font-bold rounded-full transition-all duration-150 cursor-pointer ${
-              authMode === 'otp' 
-                ? 'bg-[#eb1000] text-white shadow-xs' 
-                : 'text-neutral-700 hover:text-black'
+            className={`flex-1 py-2 font-semibold rounded-full transition-all duration-150 cursor-pointer ${
+              authMode === 'otp'
+                ? 'bg-brand-primary text-white shadow-xs'
+                : 'text-neutral-700 hover:text-ink'
             }`}
           >
             Mã OTP Email
@@ -158,7 +158,7 @@ export const AuthPage: React.FC = () => {
 
         {/* Error message */}
         {errorMessage && (
-          <div className="p-3 bg-red-50 border border-red-200 text-[#eb1000] text-xs rounded-xl flex items-center gap-2 font-medium">
+          <div className="p-3 bg-red-50 border border-red-200 text-brand-primary text-xs rounded-xl flex items-center gap-2 font-medium">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{errorMessage}</span>
           </div>
@@ -168,7 +168,7 @@ export const AuthPage: React.FC = () => {
         {authMode === 'password' && (
           <form onSubmit={handlePasswordLogin} className="space-y-4 text-xs">
             <div className="space-y-1.5">
-              <label className="font-bold text-neutral-800 block">Email công tác *</label>
+              <label className="font-semibold text-neutral-800 block">Email công tác *</label>
               <div className="relative">
                 <input
                   type="email"
@@ -176,7 +176,7 @@ export const AuthPage: React.FC = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="duc.pham@vinasteel.com.vn"
-                  className="w-full pl-9 pr-3.5 py-2.5 text-xs sm:text-sm border border-neutral-300 rounded-xl focus:outline-none focus:border-[#eb1000] font-sans transition-all duration-150 bg-white"
+                  className="w-full pl-9 pr-3.5 py-2.5 text-xs sm:text-sm border border-neutral-300 rounded-xl focus:outline-none focus:border-brand-primary font-sans transition-all duration-150 bg-white"
                 />
                 <Mail className="w-4 h-4 text-neutral-400 absolute left-3 top-3" />
               </div>
@@ -184,11 +184,11 @@ export const AuthPage: React.FC = () => {
 
             <div className="space-y-1.5">
               <div className="flex justify-between items-center">
-                <label className="font-bold text-neutral-800">Mật khẩu *</label>
+                <label className="font-semibold text-neutral-800">Mật khẩu *</label>
                 <button
                   type="button"
                   onClick={() => showNotification('Liên kết khôi phục mật khẩu đã được gửi về email của bạn!')}
-                  className="text-[11px] text-[#eb1000] hover:underline font-bold cursor-pointer"
+                  className="text-[11px] text-brand-primary hover:underline font-semibold cursor-pointer"
                 >
                   Quên mật khẩu?
                 </button>
@@ -200,7 +200,7 @@ export const AuthPage: React.FC = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-9 pr-3.5 py-2.5 text-xs sm:text-sm border border-neutral-300 rounded-xl focus:outline-none focus:border-[#eb1000] font-sans transition-all duration-150 bg-white"
+                  className="w-full pl-9 pr-3.5 py-2.5 text-xs sm:text-sm border border-neutral-300 rounded-xl focus:outline-none focus:border-brand-primary font-sans transition-all duration-150 bg-white"
                 />
                 <Lock className="w-4 h-4 text-neutral-400 absolute left-3 top-3" />
               </div>
@@ -209,7 +209,7 @@ export const AuthPage: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3 bg-[#eb1000] hover:bg-[#c90d00] text-white font-black text-xs sm:text-sm uppercase tracking-wide rounded-xl transition-all shadow-sm hover:shadow-md cursor-pointer disabled:opacity-60"
+              className="w-full py-3 bg-brand-primary hover:bg-brand-primary-hover text-white font-semibold text-xs sm:text-sm uppercase tracking-wide rounded-xl transition-all shadow-sm hover:shadow-md cursor-pointer disabled:opacity-60"
             >
               {isSubmitting ? 'Đang xác thực...' : 'ĐĂNG NHẬP'}
             </button>
@@ -220,7 +220,7 @@ export const AuthPage: React.FC = () => {
         {authMode === 'otp' && (
           <form onSubmit={handleOtpLogin} className="space-y-4 text-xs">
             <div className="space-y-1.5">
-              <label className="font-bold text-neutral-800 block">Email công tác *</label>
+              <label className="font-semibold text-neutral-800 block">Email công tác *</label>
               <div className="relative">
                 <input
                   type="email"
@@ -228,7 +228,7 @@ export const AuthPage: React.FC = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="duc.pham@vinasteel.com.vn"
-                  className="w-full pl-9 pr-3.5 py-2.5 text-xs sm:text-sm border border-neutral-300 rounded-xl focus:outline-none focus:border-[#eb1000] font-sans transition-all duration-150 bg-white"
+                  className="w-full pl-9 pr-3.5 py-2.5 text-xs sm:text-sm border border-neutral-300 rounded-xl focus:outline-none focus:border-brand-primary font-sans transition-all duration-150 bg-white"
                 />
                 <Mail className="w-4 h-4 text-neutral-400 absolute left-3 top-3" />
               </div>
@@ -236,13 +236,13 @@ export const AuthPage: React.FC = () => {
 
             {!otpSent ? (
               <div className="space-y-2 pt-1">
-                <p className="text-neutral-500 text-[11px] leading-relaxed">
+                <p className="text-ink-secondary text-[11px] leading-relaxed">
                   Hệ thống sẽ gửi mã xác thực OTP dùng một lần (6 chữ số) đến email của Quý vị.
                 </p>
                 <button
                   type="button"
                   onClick={() => handleSendOtp()}
-                  className="w-full py-3 bg-[#eb1000] hover:bg-[#c90d00] text-white font-black text-xs sm:text-sm uppercase tracking-wide rounded-xl transition-all shadow-sm hover:shadow-md cursor-pointer flex items-center justify-center gap-2"
+                  className="w-full py-3 bg-brand-primary hover:bg-brand-primary-hover text-white font-semibold text-xs sm:text-sm uppercase tracking-wide rounded-xl transition-all shadow-sm hover:shadow-md cursor-pointer flex items-center justify-center gap-2"
                 >
                   <Mail className="w-4 h-4" />
                   <span>GỬI MÃ OTP VỀ EMAIL</span>
@@ -254,7 +254,7 @@ export const AuthPage: React.FC = () => {
                 <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl flex items-start gap-2.5 text-xs">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                   <div className="flex-1">
-                    <span className="font-bold text-emerald-950 block">Mã OTP đã được gửi thành công!</span>
+                    <span className="font-semibold text-emerald-950 block">Mã OTP đã được gửi thành công!</span>
                     <span className="text-emerald-700 text-[11px] block mt-0.5">
                       Vui lòng kiểm tra hòm thư <strong>{email}</strong>
                     </span>
@@ -262,21 +262,21 @@ export const AuthPage: React.FC = () => {
                 </div>
 
                 {/* Fast demo OTP helper button */}
-                <div className="p-2.5 bg-neutral-50 border border-neutral-200 rounded-xl flex items-center justify-between gap-2 text-[11px]">
-                  <span className="text-neutral-600">
-                    Mã OTP thử nghiệm: <strong className="text-[#eb1000] font-mono font-black">{generatedOtp}</strong>
+                <div className="p-2.5 bg-parchment border border-hairline rounded-xl flex items-center justify-between gap-2 text-[11px]">
+                  <span className="text-ink-secondary">
+                    Mã OTP thử nghiệm: <strong className="text-brand-primary font-mono font-semibold">{generatedOtp}</strong>
                   </span>
                   <button
                     type="button"
                     onClick={() => setOtpCode(generatedOtp)}
-                    className="px-2 py-0.5 bg-neutral-900 hover:bg-neutral-800 text-white rounded font-bold text-[10px] cursor-pointer"
+                    className="px-2 py-0.5 bg-neutral-900 hover:bg-neutral-800 text-white rounded font-semibold text-[10px] cursor-pointer"
                   >
                     Điền nhanh
                   </button>
                 </div>
 
                 <div>
-                  <label className="font-bold text-neutral-800 block mb-1">
+                  <label className="font-semibold text-neutral-800 block mb-1">
                     Nhập mã OTP (6 chữ số) *
                   </label>
                   <input
@@ -285,18 +285,18 @@ export const AuthPage: React.FC = () => {
                     value={otpCode}
                     onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ''))}
                     placeholder="VD: 892601"
-                    className="w-full py-3 px-4 text-center font-mono text-xl tracking-widest border border-neutral-300 rounded-xl focus:outline-none focus:border-[#eb1000] font-black bg-white"
+                    className="w-full py-3 px-4 text-center font-mono text-xl tracking-widest border border-neutral-300 rounded-xl focus:outline-none focus:border-brand-primary font-semibold bg-white"
                   />
                 </div>
 
-                <div className="flex items-center justify-between text-[11px] text-neutral-500 pt-0.5">
+                <div className="flex items-center justify-between text-[11px] text-ink-secondary pt-0.5">
                   {countdown > 0 ? (
                     <span>Gửi lại mã sau <strong>{countdown}s</strong></span>
                   ) : (
                     <button
                       type="button"
                       onClick={() => handleSendOtp()}
-                      className="text-[#eb1000] font-bold hover:underline flex items-center gap-1 cursor-pointer"
+                      className="text-brand-primary font-semibold hover:underline flex items-center gap-1 cursor-pointer"
                     >
                       <RefreshCw className="w-3 h-3" />
                       <span>Gửi lại mã OTP</span>
@@ -305,7 +305,7 @@ export const AuthPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => { setOtpSent(false); setOtpCode(''); }}
-                    className="text-neutral-500 hover:text-black underline cursor-pointer"
+                    className="text-ink-secondary hover:text-ink underline cursor-pointer"
                   >
                     Đổi email
                   </button>
@@ -314,7 +314,7 @@ export const AuthPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting || otpCode.length !== 6}
-                  className="w-full py-3 bg-[#eb1000] hover:bg-[#c90d00] text-white font-black text-xs sm:text-sm uppercase tracking-wide rounded-xl transition-all shadow-sm hover:shadow-md cursor-pointer disabled:opacity-50"
+                  className="w-full py-3 bg-brand-primary hover:bg-brand-primary-hover text-white font-semibold text-xs sm:text-sm uppercase tracking-wide rounded-xl transition-all shadow-sm hover:shadow-md cursor-pointer disabled:opacity-50"
                 >
                   {isSubmitting ? 'Đang xác thực...' : 'ĐĂNG NHẬP VỚI MÃ OTP'}
                 </button>
@@ -326,11 +326,11 @@ export const AuthPage: React.FC = () => {
         {/* SOCIAL LOGIN SECTION: Email & Social Login */}
         <div className="pt-2">
           <div className="relative flex py-2 items-center">
-            <div className="flex-grow border-t border-neutral-200"></div>
-            <span className="flex-shrink mx-3 text-[10px] font-bold uppercase tracking-wider text-neutral-400">
+            <div className="flex-grow border-t border-hairline"></div>
+            <span className="flex-shrink mx-3 text-[10px] font-semibold uppercase tracking-wider text-neutral-400">
               Hoặc tiếp tục với
             </span>
-            <div className="flex-grow border-t border-neutral-200"></div>
+            <div className="flex-grow border-t border-hairline"></div>
           </div>
 
           <div className="grid grid-cols-2 gap-2.5 mt-2">
@@ -338,7 +338,7 @@ export const AuthPage: React.FC = () => {
             <button
               type="button"
               onClick={() => handleSocialLogin('google')}
-              className="flex items-center justify-center gap-2 py-2.5 px-3 border border-neutral-200 hover:border-neutral-400 rounded-xl bg-white hover:bg-neutral-50 text-xs font-bold text-neutral-700 transition-all cursor-pointer shadow-2xs"
+              className="flex items-center justify-center gap-2 py-2.5 px-3 border border-hairline hover:border-neutral-400 rounded-xl bg-white hover:bg-parchment text-xs font-semibold text-neutral-700 transition-all cursor-pointer shadow-2xs"
             >
               <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -353,7 +353,7 @@ export const AuthPage: React.FC = () => {
             <button
               type="button"
               onClick={() => handleSocialLogin('linkedin')}
-              className="flex items-center justify-center gap-2 py-2.5 px-3 border border-neutral-200 hover:border-neutral-400 rounded-xl bg-white hover:bg-neutral-50 text-xs font-bold text-neutral-700 transition-all cursor-pointer shadow-2xs"
+              className="flex items-center justify-center gap-2 py-2.5 px-3 border border-hairline hover:border-neutral-400 rounded-xl bg-white hover:bg-parchment text-xs font-semibold text-neutral-700 transition-all cursor-pointer shadow-2xs"
             >
               <svg className="w-4 h-4 shrink-0" fill="#0A66C2" viewBox="0 0 24 24">
                 <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.3a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28Z"/>
@@ -364,19 +364,19 @@ export const AuthPage: React.FC = () => {
         </div>
 
         {/* Demo Fast Login Hint - Exact Match with Screenshot 2 */}
-        <div className="p-3.5 bg-neutral-50 border border-neutral-200 rounded-xl text-xs text-neutral-700 space-y-1">
-          <div className="font-bold text-black">Tài khoản demo:</div>
-          <div>Email: <strong className="text-[#eb1000]">duc.pham@vinasteel.com.vn</strong></div>
-          <div className="text-neutral-500 text-[11px]">(Bấm "Đăng nhập" để vào thẳng Hồ sơ hội viên)</div>
+        <div className="p-3.5 bg-parchment border border-hairline rounded-xl text-xs text-neutral-700 space-y-1">
+          <div className="font-semibold text-ink">Tài khoản demo:</div>
+          <div>Email: <strong className="text-brand-primary">duc.pham@vinasteel.com.vn</strong></div>
+          <div className="text-ink-secondary text-[11px]">(Bấm "Đăng nhập" để vào thẳng Hồ sơ hội viên)</div>
         </div>
 
         {/* Registration Branch Button (Dẫn nhánh đến màn Đăng ký thành viên) */}
         <div className="pt-3 border-t border-neutral-100 text-center space-y-2">
-          <div className="text-xs text-neutral-500 font-medium">Bạn chưa là thành viên Diễn đàn?</div>
+          <div className="text-xs text-ink-secondary font-medium">Bạn chưa là thành viên Diễn đàn?</div>
           <button
             type="button"
             onClick={() => navigateTo('register-member')}
-            className="w-full py-2.5 px-4 border border-neutral-300 hover:border-black text-neutral-900 hover:bg-neutral-50 font-bold rounded-full text-xs transition-all shadow-2xs flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full py-2.5 px-4 border border-neutral-300 hover:border-black text-neutral-900 hover:bg-parchment font-semibold rounded-full text-xs transition-all shadow-2xs flex items-center justify-center gap-2 cursor-pointer"
           >
             <span>Đăng Ký Thành Viên VCF →</span>
           </button>

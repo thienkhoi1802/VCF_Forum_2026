@@ -159,11 +159,11 @@ export const WireframeImage: React.FC<WireframeImageProps> = ({
 
   return (
     <div
-      className={`relative w-full bg-neutral-100 border border-neutral-200 rounded-lg overflow-hidden select-none group/img ${aspectStyle} ${heightClass || ''} ${className}`}
+      className={`relative w-full bg-parchment rounded-lg overflow-hidden select-none group/img ${aspectStyle} ${heightClass || ''} ${className}`}
     >
       {!isLoaded && !hasError && (
-        <div className="absolute inset-0 bg-neutral-200 animate-pulse flex items-center justify-center">
-          <span className="text-xs font-mono text-neutral-500">Đang tải ảnh...</span>
+        <div className="absolute inset-0 bg-parchment animate-pulse flex items-center justify-center">
+          <span className="sr-only">Đang tải ảnh</span>
         </div>
       )}
 
@@ -175,7 +175,7 @@ export const WireframeImage: React.FC<WireframeImageProps> = ({
           referrerPolicy="no-referrer"
           onLoad={() => setIsLoaded(true)}
           onError={() => setHasError(true)}
-          className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 ${
+          className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02] ${
             isLoaded ? 'opacity-100' : 'opacity-0'
           }`}
         />
@@ -189,8 +189,6 @@ export const WireframeImage: React.FC<WireframeImageProps> = ({
         </div>
       )}
 
-      {/* Subtle bottom vignette in photo mode */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" />
     </div>
   );
 };

@@ -7,14 +7,14 @@ interface SpecBadgeProps {
 }
 
 export const SpecBadge: React.FC<SpecBadgeProps> = ({ label, type = 'prd', className = '' }) => {
-  let styleClasses = 'bg-neutral-100 text-neutral-800 border-neutral-200 font-medium';
+  let styleClasses = 'bg-neutral-100 text-neutral-800 border-hairline font-medium';
   
   if (type === 'state') {
-    styleClasses = 'bg-black text-white border-black font-mono shadow-xs';
+    styleClasses = 'bg-ink text-white border-black font-mono shadow-xs';
   } else if (type === 'source') {
-    styleClasses = 'bg-neutral-50 text-neutral-600 border-neutral-300 font-mono italic';
+    styleClasses = 'bg-parchment text-ink-secondary border-neutral-300 font-mono italic';
   } else if (type === 'page') {
-    styleClasses = 'bg-[#eb1000] text-white border-[#eb1000] font-bold shadow-xs';
+    styleClasses = 'bg-brand-primary text-white border-brand-primary font-semibold shadow-xs';
   }
 
   return (

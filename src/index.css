@@ -1,85 +1,255 @@
 @import "tailwindcss";
 
+/* VCF 2026: Apple-inspired restraint, adapted to the VCF identity. */
+@theme {
+  --font-sans: "Inter", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --color-brand-primary: #eb1000;
+  --color-brand-primary-hover: #c90d00;
+  --color-brand-primary-pressed: #a80b00;
+  --color-brand-soft: #fff1f0;
+  --color-ink: #1d1d1f;
+  --color-ink-secondary: #6e6e73;
+  --color-canvas: #ffffff;
+  --color-parchment: #f5f5f7;
+  --color-pearl: #fafafc;
+  --color-surface-dark: #1d1d1f;
+  --color-hairline: #d2d2d7;
+  --color-success: #147d42;
+  --color-success-soft: #edf8f1;
+  --color-warning: #9a5a00;
+  --color-warning-soft: #fff8e8;
+  --color-info: #0066cc;
+  --color-info-soft: #eff6ff;
+  --color-danger: #b42318;
+  --color-danger-soft: #fff1f0;
+
+  --radius-xs: 5px;
+  --radius-sm: 8px;
+  --radius-md: 11px;
+  --radius-lg: 18px;
+  --radius-pill: 9999px;
+}
+
+:root {
+  --vcf-brand: #eb1000;
+  --vcf-brand-hover: #c90d00;
+  --vcf-brand-pressed: #a80b00;
+  --vcf-brand-soft: #fff1f0;
+  --vcf-ink: #1d1d1f;
+  --vcf-ink-secondary: #6e6e73;
+  --vcf-canvas: #ffffff;
+  --vcf-parchment: #f5f5f7;
+  --vcf-pearl: #fafafc;
+  --vcf-dark: #1d1d1f;
+  --vcf-hairline: #d2d2d7;
+  --vcf-focus: #0066cc;
+  --vcf-section-space: clamp(4rem, 7vw, 6rem);
+  --vcf-container: 80rem;
+  color-scheme: light;
+}
+
 @layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
   html {
-    font-family: 'Adobe Clean', -apple-system, BlinkMacSystemFont, 'Trebuchet MS', 'Segoe UI', Roboto, sans-serif;
-    color-scheme: light;
+    font-family: var(--font-sans);
     scroll-behavior: smooth;
-    background-color: #ffffff;
-    color: #000000;
+    background: var(--vcf-canvas);
+    color: var(--vcf-ink);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
   }
 
-  code, kbd, samp, pre {
-    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  body {
+    min-width: 320px;
+    margin: 0;
+    background: var(--vcf-canvas);
+    color: var(--vcf-ink);
+    font-size: 16px;
+    line-height: 1.55;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--vcf-ink);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+  a, button, input, select, textarea { font: inherit; }
+  button, [role="button"], a { -webkit-tap-highlight-color: transparent; }
+  button:not(:disabled), [role="button"]:not([aria-disabled="true"]) { cursor: pointer; }
+
+  :focus-visible {
+    outline: 2px solid var(--vcf-focus);
+    outline-offset: 3px;
+  }
+
+  input, select, textarea {
+    min-height: 44px;
+    color: var(--vcf-ink);
+    background: var(--vcf-canvas);
+  }
+
+  input::placeholder, textarea::placeholder { color: #86868b; }
+  ::selection { color: #fff; background: var(--vcf-brand); }
+  code, kbd, samp, pre { font-family: var(--font-mono); }
 }
 
-/* Adobe Typography Rules */
-.adobe-display {
-  font-family: 'Adobe Clean Display Black', 'Adobe Clean Display', 'Arial Bold Adjusted', 'Trebuchet MS', -apple-system, sans-serif;
-  font-weight: 900;
-  line-height: 0.95;
-  letter-spacing: -0.04em;
+@layer components {
+  .vcf-container {
+    width: min(100% - 2rem, var(--vcf-container));
+    margin-inline: auto;
+  }
+
+  .vcf-section { padding-block: var(--vcf-section-space); }
+  .vcf-section-subtle { background: var(--vcf-parchment); }
+  .vcf-section-dark { color: #fff; background: var(--vcf-dark); }
+
+  .vcf-eyebrow {
+    color: var(--vcf-brand);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .vcf-display {
+    font-family: var(--font-display);
+    font-size: clamp(2.125rem, 4.5vw, 3.5rem);
+    font-weight: 600;
+    line-height: 1.07;
+    letter-spacing: -0.035em;
+  }
+
+  .vcf-section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.875rem, 3vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+  }
+
+  .vcf-lead {
+    max-width: 48rem;
+    color: var(--vcf-ink-secondary);
+    font-size: clamp(1rem, 1.3vw, 1.125rem);
+    line-height: 1.6;
+  }
+
+  .vcf-card {
+    background: var(--vcf-canvas);
+    border: 1px solid var(--vcf-hairline);
+    border-radius: 18px;
+    transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
+  }
+
+  .vcf-card:hover { border-color: #a1a1a6; transform: translateY(-2px); }
+
+  .vcf-surface {
+    background: var(--vcf-canvas);
+    border: 1px solid var(--vcf-hairline);
+    border-radius: 18px;
+  }
+
+  .vcf-field {
+    width: 100%;
+    min-height: 48px;
+    padding: 0.75rem 1rem;
+    color: var(--vcf-ink);
+    background: var(--vcf-canvas);
+    border: 1px solid var(--vcf-hairline);
+    border-radius: 11px;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  .vcf-field:focus {
+    border-color: var(--vcf-focus);
+    box-shadow: 0 0 0 3px rgb(0 102 204 / 15%);
+    outline: none;
+  }
+
+  .vcf-skip-link {
+    position: fixed;
+    z-index: 100;
+    top: 0.75rem;
+    left: 0.75rem;
+    transform: translateY(-180%);
+    padding: 0.75rem 1rem;
+    color: #fff;
+    background: var(--vcf-brand);
+    border-radius: 9999px;
+    transition: transform 160ms ease;
+  }
+
+  .vcf-skip-link:focus { transform: translateY(0); }
 }
 
-.adobe-heading {
-  font-family: 'Adobe Clean Display Black', 'Adobe Clean Display', 'Arial Bold Adjusted', 'Trebuchet MS', -apple-system, sans-serif;
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.03em;
+/* Compatibility layer while page markup migrates to semantic tokens. */
+.adobe-display, .adobe-heading, .adobe-body {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
 }
 
-.adobe-body {
-  font-family: 'Adobe Clean', 'Trebuchet MS', -apple-system, sans-serif;
-  font-weight: 400;
-  line-height: 1.2;
+.font-black { font-weight: 600 !important; }
+.shadow-adobe-inset, .shadow-adobe-dark-inset { box-shadow: inset 0 0 0 1px rgb(0 0 0 / 6%); }
+.adobe-transition { transition: all 180ms ease; }
+
+main input:not([type="checkbox"]):not([type="radio"]),
+main select,
+main textarea {
+  border-color: var(--vcf-hairline);
+  border-radius: 11px;
+  font-size: 16px;
 }
 
-/* Adobe Inset Shadows & Borders */
-.shadow-adobe-inset {
-  box-shadow: rgba(255, 255, 255, 0.11) 0px 0px 0px 1px inset;
+main input:not([type="checkbox"]):not([type="radio"]):focus,
+main select:focus,
+main textarea:focus {
+  border-color: var(--vcf-focus) !important;
+  box-shadow: 0 0 0 3px rgb(0 102 204 / 14%);
+  outline: none !important;
 }
 
-.shadow-adobe-dark-inset {
-  box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px inset;
+main .shadow-xs,
+main .shadow-sm,
+main .shadow-md {
+  box-shadow: none;
 }
 
-/* Adobe Snappy Motion */
-.adobe-transition {
-  transition: all 150ms cubic-bezier(0.42, 0, 0, 1);
-}
-
-/* Clean minimal scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #ffffff;
-}
-
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--vcf-parchment); }
 ::-webkit-scrollbar-thumb {
-  background: #d4d4d4;
+  background: #b8b8bd;
+  border: 2px solid var(--vcf-parchment);
   border-radius: 9999px;
 }
-
-::-webkit-scrollbar-thumb:hover {
-  background: #eb1000;
-}
+::-webkit-scrollbar-thumb:hover { background: var(--vcf-brand); }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.15s cubic-bezier(0.42, 0, 0, 1) forwards;
+.animate-fadeIn { animation: fadeIn 220ms ease-out both; }
+
+@media (max-width: 639px) {
+  .vcf-container { width: min(100% - 1.5rem, var(--vcf-container)); }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

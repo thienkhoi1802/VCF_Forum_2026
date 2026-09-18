@@ -16,9 +16,9 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
   );
 
   return (
-    <div className="border border-neutral-200 bg-white flex flex-col justify-between hover:border-[#eb1000] hover:shadow-xs transition-all duration-150 rounded-lg group overflow-hidden">
+    <div className="vcf-card flex flex-col justify-between group overflow-hidden">
       <div>
-        <div className="p-3 pb-0">
+        <div className="overflow-hidden">
           <a
             href={externalUrl}
             target="_blank"
@@ -31,20 +31,20 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
               imageUrl={program.imageUrl}
               alt={program.title}
               aspectRatio="16:9"
-              className="rounded-md border border-neutral-200 group-hover:opacity-95 transition-opacity"
+              className="rounded-none border-0 group-hover:scale-[1.02] transition-transform duration-300"
             />
           </a>
         </div>
 
         <div className="p-5 space-y-3">
           <div className="flex items-center justify-between text-[11px]">
-            <span className="bg-red-50 border border-red-200 text-[#eb1000] px-3 py-1 font-bold rounded-full">
+            <span className="bg-red-50 border border-red-200 text-brand-primary px-3 py-1 font-semibold rounded-full">
               {program.code}
             </span>
-            <span className="text-neutral-500 font-semibold">{program.duration}</span>
+            <span className="text-ink-secondary font-semibold">{program.duration}</span>
           </div>
 
-          <h3 className="text-base font-black text-black leading-snug group-hover:text-[#eb1000] transition-colors">
+          <h3 className="text-xl font-semibold text-ink leading-tight group-hover:text-brand-primary transition-colors">
             <a
               href={externalUrl}
               target="_blank"
@@ -56,23 +56,23 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
             </a>
           </h3>
 
-          <div className="text-xs text-neutral-700 bg-neutral-50 p-3 rounded-md border border-neutral-100 font-medium">
-            <span className="font-bold text-black">Đối tượng: </span>
+          <div className="text-sm text-ink-secondary bg-parchment p-4 rounded-md font-normal">
+            <span className="font-semibold text-ink">Đối tượng: </span>
             {program.targetAudience}
           </div>
 
-          <p className="text-xs text-neutral-600 line-clamp-2 leading-relaxed">
+          <p className="text-sm text-ink-secondary line-clamp-2 leading-relaxed">
             {program.shortDesc}
           </p>
 
-          <div className="space-y-1.5 text-xs text-neutral-600 pt-1 font-medium">
+          <div className="space-y-1.5 text-xs text-ink-secondary pt-1 font-medium">
             <div className="flex items-center gap-2">
-              <Calendar className="w-3.5 h-3.5 text-[#eb1000] shrink-0" />
+              <Calendar className="w-3.5 h-3.5 text-brand-primary shrink-0" />
               <span>{program.nextCohort}</span>
             </div>
             <div className="flex items-center gap-2">
-              <GraduationCap className="w-3.5 h-3.5 text-[#eb1000] shrink-0" />
-              <span className="font-bold text-black">{program.tuitionFee}</span>
+              <GraduationCap className="w-3.5 h-3.5 text-brand-primary shrink-0" />
+              <span className="font-semibold text-ink">{program.tuitionFee}</span>
             </div>
           </div>
         </div>
@@ -84,7 +84,7 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
           href={externalUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full inline-flex items-center justify-center rounded-full font-semibold px-4 py-2.5 text-xs gap-1.5 bg-[#eb1000] text-white hover:bg-[#c90d00] active:bg-[#a80b00] transition-all duration-150 select-none focus:outline-none whitespace-nowrap cursor-pointer shadow-xs group/btn"
+          className="w-full min-h-11 inline-flex items-center justify-center rounded-full font-medium px-5 py-2.5 text-sm gap-1.5 bg-brand-primary text-white hover:bg-brand-primary-hover active:scale-95 transition-all duration-150 select-none whitespace-nowrap cursor-pointer group/btn focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info"
           title={`Mở trang chi tiết & đăng ký tư vấn (${externalUrl}) trong tab mới`}
         >
           <span>Xem chi tiết & Đăng ký tư vấn</span>

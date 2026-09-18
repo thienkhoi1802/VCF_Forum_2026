@@ -45,16 +45,16 @@ export const ActivityDetailPage: React.FC = () => {
       />
 
       {showSpecAnnotations && (
-        <div className="bg-neutral-100 border border-neutral-200 p-2.5 rounded-lg text-xs font-mono flex items-center justify-between flex-wrap gap-2">
+        <div className="bg-neutral-100 border border-hairline p-2.5 rounded-lg text-xs font-mono flex items-center justify-between flex-wrap gap-2">
           <div className="flex items-center gap-2">
             <SpecBadge label="C3: Template chi tiết 1 hoạt động [Trang phụ]" type="page" />
-            <span className="text-neutral-600">Biến thể: <strong>{activity.title}</strong> (1 trong 9 biến thể)</span>
+            <span className="text-ink-secondary">Biến thể: <strong>{activity.title}</strong> (1 trong 9 biến thể)</span>
           </div>
           <div className="flex gap-1">
             <select
               value={activity.id}
               onChange={(e) => navigateTo('activity-detail', { activityId: e.target.value as any })}
-              className="bg-white border border-neutral-300 rounded-full px-3 py-1 text-xs font-sans focus:outline-none focus:border-[#eb1000]"
+              className="bg-white border border-neutral-300 rounded-full px-3 py-1 text-xs font-sans focus:outline-none focus:border-brand-primary"
             >
               {MOCK_ACTIVITIES.map(a => (
                 <option key={a.id} value={a.id}>Đổi sang: {a.title}</option>
@@ -71,10 +71,10 @@ export const ActivityDetailPage: React.FC = () => {
           {/* Section 1: Hero & Objectives */}
           <div className="space-y-6">
             <div className="space-y-2">
-              <span className="text-xs font-bold uppercase bg-red-50 text-[#eb1000] border border-red-200 px-3 py-1 rounded-full inline-block">
+              <span className="text-xs font-semibold uppercase bg-red-50 text-brand-primary border border-red-200 px-3 py-1 rounded-full inline-block">
                 Hoạt động Trọng tâm VCF
               </span>
-              <h1 className="text-3xl sm:text-4xl font-black text-black tracking-tight">
+              <h1 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
                 {activity.title}
               </h1>
             </div>
@@ -83,21 +83,21 @@ export const ActivityDetailPage: React.FC = () => {
             <WireframeImage
               label={activity.coverImagePlaceholder}
               aspectRatio="16:9"
-              className="w-full rounded-lg border border-neutral-200 shadow-xs"
+              className="w-full rounded-lg border border-hairline shadow-xs"
             />
 
             <div className="space-y-4 text-neutral-800 leading-relaxed font-sans">
               <p className="text-base font-medium">{activity.fullDesc}</p>
 
-              <div className="bg-white border border-neutral-200 rounded-lg p-6 space-y-3 shadow-xs">
-                <h3 className="font-bold text-sm text-black uppercase tracking-wider flex items-center gap-2">
-                  <Target className="w-4 h-4 text-[#eb1000]" />
+              <div className="bg-white border border-hairline rounded-lg p-6 space-y-3 shadow-xs">
+                <h3 className="font-semibold text-sm text-ink uppercase tracking-wider flex items-center gap-2">
+                  <Target className="w-4 h-4 text-brand-primary" />
                   Mục Tiêu & Giá Trị Cốt Lõi
                 </h3>
-                <ul className="space-y-2 text-xs text-neutral-600">
+                <ul className="space-y-2 text-xs text-ink-secondary">
                   {activity.objectives.map((obj, i) => (
                     <li key={i} className="flex items-start gap-2.5">
-                      <CheckCircle2 className="w-4 h-4 text-[#eb1000] mt-0.5 shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-brand-primary mt-0.5 shrink-0" />
                       <span>{obj}</span>
                     </li>
                   ))}
@@ -107,15 +107,15 @@ export const ActivityDetailPage: React.FC = () => {
           </div>
 
           {/* Section 2: Frequency & Schedule */}
-          <div className="border-t border-neutral-200 pt-6 space-y-3">
-            <h3 className="font-bold text-base text-black tracking-tight">
+          <div className="border-t border-hairline pt-6 space-y-3">
+            <h3 className="font-semibold text-base text-ink tracking-tight">
               Lịch & Tần Suất Tổ Chức
             </h3>
-            <div className="p-4 bg-neutral-100 rounded-lg border border-neutral-200 flex items-center gap-3">
-              <Calendar className="w-5 h-5 text-[#eb1000] shrink-0" />
+            <div className="p-4 bg-neutral-100 rounded-lg border border-hairline flex items-center gap-3">
+              <Calendar className="w-5 h-5 text-brand-primary shrink-0" />
               <div>
-                <div className="font-bold text-sm text-black">{activity.frequency}</div>
-                <div className="text-xs text-neutral-500 font-sans">Thông tin lịch trình được cập nhật định kỳ qua Ban Thư ký VCF</div>
+                <div className="font-semibold text-sm text-ink">{activity.frequency}</div>
+                <div className="text-xs text-ink-secondary font-sans">Thông tin lịch trình được cập nhật định kỳ qua Ban Thư ký VCF</div>
               </div>
             </div>
           </div>
@@ -124,12 +124,12 @@ export const ActivityDetailPage: React.FC = () => {
           
           {/* VARIANT 3: CEO Mentoring */}
           {activity.id === 'ceo-mentoring' && (
-            <div className="border-t border-neutral-200 pt-8 space-y-6">
+            <div className="border-t border-hairline pt-8 space-y-6">
               {showSpecAnnotations && (
                 <SpecBadge label="Biến thể CEO Mentoring: Danh sách Mentor + CTA Đăng ký" type="prd" />
               )}
               <div className="flex items-center justify-between">
-                <h3 className="text-xl font-black text-black">
+                <h3 className="text-xl font-semibold text-ink">
                   Đội Ngũ Mentor & Chuyên Gia Cố Vấn Tiêu Biểu
                 </h3>
                 <CustomButton
@@ -155,12 +155,12 @@ export const ActivityDetailPage: React.FC = () => {
 
           {/* VARIANT 4: CEO Peer Group */}
           {activity.id === 'ceo-peer-group' && (
-            <div className="border-t border-neutral-200 pt-8 space-y-6">
+            <div className="border-t border-hairline pt-8 space-y-6">
               {showSpecAnnotations && (
                 <SpecBadge label="Biến thể CEO Peer Group: Danh sách nhóm & Lịch sinh hoạt" type="prd" />
               )}
               <div className="flex items-center justify-between">
-                <h3 className="text-xl font-black text-black">
+                <h3 className="text-xl font-semibold text-ink">
                   Các Nhóm Đồng Cấp Đang Hoạt Động
                 </h3>
                 <CustomButton
@@ -196,17 +196,17 @@ export const ActivityDetailPage: React.FC = () => {
                     schedule: 'Thứ Bảy tuần thứ 1 hàng tháng (08:30 - 11:30)'
                   }
                 ].map((pg, i) => (
-                  <div key={i} className="border border-neutral-200 p-5 bg-white rounded-lg shadow-xs flex flex-col sm:flex-row justify-between gap-4">
+                  <div key={i} className="border border-hairline p-5 bg-white rounded-lg shadow-xs flex flex-col sm:flex-row justify-between gap-4">
                     <div className="space-y-1.5">
                       <div className="flex items-center gap-2">
-                        <span className="text-[11px] font-mono font-bold bg-black text-white px-2 py-0.5 rounded-sm">
+                        <span className="text-[11px] font-mono font-semibold bg-ink text-white px-2 py-0.5 rounded-sm">
                           {pg.code}
                         </span>
-                        <span className="text-xs text-[#eb1000] font-bold">{pg.members}</span>
+                        <span className="text-xs text-brand-primary font-semibold">{pg.members}</span>
                       </div>
-                      <h4 className="font-bold text-base text-black">{pg.name}</h4>
-                      <p className="text-xs text-neutral-600">Điều phối trưởng: <strong className="text-black">{pg.leader}</strong></p>
-                      <p className="text-xs text-neutral-500">Lịch định kỳ: {pg.schedule}</p>
+                      <h4 className="font-semibold text-base text-ink">{pg.name}</h4>
+                      <p className="text-xs text-ink-secondary">Điều phối trưởng: <strong className="text-ink">{pg.leader}</strong></p>
+                      <p className="text-xs text-ink-secondary">Lịch định kỳ: {pg.schedule}</p>
                     </div>
                     <div className="shrink-0 flex sm:flex-col justify-end">
                       <CustomButton
@@ -225,12 +225,12 @@ export const ActivityDetailPage: React.FC = () => {
 
           {/* VARIANT 5: Trường phái LGM */}
           {activity.id === 'lgm-school' && (
-            <div className="border-t border-neutral-200 pt-8 space-y-6">
+            <div className="border-t border-hairline pt-8 space-y-6">
               {showSpecAnnotations && (
                 <SpecBadge label="Biến thể Trường phái LGM: Link trực tiếp sang Hệ tri thức LGM (C6)" type="prd" />
               )}
-              <div className="bg-black text-white rounded-lg p-6 md:p-8 space-y-4 shadow-xs">
-                <h3 className="text-xl font-black">Khám Phá Học Thuyết Quản Trị LGM Việt Nam</h3>
+              <div className="bg-ink text-white rounded-lg p-6 md:p-8 space-y-4 shadow-xs">
+                <h3 className="text-xl font-semibold">Khám Phá Học Thuyết Quản Trị LGM Việt Nam</h3>
                 <p className="text-xs text-neutral-300 leading-relaxed max-w-xl">
                   Toàn bộ các công trình nghiên cứu, bài viết chuyên luận của Bộ trưởng Nguyễn Mạnh Hùng và các chuyên gia Hội đồng Khoa học được lưu trữ tại Hệ Tri Thức LGM.
                 </p>
@@ -247,11 +247,11 @@ export const ActivityDetailPage: React.FC = () => {
 
           {/* VARIANT 6: Xây dựng hệ tri thức & Xuất bản */}
           {activity.id === 'knowledge-publication' && (
-            <div className="border-t border-neutral-200 pt-8 space-y-6">
+            <div className="border-t border-hairline pt-8 space-y-6">
               {showSpecAnnotations && (
                 <SpecBadge label="Biến thể Xuất bản: Danh mục ấn phẩm / Báo cáo" type="prd" />
               )}
-              <h3 className="text-xl font-black text-black">
+              <h3 className="text-xl font-semibold text-ink">
                 Danh Mục Ấn Phẩm & Báo Cáo Chuyên Khảo
               </h3>
               <div className="space-y-4">
@@ -271,13 +271,13 @@ export const ActivityDetailPage: React.FC = () => {
                     type: 'Ebook / Tài liệu lưu hành nội bộ'
                   }
                 ].map((pub, i) => (
-                  <div key={i} className="border border-neutral-200 p-5 bg-white rounded-lg shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div key={i} className="border border-hairline p-5 bg-white rounded-lg shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div className="space-y-1">
-                      <span className="text-[10px] bg-red-50 text-[#eb1000] border border-red-200 px-2.5 py-0.5 rounded-full font-bold uppercase">
+                      <span className="text-[10px] bg-red-50 text-brand-primary border border-red-200 px-2.5 py-0.5 rounded-full font-semibold uppercase">
                         {pub.type}
                       </span>
-                      <h4 className="font-bold text-sm text-black">{pub.title}</h4>
-                      <div className="text-xs text-neutral-500">
+                      <h4 className="font-semibold text-sm text-ink">{pub.title}</h4>
+                      <div className="text-xs text-ink-secondary">
                         {pub.author} • {pub.pages} • Phát hành: {pub.release}
                       </div>
                     </div>
@@ -296,25 +296,25 @@ export const ActivityDetailPage: React.FC = () => {
 
           {/* VARIANT 8: CEO Talk (Media Player Embed & Episode List) */}
           {activity.id === 'ceo-talk' && (
-            <div className="border-t border-neutral-200 pt-8 space-y-6">
+            <div className="border-t border-hairline pt-8 space-y-6">
               {showSpecAnnotations && (
                 <SpecBadge label="Biến thể CEO Talk: Video/Podcast Player + Số phát sóng" type="prd" />
               )}
-              <h3 className="text-xl font-black text-black">
+              <h3 className="text-xl font-semibold text-ink">
                 Chương Trình Đối Thoại CEO Talk Mới Nhất
               </h3>
 
               {/* Embedded Player Simulator */}
               <div className="border border-neutral-800 bg-neutral-900 text-white rounded-lg p-6 space-y-4 shadow-xs">
                 <div className="flex items-center justify-between text-xs font-mono text-neutral-400">
-                  <span className="flex items-center gap-1.5 text-red-400 font-bold">
+                  <span className="flex items-center gap-1.5 text-red-400 font-semibold">
                     <Volume2 className="w-4 h-4" />
                     SỐ ĐẶC BIỆT #14 (AUDIO & VIDEO STREAM)
                   </span>
                   <span>Thời lượng: 58:20</span>
                 </div>
 
-                <h4 className="text-lg font-bold text-white">
+                <h4 className="text-lg font-semibold text-white">
                   CEO Talk #14: Quyết định Khó khăn Nhất — Bài học từ Khủng hoảng Vận hành
                 </h4>
                 <p className="text-xs text-neutral-300">
@@ -325,13 +325,13 @@ export const ActivityDetailPage: React.FC = () => {
                 <div className="pt-2 flex items-center gap-4">
                   <button
                     onClick={() => setIsPlayingAudio(!isPlayingAudio)}
-                    className="w-12 h-12 bg-[#eb1000] text-white rounded-full flex items-center justify-center font-bold hover:bg-[#c80e00] transition-colors shadow-xs"
+                    className="w-12 h-12 bg-brand-primary text-white rounded-full flex items-center justify-center font-semibold hover:bg-[#c80e00] transition-colors shadow-xs"
                   >
                     {isPlayingAudio ? <span className="font-mono text-xs">PAUSE</span> : <Play className="w-5 h-5 fill-current ml-0.5" />}
                   </button>
                   <div className="flex-1 space-y-1">
                     <div className="w-full bg-neutral-800 rounded-full h-2 overflow-hidden">
-                      <div className={`bg-[#eb1000] h-full ${isPlayingAudio ? 'w-2/5 animate-pulse' : 'w-0'}`} />
+                      <div className={`bg-brand-primary h-full ${isPlayingAudio ? 'w-2/5 animate-pulse' : 'w-0'}`} />
                     </div>
                     <div className="flex justify-between text-[10px] font-mono text-neutral-400">
                       <span>{isPlayingAudio ? '23:14' : '00:00'}</span>
@@ -350,12 +350,12 @@ export const ActivityDetailPage: React.FC = () => {
 
           {/* VARIANT 9: CEO Club */}
           {activity.id === 'ceo-club' && (
-            <div className="border-t border-neutral-200 pt-8 space-y-6">
+            <div className="border-t border-hairline pt-8 space-y-6">
               {showSpecAnnotations && (
                 <SpecBadge label="Biến thể CEO Club: Lịch sinh hoạt định kỳ + CTA Đăng ký tham gia" type="prd" />
               )}
               <div className="flex items-center justify-between">
-                <h3 className="text-xl font-black text-black">
+                <h3 className="text-xl font-semibold text-ink">
                   Lịch Giao Lưu & Thực Địa CLB Quý IV
                 </h3>
                 <CustomButton
@@ -370,25 +370,25 @@ export const ActivityDetailPage: React.FC = () => {
               <div className="space-y-3 text-xs">
                 <div 
                   onClick={() => navigateTo('event-detail', { eventId: 'event-club-fieldtrip' })}
-                  className="p-4 border border-neutral-200 hover:border-[#eb1000] bg-white rounded-lg shadow-xs flex items-center justify-between cursor-pointer transition-colors group"
+                  className="p-4 border border-hairline hover:border-brand-primary bg-white rounded-lg shadow-xs flex items-center justify-between cursor-pointer transition-colors group"
                 >
                   <div>
-                    <strong className="text-black group-hover:text-[#eb1000] block font-sans text-sm transition-colors">Giải Giao Hữu Golf CEO Cup Mùa Thu</strong>
-                    <span className="text-neutral-500">Sân Golf Long Biên, Hà Nội • 24/10/2026</span>
+                    <strong className="text-ink group-hover:text-brand-primary block font-sans text-sm transition-colors">Giải Giao Hữu Golf CEO Cup Mùa Thu</strong>
+                    <span className="text-ink-secondary">Sân Golf Long Biên, Hà Nội • 24/10/2026</span>
                   </div>
-                  <span className="bg-red-50 text-[#eb1000] border border-red-200 px-3 py-1 rounded-full font-bold group-hover:bg-[#eb1000] group-hover:text-white transition-colors">
+                  <span className="bg-red-50 text-brand-primary border border-red-200 px-3 py-1 rounded-full font-semibold group-hover:bg-brand-primary group-hover:text-white transition-colors">
                     Đăng ký tham dự →
                   </span>
                 </div>
                 <div 
                   onClick={() => navigateTo('event-detail', { eventId: 'event-club-fieldtrip' })}
-                  className="p-4 border border-neutral-200 hover:border-[#eb1000] bg-white rounded-lg shadow-xs flex items-center justify-between cursor-pointer transition-colors group"
+                  className="p-4 border border-hairline hover:border-brand-primary bg-white rounded-lg shadow-xs flex items-center justify-between cursor-pointer transition-colors group"
                 >
                   <div>
-                    <strong className="text-black group-hover:text-[#eb1000] block font-sans text-sm transition-colors">Chuyến Thăm Thực Địa Nhà Máy Công Nghệ Cao</strong>
-                    <span className="text-neutral-500">KCN Quế Võ, Bắc Ninh • 14/11/2026</span>
+                    <strong className="text-ink group-hover:text-brand-primary block font-sans text-sm transition-colors">Chuyến Thăm Thực Địa Nhà Máy Công Nghệ Cao</strong>
+                    <span className="text-ink-secondary">KCN Quế Võ, Bắc Ninh • 14/11/2026</span>
                   </div>
-                  <span className="bg-red-50 text-[#eb1000] border border-red-200 px-3 py-1 rounded-full font-bold group-hover:bg-[#eb1000] group-hover:text-white transition-colors">
+                  <span className="bg-red-50 text-brand-primary border border-red-200 px-3 py-1 rounded-full font-semibold group-hover:bg-brand-primary group-hover:text-white transition-colors">
                     Đăng ký tham dự →
                   </span>
                 </div>
@@ -398,9 +398,9 @@ export const ActivityDetailPage: React.FC = () => {
 
           {/* Block: Sự kiện đã và sắp diễn ra (nếu có sự kiện liên quan) */}
           {activity.hasEvents && relatedEvents.length > 0 && (
-            <div className="border-t border-neutral-200 pt-8 space-y-6">
+            <div className="border-t border-hairline pt-8 space-y-6">
               <div className="flex items-center justify-between">
-                <h3 className="text-xl font-black text-black">
+                <h3 className="text-xl font-semibold text-ink">
                   Sự Kiện Thuộc Hoạt Động Này
                 </h3>
                 <CustomButton
@@ -421,8 +421,8 @@ export const ActivityDetailPage: React.FC = () => {
           )}
 
           {/* Block: Tư liệu liên quan (Gallery placeholder) */}
-          <div className="border-t border-neutral-200 pt-8 space-y-4">
-            <h3 className="text-xl font-black text-black">
+          <div className="border-t border-hairline pt-8 space-y-4">
+            <h3 className="text-xl font-semibold text-ink">
               Tư Liệu & Thư Viện Hình Ảnh
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -435,42 +435,42 @@ export const ActivityDetailPage: React.FC = () => {
 
         {/* Right Column: 4 Cols Sticky Sidebar (Quick Info & Main Action) */}
         <div className="lg:col-span-4 space-y-6 sticky top-24">
-          <div className="border border-neutral-200 bg-white rounded-lg p-6 space-y-6 shadow-xs">
+          <div className="border border-hairline bg-white rounded-lg p-6 space-y-6 shadow-xs">
             <div className="space-y-2 pb-4 border-b border-neutral-100">
-              <span className="text-[11px] uppercase font-bold text-[#eb1000] bg-red-50 px-2.5 py-0.5 rounded-full border border-red-200 inline-block">
+              <span className="text-[11px] uppercase font-semibold text-brand-primary bg-red-50 px-2.5 py-0.5 rounded-full border border-red-200 inline-block">
                 Thông Tin Tóm Tắt
               </span>
-              <h3 className="text-lg font-black text-black">{activity.title}</h3>
-              <p className="text-xs text-neutral-600">{activity.shortDesc}</p>
+              <h3 className="text-lg font-semibold text-ink">{activity.title}</h3>
+              <p className="text-xs text-ink-secondary">{activity.shortDesc}</p>
             </div>
 
             <div className="space-y-3 text-xs">
               <div>
-                <span className="text-neutral-500 block">Đơn vị chủ trì:</span>
-                <strong className="text-black font-sans">Viện VLGM & Học viện PTIT</strong>
+                <span className="text-ink-secondary block">Đơn vị chủ trì:</span>
+                <strong className="text-ink font-sans">Viện VLGM & Học viện PTIT</strong>
               </div>
               <div>
-                <span className="text-neutral-500 block">Tần suất:</span>
-                <strong className="text-black">{activity.frequency}</strong>
+                <span className="text-ink-secondary block">Tần suất:</span>
+                <strong className="text-ink">{activity.frequency}</strong>
               </div>
               <div>
-                <span className="text-neutral-500 block">Hình thức tham gia:</span>
-                <strong className="text-black">Dành riêng cho Hội viên VCF</strong>
+                <span className="text-ink-secondary block">Hình thức tham gia:</span>
+                <strong className="text-ink">Dành riêng cho Hội viên VCF</strong>
               </div>
             </div>
 
             {isLoggedIn ? (
               targetEvent && (
                 <div className="pt-4 border-t border-neutral-100 space-y-3">
-                  <div className="text-[11px] font-bold text-neutral-500 uppercase tracking-wide">
+                  <div className="text-[11px] font-semibold text-ink-secondary uppercase tracking-wide">
                     Sự kiện thuộc hoạt động:
                   </div>
-                  <div className="p-3.5 bg-neutral-50 rounded-lg border border-neutral-200 space-y-2.5">
-                    <div className="font-bold text-xs text-black line-clamp-2 leading-snug">
+                  <div className="p-3.5 bg-parchment rounded-lg border border-hairline space-y-2.5">
+                    <div className="font-semibold text-xs text-ink line-clamp-2 leading-snug">
                       {targetEvent.title}
                     </div>
-                    <div className="text-[11px] text-neutral-600 flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-[#eb1000] shrink-0" />
+                    <div className="text-[11px] text-ink-secondary flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-brand-primary shrink-0" />
                       <span className="truncate">{targetEvent.datetime}</span>
                     </div>
                     <CustomButton
@@ -508,8 +508,8 @@ export const ActivityDetailPage: React.FC = () => {
           </div>
 
           {/* Quick Contact Box */}
-          <div className="border border-neutral-200 bg-neutral-50 rounded-lg p-4 text-xs text-neutral-600 space-y-2">
-            <div className="font-bold text-black">Ban Thư Ký VCF:</div>
+          <div className="border border-hairline bg-parchment rounded-lg p-4 text-xs text-ink-secondary space-y-2">
+            <div className="font-semibold text-ink">Ban Thư Ký VCF:</div>
             <div>Hotline: (024) 3756 2186</div>
             <div>Email: vcf-secretariat@ptit.edu.vn</div>
           </div>

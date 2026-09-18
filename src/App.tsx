@@ -73,12 +73,13 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-neutral-900 font-sans selection:bg-[#eb1000] selection:text-white">
+    <div className="min-h-screen flex flex-col bg-canvas text-ink font-sans selection:bg-brand-primary selection:text-white">
+      <a className="vcf-skip-link" href="#main-content">Bỏ qua đến nội dung chính</a>
       {/* Main Global Navigation Header (Logo, Nav links, Member CTA) */}
       <Header />
 
       {/* Dynamic Page View */}
-      <main className="flex-1">
+      <main id="main-content" className="flex-1" tabIndex={-1}>
         {renderCurrentPage()}
       </main>
 
@@ -93,9 +94,9 @@ const AppContent: React.FC = () => {
 
       {/* Global Notification Toast */}
       {notificationMessage && (
-        <div className="fixed bottom-5 right-5 z-50 bg-black text-white text-xs font-sans px-5 py-3 rounded-full border border-neutral-800 shadow-xl flex items-center gap-2.5 animate-fadeIn">
-          <span className="w-2 h-2 bg-[#eb1000] rounded-full animate-ping"></span>
-          <span className="font-bold">{notificationMessage}</span>
+        <div role="status" aria-live="polite" className="fixed bottom-5 right-5 z-50 bg-ink text-white text-sm px-5 py-3 rounded-full border border-white/15 flex items-center gap-2.5 animate-fadeIn">
+          <span className="w-2 h-2 bg-brand-primary rounded-full"></span>
+          <span className="font-semibold">{notificationMessage}</span>
         </div>
       )}
     </div>

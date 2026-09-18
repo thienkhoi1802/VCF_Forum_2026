@@ -47,21 +47,21 @@ export const HomePage: React.FC = () => {
 
   const getActivityIcon = (id: ActivityId) => {
     switch (id) {
-      case 'ceo-summit': return <Building2 className="w-5 h-5 text-[#eb1000]" />;
-      case 'ceo-forum': return <Users className="w-5 h-5 text-[#eb1000]" />;
-      case 'ceo-mentoring': return <Target className="w-5 h-5 text-[#eb1000]" />;
-      case 'ceo-peer-group': return <Users className="w-5 h-5 text-[#eb1000]" />;
-      case 'lgm-school': return <GraduationCap className="w-5 h-5 text-[#eb1000]" />;
-      case 'knowledge-publication': return <BookOpen className="w-5 h-5 text-[#eb1000]" />;
-      case 'website-app': return <Globe className="w-5 h-5 text-[#eb1000]" />;
-      case 'ceo-talk': return <Video className="w-5 h-5 text-[#eb1000]" />;
-      case 'ceo-club': return <Award className="w-5 h-5 text-[#eb1000]" />;
-      default: return <Sparkles className="w-5 h-5 text-[#eb1000]" />;
+      case 'ceo-summit': return <Building2 className="w-5 h-5 text-brand-primary" />;
+      case 'ceo-forum': return <Users className="w-5 h-5 text-brand-primary" />;
+      case 'ceo-mentoring': return <Target className="w-5 h-5 text-brand-primary" />;
+      case 'ceo-peer-group': return <Users className="w-5 h-5 text-brand-primary" />;
+      case 'lgm-school': return <GraduationCap className="w-5 h-5 text-brand-primary" />;
+      case 'knowledge-publication': return <BookOpen className="w-5 h-5 text-brand-primary" />;
+      case 'website-app': return <Globe className="w-5 h-5 text-brand-primary" />;
+      case 'ceo-talk': return <Video className="w-5 h-5 text-brand-primary" />;
+      case 'ceo-club': return <Award className="w-5 h-5 text-brand-primary" />;
+      default: return <Sparkles className="w-5 h-5 text-brand-primary" />;
     }
   };
 
   return (
-    <div className="space-y-16 sm:space-y-20 pb-20 font-sans">
+    <div className="pb-0 font-sans">
       {/* =========================================================================
           BLOCK 2: HERO BANNER (DẠNG SLIDE WAN-IFRA THEO YÊU CẦU NGƯỜI DÙNG)
           Tham chiếu: https://wan-ifra.org/
@@ -81,7 +81,8 @@ export const HomePage: React.FC = () => {
           BLOCK 3: BÀI VIẾT TRI THỨC NỔI BẬT (Chỉ hiện Thumb + Title + Subfolder)
           ========================================================================= */}
       {!isEmpty && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="vcf-section">
+          <div className="vcf-container">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
             <div>
               {showSpecAnnotations && (
@@ -90,10 +91,10 @@ export const HomePage: React.FC = () => {
                   <SpecBadge label="Chỉ hiện Thumb + Title + Subfolder" type="source" />
                 </div>
               )}
-              <h2 className="text-2xl sm:text-3xl font-black text-black tracking-tight">
+              <h2 className="vcf-section-title">
                 Bài Viết Tri Thức Nổi Bật
               </h2>
-              <p className="text-sm text-neutral-500 font-normal mt-1">
+              <p className="vcf-lead mt-2">
                 Tri thức lãnh đạo, quản trị thực chiến và góc nhìn vĩ mô từ Hội đồng Cố vấn & chuyên gia
               </p>
             </div>
@@ -117,6 +118,7 @@ export const HomePage: React.FC = () => {
               ))}
             </div>
           )}
+          </div>
         </section>
       )}
 
@@ -126,8 +128,8 @@ export const HomePage: React.FC = () => {
           Data: Động — module Sự kiện, lọc sắp diễn ra, sort ngày gần nhất
           State: S-EMPTY -> hiện message "Chưa có sự kiện nào sắp diễn ra, quay lại sau" · S-LOADING
           ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="border-t border-neutral-200 pt-10">
+      <section className="vcf-section bg-parchment">
+        <div className="vcf-container">
           <div className="mb-8">
             {showSpecAnnotations && (
               <div className="flex items-center gap-2 mb-1">
@@ -135,10 +137,10 @@ export const HomePage: React.FC = () => {
                 <SpecBadge label="Data: Module Sự kiện (lọc sắp diễn ra, sort ngày gần nhất)" type="source" />
               </div>
             )}
-            <h2 className="text-2xl sm:text-3xl font-black text-black tracking-tight">
+            <h2 className="vcf-section-title">
               Sự Kiện Sắp Diễn Ra
             </h2>
-            <p className="text-sm text-neutral-500 font-normal mt-1">
+            <p className="vcf-lead mt-2">
               Các phiên hội nghị thượng đỉnh, tọa đàm bàn tròn chuyên đề và sinh hoạt hội viên đang mở đăng ký
             </p>
           </div>
@@ -147,9 +149,9 @@ export const HomePage: React.FC = () => {
           {isLoading ? (
             <SkeletonLoader variant="card" count={3} />
           ) : isEmpty ? (
-            <div className="border border-neutral-200 bg-white rounded-lg p-12 text-center space-y-3 shadow-xs">
-              <div className="font-black text-base text-black">[S-EMPTY] Chưa có sự kiện nào sắp diễn ra, quay lại sau</div>
-              <p className="text-xs text-neutral-500 max-w-md mx-auto">
+            <div className="vcf-surface p-12 text-center space-y-3">
+              <div className="font-semibold text-base text-ink">[S-EMPTY] Chưa có sự kiện nào sắp diễn ra, quay lại sau</div>
+              <p className="text-xs text-ink-secondary max-w-md mx-auto">
                 Hiện tại Ban tổ chức đang hoàn thiện nội dung cho các chương trình quý tiếp theo. Vui lòng quay lại sau hoặc đăng ký thành viên để nhận thông báo sớm.
               </p>
             </div>
@@ -167,7 +169,7 @@ export const HomePage: React.FC = () => {
                   variant="secondary"
                   size="lg"
                   onClick={() => navigateTo('events')}
-                  className="w-full sm:w-auto px-8 py-3 rounded-full border-neutral-300 hover:border-black text-sm font-bold shadow-xs"
+                  className="w-full sm:w-auto px-8 py-3 rounded-full border-neutral-300 hover:border-black text-sm font-semibold shadow-xs"
                 >
                   Xem tất cả lịch sự kiện →
                 </CustomButton>
@@ -183,8 +185,8 @@ export const HomePage: React.FC = () => {
           Nội dung: H2 "Hoạt động của Diễn đàn CEO Việt Nam" + grid ĐỦ 9 Activity Card
           Data: Tĩnh — cố định 9 mục, mỗi card dẫn tới trang chi tiết hoạt động (02-hoat-dong-vcf.md)
           ========================================================================= */}
-      <section id="activities-hub" className="bg-neutral-50 py-14 border-y border-neutral-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="activities-hub" className="vcf-section bg-white">
+        <div className="vcf-container">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
             <div>
               {showSpecAnnotations && (
@@ -193,10 +195,10 @@ export const HomePage: React.FC = () => {
                   <SpecBadge label="Grid đủ 9 Activity Card • Dữ liệu tĩnh cố định" type="source" />
                 </div>
               )}
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-black tracking-tight">
+              <h2 className="vcf-section-title">
                 Hoạt Động Của Diễn Đàn CEO Việt Nam
               </h2>
-              <p className="text-sm sm:text-base text-neutral-500 font-normal mt-1.5">
+              <p className="vcf-lead mt-2">
                 9 trụ cột hoạt động đồng bộ từ hội nghị thượng đỉnh, cố vấn 1-1 tới đào tạo và sinh hoạt định kỳ
               </p>
             </div>
@@ -216,33 +218,33 @@ export const HomePage: React.FC = () => {
               <div
                 key={act.id}
                 onClick={() => navigateTo('activity-detail', { activityId: act.id })}
-                className="bg-white border border-neutral-200 hover:border-[#eb1000] p-5 rounded-xl shadow-2xs hover:shadow-xs transition-all duration-150 cursor-pointer group flex flex-col justify-between"
+                className="vcf-card p-5 cursor-pointer group flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <div className="w-9 h-9 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center shrink-0 group-hover:bg-[#eb1000] transition-colors">
+                    <div className="w-9 h-9 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center shrink-0 group-hover:bg-brand-primary transition-colors">
                       <span className="group-hover:text-white transition-colors">
                         {getActivityIcon(act.id)}
                       </span>
                     </div>
-                    <span className="text-[11px] font-semibold text-neutral-500 bg-neutral-100 px-2.5 py-0.5 rounded-md">
+                    <span className="text-[11px] font-semibold text-ink-secondary bg-neutral-100 px-2.5 py-0.5 rounded-md">
                       {act.frequency.split('(')[0].trim()}
                     </span>
                   </div>
 
-                  <h3 className="font-black text-base sm:text-lg text-black group-hover:text-[#eb1000] transition-colors flex items-center gap-2">
+                  <h3 className="font-semibold text-lg text-ink group-hover:text-brand-primary transition-colors flex items-center gap-2">
                     <span>{act.title}</span>
-                    <ArrowUpRight className="w-4 h-4 text-neutral-400 group-hover:text-[#eb1000] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
+                    <ArrowUpRight className="w-4 h-4 text-neutral-400 group-hover:text-brand-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-neutral-600 line-clamp-2 mt-1.5 leading-relaxed font-normal">
+                  <p className="text-sm text-ink-secondary line-clamp-2 mt-2 leading-relaxed">
                     {act.shortDesc}
                   </p>
                 </div>
 
                 <div className="mt-4 pt-3 border-t border-neutral-100 flex items-center justify-between text-xs text-neutral-400">
                   <span>Chi tiết hoạt động</span>
-                  <span className="text-[#eb1000] font-semibold group-hover:underline">Khám phá →</span>
+                  <span className="text-brand-primary font-semibold group-hover:underline">Khám phá →</span>
                 </div>
               </div>
             ))}
@@ -255,7 +257,8 @@ export const HomePage: React.FC = () => {
           Tham chiếu: 01-trang-chu.md (Mục 6)
           H2 + 2-3 Program Card + CTA "Xem chương trình đào tạo"
           ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="vcf-section bg-parchment">
+        <div className="vcf-container">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
           <div>
             {showSpecAnnotations && (
@@ -264,10 +267,10 @@ export const HomePage: React.FC = () => {
                 <SpecBadge label="2-3 Program Card • CTA dẫn tới /dao-tao" type="source" />
               </div>
             )}
-            <h2 className="text-2xl sm:text-3xl font-black text-black tracking-tight">
+            <h2 className="vcf-section-title">
               Chương Trình Đào Tạo CEO
             </h2>
-            <p className="text-sm text-neutral-500 font-normal mt-1">
+            <p className="vcf-lead mt-2">
               Các khóa bồi dưỡng chuyên sâu do Hội đồng Chuyên gia VLGM và Học viện PTIT đồng thiết kế
             </p>
           </div>
@@ -285,9 +288,9 @@ export const HomePage: React.FC = () => {
         {isLoading ? (
           <SkeletonLoader variant="card" count={2} />
         ) : isEmpty ? (
-          <div className="border border-neutral-200 bg-white rounded-lg p-12 text-center space-y-3 shadow-xs">
-            <div className="font-black text-base text-black">[S-EMPTY] Hiện chưa có khóa đào tạo mở tuyển sinh</div>
-            <p className="text-xs text-neutral-500 max-w-md mx-auto">
+          <div className="vcf-surface p-12 text-center space-y-3">
+            <div className="font-semibold text-base text-ink">[S-EMPTY] Hiện chưa có khóa đào tạo mở tuyển sinh</div>
+            <p className="text-xs text-ink-secondary max-w-md mx-auto">
               Ban tổ chức VLGM - PTIT đang chuẩn bị khung chương trình khóa mới. Quý CEO quan tâm có thể để lại thông tin để nhận thông báo sớm.
             </p>
           </div>
@@ -298,6 +301,7 @@ export const HomePage: React.FC = () => {
             ))}
           </div>
         )}
+        </div>
       </section>
 
       {/* =========================================================================
@@ -305,8 +309,8 @@ export const HomePage: React.FC = () => {
           Tham chiếu: 01-trang-chu.md (Mục 7)
           Nhắc lại "Đăng ký thành viên" trước footer, cùng hành vi CTA như Hero
           ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-black text-white p-8 md:p-12 border border-neutral-800 flex flex-col md:flex-row items-center justify-between gap-8 rounded-lg shadow-sm">
+      <section className="vcf-section bg-surface-dark text-white">
+        <div className="vcf-container flex flex-col md:flex-row items-center justify-between gap-10">
           <div className="space-y-3 max-w-2xl">
             {showSpecAnnotations && (
               <div className="flex items-center gap-2 mb-1">
@@ -314,10 +318,10 @@ export const HomePage: React.FC = () => {
                 <SpecBadge label="Nhắc lại Đăng ký thành viên (PRD ≥ 2 lần) • Đồng bộ trạng thái" type="source" />
               </div>
             )}
-            <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
+            <h3 className="text-3xl sm:text-4xl font-semibold tracking-[-0.03em] text-white">
               Gia Nhập Cộng Đồng Diễn Đàn CEO Việt Nam
             </h3>
-            <p className="text-sm text-neutral-300 leading-relaxed font-normal">
+            <p className="text-base text-white/68 leading-relaxed">
               Trở thành hội viên chính thức để tiếp cận trọn vẹn 9 hoạt động đặc quyền, tham gia mạng lưới cố vấn 1-1 và thụ hưởng kho tri thức quản trị chuyên sâu.
             </p>
           </div>
@@ -327,7 +331,7 @@ export const HomePage: React.FC = () => {
               variant="primary"
               size="lg"
               onClick={() => navigateTo(isUserLoggedIn ? 'profile' : 'register-member')}
-              className="bg-[#eb1000] text-white hover:bg-[#c90d00]"
+              className="bg-brand-primary text-white hover:bg-brand-primary-hover"
             >
               {isUserLoggedIn ? 'Xem hồ sơ của bạn →' : 'Đăng ký thành viên ngay'}
             </CustomButton>

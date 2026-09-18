@@ -4,22 +4,22 @@ import { CustomButton } from './CustomButton';
 import { SpecBadge } from '../wireframe/SpecBadge';
 import { MOCK_ACTIVITIES } from '../../data/mockData';
 import { ActivityId } from '../../types';
-import { 
-  Building2, 
-  Briefcase, 
-  Layers, 
-  Users, 
-  CheckSquare, 
-  HelpCircle, 
+import {
+  Building2,
+  Briefcase,
+  Layers,
+  Users,
+  CheckSquare,
+  HelpCircle,
   MessageSquare,
   Sparkles,
   X
 } from 'lucide-react';
 
 export const ProgressiveProfileModal: React.FC = () => {
-  const { 
-    currentUser, 
-    progressiveProfileOpen, 
+  const {
+    currentUser,
+    progressiveProfileOpen,
     closeProgressiveProfile,
     handleSkipProgressiveProfile,
     handleCompleteProgressiveProfile,
@@ -43,7 +43,7 @@ export const ProgressiveProfileModal: React.FC = () => {
   if (!progressiveProfileOpen) return null;
 
   const toggleActivity = (id: ActivityId) => {
-    setInterestedActivities(prev => 
+    setInterestedActivities(prev =>
       prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
     );
   };
@@ -77,26 +77,26 @@ export const ProgressiveProfileModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6 animate-fadeIn font-sans">
-      <div className="bg-white rounded-xl shadow-2xl border border-neutral-200 max-w-xl w-full overflow-hidden my-8 transform transition-all">
+      <div className="bg-white rounded-xl shadow-2xl border border-hairline max-w-xl w-full overflow-hidden my-8 transform transition-all">
         {/* Modal Header */}
-        <div className="px-6 py-5 border-b border-neutral-100 flex items-start justify-between bg-neutral-50/70">
+        <div className="px-6 py-5 border-b border-neutral-100 flex items-start justify-between bg-parchment/70">
           <div>
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#eb1000]" />
-              <span className="text-[11px] font-bold uppercase tracking-wider text-[#eb1000]">
+              <span className="w-2 h-2 rounded-full bg-brand-primary" />
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-brand-primary">
                 Tiếp tục thao tác
               </span>
             </div>
-            <h3 className="text-xl font-black text-black mt-1">
+            <h3 className="text-xl font-semibold text-ink mt-1">
               Hoàn thiện hồ sơ để tiếp tục
             </h3>
-            <p className="text-xs text-neutral-500 mt-0.5">
+            <p className="text-xs text-ink-secondary mt-0.5">
               Bổ sung thông tin doanh nghiệp để Ban thư ký hỗ trợ kết nối đúng lãnh đạo cùng ngành
             </p>
           </div>
           <button
             onClick={handleSkipProgressiveProfile}
-            className="p-1.5 text-neutral-400 hover:text-black rounded-full hover:bg-neutral-100 transition-colors"
+            className="p-1.5 text-neutral-400 hover:text-ink rounded-full hover:bg-neutral-100 transition-colors"
             title="Đóng để sau"
           >
             <X className="w-5 h-5" />
@@ -115,34 +115,34 @@ export const ProgressiveProfileModal: React.FC = () => {
           {/* Row 1: Chức danh & Doanh nghiệp */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-neutral-700 mb-1 flex items-center gap-1.5">
+              <label className="block text-xs font-semibold text-neutral-700 mb-1 flex items-center gap-1.5">
                 <Briefcase className="w-3.5 h-3.5 text-neutral-400" />
-                Chức danh điều hành <span className="text-[#eb1000]">*</span>
+                Chức danh điều hành <span className="text-brand-primary">*</span>
               </label>
               <input
                 type="text"
                 value={jobTitle}
                 onChange={e => setJobTitle(e.target.value)}
                 placeholder="VD: Chủ tịch HĐQT, Tổng Giám đốc..."
-                className={`w-full px-3.5 py-2.5 text-xs bg-neutral-50 border rounded-lg focus:bg-white focus:outline-none focus:border-[#eb1000] ${
-                  errors.jobTitle ? 'border-red-500 bg-red-50/30' : 'border-neutral-200'
+                className={`w-full px-3.5 py-2.5 text-xs bg-parchment border rounded-lg focus:bg-white focus:outline-none focus:border-brand-primary ${
+                  errors.jobTitle ? 'border-red-500 bg-red-50/30' : 'border-hairline'
                 }`}
               />
               {errors.jobTitle && <p className="text-[10px] text-red-600 mt-1">{errors.jobTitle}</p>}
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-neutral-700 mb-1 flex items-center gap-1.5">
+              <label className="block text-xs font-semibold text-neutral-700 mb-1 flex items-center gap-1.5">
                 <Building2 className="w-3.5 h-3.5 text-neutral-400" />
-                Doanh nghiệp / Tổ chức <span className="text-[#eb1000]">*</span>
+                Doanh nghiệp / Tổ chức <span className="text-brand-primary">*</span>
               </label>
               <input
                 type="text"
                 value={companyName}
                 onChange={e => setCompanyName(e.target.value)}
                 placeholder="VD: Tập đoàn Công nghệ VinaTech..."
-                className={`w-full px-3.5 py-2.5 text-xs bg-neutral-50 border rounded-lg focus:bg-white focus:outline-none focus:border-[#eb1000] ${
-                  errors.companyName ? 'border-red-500 bg-red-50/30' : 'border-neutral-200'
+                className={`w-full px-3.5 py-2.5 text-xs bg-parchment border rounded-lg focus:bg-white focus:outline-none focus:border-brand-primary ${
+                  errors.companyName ? 'border-red-500 bg-red-50/30' : 'border-hairline'
                 }`}
               />
               {errors.companyName && <p className="text-[10px] text-red-600 mt-1">{errors.companyName}</p>}
@@ -152,7 +152,7 @@ export const ProgressiveProfileModal: React.FC = () => {
           {/* Row 2: Lĩnh vực & Quy mô (Free Text) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-neutral-700 mb-1 flex items-center gap-1.5">
+              <label className="block text-xs font-semibold text-neutral-700 mb-1 flex items-center gap-1.5">
                 <Layers className="w-3.5 h-3.5 text-neutral-400" />
                 Lĩnh vực hoạt động chính
               </label>
@@ -161,12 +161,12 @@ export const ProgressiveProfileModal: React.FC = () => {
                 value={industry}
                 onChange={e => setIndustry(e.target.value)}
                 placeholder="VD: Sản xuất công nghiệp, CNTT, Bán lẻ..."
-                className="w-full px-3.5 py-2.5 text-xs bg-neutral-50 border border-neutral-200 rounded-lg focus:bg-white focus:outline-none focus:border-[#eb1000]"
+                className="w-full px-3.5 py-2.5 text-xs bg-parchment border border-hairline rounded-lg focus:bg-white focus:outline-none focus:border-brand-primary"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-neutral-700 mb-1 flex items-center gap-1.5">
+              <label className="block text-xs font-semibold text-neutral-700 mb-1 flex items-center gap-1.5">
                 <Users className="w-3.5 h-3.5 text-neutral-400" />
                 Quy mô doanh nghiệp (Free text)
               </label>
@@ -175,14 +175,14 @@ export const ProgressiveProfileModal: React.FC = () => {
                 value={companySize}
                 onChange={e => setCompanySize(e.target.value)}
                 placeholder="VD: 150 nhân sự, Doanh thu ~120 tỷ/năm"
-                className="w-full px-3.5 py-2.5 text-xs bg-neutral-50 border border-neutral-200 rounded-lg focus:bg-white focus:outline-none focus:border-[#eb1000]"
+                className="w-full px-3.5 py-2.5 text-xs bg-parchment border border-hairline rounded-lg focus:bg-white focus:outline-none focus:border-brand-primary"
               />
             </div>
           </div>
 
           {/* Row 3: Hoạt động quan tâm (multi-select) */}
           <div>
-            <label className="block text-xs font-bold text-neutral-700 mb-2 flex items-center gap-1.5">
+            <label className="block text-xs font-semibold text-neutral-700 mb-2 flex items-center gap-1.5">
               <CheckSquare className="w-3.5 h-3.5 text-neutral-400" />
               Hoạt động VCF quan tâm (Chọn nhiều)
             </label>
@@ -195,9 +195,9 @@ export const ProgressiveProfileModal: React.FC = () => {
                     type="button"
                     onClick={() => toggleActivity(act.id)}
                     className={`text-left p-2 rounded-lg border text-[11px] font-medium transition-all ${
-                      checked 
-                        ? 'border-[#eb1000] bg-red-50/50 text-black font-semibold' 
-                        : 'border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300'
+                      checked
+                        ? 'border-brand-primary bg-red-50/50 text-ink font-semibold'
+                        : 'border-hairline bg-white text-ink-secondary hover:border-neutral-300'
                     }`}
                   >
                     <span className="line-clamp-1">{act.title}</span>
@@ -209,7 +209,7 @@ export const ProgressiveProfileModal: React.FC = () => {
 
           {/* Row 4: Nguồn biết đến */}
           <div>
-            <label className="block text-xs font-bold text-neutral-700 mb-1 flex items-center gap-1.5">
+            <label className="block text-xs font-semibold text-neutral-700 mb-1 flex items-center gap-1.5">
               <HelpCircle className="w-3.5 h-3.5 text-neutral-400" />
               Nguồn biết đến VCF (Tùy chọn)
             </label>
@@ -218,13 +218,13 @@ export const ProgressiveProfileModal: React.FC = () => {
               value={leadSource}
               onChange={e => setLeadSource(e.target.value)}
               placeholder="VD: Được giới thiệu bởi Hội viên, Báo chí, Sự kiện..."
-              className="w-full px-3.5 py-2.5 text-xs bg-neutral-50 border border-neutral-200 rounded-lg focus:bg-white focus:outline-none focus:border-[#eb1000]"
+              className="w-full px-3.5 py-2.5 text-xs bg-parchment border border-hairline rounded-lg focus:bg-white focus:outline-none focus:border-brand-primary"
             />
           </div>
 
           {/* Row 5: Mô tả vấn đề & Câu hỏi mentor */}
           <div>
-            <label className="block text-xs font-bold text-neutral-700 mb-1 flex items-center gap-1.5">
+            <label className="block text-xs font-semibold text-neutral-700 mb-1 flex items-center gap-1.5">
               <MessageSquare className="w-3.5 h-3.5 text-neutral-400" />
               Thách thức / Vấn đề quản trị quan tâm nhất
             </label>
@@ -233,7 +233,7 @@ export const ProgressiveProfileModal: React.FC = () => {
               value={businessPainPoints}
               onChange={e => setBusinessPainPoints(e.target.value)}
               placeholder="VD: Tái cấu trúc vốn, quản trị chất lượng, tự động hóa chuỗi cung ứng..."
-              className="w-full px-3.5 py-2 text-xs bg-neutral-50 border border-neutral-200 rounded-lg focus:bg-white focus:outline-none focus:border-[#eb1000]"
+              className="w-full px-3.5 py-2 text-xs bg-parchment border border-hairline rounded-lg focus:bg-white focus:outline-none focus:border-brand-primary"
             />
           </div>
 
@@ -242,7 +242,7 @@ export const ProgressiveProfileModal: React.FC = () => {
             <button
               type="button"
               onClick={handleSkipProgressiveProfile}
-              className="px-5 py-2.5 text-xs font-bold text-neutral-600 hover:text-black rounded-full border border-neutral-200 hover:bg-neutral-50 transition-colors"
+              className="px-5 py-2.5 text-xs font-semibold text-ink-secondary hover:text-ink rounded-full border border-hairline hover:bg-parchment transition-colors"
             >
               Để sau (Tiếp tục ngay)
             </button>

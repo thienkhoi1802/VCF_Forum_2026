@@ -21,16 +21,19 @@ export const EventRegistrationSuccessModal: React.FC<EventRegistrationSuccessMod
 
   const isOpen = propIsOpen !== undefined ? propIsOpen : eventSuccessModal.isOpen;
   const onClose = propOnClose || closeEventSuccessModal;
-  const email = propEmail || eventSuccessModal.email || 'duc.pham@vinasteel.com.vn';
+  const email = propEmail || eventSuccessModal.email || 'email@example.com';
   const isWaitlist = propIsWaitlist !== undefined ? propIsWaitlist : eventSuccessModal.isWaitlist;
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/60 backdrop-blur-xs animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/60 backdrop-blur-sm animate-fadeIn">
       {/* Modal Dialog Card */}
-      <div 
-        className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl p-6 sm:p-7 space-y-4 border border-neutral-200/80 my-auto animate-fadeIn"
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="registration-result-title"
+        className="relative w-full max-w-lg bg-white rounded-lg shadow-2xl p-6 sm:p-7 space-y-4 border border-hairline/80 my-auto animate-fadeIn"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button Top-Right */}
@@ -54,10 +57,10 @@ export const EventRegistrationSuccessModal: React.FC<EventRegistrationSuccessMod
               <Clock className="w-6 h-6 stroke-[2.2]" />
             </div>
             <div>
-              <span className="bg-[#fef08a] text-[#854d0e] font-extrabold text-[11px] uppercase tracking-wider px-2.5 py-1 rounded-md inline-block">
+              <span className="bg-[#fef08a] text-[#854d0e] font-semibold text-[11px] uppercase tracking-wider px-2.5 py-1 rounded-md inline-block">
                 TRẠNG THÁI HỒ SƠ
               </span>
-              <h3 className="text-lg sm:text-xl font-black text-[#451a03] mt-1 tracking-tight">
+              <h3 id="registration-result-title" className="text-lg sm:text-xl font-semibold text-[#451a03] mt-1 tracking-tight">
                 {isWaitlist ? 'Đang Trong Danh Sách Chờ' : 'Đang Chờ Ban Thư Ký Duyệt'}
               </h3>
             </div>
@@ -71,7 +74,7 @@ export const EventRegistrationSuccessModal: React.FC<EventRegistrationSuccessMod
               </p>
             ) : (
               <p>
-                Yêu cầu tham dự của quý vị đang được Ban Thư ký VCF xem xét và xác minh tư cách đại biểu. Khi được phê duyệt, hệ thống sẽ gửi email xác nhận kèm <strong className="font-black text-[#451a03]">Mã QR Check-in</strong> chính thức vào khán phòng.
+                Yêu cầu tham dự của quý vị đang được Ban Thư ký VCF xem xét và xác minh tư cách đại biểu. Khi được phê duyệt, hệ thống sẽ gửi email xác nhận kèm <strong className="font-semibold text-[#451a03]">Mã QR Check-in</strong> chính thức vào khán phòng.
               </p>
             )}
           </div>
@@ -80,7 +83,7 @@ export const EventRegistrationSuccessModal: React.FC<EventRegistrationSuccessMod
           <div className="bg-[#fef9c3] rounded-xl p-3.5 border border-[#fef08a] flex items-center gap-3 text-[12.5px] sm:text-[13px] text-[#713f12]">
             <AlertCircle className="w-5 h-5 text-[#b45309] shrink-0" />
             <p className="leading-snug">
-              <strong className="font-black text-[#451a03]">Lưu ý:</strong> Mã QR Check-in sẽ được cấp tự động tại mục này ngay khi Ban Thư ký phê duyệt.
+              <strong className="font-semibold text-[#451a03]">Lưu ý:</strong> Mã QR Check-in sẽ được cấp tự động tại mục này ngay khi Ban Thư ký phê duyệt.
             </p>
           </div>
         </div>
@@ -94,17 +97,17 @@ export const EventRegistrationSuccessModal: React.FC<EventRegistrationSuccessMod
               <Mail className="w-5 h-5 stroke-[2.2]" />
             </div>
             <div>
-              <span className="text-[11px] font-black uppercase tracking-wider text-[#1d4ed8] block">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-[#1d4ed8] block">
                 THÔNG BÁO TỪ BAN THƯ KÝ
               </span>
-              <h4 className="text-[15px] sm:text-base font-black text-[#1e3a8a] tracking-tight">
+              <h4 className="text-[15px] sm:text-base font-semibold text-[#1e3a8a] tracking-tight">
                 Vui lòng kiểm tra email thông tin đăng ký
               </h4>
             </div>
           </div>
 
           <p className="text-[13px] sm:text-[13.5px] text-[#334155] leading-relaxed pt-0.5">
-            Hệ thống đã gửi biên nhận xác nhận tiếp nhận đăng ký tới địa chỉ: <strong className="font-bold text-black font-mono">{email}</strong>. Quý vị vui lòng mở hòm thư Inbox hoặc Spam để kiểm tra.
+            Hệ thống đã gửi biên nhận xác nhận tiếp nhận đăng ký tới địa chỉ: <strong className="font-semibold text-ink font-mono">{email}</strong>. Quý vị vui lòng mở hòm thư Inbox hoặc Spam để kiểm tra.
           </p>
         </div>
 
@@ -116,14 +119,14 @@ export const EventRegistrationSuccessModal: React.FC<EventRegistrationSuccessMod
               onClose();
               navigateTo('profile');
             }}
-            className="w-full sm:w-auto px-5 py-2.5 text-xs sm:text-sm font-bold text-neutral-700 bg-neutral-100 hover:bg-neutral-200 rounded-xl transition-colors cursor-pointer text-center"
+            className="w-full sm:w-auto px-5 py-2.5 text-xs sm:text-sm font-semibold text-neutral-700 bg-neutral-100 hover:bg-neutral-200 rounded-xl transition-colors cursor-pointer text-center"
           >
             Xem trong Hồ sơ của tôi
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="w-full sm:w-auto px-6 py-2.5 text-xs sm:text-sm font-bold text-white bg-[#eb1000] hover:bg-[#c90d00] rounded-xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-1.5"
+            className="w-full sm:w-auto px-6 py-2.5 text-xs sm:text-sm font-semibold text-white bg-brand-primary hover:bg-brand-primary-hover rounded-xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-1.5"
           >
             <CheckCircle2 className="w-4 h-4" />
             <span>Đã hiểu</span>

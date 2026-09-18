@@ -102,22 +102,22 @@ export const KnowledgeHomePage: React.FC = () => {
 
       {/* 2. Header: Title chính: Hệ tri thức LGM -> Bên dưới phân tab (Tất cả / Tác giả Bộ trưởng Nguyễn Mạnh Hùng / Tác giả khác / Tri thức phái sinh) */}
       <div className="space-y-4">
-        <h1 className="text-3xl sm:text-4xl font-black text-black tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
           Hệ tri thức LGM
         </h1>
 
         {/* Navigation Tabs */}
-        <div className="flex items-center gap-2 sm:gap-6 border-b border-neutral-200 overflow-x-auto scrollbar-none">
+        <div className="flex items-center gap-2 sm:gap-6 border-b border-hairline overflow-x-auto scrollbar-none">
           {tabs.map(tab => {
             const isActive = activeTab === tab.key;
             return (
               <button
                 key={tab.key}
                 onClick={() => handleTabChange(tab.key)}
-                className={`pb-3 pt-1 text-sm font-bold whitespace-nowrap transition-all border-b-2 -mb-px shrink-0 ${
+                className={`pb-3 pt-1 text-sm font-semibold whitespace-nowrap transition-all border-b-2 -mb-px shrink-0 ${
                   isActive
-                    ? 'border-[#eb1000] text-[#eb1000]'
-                    : 'border-transparent text-neutral-600 hover:text-black hover:border-neutral-300'
+                    ? 'border-brand-primary text-brand-primary'
+                    : 'border-transparent text-ink-secondary hover:text-ink hover:border-neutral-300'
                 }`}
               >
                 {tab.label}
@@ -130,14 +130,14 @@ export const KnowledgeHomePage: React.FC = () => {
       {isLoading ? (
         <SkeletonLoader variant="card" count={4} />
       ) : isEmpty || filteredArticles.length === 0 ? (
-        <div className="border border-neutral-200 bg-white rounded-xl p-12 text-center space-y-4 shadow-xs">
-          <div className="w-12 h-12 rounded-full bg-red-50 text-[#eb1000] flex items-center justify-center mx-auto font-bold text-lg">
+        <div className="border border-hairline bg-white rounded-xl p-12 text-center space-y-4 shadow-xs">
+          <div className="w-12 h-12 rounded-full bg-red-50 text-brand-primary flex items-center justify-center mx-auto font-semibold text-lg">
             !
           </div>
-          <div className="font-black text-lg text-black">Chưa có bài viết nào trong mục này</div>
+          <div className="font-semibold text-lg text-ink">Chưa có bài viết nào trong mục này</div>
           <button 
             onClick={() => handleTabChange('all')}
-            className="px-5 py-2.5 rounded-lg text-xs font-bold text-white bg-[#eb1000] hover:bg-[#c90d00] transition-colors"
+            className="px-5 py-2.5 rounded-lg text-xs font-semibold text-white bg-brand-primary hover:bg-brand-primary-hover transition-colors"
           >
             Xem tất cả bài viết
           </button>
@@ -154,11 +154,11 @@ export const KnowledgeHomePage: React.FC = () => {
               {leadArticle && (
                 <div 
                   onClick={() => navigateTo('article-detail', { articleId: leadArticle.id })}
-                  className="lg:col-span-7 border border-neutral-200 bg-white rounded-xl overflow-hidden hover:border-[#eb1000] hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group"
+                  className="lg:col-span-7 border border-hairline bg-white rounded-xl overflow-hidden hover:border-brand-primary hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group"
                 >
                   <div className="p-5 sm:p-6 pb-0 space-y-4">
                     {/* 16:9 Visual */}
-                    <div className="relative rounded-lg overflow-hidden border border-neutral-200 aspect-video">
+                    <div className="relative rounded-lg overflow-hidden border border-hairline aspect-video">
                       <WireframeImage
                         label={leadArticle.imagePlaceholder}
                         imageUrl={leadArticle.imageUrl}
@@ -171,24 +171,24 @@ export const KnowledgeHomePage: React.FC = () => {
                     {/* Badge & Headline (No author, date, or read time) */}
                     <div className="space-y-2.5">
                       <div className="flex items-center gap-2">
-                        <span className="text-[#eb1000] font-bold text-xs bg-red-50 px-2.5 py-0.5 rounded-full border border-red-100">
+                        <span className="text-brand-primary font-semibold text-xs bg-red-50 px-2.5 py-0.5 rounded-full border border-red-100">
                           {leadArticle.subCategory || leadArticle.categoryName}
                         </span>
                       </div>
 
-                      <h2 className="text-xl sm:text-2xl font-black text-black leading-tight group-hover:text-[#eb1000] transition-colors">
+                      <h2 className="text-xl sm:text-2xl font-semibold text-ink leading-tight group-hover:text-brand-primary transition-colors">
                         {leadArticle.title}
                       </h2>
 
-                      <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed line-clamp-3">
+                      <p className="text-xs sm:text-sm text-ink-secondary leading-relaxed line-clamp-3">
                         {leadArticle.sapo}
                       </p>
                     </div>
                   </div>
 
                   {/* Clean Action Footer */}
-                  <div className="p-5 sm:p-6 pt-4 mt-4 border-t border-neutral-100 flex items-center justify-end bg-neutral-50/50">
-                    <span className="text-xs font-bold text-[#eb1000] group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                  <div className="p-5 sm:p-6 pt-4 mt-4 border-t border-neutral-100 flex items-center justify-end bg-parchment/50">
+                    <span className="text-xs font-semibold text-brand-primary group-hover:translate-x-1 transition-transform flex items-center gap-1">
                       <span>Đọc toàn văn</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </span>
@@ -202,11 +202,11 @@ export const KnowledgeHomePage: React.FC = () => {
                   <div
                     key={article.id}
                     onClick={() => navigateTo('article-detail', { articleId: article.id })}
-                    className="border border-neutral-200 bg-white rounded-xl p-4 hover:border-[#eb1000] hover:shadow-xs transition-all duration-200 cursor-pointer group flex-1 flex flex-col justify-between"
+                    className="border border-hairline bg-white rounded-xl p-4 hover:border-brand-primary hover:shadow-xs transition-all duration-200 cursor-pointer group flex-1 flex flex-col justify-between"
                   >
                     <div className="flex gap-4 items-start">
                       {/* Thumbnail 16:9 compact */}
-                      <div className="w-28 sm:w-32 aspect-video rounded-lg overflow-hidden border border-neutral-200 shrink-0 relative">
+                      <div className="w-28 sm:w-32 aspect-video rounded-lg overflow-hidden border border-hairline shrink-0 relative">
                         <WireframeImage
                           label={article.imagePlaceholder}
                           imageUrl={article.imageUrl}
@@ -220,20 +220,20 @@ export const KnowledgeHomePage: React.FC = () => {
                       <div className="flex-1 min-w-0 space-y-1.5">
                         {article.subCategory && (
                           <div>
-                            <span className="font-bold text-[#eb1000] bg-red-50 border border-red-100 px-2 py-0.5 rounded-full text-[10px] inline-block">
+                            <span className="font-semibold text-brand-primary bg-red-50 border border-red-100 px-2 py-0.5 rounded-full text-[10px] inline-block">
                               {article.subCategory}
                             </span>
                           </div>
                         )}
 
-                        <h3 className="font-black text-xs sm:text-sm text-black leading-snug line-clamp-2 group-hover:text-[#eb1000] transition-colors">
+                        <h3 className="font-semibold text-xs sm:text-sm text-ink leading-snug line-clamp-2 group-hover:text-brand-primary transition-colors">
                           {article.title}
                         </h3>
                       </div>
                     </div>
 
                     <div className="pt-2 mt-2 border-t border-neutral-100 flex items-center justify-end">
-                      <span className="font-bold text-xs text-[#eb1000] group-hover:text-[#c90d00] flex items-center gap-0.5">
+                      <span className="font-semibold text-xs text-brand-primary group-hover:text-brand-primary-hover flex items-center gap-0.5">
                         <span>Chi tiết</span>
                         <ChevronRight className="w-3 h-3" />
                       </span>
@@ -248,7 +248,7 @@ export const KnowledgeHomePage: React.FC = () => {
               4. 15 BÀI VIẾT CÒN LẠI + PAGE NUMBER PHÂN TRANG (PAGINATED ARTICLE FEED)
               ========================================================================= */}
           {remainingArticles.length > 0 && (
-            <section id="articles-feed" className="space-y-8 pt-6 border-t border-neutral-200 scroll-mt-16">
+            <section id="articles-feed" className="space-y-8 pt-6 border-t border-hairline scroll-mt-16">
               {/* Articles Grid (15 items per page) */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {currentArticles.map(art => (
@@ -260,10 +260,10 @@ export const KnowledgeHomePage: React.FC = () => {
                   PAGE NUMBER PHÂN TRANG (PAGINATION BAR)
                   ========================================================================= */}
               {totalPages > 1 && (
-                <div className="pt-6 pb-2 border-t border-neutral-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="pt-6 pb-2 border-t border-hairline flex flex-col sm:flex-row items-center justify-between gap-4">
                   {/* Information count */}
-                  <div className="text-xs text-neutral-500 font-medium">
-                    Trang <strong className="text-black">{currentPage}</strong> / {totalPages} • Hiển thị bài <strong>{startIndex + 1}</strong> - <strong>{endIndex}</strong> trong <strong>{remainingArticles.length}</strong> bài viết
+                  <div className="text-xs text-ink-secondary font-medium">
+                    Trang <strong className="text-ink">{currentPage}</strong> / {totalPages} • Hiển thị bài <strong>{startIndex + 1}</strong> - <strong>{endIndex}</strong> trong <strong>{remainingArticles.length}</strong> bài viết
                   </div>
 
                   {/* Page number buttons */}
@@ -272,10 +272,10 @@ export const KnowledgeHomePage: React.FC = () => {
                     <button
                       onClick={() => handlePageChange(currentPage - 1)}
                       disabled={currentPage === 1}
-                      className={`flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-bold border transition-colors ${
+                      className={`flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-semibold border transition-colors ${
                         currentPage === 1
-                          ? 'border-neutral-200 text-neutral-300 cursor-not-allowed bg-neutral-50'
-                          : 'border-neutral-300 text-neutral-700 hover:bg-neutral-100 hover:text-black cursor-pointer bg-white shadow-xs'
+                          ? 'border-hairline text-neutral-300 cursor-not-allowed bg-parchment'
+                          : 'border-neutral-300 text-neutral-700 hover:bg-neutral-100 hover:text-ink cursor-pointer bg-white shadow-xs'
                       }`}
                       aria-label="Trang trước"
                     >
@@ -290,10 +290,10 @@ export const KnowledgeHomePage: React.FC = () => {
                         <button
                           key={pageNum}
                           onClick={() => handlePageChange(pageNum)}
-                          className={`w-9 h-9 rounded-lg text-xs font-black transition-all ${
+                          className={`w-9 h-9 rounded-lg text-xs font-semibold transition-all ${
                             isActive
-                              ? 'bg-[#eb1000] text-white shadow-xs scale-105'
-                              : 'bg-white border border-neutral-200 text-neutral-700 hover:bg-neutral-100 hover:text-black'
+                              ? 'bg-brand-primary text-white shadow-xs scale-105'
+                              : 'bg-white border border-hairline text-neutral-700 hover:bg-neutral-100 hover:text-ink'
                           }`}
                           aria-current={isActive ? 'page' : undefined}
                         >
@@ -306,10 +306,10 @@ export const KnowledgeHomePage: React.FC = () => {
                     <button
                       onClick={() => handlePageChange(currentPage + 1)}
                       disabled={currentPage === totalPages}
-                      className={`flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-bold border transition-colors ${
+                      className={`flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-semibold border transition-colors ${
                         currentPage === totalPages
-                          ? 'border-neutral-200 text-neutral-300 cursor-not-allowed bg-neutral-50'
-                          : 'border-neutral-300 text-neutral-700 hover:bg-neutral-100 hover:text-black cursor-pointer bg-white shadow-xs'
+                          ? 'border-hairline text-neutral-300 cursor-not-allowed bg-parchment'
+                          : 'border-neutral-300 text-neutral-700 hover:bg-neutral-100 hover:text-ink cursor-pointer bg-white shadow-xs'
                       }`}
                       aria-label="Trang sau"
                     >

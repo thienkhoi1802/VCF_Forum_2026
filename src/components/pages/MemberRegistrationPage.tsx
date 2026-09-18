@@ -123,12 +123,12 @@ export const MemberRegistrationPage: React.FC = () => {
       <Breadcrumb items={[{ label: 'Đăng ký thành viên' }]} />
 
       {showSpecAnnotations && (
-        <div className="bg-neutral-100 border border-neutral-200 p-2.5 rounded-lg text-xs font-mono flex items-center justify-between flex-wrap gap-2">
+        <div className="bg-neutral-100 border border-hairline p-2.5 rounded-lg text-xs font-mono flex items-center justify-between flex-wrap gap-2">
           <div className="flex items-center gap-2">
             <SpecBadge label="03-dang-ky-thanh-vien: LITE SIGNUP" type="page" />
             <SpecBadge label="Không có OTP • Không hỏi chức danh/công ty lúc này" type="source" />
           </div>
-          <span className="text-neutral-500">
+          <span className="text-ink-secondary">
             States: S-EMPTY-FORM, S-EMAIL-VERIFY-SENT, S-SUCCESS
           </span>
         </div>
@@ -138,21 +138,21 @@ export const MemberRegistrationPage: React.FC = () => {
       {pendingAction && (
         <div className="p-4 bg-red-50 border border-red-200 rounded-lg flex items-start justify-between gap-3 text-xs">
           <div className="flex items-start gap-2.5">
-            <Sparkles className="w-4 h-4 text-[#eb1000] shrink-0 mt-0.5" />
+            <Sparkles className="w-4 h-4 text-brand-primary shrink-0 mt-0.5" />
             <div>
-              <p className="font-bold text-black">
+              <p className="font-semibold text-ink">
                 {pendingAction.type === 'register-event' 
                   ? 'Đăng ký tài khoản nhanh để hoàn tất tham dự sự kiện' 
                   : 'Đăng ký tài khoản nhanh để nhận tư vấn chương trình'}
               </p>
-              <p className="text-neutral-600 mt-0.5">
+              <p className="text-ink-secondary mt-0.5">
                 Hệ thống đã ghi nhớ hành động của bạn và sẽ tự động tiếp tục ngay sau khi tạo tài khoản.
               </p>
             </div>
           </div>
           <button 
             onClick={clearPendingAction}
-            className="text-neutral-400 hover:text-neutral-600 text-[11px] underline shrink-0"
+            className="text-neutral-400 hover:text-ink-secondary text-[11px] underline shrink-0"
           >
             Hủy thao tác cũ
           </button>
@@ -161,23 +161,23 @@ export const MemberRegistrationPage: React.FC = () => {
 
       {/* SUCCESS CONFIRMATION STATE */}
       {signupState === 'success' ? (
-        <div className="bg-white border border-neutral-200 rounded-xl p-8 text-center space-y-6 shadow-sm animate-fadeIn">
+        <div className="bg-white border border-hairline rounded-xl p-8 text-center space-y-6 shadow-sm animate-fadeIn">
           <div className="w-16 h-16 bg-green-50 text-green-600 rounded-full flex items-center justify-center mx-auto">
             <CheckCircle2 className="w-10 h-10" />
           </div>
 
           <div className="space-y-2">
-            <h2 className="text-2xl font-black text-black tracking-tight">
+            <h2 className="text-2xl font-semibold text-ink tracking-tight">
               Tài khoản VCF đã được kích hoạt thành công!
             </h2>
-            <p className="text-sm text-neutral-600 max-w-md mx-auto">
+            <p className="text-sm text-ink-secondary max-w-md mx-auto">
               Chào mừng <strong>{fullName || 'Quý Hội viên'}</strong> gia nhập Diễn đàn CEO Việt Nam. Bạn đang ở trạng thái <strong>Hội viên cơ bản (Lite Member)</strong>.
             </p>
           </div>
 
-          <div className="p-4 bg-neutral-50 border border-neutral-200 rounded-lg text-xs text-neutral-600 max-w-md mx-auto text-left space-y-1.5">
-            <div className="flex items-center gap-2 font-bold text-black">
-              <span className="w-2 h-2 rounded-full bg-[#eb1000]" />
+          <div className="p-4 bg-parchment border border-hairline rounded-lg text-xs text-ink-secondary max-w-md mx-auto text-left space-y-1.5">
+            <div className="flex items-center gap-2 font-semibold text-ink">
+              <span className="w-2 h-2 rounded-full bg-brand-primary" />
               Tiếp theo:
             </div>
             <p>• Bạn có thể đăng ký vé tham dự các sự kiện và theo dõi tài liệu.</p>
@@ -203,29 +203,29 @@ export const MemberRegistrationPage: React.FC = () => {
         </div>
       ) : signupState === 'email-verify-sent' ? (
         /* EMAIL OTP VERIFICATION STATE */
-        <div className="bg-white border border-neutral-200 rounded-2xl p-6 sm:p-8 text-center space-y-6 shadow-sm animate-fadeIn max-w-lg mx-auto">
-          <div className="w-16 h-16 bg-red-50 text-[#eb1000] rounded-full flex items-center justify-center mx-auto shadow-xs">
+        <div className="bg-white border border-hairline rounded-2xl p-6 sm:p-8 text-center space-y-6 shadow-sm animate-fadeIn max-w-lg mx-auto">
+          <div className="w-16 h-16 bg-red-50 text-brand-primary rounded-full flex items-center justify-center mx-auto shadow-xs">
             <Mail className="w-8 h-8" />
           </div>
 
           <div className="space-y-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[#eb1000] bg-red-50 px-3 py-1 rounded-full border border-red-200">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-brand-primary bg-red-50 px-3 py-1 rounded-full border border-red-200">
               XÁC THỰC EMAIL BẰNG MÃ OTP
             </span>
-            <h2 className="text-2xl font-black text-black tracking-tight pt-1">
+            <h2 className="text-2xl font-semibold text-ink tracking-tight pt-1">
               Nhập mã OTP xác thực
             </h2>
-            <p className="text-xs sm:text-sm text-neutral-600 max-w-md mx-auto leading-relaxed">
-              Hệ thống đã gửi mã OTP xác thực gồm 6 chữ số tới địa chỉ email <strong className="text-black">{email}</strong>.
+            <p className="text-xs sm:text-sm text-ink-secondary max-w-md mx-auto leading-relaxed">
+              Hệ thống đã gửi mã OTP xác thực gồm 6 chữ số tới địa chỉ email <strong className="text-ink">{email}</strong>.
             </p>
           </div>
 
           {/* OTP Input Form */}
           <form onSubmit={handleVerifyOtp} className="space-y-4 text-left">
             {/* Quick Demo OTP helper */}
-            <div className="p-3 bg-neutral-50 border border-neutral-200 rounded-xl flex items-center justify-between gap-2 text-xs">
-              <span className="text-neutral-600">
-                Mã OTP thử nghiệm: <strong className="text-[#eb1000] font-mono font-black text-sm">{demoOtp}</strong>
+            <div className="p-3 bg-parchment border border-hairline rounded-xl flex items-center justify-between gap-2 text-xs">
+              <span className="text-ink-secondary">
+                Mã OTP thử nghiệm: <strong className="text-brand-primary font-mono font-semibold text-sm">{demoOtp}</strong>
               </span>
               <button
                 type="button"
@@ -233,15 +233,15 @@ export const MemberRegistrationPage: React.FC = () => {
                   setOtpCode(demoOtp);
                   setOtpError('');
                 }}
-                className="px-2.5 py-1 bg-black hover:bg-neutral-800 text-white rounded-lg font-bold text-xs cursor-pointer transition-colors shadow-2xs"
+                className="px-2.5 py-1 bg-ink hover:bg-neutral-800 text-white rounded-lg font-semibold text-xs cursor-pointer transition-colors shadow-2xs"
               >
                 Điền nhanh mã OTP
               </button>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-neutral-800 mb-1.5">
-                Nhập mã OTP 6 số: <span className="text-[#eb1000]">*</span>
+              <label className="block text-xs font-semibold text-neutral-800 mb-1.5">
+                Nhập mã OTP 6 số: <span className="text-brand-primary">*</span>
               </label>
               <input
                 type="text"
@@ -252,20 +252,20 @@ export const MemberRegistrationPage: React.FC = () => {
                   setOtpError('');
                 }}
                 placeholder="VD: 892601"
-                className="w-full py-3.5 px-4 text-center font-mono text-2xl tracking-[0.3em] font-black border border-neutral-300 rounded-xl focus:outline-none focus:border-[#eb1000] bg-white transition-colors"
+                className="w-full py-3.5 px-4 text-center font-mono text-2xl tracking-[0.3em] font-semibold border border-neutral-300 rounded-xl focus:outline-none focus:border-brand-primary bg-white transition-colors"
                 autoFocus
               />
               {otpError && <p className="text-xs text-red-600 mt-1.5 font-medium">{otpError}</p>}
             </div>
 
-            <div className="flex items-center justify-between text-xs text-neutral-500 pt-1">
+            <div className="flex items-center justify-between text-xs text-ink-secondary pt-1">
               {countdown > 0 ? (
                 <span>Gửi lại mã sau <strong className="text-neutral-800">{countdown}s</strong></span>
               ) : (
                 <button
                   type="button"
                   onClick={handleResendOtp}
-                  className="text-[#eb1000] font-bold hover:underline cursor-pointer"
+                  className="text-brand-primary font-semibold hover:underline cursor-pointer"
                 >
                   Gửi lại mã OTP qua email
                 </button>
@@ -276,7 +276,7 @@ export const MemberRegistrationPage: React.FC = () => {
                   setSignupState('idle');
                   setOtpCode('');
                 }}
-                className="hover:underline text-neutral-600 cursor-pointer"
+                className="hover:underline text-ink-secondary cursor-pointer"
               >
                 ← Thay đổi địa chỉ email
               </button>
@@ -286,7 +286,7 @@ export const MemberRegistrationPage: React.FC = () => {
               type="submit"
               variant="primary"
               size="lg"
-              className="w-full justify-center py-3.5 text-sm font-black uppercase tracking-wide shadow-md"
+              className="w-full justify-center py-3.5 text-sm font-semibold uppercase tracking-wide shadow-md"
             >
               Xác thực OTP & Kích hoạt tài khoản →
             </CustomButton>
@@ -294,16 +294,16 @@ export const MemberRegistrationPage: React.FC = () => {
         </div>
       ) : (
         /* MAIN LITE SIGNUP CARD */
-        <div className="bg-white border border-neutral-200 rounded-xl p-6 sm:p-8 shadow-sm space-y-8">
+        <div className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-sm space-y-8">
           {/* Header & Value Proposition */}
           <div className="text-center space-y-2 border-b border-neutral-100 pb-6">
-            <div className="w-12 h-12 bg-red-50 text-[#eb1000] rounded-full flex items-center justify-center mx-auto mb-2">
+            <div className="w-12 h-12 bg-red-50 text-brand-primary rounded-full flex items-center justify-center mx-auto mb-2">
               <UserCheck className="w-6 h-6" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-black tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-semibold text-ink tracking-tight">
               Đăng ký thành viên VCF
             </h1>
-            <p className="text-xs sm:text-sm text-neutral-600 max-w-md mx-auto">
+            <p className="text-xs sm:text-sm text-ink-secondary max-w-md mx-auto">
               Gia nhập mạng lưới lãnh đạo doanh nghiệp hàng đầu Việt Nam. Khởi tạo tài khoản nhanh chóng chỉ trong 30 giây.
             </p>
           </div>
@@ -314,7 +314,7 @@ export const MemberRegistrationPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleSocialSignup('google')}
-                className="flex items-center justify-center gap-2.5 px-4 py-3 border border-neutral-200 rounded-full hover:bg-neutral-50 hover:border-neutral-300 font-semibold text-xs text-neutral-700 transition-all shadow-2xs cursor-pointer"
+                className="flex items-center justify-center gap-2.5 px-4 py-3 border border-hairline rounded-full hover:bg-parchment hover:border-neutral-300 font-semibold text-xs text-neutral-700 transition-all shadow-2xs cursor-pointer"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -328,7 +328,7 @@ export const MemberRegistrationPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleSocialSignup('facebook')}
-                className="flex items-center justify-center gap-2.5 px-4 py-3 border border-neutral-200 rounded-full hover:bg-neutral-50 hover:border-neutral-300 font-semibold text-xs text-neutral-700 transition-all shadow-2xs cursor-pointer"
+                className="flex items-center justify-center gap-2.5 px-4 py-3 border border-hairline rounded-full hover:bg-parchment hover:border-neutral-300 font-semibold text-xs text-neutral-700 transition-all shadow-2xs cursor-pointer"
               >
                 <svg className="w-4 h-4 fill-[#1877F2]" viewBox="0 0 24 24">
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -338,8 +338,8 @@ export const MemberRegistrationPage: React.FC = () => {
             </div>
 
             <div className="relative flex items-center justify-center py-2">
-              <div className="border-t border-neutral-200 w-full" />
-              <span className="bg-white px-3 text-[11px] font-bold text-neutral-400 uppercase tracking-wider absolute">
+              <div className="border-t border-hairline w-full" />
+              <span className="bg-white px-3 text-[11px] font-semibold text-neutral-400 uppercase tracking-wider absolute">
                 Hoặc đăng ký bằng Email
               </span>
             </div>
@@ -349,17 +349,17 @@ export const MemberRegistrationPage: React.FC = () => {
           <form onSubmit={handleEmailSubmit} className="space-y-4">
             {/* Họ và tên */}
             <div>
-              <label className="block text-xs font-bold text-neutral-800 mb-1 flex items-center gap-1.5">
+              <label className="block text-xs font-semibold text-neutral-800 mb-1 flex items-center gap-1.5">
                 <User className="w-3.5 h-3.5 text-neutral-400" />
-                Họ và tên của bạn <span className="text-[#eb1000]">*</span>
+                Họ và tên của bạn <span className="text-brand-primary">*</span>
               </label>
               <input
                 type="text"
                 value={fullName}
                 onChange={e => setFullName(e.target.value)}
                 placeholder="VD: Nguyễn Văn An"
-                className={`w-full px-3.5 py-2.5 text-xs bg-neutral-50 border rounded-lg focus:bg-white focus:outline-none focus:border-[#eb1000] transition-colors ${
-                  errors.fullName ? 'border-red-500 bg-red-50/40' : 'border-neutral-200'
+                className={`w-full px-3.5 py-2.5 text-xs bg-parchment border rounded-lg focus:bg-white focus:outline-none focus:border-brand-primary transition-colors ${
+                  errors.fullName ? 'border-red-500 bg-red-50/40' : 'border-hairline'
                 }`}
               />
               {errors.fullName && <p className="text-[11px] text-red-600 mt-1">{errors.fullName}</p>}
@@ -367,17 +367,17 @@ export const MemberRegistrationPage: React.FC = () => {
 
             {/* Email công tác */}
             <div>
-              <label className="block text-xs font-bold text-neutral-800 mb-1 flex items-center gap-1.5">
+              <label className="block text-xs font-semibold text-neutral-800 mb-1 flex items-center gap-1.5">
                 <Mail className="w-3.5 h-3.5 text-neutral-400" />
-                Email công tác <span className="text-[#eb1000]">*</span>
+                Email công tác <span className="text-brand-primary">*</span>
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 placeholder="an.nguyen@company.com"
-                className={`w-full px-3.5 py-2.5 text-xs bg-neutral-50 border rounded-lg focus:bg-white focus:outline-none focus:border-[#eb1000] transition-colors ${
-                  errors.email ? 'border-red-500 bg-red-50/40' : 'border-neutral-200'
+                className={`w-full px-3.5 py-2.5 text-xs bg-parchment border rounded-lg focus:bg-white focus:outline-none focus:border-brand-primary transition-colors ${
+                  errors.email ? 'border-red-500 bg-red-50/40' : 'border-hairline'
                 }`}
               />
               {errors.email && <p className="text-[11px] text-red-600 mt-1">{errors.email}</p>}
@@ -386,34 +386,34 @@ export const MemberRegistrationPage: React.FC = () => {
             {/* Mật khẩu & Xác nhận */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-neutral-800 mb-1 flex items-center gap-1.5">
+                <label className="block text-xs font-semibold text-neutral-800 mb-1 flex items-center gap-1.5">
                   <Lock className="w-3.5 h-3.5 text-neutral-400" />
-                  Mật khẩu <span className="text-[#eb1000]">*</span>
+                  Mật khẩu <span className="text-brand-primary">*</span>
                 </label>
                 <input
                   type="password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   placeholder="Tối thiểu 8 ký tự"
-                  className={`w-full px-3.5 py-2.5 text-xs bg-neutral-50 border rounded-lg focus:bg-white focus:outline-none focus:border-[#eb1000] transition-colors ${
-                    errors.password ? 'border-red-500 bg-red-50/40' : 'border-neutral-200'
+                  className={`w-full px-3.5 py-2.5 text-xs bg-parchment border rounded-lg focus:bg-white focus:outline-none focus:border-brand-primary transition-colors ${
+                    errors.password ? 'border-red-500 bg-red-50/40' : 'border-hairline'
                   }`}
                 />
                 {errors.password && <p className="text-[11px] text-red-600 mt-1">{errors.password}</p>}
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-neutral-800 mb-1 flex items-center gap-1.5">
+                <label className="block text-xs font-semibold text-neutral-800 mb-1 flex items-center gap-1.5">
                   <Lock className="w-3.5 h-3.5 text-neutral-400" />
-                  Xác nhận mật khẩu <span className="text-[#eb1000]">*</span>
+                  Xác nhận mật khẩu <span className="text-brand-primary">*</span>
                 </label>
                 <input
                   type="password"
                   value={confirmPassword}
                   onChange={e => setConfirmPassword(e.target.value)}
                   placeholder="Nhập lại mật khẩu"
-                  className={`w-full px-3.5 py-2.5 text-xs bg-neutral-50 border rounded-lg focus:bg-white focus:outline-none focus:border-[#eb1000] transition-colors ${
-                    errors.confirmPassword ? 'border-red-500 bg-red-50/40' : 'border-neutral-200'
+                  className={`w-full px-3.5 py-2.5 text-xs bg-parchment border rounded-lg focus:bg-white focus:outline-none focus:border-brand-primary transition-colors ${
+                    errors.confirmPassword ? 'border-red-500 bg-red-50/40' : 'border-hairline'
                   }`}
                 />
                 {errors.confirmPassword && <p className="text-[11px] text-red-600 mt-1">{errors.confirmPassword}</p>}
@@ -422,21 +422,21 @@ export const MemberRegistrationPage: React.FC = () => {
 
             {/* Anti-spam CAPTCHA checkbox */}
             <div className="pt-2">
-              <label className="flex items-center gap-2.5 p-3 rounded-lg border border-neutral-200 bg-neutral-50/60 cursor-pointer text-xs text-neutral-700">
+              <label className="flex items-center gap-2.5 p-3 rounded-lg border border-hairline bg-parchment/60 cursor-pointer text-xs text-neutral-700">
                 <input
                   type="checkbox"
                   checked={captchaChecked}
                   onChange={e => setCaptchaChecked(e.target.checked)}
-                  className="w-4 h-4 rounded text-[#eb1000] focus:ring-[#eb1000]"
+                  className="w-4 h-4 rounded text-brand-primary focus:ring-brand-primary"
                 />
-                <ShieldCheck className="w-4 h-4 text-neutral-500" />
+                <ShieldCheck className="w-4 h-4 text-ink-secondary" />
                 <span>Tôi không phải là người máy (Xác thực bảo mật chống spam)</span>
               </label>
               {errors.captcha && <p className="text-[11px] text-red-600 mt-1">{errors.captcha}</p>}
             </div>
 
             {/* Note on Progressive Profile */}
-            <div className="p-3 bg-neutral-50 rounded-lg text-[11px] text-neutral-500 flex items-start gap-2">
+            <div className="p-3 bg-parchment rounded-lg text-[11px] text-ink-secondary flex items-start gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 mt-1.5 shrink-0" />
               <span>
                 Thông tin doanh nghiệp (Chức danh, Quy mô, Vấn đề cần tư vấn) sẽ được bổ sung tự nhiên khi bạn đăng ký sự kiện hoặc khoá đào tạo.
@@ -458,11 +458,11 @@ export const MemberRegistrationPage: React.FC = () => {
           </form>
 
           {/* Footer Navigation */}
-          <div className="text-center pt-4 border-t border-neutral-100 text-xs text-neutral-600">
+          <div className="text-center pt-4 border-t border-neutral-100 text-xs text-ink-secondary">
             <span>Bạn đã có tài khoản thành viên? </span>
             <button
               onClick={() => navigateTo('login')}
-              className="text-[#eb1000] font-bold hover:underline"
+              className="text-brand-primary font-semibold hover:underline"
             >
               Đăng nhập ngay
             </button>

@@ -1,12 +1,12 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { PageRoute } from '../../types';
-import { 
-  Smartphone, 
-  Monitor, 
-  Eye, 
-  EyeOff, 
-  UserCheck, 
+import {
+  Smartphone,
+  Monitor,
+  Eye,
+  EyeOff,
+  UserCheck,
   UserX,
   Layers,
   Image as ImageIcon
@@ -47,12 +47,12 @@ export const WireframeHeaderBar: React.FC = () => {
   ];
 
   return (
-    <aside aria-label="Khung điều khiển & mô phỏng Wireframe" className="bg-black text-white text-xs border-b border-neutral-800 sticky top-0 z-50 select-none shadow-sm">
+    <aside aria-label="Khung điều khiển & mô phỏng Wireframe" className="bg-ink text-white text-xs border-b border-neutral-800 sticky top-0 z-50 select-none shadow-sm">
       <div className="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-3">
         {/* Left: Spec Title & Page selector */}
         <div className="flex items-center gap-3 flex-wrap">
-          <div className="flex items-center gap-2 font-mono text-[11px] font-bold text-neutral-300">
-            <span className="bg-[#eb1000] text-white px-2.5 py-0.5 rounded-full font-bold text-[10px] tracking-wider uppercase shadow-xs">
+          <div className="flex items-center gap-2 font-mono text-[11px] font-semibold text-neutral-300">
+            <span className="bg-brand-primary text-white px-2.5 py-0.5 rounded-full font-semibold text-[10px] tracking-wider uppercase shadow-xs">
               VCF SPEC
             </span>
             <span className="hidden sm:inline text-neutral-400 font-sans text-xs">PRD 2026 (PTIT / VLGM / VNE)</span>
@@ -64,7 +64,7 @@ export const WireframeHeaderBar: React.FC = () => {
               id="quick-page-jump-select"
               value={currentRoute}
               onChange={(e) => navigateTo(e.target.value as PageRoute)}
-              className="bg-neutral-900 text-white border border-neutral-700 px-3 py-1 text-xs rounded-full font-sans focus:outline-none focus:border-[#eb1000] transition-colors"
+              className="bg-neutral-900 text-white border border-neutral-700 px-3 py-1 text-xs rounded-full font-sans focus:outline-none focus:border-brand-primary transition-colors"
             >
               {pages.map((p) => (
                 <option key={p.route} value={p.route}>
@@ -109,8 +109,8 @@ export const WireframeHeaderBar: React.FC = () => {
           <button
             onClick={() => setShowSpecAnnotations(!showSpecAnnotations)}
             className={`flex items-center gap-1.5 px-3 py-1 border text-[11px] rounded-full transition-colors font-medium ${
-              showSpecAnnotations 
-                ? 'bg-neutral-900 text-[#ff4b3e] border-[#eb1000]/60' 
+              showSpecAnnotations
+                ? 'bg-neutral-900 text-[#ff4b3e] border-brand-primary/60'
                 : 'bg-neutral-900 text-neutral-400 border-neutral-800 hover:text-white'
             }`}
             title="Bật/Tắt nhãn chú thích PRD và nguồn dữ liệu Wireframe"
@@ -145,8 +145,8 @@ export const WireframeHeaderBar: React.FC = () => {
           <button
             onClick={isLoggedIn ? logout : login}
             className={`flex items-center gap-1.5 px-3 py-1 text-[11px] border font-medium rounded-full transition-colors ${
-              isLoggedIn 
-                ? 'bg-neutral-900 text-white border-neutral-700 hover:border-[#eb1000]' 
+              isLoggedIn
+                ? 'bg-neutral-900 text-white border-neutral-700 hover:border-brand-primary'
                 : 'bg-neutral-900 text-neutral-200 border-neutral-800 hover:bg-neutral-800 hover:text-white'
             }`}
           >

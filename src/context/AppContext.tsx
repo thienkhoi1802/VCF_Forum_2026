@@ -137,7 +137,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [tuitionFeeCmsToggle, setTuitionFeeCmsToggle] = useState<'on-with-data' | 'on-without-data' | 'off'>('on-with-data');
 
   // Wireframe Image Mode: 'wireframe' (high-fidelity wireframe placeholders) by default
-  const [wireframeImageMode, setWireframeImageMode] = useState<'wireframe' | 'photo'>('wireframe');
+  const [wireframeImageMode, setWireframeImageMode] = useState<'wireframe' | 'photo'>('photo');
 
   const [simulatedState, setSimulatedStateState] = useState<SimulatedState>('S-DEFAULT');
   const [showSpecAnnotations, setShowSpecAnnotations] = useState<boolean>(false);
@@ -665,4 +665,3 @@ export const useApp = () => {
   }
   return context;
 };
-
