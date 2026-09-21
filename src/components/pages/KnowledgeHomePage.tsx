@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Breadcrumb } from '../common/Breadcrumb';
 import { ArticleCard } from '../common/ArticleCard';
 import { KnowledgeFeaturedGrid } from '../common/KnowledgeFeaturedGrid';
 import { WireframeImage } from '../wireframe/WireframeImage';
@@ -87,19 +86,7 @@ export const KnowledgeHomePage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6 pb-24 space-y-8 font-sans">
-      {/* 1. Breadcrumb: Trang chủ -> Hệ tri thức LGM (-> Subfolder nếu có tab active) */}
-      <Breadcrumb 
-        items={
-          activeTab === 'all'
-            ? [{ label: 'Hệ tri thức LGM' }]
-            : [
-                { label: 'Hệ tri thức LGM', route: 'knowledge', params: { category: 'all' } },
-                { label: tabs.find(t => t.key === activeTab)?.label || 'Bài viết' }
-              ]
-        } 
-      />
-
-      {/* 2. Header: Title chính: Hệ tri thức LGM -> Bên dưới phân tab (Tất cả / Tác giả Bộ trưởng Nguyễn Mạnh Hùng / Tác giả khác / Tri thức phái sinh) */}
+      {/* Header: Title chính: Hệ tri thức LGM -> Bên dưới phân tab (Tất cả / Tác giả Bộ trưởng Nguyễn Mạnh Hùng / Tác giả khác / Tri thức phái sinh) */}
       <div className="space-y-4">
         <h1 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
           Hệ tri thức LGM

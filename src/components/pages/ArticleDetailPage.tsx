@@ -48,10 +48,11 @@ export const ArticleDetailPage: React.FC = () => {
         items={[
           { label: 'Hệ tri thức LGM', route: 'knowledge', params: { category: 'all' } },
           { 
-            label: article.subCategory || 'Chuyên đề', 
+            label: article.subCategory || article.categoryName || 'Chuyên đề', 
             route: 'knowledge', 
             params: { category: article.category } 
-          }
+          },
+          { label: article.title }
         ]}
       />
 

@@ -112,12 +112,12 @@ export const HomePage: React.FC = () => {
             </div>
           </div>
 
-          {/* State Handling for Knowledge Articles (1 tin lớn + 4 tin nhỏ trên desktop, 3 tin trên mobile) */}
+          {/* State Handling for Knowledge Articles (Giữ chỉ 3 tin nổi bật) */}
           {isLoading ? (
-            <SkeletonLoader variant="card" count={5} />
+            <SkeletonLoader variant="card" count={3} />
           ) : (
             <>
-              <KnowledgeFeaturedGrid articles={MOCK_ARTICLES.slice(0, 5)} mobileLimit={3} />
+              <KnowledgeFeaturedGrid articles={MOCK_ARTICLES.slice(0, 3)} />
 
               {/* Mobile CTA: Hiển thị xuống dưới 3 tin tức trên mobile */}
               <div className="pt-6 sm:hidden">

@@ -787,7 +787,8 @@ export const EventDetailPage: React.FC = () => {
           <Breadcrumb 
             className="!border-0 !mb-0 !py-0"
             items={[
-              { label: 'Sự kiện', route: 'events' }
+              { label: 'Sự kiện', route: 'events' },
+              { label: event.title }
             ]} 
           />
         </div>

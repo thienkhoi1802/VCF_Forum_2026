@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Breadcrumb } from '../common/Breadcrumb';
 import { ArticleCard } from '../common/ArticleCard';
 import { CustomButton } from '../common/CustomButton';
 import { KnowledgeCategoryType } from '../../types';
@@ -67,13 +66,6 @@ export const KnowledgeCategoryPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6 pb-24 space-y-8 font-sans">
-      <Breadcrumb
-        items={[
-          { label: 'Hệ tri thức LGM', route: 'knowledge', params: { category: 'all' } },
-          { label: currentCatInfo.title }
-        ]}
-      />
-
       {/* Category Header */}
       <div className="space-y-4 pb-6 border-b border-hairline">
         <div className="flex items-center justify-between flex-wrap gap-3">

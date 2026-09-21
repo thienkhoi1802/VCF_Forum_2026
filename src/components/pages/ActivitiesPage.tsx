@@ -1,6 +1,5 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
-import { Breadcrumb } from '../common/Breadcrumb';
 import { ActivityCard } from '../common/ActivityCard';
 import { CustomButton } from '../common/CustomButton';
 import { SpecBadge } from '../wireframe/SpecBadge';
@@ -12,8 +11,6 @@ export const ActivitiesPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6 pb-20 space-y-12">
-      <Breadcrumb items={[{ label: 'Hoạt động VCF' }]} />
-
       {showSpecAnnotations && (
         <div className="bg-neutral-100 border border-hairline p-2.5 rounded-lg text-xs font-mono flex items-center justify-between">
           <div className="flex items-center gap-2">
