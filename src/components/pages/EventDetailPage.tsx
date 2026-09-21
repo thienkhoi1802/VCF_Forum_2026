@@ -78,6 +78,10 @@ export const EventDetailPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'overview' | 'agenda' | 'speakers' | 'tickets' | 'venue' | 'partners'>('overview');
   const [selectedPassType, setSelectedPassType] = useState<'member' | 'standard'>('member');
   
+  const isManualScrollingRef = React.useRef(false);
+  const manualScrollTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const navContainerRef = React.useRef<HTMLDivElement>(null);
+  
   // Modals for step-by-step registration and quick login on the current page
   const [isMemberModalOpen, setIsMemberModalOpen] = useState(false);
   const [isWaitlistModal, setIsWaitlistModal] = useState(false);
@@ -166,6 +170,84 @@ export const EventDetailPage: React.FC = () => {
       setFormErrors({});
     }
   }, [currentUser, registeredEvents, event.activityId]);
+
+  // Scrollspy effect: automatically update activeTab based on scroll position
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (isManualScrollingRef.current) return;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+          const windowHeight = window.innerHeight;
+          const docHeight = document.documentElement.scrollHeight;
+
+          // If scrolled near bottom of page, highlight the last section
+          if (scrollY + windowHeight >= docHeight - 80) {
+            setActiveTab('partners');
+            ticking = false;
+            return;
+          }
+
+          const sections: { id: 'overview' | 'agenda' | 'speakers' | 'venue' | 'partners'; el: HTMLElement | null }[] = [
+            { id: 'overview', el: document.getElementById('section-overview') },
+            { id: 'agenda', el: document.getElementById('section-agenda') },
+            { id: 'speakers', el: document.getElementById('section-speakers') },
+            { id: 'venue', el: document.getElementById('section-venue') },
+            { id: 'partners', el: document.getElementById('section-partners') },
+          ];
+
+          // Offset threshold below sticky subnav (sticky at top-0, height ~52px)
+          const offset = 85;
+          let currentTab: 'overview' | 'agenda' | 'speakers' | 'venue' | 'partners' = 'overview';
+
+          for (let i = 0; i < sections.length; i++) {
+            const item = sections[i];
+            if (item.el) {
+              const rect = item.el.getBoundingClientRect();
+              if (rect.top <= offset) {
+                currentTab = item.id;
+              }
+            }
+          }
+
+          setActiveTab(currentTab);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (manualScrollTimerRef.current) {
+        clearTimeout(manualScrollTimerRef.current);
+      }
+    };
+  }, []);
+
+  // When activeTab changes, auto scroll tab button into view on mobile
+  useEffect(() => {
+    if (!navContainerRef.current) return;
+    const activeButton = navContainerRef.current.querySelector(`[data-tab="${activeTab}"]`) as HTMLElement | null;
+    if (activeButton) {
+      const container = navContainerRef.current;
+      const btnLeft = activeButton.offsetLeft;
+      const btnRight = btnLeft + activeButton.offsetWidth;
+      const scrollLeft = container.scrollLeft;
+      const clientWidth = container.clientWidth;
+
+      if (btnLeft < scrollLeft + 16) {
+        container.scrollTo({ left: Math.max(0, btnLeft - 20), behavior: 'smooth' });
+      } else if (btnRight > scrollLeft + clientWidth - 16) {
+        container.scrollTo({ left: btnRight - clientWidth + 20, behavior: 'smooth' });
+      }
+    }
+  }, [activeTab]);
 
   // Chỉ kiểm tra đơn đăng ký khi user ĐANG ĐĂNG NHẬP. Khi đã đăng xuất, luôn quay về trạng thái chưa đăng ký ban đầu.
   const registeredItem = isLoggedIn ? registeredEvents.find(r => r.eventId === event.id && r.status !== 'cancelled') : undefined;
@@ -375,12 +457,21 @@ export const EventDetailPage: React.FC = () => {
 
   const scrollToSection = (tab: 'overview' | 'agenda' | 'speakers' | 'tickets' | 'venue' | 'partners') => {
     setActiveTab(tab);
+    isManualScrollingRef.current = true;
+    if (manualScrollTimerRef.current) {
+      clearTimeout(manualScrollTimerRef.current);
+    }
+    // Release manual scroll lock after smooth scroll animation completes (~800ms)
+    manualScrollTimerRef.current = setTimeout(() => {
+      isManualScrollingRef.current = false;
+    }, 800);
+
     const targetId = tab === 'tickets' ? 'section-tickets' : `section-${tab}`;
     const element = document.getElementById(targetId) || document.getElementById('registration-form-container');
     if (element) {
       const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
-      // Offset: Main header (64px mobile / 80px desktop) + in-page subnav (~52px) + 24px buffer
-      const headerOffset = isMobile ? 128 : 156;
+      // Offset: In-page sticky subnav (~52px) + 16px buffer
+      const headerOffset = isMobile ? 60 : 72;
       const elementPosition = element.getBoundingClientRect().top;
       const targetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -468,7 +559,7 @@ export const EventDetailPage: React.FC = () => {
       )}
 
       {/* Breadcrumb Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-2">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-5 pb-2">
         <Breadcrumb 
           items={[
             { label: 'Lịch sự kiện VCF', route: 'events' },
@@ -491,7 +582,7 @@ export const EventDetailPage: React.FC = () => {
           <div className="absolute inset-0 bg-black/68" />
         </div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 relative z-10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 sm:py-20 relative z-10">
           <div className="max-w-4xl space-y-6">
             {/* Event Badges */}
             <div className="flex flex-wrap items-center gap-2.5">
@@ -701,32 +792,50 @@ export const EventDetailPage: React.FC = () => {
       </section>
 
       {/* =========================================================================
-          STICKY IN-PAGE NAVIGATION (WAN-IFRA Tab Bar)
+          STICKY IN-PAGE NAVIGATION (Menu cấp 2 - Sticky top-0 when scrolling)
           ========================================================================= */}
-      <div className="sticky top-16 sm:top-20 z-30 bg-white border-b border-hairline shadow-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between overflow-x-auto no-scrollbar py-1 gap-1">
-            {[
-              { id: 'overview', label: 'Tổng quan' },
-              { id: 'agenda', label: 'Chương trình nghị sự' },
-              { id: 'speakers', label: 'Diễn giả & Cố vấn' },
-              { id: 'venue', label: 'Địa điểm & Di chuyển' },
-              { id: 'partners', label: 'Ban tổ chức & Đối tác' },
-            ].map((tab) => (
+      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-hairline shadow-xs transition-shadow">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex items-center justify-between py-1 gap-1">
+            {/* Back button to events list */}
+            <div className="flex items-center gap-1.5 shrink-0 pr-2 sm:pr-3 border-r border-hairline my-1">
               <button
-                key={tab.id}
-                onClick={() => scrollToSection(tab.id as any)}
-                className={`px-4 py-3 text-xs sm:text-sm font-semibold whitespace-nowrap transition-colors border-b-2 cursor-pointer ${
-                  activeTab === tab.id
-                    ? 'border-brand-primary text-brand-primary'
-                    : 'border-transparent text-ink-secondary hover:text-ink hover:border-neutral-300'
-                }`}
+                type="button"
+                onClick={() => navigateTo('events')}
+                className="flex items-center gap-1.5 text-xs font-semibold text-ink-secondary hover:text-brand-primary transition-colors py-1.5 px-2 rounded-md hover:bg-neutral-100 cursor-pointer"
+                title="Quay lại danh sách sự kiện"
               >
-                {tab.label}
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Sự kiện</span>
               </button>
-            ))}
+            </div>
 
-            <div className="hidden md:flex items-center pl-4 border-l border-hairline py-1">
+            {/* Scrollable Tabs */}
+            <div ref={navContainerRef} className="flex items-center gap-1 overflow-x-auto no-scrollbar flex-1 py-1">
+              {[
+                { id: 'overview', label: 'Tổng quan' },
+                { id: 'agenda', label: 'Chương trình nghị sự' },
+                { id: 'speakers', label: 'Diễn giả & Cố vấn' },
+                { id: 'venue', label: 'Địa điểm & Di chuyển' },
+                { id: 'partners', label: 'Ban tổ chức & Đối tác' },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  data-tab={tab.id}
+                  onClick={() => scrollToSection(tab.id as any)}
+                  className={`px-3.5 sm:px-4 py-3 text-xs sm:text-sm font-semibold whitespace-nowrap transition-colors border-b-2 cursor-pointer ${
+                    activeTab === tab.id
+                      ? 'border-brand-primary text-brand-primary'
+                      : 'border-transparent text-ink-secondary hover:text-ink hover:border-neutral-300'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Action button */}
+            <div className="flex items-center pl-2 sm:pl-4 border-l border-hairline py-1 shrink-0">
               <CustomButton
                 variant={isPast ? 'secondary' : 'primary'}
                 size="sm"
@@ -747,13 +856,13 @@ export const EventDetailPage: React.FC = () => {
                 {isPast
                   ? 'Xem tài liệu'
                   : registeredItem?.status === 'confirmed'
-                  ? 'Xem vé đã xác nhận'
+                  ? 'Xem vé'
                   : registeredItem?.status === 'pending_approval'
-                  ? 'Đơn đang chờ duyệt'
+                  ? 'Chờ duyệt'
                   : registeredItem?.status === 'waitlisted'
-                  ? 'Xem danh sách chờ'
+                  ? 'DS chờ'
                   : isFullEffective
-                  ? 'Đăng ký vào danh sách chờ'
+                  ? 'DS chờ'
                   : 'Đăng ký vé'}
               </CustomButton>
             </div>
@@ -764,7 +873,7 @@ export const EventDetailPage: React.FC = () => {
       {/* =========================================================================
           MAIN CONTENT AREA (2 Columns WAN-IFRA Layout)
           ========================================================================= */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* =====================================================================
@@ -773,7 +882,7 @@ export const EventDetailPage: React.FC = () => {
           <div className="lg:col-span-8 space-y-12">
             
             {/* SECTION 1: TỔNG QUAN & NỘI DUNG TRỌNG TÂM */}
-            <section id="section-overview" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-6 scroll-mt-36 sm:scroll-mt-44">
+            <section id="section-overview" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-6 scroll-mt-16 sm:scroll-mt-20">
               <div>
                 <span className="text-[11px] uppercase font-semibold tracking-wider text-brand-primary">
                   Giới thiệu tổng quan
@@ -808,7 +917,7 @@ export const EventDetailPage: React.FC = () => {
             </section>
 
             {/* SECTION 2: CHƯƠNG TRÌNH NGHỊ SỰ CHI TIẾT */}
-            <section id="section-agenda" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-5 scroll-mt-36 sm:scroll-mt-44">
+            <section id="section-agenda" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-100 pb-4">
                 <div>
                   <span className="text-[11px] uppercase font-semibold tracking-wider text-brand-primary">
@@ -853,7 +962,7 @@ export const EventDetailPage: React.FC = () => {
             </section>
 
             {/* SECTION 3: DIỄN GIẢ & KHÁCH MỜI DANH DỰ (Avatar + Tên + Chức vụ) */}
-            <section id="section-speakers" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-6 scroll-mt-36 sm:scroll-mt-44">
+            <section id="section-speakers" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-6 scroll-mt-16 sm:scroll-mt-20">
               <div>
                 <span className="text-[11px] uppercase font-semibold tracking-wider text-brand-primary">
                   Diễn giả & Chuyên gia
@@ -886,7 +995,7 @@ export const EventDetailPage: React.FC = () => {
             </section>
 
             {/* SECTION 4: ĐỊA ĐIỂM (Chỉ giữ địa điểm + button Điều hướng Google Maps) */}
-            <section id="section-venue" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-4 scroll-mt-36 sm:scroll-mt-44">
+            <section id="section-venue" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-4 scroll-mt-16 sm:scroll-mt-20">
               <div>
                 <span className="text-[11px] uppercase font-semibold tracking-wider text-brand-primary">
                   Địa điểm
@@ -922,7 +1031,7 @@ export const EventDetailPage: React.FC = () => {
             </section>
 
             {/* SECTION 5: ĐƠN VỊ CHỦ TRÌ & NHÀ TÀI TRỢ (Chỉ listing các nhà tài trợ + cắt giảm text tối đa) */}
-            <section id="section-partners" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-5 scroll-mt-36 sm:scroll-mt-44">
+            <section id="section-partners" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
               <div>
                 <span className="text-[11px] uppercase font-semibold tracking-wider text-brand-primary">
                   Hệ sinh thái đồng hành
@@ -1011,10 +1120,10 @@ export const EventDetailPage: React.FC = () => {
               RIGHT COLUMN: STICKY REGISTRATION & PASS WIDGET (~5 COLS)
               (WAN-IFRA Ticket Booking on-page, No popup needed!)
               ===================================================================== */}
-          <div id="section-tickets" className="lg:col-span-4 lg:sticky lg:top-36 space-y-6 self-start scroll-mt-36 sm:scroll-mt-44 z-10">
+          <div id="section-tickets" className="lg:col-span-4 lg:sticky lg:top-20 space-y-6 self-start scroll-mt-16 sm:scroll-mt-20 z-10">
             
             {/* Registration Card */}
-            <div id="registration-form-container" className="bg-white border-2 border-neutral-900 rounded-xl p-5 sm:p-6 shadow-xl relative overflow-hidden scroll-mt-36 sm:scroll-mt-44">
+            <div id="registration-form-container" className="bg-white border-2 border-neutral-900 rounded-xl p-5 sm:p-6 shadow-xl relative overflow-hidden scroll-mt-16 sm:scroll-mt-20">
               <div className={`absolute top-0 right-0 text-white text-[10px] font-semibold px-3 py-1 rounded-bl-lg uppercase tracking-wider ${
                 isPast 
                   ? 'bg-neutral-700' 

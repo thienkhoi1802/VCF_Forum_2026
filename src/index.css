@@ -103,7 +103,7 @@
 
 @layer components {
   .vcf-container {
-    width: min(100% - 2rem, var(--vcf-container));
+    width: min(100% - 3rem, var(--vcf-container));
     margin-inline: auto;
   }
 
@@ -241,7 +241,7 @@ main .shadow-md {
 .animate-fadeIn { animation: fadeIn 220ms ease-out both; }
 
 @media (max-width: 639px) {
-  .vcf-container { width: min(100% - 1.5rem, var(--vcf-container)); }
+  .vcf-container { width: min(100% - 3rem, var(--vcf-container)); }
 }
 
 @media (prefers-reduced-motion: reduce) {

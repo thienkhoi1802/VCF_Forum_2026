@@ -63,7 +63,7 @@ export const Header: React.FC = () => {
     }`;
 
   return (
-    <header className="sticky top-0 z-40 w-full">
+    <header className={currentRoute === 'event-detail' ? 'relative z-40 w-full' : 'sticky top-0 z-40 w-full'}>
       <div className="h-9 bg-ink text-white">
         <div className="vcf-container flex h-full items-center justify-between text-[11px] tracking-[0.04em] text-white/72">
           <button type="button" onClick={() => navigateTo('home')} className="font-medium text-white hover:text-white/80">

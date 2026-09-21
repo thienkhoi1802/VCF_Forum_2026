@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Breadcrumb } from '../common/Breadcrumb';
 import { ArticleCard } from '../common/ArticleCard';
+import { KnowledgeFeaturedGrid } from '../common/KnowledgeFeaturedGrid';
 import { WireframeImage } from '../wireframe/WireframeImage';
 import { SkeletonLoader } from '../wireframe/SkeletonLoader';
 import { MOCK_ARTICLES } from '../../data/mockData';
@@ -57,13 +58,11 @@ export const KnowledgeHomePage: React.FC = () => {
     return list;
   }, [activeTab]);
 
-  // Top 4 articles (1 tin lớn dẫn đầu + 3 tin đồng hành)
-  const topFourArticles: ArticleItem[] = filteredArticles.slice(0, 4);
-  const leadArticle: ArticleItem | null = topFourArticles.length > 0 ? topFourArticles[0] : null;
-  const companionArticles: ArticleItem[] = topFourArticles.length > 1 ? topFourArticles.slice(1, 4) : [];
+  // Top 5 articles (1 tin lớn dẫn đầu + 4 tin nhỏ theo layout 2x2)
+  const topFiveArticles: ArticleItem[] = filteredArticles.slice(0, 5);
 
   // Remaining articles (15 bài viết / trang)
-  const remainingArticles: ArticleItem[] = filteredArticles.length > 4 ? filteredArticles.slice(4) : [];
+  const remainingArticles: ArticleItem[] = filteredArticles.length > 5 ? filteredArticles.slice(5) : [];
   const totalPages = Math.max(1, Math.ceil(remainingArticles.length / PAGE_SIZE));
 
   const startIndex = (currentPage - 1) * PAGE_SIZE;
@@ -87,7 +86,7 @@ export const KnowledgeHomePage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24 space-y-8 font-sans">
+    <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6 pb-24 space-y-8 font-sans">
       {/* 1. Breadcrumb: Trang chủ -> Hệ tri thức LGM (-> Subfolder nếu có tab active) */}
       <Breadcrumb 
         items={
@@ -145,103 +144,10 @@ export const KnowledgeHomePage: React.FC = () => {
       ) : (
         <div className="space-y-10">
           {/* =========================================================================
-              3. CỤM 4 BÀI VIẾT (1 Tin Lead lớn bên trái + 3 Tin đồng hành bên phải)
-              (Bỏ Tác giả, Thời gian, Số phút đọc)
+              3. CỤM 5 BÀI VIẾT NỔI BẬT: 1 TIN LỚN DẪN ĐẦU + 4 TIN NHỎ (2x2 GRID)
               ========================================================================= */}
-          {topFourArticles.length > 0 && (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
-              {/* 1 LEAD ARTICLE LỚN (7 COLS ON DESKTOP) */}
-              {leadArticle && (
-                <div 
-                  onClick={() => navigateTo('article-detail', { articleId: leadArticle.id })}
-                  className="lg:col-span-7 border border-hairline bg-white rounded-xl overflow-hidden hover:border-brand-primary hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group"
-                >
-                  <div className="p-5 sm:p-6 pb-0 space-y-4">
-                    {/* 16:9 Visual */}
-                    <div className="relative rounded-lg overflow-hidden border border-hairline aspect-video">
-                      <WireframeImage
-                        label={leadArticle.imagePlaceholder}
-                        imageUrl={leadArticle.imageUrl}
-                        alt={leadArticle.title}
-                        aspectRatio="16:9"
-                        className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
-                      />
-                    </div>
-
-                    {/* Badge & Headline (No author, date, or read time) */}
-                    <div className="space-y-2.5">
-                      <div className="flex items-center gap-2">
-                        <span className="text-brand-primary font-semibold text-xs bg-red-50 px-2.5 py-0.5 rounded-full border border-red-100">
-                          {leadArticle.subCategory || leadArticle.categoryName}
-                        </span>
-                      </div>
-
-                      <h2 className="text-xl sm:text-2xl font-semibold text-ink leading-tight group-hover:text-brand-primary transition-colors">
-                        {leadArticle.title}
-                      </h2>
-
-                      <p className="text-xs sm:text-sm text-ink-secondary leading-relaxed line-clamp-3">
-                        {leadArticle.sapo}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Clean Action Footer */}
-                  <div className="p-5 sm:p-6 pt-4 mt-4 border-t border-neutral-100 flex items-center justify-end bg-parchment/50">
-                    <span className="text-xs font-semibold text-brand-primary group-hover:translate-x-1 transition-transform flex items-center gap-1">
-                      <span>Đọc toàn văn</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
-                  </div>
-                </div>
-              )}
-
-              {/* 3 COMPANION STORIES (5 COLS ON DESKTOP) */}
-              <div className="lg:col-span-5 flex flex-col justify-between gap-4">
-                {companionArticles.map((article, idx) => (
-                  <div
-                    key={article.id}
-                    onClick={() => navigateTo('article-detail', { articleId: article.id })}
-                    className="border border-hairline bg-white rounded-xl p-4 hover:border-brand-primary hover:shadow-xs transition-all duration-200 cursor-pointer group flex-1 flex flex-col justify-between"
-                  >
-                    <div className="flex gap-4 items-start">
-                      {/* Thumbnail 16:9 compact */}
-                      <div className="w-28 sm:w-32 aspect-video rounded-lg overflow-hidden border border-hairline shrink-0 relative">
-                        <WireframeImage
-                          label={article.imagePlaceholder}
-                          imageUrl={article.imageUrl}
-                          alt={article.title}
-                          aspectRatio="16:9"
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
-                        />
-                      </div>
-
-                      {/* Content (No author, date, or read time) */}
-                      <div className="flex-1 min-w-0 space-y-1.5">
-                        {article.subCategory && (
-                          <div>
-                            <span className="font-semibold text-brand-primary bg-red-50 border border-red-100 px-2 py-0.5 rounded-full text-[10px] inline-block">
-                              {article.subCategory}
-                            </span>
-                          </div>
-                        )}
-
-                        <h3 className="font-semibold text-xs sm:text-sm text-ink leading-snug line-clamp-2 group-hover:text-brand-primary transition-colors">
-                          {article.title}
-                        </h3>
-                      </div>
-                    </div>
-
-                    <div className="pt-2 mt-2 border-t border-neutral-100 flex items-center justify-end">
-                      <span className="font-semibold text-xs text-brand-primary group-hover:text-brand-primary-hover flex items-center gap-0.5">
-                        <span>Chi tiết</span>
-                        <ChevronRight className="w-3 h-3" />
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+          {topFiveArticles.length > 0 && (
+            <KnowledgeFeaturedGrid articles={topFiveArticles} />
           )}
 
           {/* =========================================================================

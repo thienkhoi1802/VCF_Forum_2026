@@ -10,7 +10,7 @@ export const ProgramsPage: React.FC = () => {
   const { showSpecAnnotations } = useApp();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24 space-y-12 font-sans">
+    <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6 pb-24 space-y-12 font-sans">
       <Breadcrumb items={[{ label: 'Đào tạo CEO' }]} />
 
       {showSpecAnnotations && (

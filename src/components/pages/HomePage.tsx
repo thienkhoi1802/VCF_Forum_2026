@@ -3,6 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { CustomButton } from '../common/CustomButton';
 import { EventCard } from '../common/EventCard';
 import { ArticleCard } from '../common/ArticleCard';
+import { KnowledgeFeaturedGrid } from '../common/KnowledgeFeaturedGrid';
 import { ProgramCard } from '../common/ProgramCard';
 import { WireframeImage } from '../wireframe/WireframeImage';
 import { SpecBadge } from '../wireframe/SpecBadge';
@@ -69,7 +70,7 @@ export const HomePage: React.FC = () => {
           ========================================================================= */}
       <section className="w-full -mt-0">
         {showSpecAnnotations && (
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-3 flex items-center gap-2">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-3 flex items-center gap-2">
             <SpecBadge label="Hero Banner: Dạng Slide WAN-IFRA (Tối đa 5 slide)" type="prd" />
             <SpecBadge label="State: S-LOGGED-IN / S-GUEST" type="state" />
           </div>
@@ -99,24 +100,38 @@ export const HomePage: React.FC = () => {
               </p>
             </div>
 
-            <CustomButton
-              variant="secondary"
-              size="sm"
-              onClick={() => navigateTo('knowledge')}
-            >
-              Khám phá Hệ tri thức LGM →
-            </CustomButton>
+            {/* Desktop CTA: Nằm bên phải tiêu đề trên màn hình sm trở lên */}
+            <div className="hidden sm:block shrink-0">
+              <CustomButton
+                variant="secondary"
+                size="sm"
+                onClick={() => navigateTo('knowledge')}
+              >
+                Khám phá Hệ tri thức LGM →
+              </CustomButton>
+            </div>
           </div>
 
-          {/* State Handling for Knowledge Articles (3 tin dàn hàng ngang) */}
+          {/* State Handling for Knowledge Articles (1 tin lớn + 4 tin nhỏ trên desktop, 3 tin trên mobile) */}
           {isLoading ? (
-            <SkeletonLoader variant="card" count={3} />
+            <SkeletonLoader variant="card" count={5} />
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {MOCK_ARTICLES.slice(0, 3).map((art) => (
-                <ArticleCard key={art.id} article={art} variant="minimal" />
-              ))}
-            </div>
+            <>
+              <KnowledgeFeaturedGrid articles={MOCK_ARTICLES.slice(0, 5)} mobileLimit={3} />
+
+              {/* Mobile CTA: Hiển thị xuống dưới 3 tin tức trên mobile */}
+              <div className="pt-6 sm:hidden">
+                <CustomButton
+                  variant="secondary"
+                  size="md"
+                  fullWidth
+                  onClick={() => navigateTo('knowledge')}
+                  className="border-neutral-300 hover:border-black text-sm font-semibold shadow-xs py-3"
+                >
+                  Khám phá Hệ tri thức LGM →
+                </CustomButton>
+              </div>
+            </>
           )}
           </div>
         </section>

@@ -51,7 +51,7 @@ export const ProfilePage: React.FC = () => {
 
   if (!currentUser) {
     return (
-      <div className="max-w-md mx-auto px-4 py-16 text-center space-y-4 font-sans">
+      <div className="max-w-md mx-auto px-6 py-16 text-center space-y-4 font-sans">
         <div className="font-semibold text-lg text-slate-900">Vui lòng đăng nhập để xem Hồ sơ cá nhân</div>
         <CustomButton variant="primary" size="md" onClick={() => navigateTo('login')}>
           Đến trang Đăng nhập
@@ -67,7 +67,7 @@ export const ProfilePage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24 space-y-8 font-sans">
+    <div className="max-w-6xl mx-auto px-6 lg:px-8 py-6 pb-24 space-y-8 font-sans">
       <Breadcrumb items={[{ label: 'Hồ sơ hội viên & Lịch sử' }]} />
 
       {showSpecAnnotations && (

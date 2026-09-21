@@ -101,7 +101,7 @@ export const AuthPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto px-4 py-8 sm:py-12 pb-24 space-y-6 font-sans">
+    <div className="max-w-md mx-auto px-6 py-8 sm:py-12 pb-24 space-y-6 font-sans">
       {showSpecAnnotations && (
         <div className="bg-neutral-100 border border-hairline p-2.5 rounded-lg text-xs font-mono flex items-center justify-between">
           <SpecBadge label="Cổng Đăng nhập Hội viên VCF [Luồng duy nhất]" type="page" />

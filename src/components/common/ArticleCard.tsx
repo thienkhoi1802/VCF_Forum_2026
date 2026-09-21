@@ -141,7 +141,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           />
         </div>
 
-        <div className="p-4 space-y-2.5">
+        <div className="p-5 sm:p-6 space-y-2.5">
           <div className="flex items-center text-[11px]">
             <span className="truncate max-w-[220px] text-brand-primary font-semibold bg-red-50 px-2.5 py-0.5 rounded-full border border-red-100">
               {article.subCategory || article.categoryName}
