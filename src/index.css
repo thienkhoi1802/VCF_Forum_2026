@@ -26,11 +26,19 @@
   --color-danger: #b42318;
   --color-danger-soft: #fff1f0;
 
-  --radius-xs: 5px;
-  --radius-sm: 8px;
-  --radius-md: 11px;
-  --radius-lg: 18px;
-  --radius-pill: 9999px;
+  --radius-none: 0px;
+  --radius-2xs: 0px;
+  --radius-xs: 0px;
+  --radius-sm: 0px;
+  --radius: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+  --radius-4xl: 0px;
+  --radius-full: 0px;
+  --radius-pill: 0px;
 }
 
 :root {
@@ -52,7 +60,10 @@
 }
 
 @layer base {
-  *, *::before, *::after { box-sizing: border-box; }
+  *, *::before, *::after {
+    box-sizing: border-box;
+    border-radius: 0 !important;
+  }
 
   html {
     font-family: var(--font-sans);
@@ -145,7 +156,7 @@
   .vcf-card {
     background: var(--vcf-canvas);
     border: 1px solid var(--vcf-hairline);
-    border-radius: 18px;
+    border-radius: 0px;
     transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
   }
 
@@ -154,7 +165,7 @@
   .vcf-surface {
     background: var(--vcf-canvas);
     border: 1px solid var(--vcf-hairline);
-    border-radius: 18px;
+    border-radius: 0px;
   }
 
   .vcf-field {
@@ -164,7 +175,7 @@
     color: var(--vcf-ink);
     background: var(--vcf-canvas);
     border: 1px solid var(--vcf-hairline);
-    border-radius: 11px;
+    border-radius: 0px;
     transition: border-color 160ms ease, box-shadow 160ms ease;
   }
 
@@ -183,7 +194,7 @@
     padding: 0.75rem 1rem;
     color: #fff;
     background: var(--vcf-brand);
-    border-radius: 9999px;
+    border-radius: 0px;
     transition: transform 160ms ease;
   }
 

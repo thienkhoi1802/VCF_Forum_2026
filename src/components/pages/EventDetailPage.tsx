@@ -558,16 +558,6 @@ export const EventDetailPage: React.FC = () => {
         </div>
       )}
 
-      {/* Breadcrumb Bar */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-5 pb-2">
-        <Breadcrumb 
-          items={[
-            { label: 'Lịch sự kiện VCF', route: 'events' },
-            { label: event.title }
-          ]} 
-        />
-      </div>
-
       {/* =========================================================================
           HERO BANNER (WAN-IFRA Summit Style)
           ========================================================================= */}
@@ -791,6 +781,18 @@ export const EventDetailPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Breadcrumb Bar (Ghép ngay dưới Banner - Tiết kiệm khoảng trống màu xám) */}
+      <div className="bg-white border-b border-hairline">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-2.5">
+          <Breadcrumb 
+            className="!border-0 !mb-0 !py-0"
+            items={[
+              { label: 'Sự kiện', route: 'events' }
+            ]} 
+          />
+        </div>
+      </div>
+
       {/* =========================================================================
           STICKY IN-PAGE NAVIGATION (Menu cấp 2 - Sticky top-0 when scrolling)
           ========================================================================= */}
@@ -833,39 +835,6 @@ export const EventDetailPage: React.FC = () => {
                 </button>
               ))}
             </div>
-
-            {/* Action button */}
-            <div className="flex items-center pl-2 sm:pl-4 border-l border-hairline py-1 shrink-0">
-              <CustomButton
-                variant={isPast ? 'secondary' : 'primary'}
-                size="sm"
-                onClick={() => {
-                  if (isPast) {
-                    scrollToSection('overview');
-                  } else if (isAlreadyRegistered) {
-                    scrollToSection('tickets');
-                  } else if (isFullEffective) {
-                    setIsWaitlistModal(true);
-                    setIsMemberModalOpen(true);
-                  } else {
-                    setIsWaitlistModal(false);
-                    setIsMemberModalOpen(true);
-                  }
-                }}
-              >
-                {isPast
-                  ? 'Xem tài liệu'
-                  : registeredItem?.status === 'confirmed'
-                  ? 'Xem vé'
-                  : registeredItem?.status === 'pending_approval'
-                  ? 'Chờ duyệt'
-                  : registeredItem?.status === 'waitlisted'
-                  ? 'DS chờ'
-                  : isFullEffective
-                  ? 'DS chờ'
-                  : 'Đăng ký vé'}
-              </CustomButton>
-            </div>
           </div>
         </div>
       </div>
@@ -897,22 +866,6 @@ export const EventDetailPage: React.FC = () => {
                   {event.description}
                 </p>
                 {event.subtitle && <p>{event.subtitle}</p>}
-              </div>
-
-              {/* Target Audience */}
-              <div className="pt-4 border-t border-neutral-100">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-ink mb-3 flex items-center gap-2">
-                  <Users className="w-4 h-4 text-brand-primary" />
-                  Đối tượng tham dự mục tiêu
-                </h3>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-neutral-700 font-medium">
-                  {(event.targetAudience || []).map((audience) => (
-                    <li key={audience} className="flex items-center gap-2 p-2 bg-parchment rounded-md">
-                      <CheckCircle2 className="w-4 h-4 text-brand-primary shrink-0" />
-                      <span>{audience}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
             </section>
 
@@ -1123,7 +1076,7 @@ export const EventDetailPage: React.FC = () => {
           <div id="section-tickets" className="lg:col-span-4 lg:sticky lg:top-20 space-y-6 self-start scroll-mt-16 sm:scroll-mt-20 z-10">
             
             {/* Registration Card */}
-            <div id="registration-form-container" className="bg-white border-2 border-neutral-900 rounded-xl p-5 sm:p-6 shadow-xl relative overflow-hidden scroll-mt-16 sm:scroll-mt-20">
+            <div id="registration-form-container" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 shadow-sm relative overflow-hidden scroll-mt-16 sm:scroll-mt-20">
               <div className={`absolute top-0 right-0 text-white text-[10px] font-semibold px-3 py-1 rounded-bl-lg uppercase tracking-wider ${
                 isPast 
                   ? 'bg-neutral-700' 
@@ -1305,33 +1258,24 @@ export const EventDetailPage: React.FC = () => {
                    STATE 2 (Priority): PENDING APPROVAL (Đang chờ duyệt)
                    ========================================================= */
                 <div className="space-y-4">
-                  <div className="bg-amber-50 border border-amber-300 rounded-xl p-4 space-y-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-amber-100 border border-amber-300 flex items-center justify-center text-amber-700 shrink-0">
-                        <Clock className="w-5 h-5 animate-pulse" />
+                  <div className="bg-amber-50/70 border border-amber-200/80 rounded-xl p-4 space-y-2.5">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-full bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-700 shrink-0">
+                        <Clock className="w-4 h-4 stroke-[2.2]" />
                       </div>
                       <div>
-                        <span className="text-[10px] font-semibold uppercase tracking-wider bg-amber-200/80 text-amber-900 px-2 py-0.5 rounded-md">
-                          Trạng thái hồ sơ
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-amber-900 bg-amber-200/60 px-2 py-0.5 rounded">
+                          TRẠNG THÁI HỒ SƠ
                         </span>
-                        <h4 className="text-sm font-semibold text-amber-950 mt-0.5">
-                          Đang Chờ Ban Thư Ký Duyệt
+                        <h4 className="text-sm font-bold text-ink mt-0.5">
+                          Đăng ký đang chờ xét duyệt
                         </h4>
                       </div>
                     </div>
 
-                    <div className="bg-white/80 rounded-lg p-3 border border-amber-200 text-xs text-amber-900 font-sans leading-relaxed">
-                      <p className="font-medium">
-                        Yêu cầu tham dự của quý vị đang được Ban Thư ký VCF xem xét và xác minh tư cách đại biểu. Khi được phê duyệt, hệ thống sẽ gửi email xác nhận kèm <strong>Mã QR Check-in</strong> chính thức vào khán phòng.
-                      </p>
-                    </div>
-
-                    <div className="text-[11px] text-amber-800 bg-amber-100/60 p-2.5 rounded-lg border border-amber-200 flex items-center gap-2">
-                      <AlertCircle className="w-4 h-4 text-amber-700 shrink-0" />
-                      <span>
-                        <strong>Lưu ý:</strong> Mã QR Check-in sẽ được cấp tự động tại mục này ngay khi Ban Thư ký phê duyệt.
-                      </span>
-                    </div>
+                    <p className="text-xs text-neutral-700 leading-relaxed">
+                      Ban Thư ký đã tiếp nhận đăng ký và đang xác minh tư cách đại biểu của quý vị. Sau khi được duyệt, mã QR check-in sẽ xuất hiện trong mục <strong>Hồ sơ của tôi</strong> và được gửi qua email.
+                    </p>
                   </div>
 
                   {/* Actions & Simulator */}

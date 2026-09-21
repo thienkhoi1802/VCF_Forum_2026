@@ -1538,85 +1538,54 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
 
           {/* =====================================================================
               BƯỚC 6: THÔNG BÁO TIẾP NHẬN THÀNH CÔNG (PENDING_APPROVAL / WAITLISTED)
-              1. Hiển thị popup trạng thái yêu cầu, đang chờ thư ký duyệt + check email thông tin đăng ký
-              2. Khối thông tin hồ sơ đã khai báo (Đầy đủ 8 trường như ảnh chụp)
+              Redesigned single card structure, eliminate clashing yellow/blue boxes and duplicated notes
               ===================================================================== */}
           {currentStep === 6 && (
             <div className="space-y-4 py-1">
-              {/* KHỐI 1: TRẠNG THÁI HỒ SƠ (Khối màu vàng/amber như trong ảnh chụp) */}
-              <div className="bg-amber-50 border border-amber-300 rounded-xl p-4 sm:p-5 space-y-3 shadow-xs">
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-full bg-amber-100 border border-amber-300 flex items-center justify-center text-amber-700 shrink-0">
-                    <Clock className="w-6 h-6 animate-pulse" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-semibold uppercase tracking-wider bg-amber-200/90 text-amber-900 px-2 py-0.5 rounded-md">
-                      Trạng thái hồ sơ
-                    </span>
-                    <h4 className="text-base sm:text-lg font-semibold text-amber-950 mt-0.5">
-                      {isWaitlist ? 'Đang Trong Danh Sách Chờ (Waitlist)' : 'Đang Chờ Ban Thư Ký Duyệt'}
-                    </h4>
-                  </div>
-                </div>
-
-                <div className="bg-white rounded-lg p-3.5 border border-amber-200 text-xs sm:text-[13px] text-amber-950 font-sans leading-relaxed shadow-2xs">
-                  <p className="font-medium">
-                    {isWaitlist ? (
-                      <>Ban Thư ký VCF đã ghi nhận thông tin đăng ký của quý vị vào <strong>Danh sách chờ (Waitlist)</strong> cho sự kiện <strong>{eventTitle}</strong>. Khi có đại biểu thay đổi lịch trình hoặc khán phòng mở thêm chỗ, Ban Thư ký sẽ ưu tiên liên hệ theo thứ tự.</>
-                    ) : (
-                      <>Yêu cầu tham dự của quý vị đang được Ban Thư ký VCF xem xét và xác minh tư cách đại biểu. Khi được phê duyệt, hệ thống sẽ gửi email xác nhận kèm <strong>Mã QR Check-in</strong> chính thức vào khán phòng.</>
-                    )}
-                  </p>
-                </div>
-
-                <div className="text-[11px] text-amber-900 bg-amber-100/70 p-2.5 rounded-lg border border-amber-200 flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 text-amber-700 shrink-0" />
-                  <span>
-                    <strong>Lưu ý:</strong> Mã QR Check-in sẽ được cấp tự động tại mục này ngay khi Ban Thư ký phê duyệt.
+              {/* KHỐI TRẠNG THÁI HỒ SƠ CHUẨN MỰC DUY NHẤT */}
+              <div className="space-y-3 pb-2 border-b border-hairline">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-amber-900">
+                  <Clock className="w-4 h-4 text-amber-700 shrink-0 stroke-[2.2]" />
+                  <span className="text-xs font-semibold uppercase tracking-wider">
+                    TRẠNG THÁI HỒ SƠ
                   </span>
                 </div>
+
+                <h3 className="text-xl sm:text-2xl font-bold text-ink tracking-tight">
+                  {isWaitlist ? 'Đăng ký đang trong danh sách chờ' : 'Đăng ký đang chờ xét duyệt'}
+                </h3>
+
+                <p className="text-sm sm:text-base leading-relaxed text-neutral-700">
+                  {isWaitlist ? (
+                    <>Ban Thư ký VCF đã ghi nhận thông tin đăng ký của quý vị vào <strong>Danh sách chờ (Waitlist)</strong> cho sự kiện <strong>{eventTitle}</strong>. Khi có chỗ trống, Ban Thư ký sẽ ưu tiên liên hệ theo thứ tự.</>
+                  ) : (
+                    <>Ban Thư ký đã tiếp nhận đăng ký và đang xác minh tư cách đại biểu của quý vị.</>
+                  )}
+                </p>
               </div>
 
-              {/* KHỐI 2: CHECK EMAIL THÔNG TIN ĐĂNG KÝ (Yêu cầu: + check email thông tin đăng ký) */}
-              <div className="bg-blue-50/90 border border-blue-200 rounded-xl p-4 text-xs text-blue-950 space-y-2.5 shadow-2xs">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-lg bg-blue-100 border border-blue-200 flex items-center justify-center text-blue-700 shrink-0">
-                      <Mail className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-700 block">
-                        Xác nhận qua email
-                      </span>
-                      <strong className="text-xs sm:text-sm text-blue-950 font-semibold">
-                        Vui lòng kiểm tra email của quý vị
-                      </strong>
-                    </div>
+              {/* KHỐI THÔNG TIN EMAIL: Nền xám trung tính / xanh rất nhạt */}
+              <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-4 space-y-2">
+                <div className="flex items-start gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-600 shrink-0 mt-0.5 shadow-2xs">
+                    <Mail className="w-3.5 h-3.5" />
                   </div>
-                  <span className="text-[10px] bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded-full border border-emerald-200">
-                    Đã gửi thư tiếp nhận ✓
-                  </span>
-                </div>
-
-                <div className="bg-white rounded-lg p-3 border border-blue-200 text-xs text-neutral-700 space-y-1.5 leading-relaxed font-sans">
-                  <p>
-                    Hệ thống đã tự động gửi email biên nhận thông tin đăng ký sự kiện tới địa chỉ:
-                  </p>
-                  <div className="flex items-center gap-2 font-mono font-semibold text-neutral-900 bg-blue-50/70 px-2.5 py-1.5 rounded border border-blue-200 text-[11px] sm:text-xs">
-                    <Mail className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                    <span className="truncate">{formData.email || currentUser?.email || 'duc.pham@vinasteel.com.vn'}</span>
+                  <div className="flex-1 min-w-0 space-y-1">
+                    <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed">
+                      Kết quả sẽ được gửi đến <strong className="font-semibold text-ink font-mono">{formData.email || currentUser?.email || 'duc.pham@vinasteel.com.vn'}</strong>. Sau khi được duyệt, mã QR check-in sẽ xuất hiện trong mục <strong>Hồ sơ của tôi</strong> và được gửi qua email.
+                    </p>
+                    <p className="text-[11px] text-neutral-500">
+                      Vui lòng kiểm tra cả hộp thư Spam.
+                    </p>
                   </div>
-                  <p className="text-[11px] text-ink-secondary pt-1">
-                    Quý đại biểu vui lòng mở hòm thư <strong>Inbox</strong> (hoặc kiểm tra thêm mục <strong>Spam / Quảng cáo</strong>) để xem lại chi tiết thông tin đã đăng ký và chuẩn bị cho sự kiện.
-                  </p>
                 </div>
 
                 {/* Interactive Email Preview Drawer */}
-                <div>
+                <div className="pt-1">
                   <button
                     type="button"
                     onClick={() => setShowEmailPreview(!showEmailPreview)}
-                    className="text-[11px] text-blue-700 hover:text-blue-900 font-semibold flex items-center gap-1.5 underline cursor-pointer"
+                    className="text-xs text-brand-primary hover:text-brand-primary-hover font-medium flex items-center gap-1 cursor-pointer"
                   >
                     <FileText className="w-3.5 h-3.5" />
                     <span>{showEmailPreview ? 'Ẩn xem trước email xác nhận' : 'Xem trước nội dung Email biên nhận đã gửi →'}</span>
@@ -1638,12 +1607,12 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
                       <div className="text-[11px] text-neutral-700 space-y-1.5 leading-relaxed pt-1">
                         <p>Kính gửi Đại biểu <strong>{formData.fullName || 'Phạm Minh Đức'}</strong> ({formData.jobTitle || 'Tổng Giám Đốc (CEO)'} - {formData.companyName || 'Công ty Cổ phần Thép VinaSteel'}),</p>
                         <p>Ban Thư ký Diễn Đàn CEO Việt Nam (VCF) trân trọng thông báo đã tiếp nhận hồ sơ đăng ký tham dự của Quý vị với <strong>Mã hồ sơ: {regCode}</strong>.</p>
-                        <p>Hồ sơ của Quý vị đang được Ban Thư ký thẩm định theo quy chuẩn C-Level. Kết quả xét duyệt kèm Mã QR Check-in chính thức sẽ được gửi tới Quý vị qua email này và số điện thoại <strong>{formData.phone || '0912 345 678'}</strong> trong vòng 24 - 48 giờ làm việc.</p>
+                        <p>Hồ sơ của Quý vị đang được Ban Thư ký thẩm định theo quy chuẩn C-Level. Kết quả xét duyệt kèm Mã QR Check-in chính thức sẽ được gửi tới Quý vị qua email này và số điện thoại <strong>{formData.phone || '0912 345 678'}</strong>.</p>
                         <div className="bg-parchment p-2.5 rounded border border-hairline text-[10px] space-y-1 text-ink-secondary">
                           <div>• Sự kiện: <strong className="text-ink">{eventTitle}</strong></div>
                           <div>• Thời gian: <strong>{eventDatetime}</strong></div>
                           <div>• Địa điểm: <strong>{eventLocation}</strong></div>
-                          <div>• Trạng thái: <strong className="text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">Đang chờ Ban Thư ký duyệt</strong></div>
+                          <div>• Trạng thái: <strong className="text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">Đang chờ xét duyệt</strong></div>
                         </div>
                       </div>
                     </div>
@@ -1699,24 +1668,24 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
               </div>
 
               {/* KHỐI 4: NÚT THAO TÁC ĐIỀU HƯỚNG */}
-              <div className="pt-2 flex flex-col sm:flex-row gap-2.5 justify-center">
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="flex-1 py-3 px-5 bg-brand-primary hover:bg-brand-primary-hover text-white font-semibold rounded-xl text-xs sm:text-sm transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span>Về trang sự kiện & Xem trạng thái hồ sơ</span>
-                </button>
+              <div className="pt-2 flex flex-col sm:flex-row-reverse gap-3 justify-start items-center">
                 <button
                   type="button"
                   onClick={() => {
                     onClose();
                     navigateTo('profile');
                   }}
-                  className="py-3 px-4 border border-neutral-300 text-neutral-700 hover:bg-neutral-100 font-semibold rounded-xl text-xs transition-colors cursor-pointer"
+                  className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 bg-brand-primary hover:bg-brand-primary-hover text-white font-semibold rounded-xl text-sm transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  Xem trong Hồ sơ cá nhân →
+                  <span>Xem trạng thái hồ sơ</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="w-full sm:w-auto min-h-[44px] px-5 py-2.5 border border-neutral-300 text-neutral-700 hover:bg-neutral-100 font-medium rounded-xl text-sm transition-colors cursor-pointer flex items-center justify-center"
+                >
+                  Đóng
                 </button>
               </div>
             </div>

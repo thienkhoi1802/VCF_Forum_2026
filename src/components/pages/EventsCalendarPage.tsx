@@ -94,7 +94,7 @@ export const EventsCalendarPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6 pb-24 space-y-8 font-sans">
-      <Breadcrumb items={[{ label: 'Lịch sự kiện VCF' }]} />
+      <Breadcrumb items={[{ label: 'Sự kiện' }]} />
 
       {showSpecAnnotations && (
         <div className="bg-neutral-100 border border-hairline p-2.5 rounded-lg text-xs font-mono flex items-center justify-between flex-wrap gap-2">

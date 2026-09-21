@@ -14,6 +14,7 @@ export const MOCK_ACTIVITIES: Activity[] = [
     frequency: 'Thường niên (1 lần/năm vào Quý IV)',
     hasEvents: true,
     coverImagePlaceholder: '[Ảnh: Toàn cảnh Đại hội CEO Summit thường niên tại Trung tâm Hội nghị Quốc gia]',
+    imageUrl: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80',
     type: 'event-based'
   },
   {
@@ -29,6 +30,7 @@ export const MOCK_ACTIVITIES: Activity[] = [
     frequency: 'Hàng quý (4 kỳ/năm)',
     hasEvents: true,
     coverImagePlaceholder: '[Ảnh: Tọa đàm bàn tròn CEO Forum chuyên đề Quản trị Chuỗi cung ứng]',
+    imageUrl: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80',
     type: 'event-based'
   },
   {
@@ -44,6 +46,7 @@ export const MOCK_ACTIVITIES: Activity[] = [
     frequency: 'Chương trình 6 tháng / mùa cố vấn',
     hasEvents: true,
     coverImagePlaceholder: '[Ảnh: Phiên cố vấn 1-1 giữa Mentor cao cấp và Mentee]',
+    imageUrl: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=1200&q=80',
     type: 'mentoring'
   },
   {
@@ -59,6 +62,7 @@ export const MOCK_ACTIVITIES: Activity[] = [
     frequency: 'Sinh hoạt hàng tháng (1 buổi/tháng)',
     hasEvents: true,
     coverImagePlaceholder: '[Ảnh: Buổi sinh hoạt kín bàn tròn CEO Peer Group]',
+    imageUrl: 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80',
     type: 'peer-group'
   },
   {
@@ -74,6 +78,7 @@ export const MOCK_ACTIVITIES: Activity[] = [
     frequency: 'Nghiên cứu liên tục & Xuất bản chuyên đề',
     hasEvents: false,
     coverImagePlaceholder: '[Ảnh: Hội đồng Nghiên cứu Trường phái LGM thảo luận chuyên đề]',
+    imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
     type: 'academic'
   },
   {
@@ -89,6 +94,7 @@ export const MOCK_ACTIVITIES: Activity[] = [
     frequency: 'Phát hành định kỳ Quý / Năm',
     hasEvents: false,
     coverImagePlaceholder: '[Ảnh: Bộ sách và ấn phẩm chuyên khảo Quản trị LGM]',
+    imageUrl: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=1200&q=80',
     type: 'publication'
   },
   {
@@ -104,6 +110,7 @@ export const MOCK_ACTIVITIES: Activity[] = [
     frequency: 'Vận hành 24/7',
     hasEvents: false,
     coverImagePlaceholder: '[Ảnh: Giao diện nền tảng số hóa Diễn đàn CEO Việt Nam]',
+    imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
     type: 'platform'
   },
   {
@@ -119,6 +126,7 @@ export const MOCK_ACTIVITIES: Activity[] = [
     frequency: 'Phát sóng 2 số / tháng (Video & Podcast)',
     hasEvents: true,
     coverImagePlaceholder: '[Ảnh: Không gian ghi hình trường quay CEO Talk chuyên sâu]',
+    imageUrl: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=1200&q=80',
     type: 'media'
   },
   {
@@ -134,6 +142,7 @@ export const MOCK_ACTIVITIES: Activity[] = [
     frequency: 'Sinh hoạt định kỳ 2 tuần/lần',
     hasEvents: true,
     coverImagePlaceholder: '[Ảnh: Hoạt động giao lưu thực địa của Hội viên CEO Club]',
+    imageUrl: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80',
     type: 'club'
   }
 ];
@@ -493,9 +502,31 @@ export const MOCK_ARTICLES: ArticleItem[] = [
     title: 'Triết lý Lãnh đạo Phụng sự và Sứ mệnh Kiến tạo Tương lai Quốc gia của Doanh nhân Việt',
     sapo: 'Lãnh đạo không phải là người đứng trên tất cả để nhận đặc quyền, mà là người cúi xuống để nâng đỡ và gánh vác trách nhiệm lớn hơn chính mình.',
     content: [
-      'Một dân tộc muốn hùng cường phải có những doanh nghiệp hùng mạnh. Một doanh nghiệp muốn trường tồn phải có những nhà lãnh đạo biết đặt lợi ích của tổ chức và đất nước lên trên lợi ích vị kỷ.',
-      'Triết lý LGM (Leadership & Governance Mastery) mà chúng ta theo đuổi không bắt đầu từ kỹ trị hay công cụ cơ bắp, mà bắt đầu từ Tâm thế người đứng đầu. Khi người thuyền trưởng có tâm thế phụng sự, mọi quyết định dù khó khăn đến đâu cũng sẽ tìm được con đường sáng.',
-      'Trong thời đại công nghệ số và trí tuệ nhân tạo phát triển như vũ bão, thứ giữ cho doanh nghiệp không bị lạc lối không phải là thuật toán, mà là Hệ giá trị cốt lõi. Doanh nghiệp Việt Nam phải dám nhận việc lớn, việc khó của quốc gia, lấy thách thức làm lò luyện bản lĩnh.'
+      'Một dân tộc muốn hùng cường bắt buộc phải sở hữu những doanh nghiệp hùng mạnh và có năng lực cạnh tranh toàn cầu. Nhưng doanh nghiệp không tự nhiên lớn mạnh; sự trường tồn của một tổ chức luôn bắt nguồn từ tâm thức của những người thuyền trưởng dám dấn thân, biết đặt lợi ích quốc gia và cộng đồng song hành cùng sự thịnh vượng kinh doanh bền vững.',
+      '## I. Khát vọng Hùng cường và Sứ mệnh Thế hệ Doanh nhân Mới',
+      'Lịch sử kinh tế của các quốc gia phát triển như Nhật Bản, Hàn Quốc hay Singapore đều minh chứng rằng: Động lực đưa một đất nước vượt qua bẫy thu nhập trung bình nằm ở tầng lớp doanh nhân dân tộc mang trong mình lý tưởng phụng sự. Họ không xem kinh doanh đơn thuần là bài toán cộng trừ dòng tiền ngắn hạn, mà là hành trình kiến tạo năng lực tự chủ cho đất nước.',
+      'Thế hệ doanh nhân Việt Nam hôm nay đang đứng trước một cơ hội lịch sử chưa từng có. Chúng ta không thể mãi tự hào với lợi thế nhân công giá rẻ hay xuất khẩu tài nguyên thô. Khát vọng vươn mình của dân tộc đòi hỏi doanh nghiệp Việt phải làm chủ công nghệ lõi, xây dựng chuỗi cung ứng độc lập và xác lập vị thế dẫn đầu trong các ngành kinh tế mũi nhọn.',
+      '> "Doanh nghiệp chỉ thực sự vĩ đại khi giải quyết được những nỗi đau lớn của xã hội và gánh vác những sứ mệnh vượt ra ngoài khuôn khổ của báo cáo tài chính thường niên."',
+      '## II. Bản chất của Lãnh đạo Phụng sự (Servant Leadership)',
+      'Triết lý LGM (Leadership & Governance Mastery) mà chúng ta theo đuổi không bắt đầu từ kỹ trị hay công cụ cơ bắp, mà bắt đầu từ Tâm thế người đứng đầu. Khi người thuyền trưởng có tâm thế phụng sự, mọi quyết định dù khó khăn đến đâu cũng sẽ tìm được con đường sáng và nhận được sự đồng lòng từ tập thể.',
+      'Lãnh đạo phụng sự hoàn toàn không đồng nghĩa với sự nhu nhược hay thiếu quyết đoán. Ngược lại, đó là cảnh giới cao nhất của bản lĩnh quản trị. Người lãnh đạo đích thực không đòi hỏi nhân viên phải phục vụ mình, mà tự đặt câu hỏi mỗi ngày: "Tôi đã dọn dẹp những rào cản nào để đội ngũ của tôi có thể tỏa sáng rực rỡ nhất?".',
+      'Quyền lực của người lãnh đạo không đến từ chức danh trên danh thiếp, mà đến từ niềm tin và sự tôn trọng của cấp dưới. Khi người đứng đầu sẵn sàng nhận phần thiệt thòi về mình trong giông bão và nhường hào quang chiến thắng cho tập thể, tổ chức ấy sẽ trở nên bất khả chiến bại trước mọi biến động thị trường.',
+      '## III. Lấy Việc Khó làm Lò Luyện Bản Lĩnh',
+      'Không có cách nào luyện nên cơ bắp nếu chỉ tập tạ nhẹ. Một doanh nghiệp chỉ có thể lớn lên khi dám nhận những bài toán hóc búa nhất của đất nước và thị trường quốc tế. Việc dễ thì ai cũng làm được; chính những bài toán chưa ai dám nhận mới là mảnh đất màu mỡ để sinh ra những tài năng kiệt xuất.',
+      '• Dám nhận chỉ tiêu bất khả thi để kích hoạt tiềm năng ngủ quên của đội ngũ.',
+      '• Biến nghịch cảnh và khủng hoảng thành cơ hội tái cấu trúc toàn diện mô hình vận hành.',
+      '• Đầu tư chiều sâu vào nghiên cứu phát triển (R&D) thay vì chỉ chạy theo những thương vụ kiếm lời chớp nhoáng.',
+      '• Kiên định với sứ mệnh dài hạn 10-20 năm ngay cả khi đối mặt với áp lực lợi nhuận trước mắt.',
+      '## IV. Văn hóa Kỷ luật và Trách nhiệm trong Kỷ nguyên AI',
+      'Trong thời đại công nghệ số và trí tuệ nhân tạo phát triển như vũ bão, thứ giữ cho doanh nghiệp không bị lạc lối không phải là các thuật toán tự động, mà là Hệ giá trị cốt lõi và Bản sắc văn hóa. Công nghệ có thể mua được, vốn có thể vay được, quy trình có thể học được. Thứ duy nhất đối thủ không thể sao chép là Tinh thần kỷ luật và Lòng trung thành của con người.',
+      'AI đang giải phóng chúng ta khỏi những công việc thủ công, lặp lại. Đây là thời khắc vàng để người lãnh đạo quay trở về với những phẩm chất người nhất: sự thấu cảm, khả năng truyền cảm hứng, tính trung thực và lòng dũng cảm bảo vệ lẽ phải. Một tổ chức thông minh là nơi con người biết làm chủ công nghệ để phụng sự khách hàng tốt hơn, chứ không phải để biến nhân viên thành những cỗ máy vô cảm.',
+      '## V. Năm Nguyên Tắc Cốt Lõi Cho Nhà Điều Hành',
+      'Để chuyển hóa triết lý phụng sự thành kết quả kinh doanh thực tế, ban lãnh đạo cần thấm nhuần 5 nguyên tắc hành động sau:',
+      '• 1. Nhìn xa trông rộng: Xác lập tầm nhìn vượt khỏi thế hệ của chính mình, kiến tạo di sản cho thế hệ mai sau.',
+      '• 2. Làm gương đi đầu: Người lãnh đạo phải là người đầu tiên tuân thủ kỷ luật và sẵn sàng xông pha vào điểm nóng.',
+      '• 3. Minh bạch quản trị: Xây dựng hệ thống vận hành dựa trên dữ liệu chuẩn xác, loại bỏ hoàn toàn cơ chế xin - cho nội bộ.',
+      '• 4. Nuôi dưỡng nhân tài: Coi việc phát triển con người là khoản đầu tư sinh lời cao nhất của doanh nghiệp.',
+      '• 5. Bản lĩnh dân tộc: Tự hào với cội nguồn văn hóa Việt, tự tin bước ra vũ trường toàn cầu với tâm thế bình đẳng và sòng phẳng.'
     ],
     author: {
       name: 'Nguyễn Mạnh Hùng',
@@ -519,8 +550,18 @@ export const MOCK_ARTICLES: ArticleItem[] = [
     title: 'Văn hóa Doanh nghiệp trong Kỷ nguyên Số: Bản sắc là Cội nguồn Sức mạnh',
     sapo: 'Công nghệ có thể mua được, vốn có thể vay được, quy trình có thể học được. Thứ duy nhất đối thủ không thể sao chép là Bản sắc Văn hóa và Tinh thần kỷ luật của tổ chức.',
     content: [
-      'Nhiều người lầm tưởng chuyển đổi số là mua sắm phần mềm hay trang bị máy chủ hiện đại. Nhưng 90% sự thành bại của chuyển đổi số nằm ở sự chuyển dịch văn hóa làm việc và tư duy của con người.',
-      'Một tổ chức kỷ luật nhưng thiếu lòng trắc ẩn sẽ trở nên xơ cứng. Một tổ chức nhiều ý tưởng nhưng thiếu tính kỷ luật thực thi sẽ nhanh chóng tan rã. Lãnh đạo là nghệ thuật cân bằng giữa kỷ luật sắt và tình yêu thương vô điều kiện đối với sự phát triển của cộng sự.'
+      'Nhiều người lầm tưởng chuyển đổi số là mua sắm phần mềm hiện đại hay đầu tư hệ thống máy chủ đắt đỏ. Nhưng thực tế 90% sự thành bại của chuyển đổi số nằm ở sự chuyển dịch văn hóa làm việc và tư duy của con người.',
+      '## I. Bản Sắc Là Vũ Khí Cạnh Tranh Duy Nhất Không Thể Đánh Cắp',
+      'Trong nền kinh tế mở, công nghệ có thể chuyển giao, vốn có thể huy động từ các quỹ đầu tư, quy trình có thể thuê các hãng tư vấn quốc tế xây dựng. Thứ duy nhất đối thủ không thể sao chép hay mua chuộc là Bản sắc Văn hóa và Tinh thần kỷ luật của tổ chức.',
+      'Một văn hóa doanh nghiệp mạnh được định hình bởi những gì người ta làm khi không có ai giám sát. Đó là những nguyên tắc ứng xử bất thành văn, là lòng tự trọng nghề nghiệp và tinh thần trách nhiệm đến cùng với lời hứa dành cho khách hàng.',
+      '> "Văn hóa ăn chiến lược vào bữa sáng. Nếu không có một nền tảng văn hóa vững chãi, mọi kế hoạch kinh doanh tham vọng nhất cũng sẽ đổ vỡ ngay tại khâu thực thi."',
+      '## II. Cân Bằng Giữa Kỷ Luật Sắt và Lòng Trắc Ẩn',
+      'Một tổ chức kỷ luật mà thiếu lòng trắc ẩn sẽ trở thành một bộ máy xơ cứng, ngột ngạt và triệt tiêu sức sáng tạo. Ngược lại, một tổ chức tràn ngập ý tưởng và sự thoải mái nhưng thiếu tính kỷ luật thực thi sẽ nhanh chóng rơi vào hỗn loạn và tan rã.',
+      'Nghệ thuật của người thuyền trưởng là duy trì kỷ luật sắt trong mục tiêu và cam kết chất lượng, nhưng bao bọc bằng tình yêu thương và sự tôn trọng đối với phẩm giá của từng cộng sự. Nhân viên chỉ dám thử nghiệm cái mới và cống hiến hết mình khi họ biết rằng tổ chức luôn là điểm tựa an toàn khi vấp ngã.',
+      '## III. Ba Chuyển Dịch Văn Hóa Cốt Lõi Trong Kỷ Nguyên Số',
+      '• Từ tư duy bảo thủ sở hữu sang tư duy cởi mở chia sẻ dữ liệu và tri thức liên phòng ban.',
+      '• Từ văn hóa đổ lỗi sang văn hóa phân tích nguyên nhân gốc rễ và học tập từ sai lầm.',
+      '• Từ mô hình phân cấp hành chính cứng nhắc sang các nhóm tinh gọn tự chủ (agile pods) vận hành linh hoạt.'
     ],
     author: {
       name: 'Nguyễn Mạnh Hùng',

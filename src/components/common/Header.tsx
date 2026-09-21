@@ -151,25 +151,41 @@ export const Header: React.FC = () => {
             >
               <button
                 type="button"
-                onClick={() => setActiveMegaMenu(activeMegaMenu === 'activities' ? null : 'activities')}
+                onClick={() => {
+                  setActiveMegaMenu(null);
+                  navigateTo('activities');
+                }}
                 className={`${navClass(isActivityRoute)} gap-1`}
                 aria-expanded={activeMegaMenu === 'activities'}
                 aria-controls="activities-menu"
+                aria-label="Mở trang tổng quan 9 hoạt động VCF"
               >
-                Hoạt động <ChevronDown className="size-3.5" />
+                Hoạt động <ChevronDown className={`size-3.5 transition-transform duration-150 ${activeMegaMenu === 'activities' ? 'rotate-180' : ''}`} />
               </button>
               {activeMegaMenu === 'activities' ? (
-                <div id="activities-menu" className="absolute left-1/2 top-full grid w-[620px] -translate-x-1/2 grid-cols-2 gap-1 rounded-lg border border-hairline bg-white p-3 animate-fadeIn">
-                  <div className="col-span-2 flex items-center justify-between px-3 pb-2 pt-1">
-                    <p className="text-xs font-medium text-ink-secondary">9 hoạt động trọng tâm của VCF</p>
-                    <button type="button" onClick={() => navigateTo('activities')} className="text-xs font-medium text-brand-primary hover:text-brand-primary-hover">Xem tổng quan</button>
+                <div id="activities-menu" className="absolute left-1/2 top-full grid w-[620px] -translate-x-1/2 grid-cols-2 gap-1 rounded-lg border border-hairline bg-white p-3 shadow-xl z-50 animate-fadeIn">
+                  <div className="col-span-2 flex items-center justify-between border-b border-hairline px-3 pb-2.5 pt-1 mb-1">
+                    <p className="text-xs font-semibold text-ink-secondary uppercase tracking-wider">9 hoạt động trọng tâm của VCF</p>
+                    <button 
+                      type="button" 
+                      onClick={() => {
+                        setActiveMegaMenu(null);
+                        navigateTo('activities');
+                      }} 
+                      className="text-xs font-semibold text-brand-primary hover:text-brand-primary-hover flex items-center gap-1"
+                    >
+                      Xem trang tổng quan →
+                    </button>
                   </div>
                   {MOCK_ACTIVITIES.map((activity) => (
                     <button
                       key={activity.id}
                       type="button"
-                      onClick={() => navigateTo('activity-detail', { activityId: activity.id })}
-                      className="rounded-md px-3 py-2.5 text-left hover:bg-parchment"
+                      onClick={() => {
+                        setActiveMegaMenu(null);
+                        navigateTo('activity-detail', { activityId: activity.id });
+                      }}
+                      className="rounded-md px-3 py-2.5 text-left hover:bg-parchment transition-colors"
                     >
                       <span className="block text-sm font-medium text-ink">{activity.title}</span>
                       <span className="mt-0.5 block truncate text-xs text-ink-secondary">{activity.shortDesc}</span>
@@ -237,11 +253,52 @@ export const Header: React.FC = () => {
             </div>
             <button type="button" onClick={() => navigateTo('events')} className="flex min-h-14 w-full items-center justify-between text-left text-base font-medium">Sự kiện <ChevronRight className="size-4 text-ink-secondary" /></button>
             <div>
-              <button type="button" onClick={() => setMobileActivitiesOpen((value) => !value)} aria-expanded={mobileActivitiesOpen} className="flex min-h-14 w-full items-center justify-between text-left text-base font-medium">Hoạt động VCF <ChevronDown className={`size-4 transition ${mobileActivitiesOpen ? 'rotate-180' : ''}`} /></button>
+              <div className="flex min-h-14 w-full items-center justify-between">
+                <button 
+                  type="button" 
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    navigateTo('activities');
+                  }} 
+                  className="flex-1 text-left text-base font-medium py-3 hover:text-brand-primary"
+                >
+                  Hoạt động VCF (9 hoạt động)
+                </button>
+                <button 
+                  type="button" 
+                  onClick={() => setMobileActivitiesOpen((value) => !value)} 
+                  aria-expanded={mobileActivitiesOpen} 
+                  className="p-3 text-ink-secondary hover:text-ink"
+                  aria-label="Mở rộng danh sách 9 hoạt động"
+                >
+                  <ChevronDown className={`size-4 transition ${mobileActivitiesOpen ? 'rotate-180' : ''}`} />
+                </button>
+              </div>
               {mobileActivitiesOpen ? (
                 <div className="mb-4 space-y-1 border-l-2 border-brand-primary pl-4">
-                  <button type="button" onClick={() => navigateTo('activities')} className="block min-h-11 w-full text-left text-sm font-medium text-brand-primary">Tổng quan 9 hoạt động</button>
-                  {MOCK_ACTIVITIES.map((activity) => <button key={activity.id} type="button" onClick={() => navigateTo('activity-detail', { activityId: activity.id })} className="block min-h-11 w-full text-left text-sm">{activity.title}</button>)}
+                  <button 
+                    type="button" 
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      navigateTo('activities');
+                    }} 
+                    className="block min-h-11 w-full text-left text-sm font-semibold text-brand-primary"
+                  >
+                    Xem tổng quan 9 hoạt động →
+                  </button>
+                  {MOCK_ACTIVITIES.map((activity) => (
+                    <button 
+                      key={activity.id} 
+                      type="button" 
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        navigateTo('activity-detail', { activityId: activity.id });
+                      }} 
+                      className="block min-h-11 w-full text-left text-sm text-neutral-700 hover:text-ink"
+                    >
+                      {activity.title}
+                    </button>
+                  ))}
                 </div>
               ) : null}
             </div>

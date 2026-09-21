@@ -28,15 +28,15 @@ export const ActivitiesPage: React.FC = () => {
       <div className="space-y-4 max-w-3xl">
         <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase bg-red-50 text-brand-primary border border-red-200 px-3 py-1 rounded-full">
           <Layers className="w-3.5 h-3.5 text-brand-primary" />
-          <span>Tuyến Nội Dung 1 — Hệ Thống Hoạt Động</span>
+          <span>Hệ Sinh Thái VCF • 9 Hoạt Động Trọng Tâm</span>
         </div>
 
         <h1 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
-          Hoạt Động Của Diễn Đàn CEO Việt Nam
+          Tổng Quan 9 Hoạt Động Trọng Tâm
         </h1>
 
         <p className="text-base text-ink-secondary leading-relaxed font-sans">
-          Hệ sinh thái 9 hoạt động đa diện được thiết kế khoa học, kết hợp giữa đối thoại chiến lược cấp quốc gia, cố vấn chuyển giao thế hệ, phản biện đồng cấp và nghiên cứu học thuật trường phái quản trị LGM.
+          Hệ sinh thái 9 hoạt động đa diện của Diễn đàn CEO Việt Nam được thiết kế khoa học, kết hợp giữa đối thoại chiến lược cấp quốc gia, cố vấn chuyển giao thế hệ, phản biện đồng cấp và nghiên cứu học thuật trường phái quản trị LGM.
         </p>
       </div>
 

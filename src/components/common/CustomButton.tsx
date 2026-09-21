@@ -16,7 +16,7 @@ export const CustomButton: React.FC<CustomButtonProps> = ({
   children,
   ...props
 }) => {
-  const baseStyle = 'inline-flex min-h-11 items-center justify-center rounded-full font-medium transition-all duration-150 select-none whitespace-nowrap active:scale-95 cursor-pointer tracking-tight focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info disabled:pointer-events-none';
+  const baseStyle = 'inline-flex min-h-11 items-center justify-center rounded-none font-medium transition-all duration-150 select-none whitespace-nowrap active:scale-95 cursor-pointer tracking-tight focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info disabled:pointer-events-none';
 
   // 2x horizontal padding math: (h: 4/8, 6/12, 8/16)
   let sizeStyle = 'px-6 py-2.5 text-[15px] gap-2 font-medium';

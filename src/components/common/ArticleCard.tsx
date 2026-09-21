@@ -82,7 +82,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
     );
   }
 
-  if (featured || article.isSpotlight) {
+  if (featured) {
     return (
       <div 
         onClick={() => navigateTo('article-detail', { articleId: article.id })}
