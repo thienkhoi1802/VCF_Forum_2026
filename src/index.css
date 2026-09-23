@@ -275,3 +275,107 @@ main .shadow-md {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ========================================================
+   Desktop Detail Body Layout Guide System
+   Grid: 730px Article | 150px Divider Zone | 400px Xem nhiều
+   Total = 1280px container
+   ======================================================== */
+.detail-body-grid {
+  width: min(100% - 3rem, 1280px);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .detail-body-grid {
+    grid-template-columns: minmax(0, 1fr) 72px 340px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .detail-body-grid {
+    grid-template-columns: 730px 150px 400px;
+  }
+}
+
+.detail-article {
+  width: 100%;
+  min-width: 0;
+}
+
+@media (min-width: 1280px) {
+  .detail-article {
+    width: 730px;
+  }
+}
+
+.detail-divider-zone {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .detail-divider-zone {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-self: stretch;
+  }
+}
+
+.detail-divider {
+  width: 1px;
+  height: 100%;
+  background-color: var(--color-hairline, #e5e5ea);
+  justify-self: center;
+}
+
+.most-viewed-column {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .most-viewed-column {
+    display: block;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .most-viewed-column {
+    width: 400px;
+  }
+}
+
+.most-viewed-sidebar {
+  position: sticky;
+  top: 96px;
+}
+
+.related-news {
+  width: min(100% - 3rem, 1280px);
+  margin-inline: auto;
+}
+
+.related-news-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .related-news-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .related-news-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+  }
+}
+
