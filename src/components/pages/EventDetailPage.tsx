@@ -1169,7 +1169,7 @@ export const EventDetailPage: React.FC = () => {
               key={tab.id}
               data-tab={tab.id}
               onClick={() => scrollToSection(tab.id as any)}
-              className={`px-3.5 py-2.5 text-xs font-semibold whitespace-nowrap transition-colors border-b-2 shrink-0 cursor-pointer min-h-[44px] flex items-center justify-center ${
+              className={`px-3.5 py-2.5 text-sm font-semibold whitespace-nowrap transition-colors border-b-2 shrink-0 cursor-pointer min-h-[44px] flex items-center justify-center ${
                 activeTab === tab.id
                   ? 'border-brand-primary text-brand-primary'
                   : 'border-transparent text-ink-secondary hover:text-ink'
@@ -1246,15 +1246,15 @@ export const EventDetailPage: React.FC = () => {
             {/* SECTION 1: TỔNG QUAN & NỘI DUNG TRỌNG TÂM */}
             <section id="section-overview" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
               <div>
-                <span className="text-[11px] uppercase font-bold tracking-wider text-brand-primary">
+                <span className="text-xs uppercase font-bold tracking-wider text-brand-primary">
                   Giới thiệu tổng quan
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
+                <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
                   Về {event.activityName}
                 </h2>
               </div>
 
-              <div className="prose prose-neutral max-w-none text-sm sm:text-base leading-relaxed text-neutral-700 space-y-4 font-sans">
+              <div className="prose prose-neutral max-w-none text-base sm:text-base lg:text-[17px] leading-relaxed text-neutral-800 space-y-4 font-sans">
                 <p>
                   {event.description}
                 </p>
@@ -1266,18 +1266,18 @@ export const EventDetailPage: React.FC = () => {
             {isPast && (
               <section id="section-resources" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
                 <div className="border-b border-neutral-100 pb-3">
-                  <span className="text-[11px] uppercase font-bold tracking-wider text-brand-primary">
+                  <span className="text-xs uppercase font-bold tracking-wider text-brand-primary">
                     Tài liệu sau sự kiện
                   </span>
-                  <h2 className="text-xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
+                  <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
                     Tài Liệu, Kỷ Yếu & Kế Thừa Tri Thức
                   </h2>
-                  <p className="text-xs sm:text-sm text-ink-secondary mt-1 font-sans">
+                  <p className="text-sm sm:text-base text-neutral-600 mt-1 font-sans">
                     Tài liệu, hình ảnh và nội dung tổng kết từ chương trình.
                   </p>
                 </div>
 
-                <div className="space-y-2.5">
+                <div className="space-y-3">
                   <div 
                     onClick={() => navigateTo('knowledge')}
                     className="p-3.5 sm:p-4 rounded-xl bg-neutral-50/80 hover:bg-neutral-100/80 transition-all flex items-center justify-between gap-3 cursor-pointer group"
@@ -1287,10 +1287,10 @@ export const EventDetailPage: React.FC = () => {
                         <FileText className="w-5 h-5" />
                       </div>
                       <div>
-                        <h4 className="text-sm font-semibold text-ink group-hover:text-brand-primary transition-colors">
+                        <h4 className="text-base font-semibold text-ink group-hover:text-brand-primary transition-colors">
                           Báo cáo & Kỷ yếu hội nghị
                         </h4>
-                        <p className="text-xs text-ink-secondary mt-0.5">
+                        <p className="text-sm text-neutral-600 mt-0.5">
                           Kỷ yếu tổng hợp 12 bài tham luận & nghiên cứu (PDF • 18.5 MB)
                         </p>
                       </div>
@@ -1307,10 +1307,10 @@ export const EventDetailPage: React.FC = () => {
                         <Sparkles className="w-5 h-5" />
                       </div>
                       <div>
-                        <h4 className="text-sm font-semibold text-ink group-hover:text-brand-primary transition-colors">
+                        <h4 className="text-base font-semibold text-ink group-hover:text-brand-primary transition-colors">
                           Bộ ảnh & Video toàn cảnh sự kiện
                         </h4>
-                        <p className="text-xs text-ink-secondary mt-0.5">
+                        <p className="text-sm text-neutral-600 mt-0.5">
                           Kho 250+ hình ảnh chất lượng cao & video tư liệu chương trình
                         </p>
                       </div>
@@ -1327,10 +1327,10 @@ export const EventDetailPage: React.FC = () => {
                         <Download className="w-5 h-5" />
                       </div>
                       <div>
-                        <h4 className="text-sm font-semibold text-ink group-hover:text-brand-primary transition-colors">
+                        <h4 className="text-base font-semibold text-ink group-hover:text-brand-primary transition-colors">
                           Slide & tài liệu diễn giả
                         </h4>
-                        <p className="text-xs text-ink-secondary mt-0.5">
+                        <p className="text-sm text-neutral-600 mt-0.5">
                           Bản trình chiếu độc quyền từ các chuyên gia & cố vấn
                         </p>
                       </div>
@@ -1345,47 +1345,47 @@ export const EventDetailPage: React.FC = () => {
             <section id="section-agenda" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-100 pb-4">
                 <div>
-                  <span className="text-[11px] uppercase font-bold tracking-wider text-brand-primary">
+                  <span className="text-xs uppercase font-bold tracking-wider text-brand-primary">
                     Chương trình nghị sự
                   </span>
-                  <h2 className="text-xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
+                  <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
                     Khung Chương Trình Chi Tiết
                   </h2>
                 </div>
 
                 <button
                   onClick={() => alert('Đang tạo và tải về tài liệu Agenda PDF bản chuẩn in ấn (5.2 MB)...')}
-                  className="inline-flex items-center justify-center gap-2 px-4 py-2 border border-neutral-300 hover:border-black rounded-lg text-xs font-semibold transition-all bg-neutral-50 hover:bg-white cursor-pointer min-h-[40px] w-fit"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2 border border-neutral-300 hover:border-black rounded-lg text-sm font-semibold transition-all bg-neutral-50 hover:bg-white cursor-pointer min-h-[44px] w-fit"
                 >
-                  <Download className="w-3.5 h-3.5 text-ink-secondary" />
+                  <Download className="w-4 h-4 text-ink-secondary" />
                   <span>↓ Tải Agenda (PDF)</span>
                 </button>
               </div>
 
-              {/* Clean Agenda Timeline - No nested boxes */}
+              {/* Clean Agenda Timeline - Rõ nét, cỡ chữ tối thiểu 16px trên mobile */}
               <div className="divide-y divide-neutral-100">
                 {event.agenda.map((item, i) => (
                   <div 
                     key={i} 
-                    className="py-4 first:pt-1 last:pb-1 flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-6 group hover:bg-neutral-50/70 -mx-3 sm:-mx-4 px-3 sm:px-4 rounded-xl transition-colors"
+                    className="py-4 first:pt-1 last:pb-1 flex flex-col sm:flex-row sm:items-start gap-2.5 sm:gap-6 group hover:bg-neutral-50/70 -mx-3 sm:-mx-4 px-3 sm:px-4 rounded-xl transition-colors"
                   >
                     {/* Time Column */}
-                    <div className="sm:w-36 shrink-0 flex items-center gap-2 sm:pt-0.5">
-                      <div className="w-2 h-2 rounded-full bg-brand-primary/80 shrink-0 group-hover:scale-125 transition-transform" />
-                      <span className="font-mono text-xs sm:text-[13px] font-semibold text-neutral-600 group-hover:text-brand-primary transition-colors">
+                    <div className="sm:w-36 shrink-0 flex items-center gap-2.5 sm:pt-0.5">
+                      <div className="w-2.5 h-2.5 rounded-full bg-brand-primary shrink-0 group-hover:scale-125 transition-transform" />
+                      <span className="font-mono text-sm sm:text-sm font-bold text-neutral-800 group-hover:text-brand-primary transition-colors">
                         {item.time}
                       </span>
                     </div>
 
-                    {/* Topic and Speaker */}
-                    <div className="flex-1 space-y-1">
-                      <h4 className="text-sm sm:text-base font-bold text-ink leading-snug group-hover:text-neutral-900 transition-colors">
+                    {/* Topic and Speaker - Cỡ chữ tối thiểu 16px trên mobile */}
+                    <div className="flex-1 space-y-1.5">
+                      <h4 className="text-base sm:text-lg font-bold text-ink leading-snug group-hover:text-neutral-900 transition-colors">
                         {item.topic}
                       </h4>
                       {item.presenter && !item.presenter.includes('Hội đồng Khoa học PTIT') && (
-                        <div className="flex items-center gap-1.5 text-xs text-neutral-600 pt-0.5">
-                          <span className="text-neutral-400 font-medium">Diễn giả:</span>
-                          <span className="font-semibold text-neutral-800">{item.presenter}</span>
+                        <div className="flex items-center gap-1.5 text-sm text-neutral-600 pt-0.5">
+                          <span className="text-neutral-500 font-medium">Diễn giả:</span>
+                          <span className="font-bold text-neutral-800">{item.presenter}</span>
                         </div>
                       )}
                     </div>
@@ -1397,19 +1397,19 @@ export const EventDetailPage: React.FC = () => {
             {/* SECTION 3: DIỄN GIẢ & KHÁCH MỜI DANH DỰ */}
             <section id="section-speakers" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-6 scroll-mt-16 sm:scroll-mt-20">
               <div>
-                <span className="text-[11px] uppercase font-bold tracking-wider text-brand-primary">
+                <span className="text-xs uppercase font-bold tracking-wider text-brand-primary">
                   Diễn giả & Chuyên gia
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
+                <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
                   Đội Ngũ Diễn Giả Hàng Đầu
                 </h2>
-                <p className="text-xs text-ink-secondary mt-1 font-sans">
+                <p className="text-sm sm:text-base text-neutral-600 mt-1 font-sans">
                   Quy tụ các nhà hoạch định chính sách, chuyên gia kinh tế và lãnh đạo doanh nghiệp xuất sắc
                 </p>
               </div>
 
-              {/* Clean Speaker Grid - No harsh nested box borders */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              {/* Clean Speaker Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                 {event.speakers.map((spk) => {
                   const initials = spk.name
                     .split(' ')
@@ -1422,20 +1422,20 @@ export const EventDetailPage: React.FC = () => {
                   return (
                     <div 
                       key={spk.name} 
-                      className="p-3 sm:p-3.5 rounded-xl flex items-center gap-3.5 bg-neutral-50/70 hover:bg-neutral-100/70 transition-all group"
+                      className="p-3.5 sm:p-4 rounded-xl flex items-center gap-3.5 bg-neutral-50/70 hover:bg-neutral-100/70 transition-all group"
                     >
-                      <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-gradient-to-br from-neutral-800 to-neutral-950 text-white shadow-xs shrink-0 flex items-center justify-center font-bold text-sm sm:text-base tracking-wide group-hover:ring-2 group-hover:ring-brand-primary/50 transition-all overflow-hidden">
+                      <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-neutral-800 to-neutral-950 text-white shadow-xs shrink-0 flex items-center justify-center font-bold text-base tracking-wide group-hover:ring-2 group-hover:ring-brand-primary/50 transition-all overflow-hidden">
                         {spk.avatarUrl ? (
                           <img src={spk.avatarUrl} alt={spk.name} className="h-full w-full object-cover" />
                         ) : (
                           <span>{initials}</span>
                         )}
                       </div>
-                      <div className="space-y-0.5 min-w-0 flex-1">
-                        <h4 className="text-sm font-bold text-ink leading-tight group-hover:text-brand-primary transition-colors truncate">
+                      <div className="space-y-1 min-w-0 flex-1">
+                        <h4 className="text-base font-bold text-ink leading-tight group-hover:text-brand-primary transition-colors truncate">
                           {spk.name}
                         </h4>
-                        <div className="text-xs text-ink-secondary font-medium leading-snug line-clamp-2">
+                        <div className="text-sm text-neutral-600 font-medium leading-snug line-clamp-2">
                           {spk.role}
                         </div>
                       </div>
@@ -1448,29 +1448,29 @@ export const EventDetailPage: React.FC = () => {
             {/* SECTION 4: ĐỊA ĐIỂM */}
             <section id="section-venue" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-4 scroll-mt-16 sm:scroll-mt-20">
               <div>
-                <span className="text-[11px] uppercase font-bold tracking-wider text-brand-primary">
+                <span className="text-xs uppercase font-bold tracking-wider text-brand-primary">
                   Địa điểm
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
+                <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
                   Địa Điểm Tổ Chức
                 </h2>
               </div>
 
-              {/* Direct venue layout - No redundant nested box */}
+              {/* Direct venue layout */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
                 <div className="flex items-start gap-3.5">
-                  <div className="size-10 rounded-xl bg-red-50 text-brand-primary flex items-center justify-center shrink-0">
+                  <div className="size-11 rounded-xl bg-red-50 text-brand-primary flex items-center justify-center shrink-0 mt-0.5">
                     <Building className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="font-bold text-base sm:text-lg text-ink">
+                    <div className="font-bold text-lg sm:text-xl text-ink">
                       {event.venueDetails?.hall || event.location}
                     </div>
-                    <div className="text-xs sm:text-sm text-neutral-600 mt-1">
+                    <div className="text-base text-neutral-700 mt-1 leading-relaxed">
                       {event.venueDetails?.address || event.location}
                     </div>
                     {event.venueDetails?.notes && (
-                      <div className="text-xs text-neutral-500 mt-1.5 flex items-center gap-1.5">
+                      <div className="text-sm text-neutral-600 mt-1.5 flex items-center gap-1.5">
                         <span className="inline-block size-1.5 rounded-full bg-neutral-400" />
                         <span>{event.venueDetails.notes}</span>
                       </div>
@@ -1482,7 +1482,7 @@ export const EventDetailPage: React.FC = () => {
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-white bg-brand-primary hover:bg-brand-primary-hover transition-colors shadow-xs shrink-0 cursor-pointer min-h-[44px] w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm sm:text-base font-semibold text-white bg-brand-primary hover:bg-brand-primary-hover transition-colors shadow-xs shrink-0 cursor-pointer min-h-[44px] w-full sm:w-auto"
                 >
                   <Navigation className="w-4 h-4" />
                   <span>Điều hướng Google Maps</span>
@@ -1494,53 +1494,53 @@ export const EventDetailPage: React.FC = () => {
             {/* SECTION 5: ĐƠN VỊ CHỦ TRÌ & NHÀ TÀI TRỢ (Visual Hierarchy) */}
             <section id="section-partners" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
               <div>
-                <span className="text-[11px] uppercase font-bold tracking-wider text-brand-primary">
+                <span className="text-xs uppercase font-bold tracking-wider text-brand-primary">
                   Hệ sinh thái đồng hành
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
+                <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
                   Đơn Vị Chủ Trì & Nhà Tài Trợ
                 </h2>
               </div>
 
               <div className="space-y-4">
-                {/* 1. Đơn vị chủ trì: Soft banner without harsh border */}
+                {/* 1. Đơn vị chủ trì */}
                 <div className="p-3.5 sm:p-4 bg-neutral-50/80 rounded-xl flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3.5">
-                    <div className="w-11 h-11 bg-brand-primary text-white rounded-lg flex items-center justify-center font-bold text-base shrink-0 shadow-2xs">
+                    <div className="w-12 h-12 bg-brand-primary text-white rounded-lg flex items-center justify-center font-bold text-base shrink-0 shadow-2xs">
                       VCF
                     </div>
                     <div>
-                      <span className="text-[10px] uppercase font-bold text-brand-primary tracking-wider block">Đơn vị chủ trì</span>
-                      <strong className="text-sm sm:text-base font-bold text-ink">Diễn Đàn CEO Việt Nam (Vietnam CEO Forum)</strong>
+                      <span className="text-xs uppercase font-bold text-brand-primary tracking-wider block">Đơn vị chủ trì</span>
+                      <strong className="text-base sm:text-base font-bold text-ink">Diễn Đàn CEO Việt Nam (Vietnam CEO Forum)</strong>
                     </div>
                   </div>
                 </div>
 
-                {/* 2. Tài trợ Kim Cương: Soft warm surface */}
+                {/* 2. Tài trợ Kim Cương */}
                 <div className="p-3.5 sm:p-4 bg-amber-50/50 rounded-xl flex items-center justify-between gap-3">
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 flex items-center gap-1.5">
+                    <span className="text-xs font-bold uppercase tracking-wider text-amber-700 flex items-center gap-1.5">
                       <Crown className="w-3.5 h-3.5 text-amber-500" />
                       <span>Nhà Tài Trợ Kim Cương</span>
                     </span>
-                    <span className="text-sm sm:text-base font-bold text-ink block mt-0.5">
+                    <span className="text-base sm:text-base font-bold text-ink block mt-0.5">
                       VinaSteel Corporation
                     </span>
                   </div>
-                  <span className="text-[11px] font-semibold text-amber-800 bg-amber-100/80 px-3 py-1 rounded-full shrink-0">
+                  <span className="text-xs font-semibold text-amber-800 bg-amber-100/80 px-3 py-1 rounded-full shrink-0">
                     Diamond Partner
                   </span>
                 </div>
 
-                {/* 3. Tài trợ Vàng: Clean minimal cards */}
+                {/* 3. Tài trợ Vàng */}
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block mb-1.5">
+                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 block mb-1.5">
                     Nhà Tài Trợ Vàng
                   </span>
                   <div className="grid grid-cols-2 gap-2.5">
                     {['Techcombank', 'FPT Corporation'].map((name) => (
                       <div key={name} className="py-2.5 px-3.5 rounded-xl bg-neutral-50 hover:bg-neutral-100/80 transition-colors text-center">
-                        <span className="text-xs sm:text-sm font-semibold text-ink block">
+                        <span className="text-sm sm:text-base font-semibold text-ink block">
                           {name}
                         </span>
                       </div>
@@ -1548,9 +1548,9 @@ export const EventDetailPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* 4. Đối tác & Bảo trợ: Clean compact tags */}
+                {/* 4. Đối tác & Bảo trợ */}
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block mb-1.5">
+                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 block mb-1.5">
                     Bảo Trợ & Đối Tác Đồng Hành
                   </span>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -1562,10 +1562,10 @@ export const EventDetailPage: React.FC = () => {
                       { tier: 'Đồng hành', name: 'PTIT Academy' }
                     ].map((sponsor, idx) => (
                       <div key={idx} className="p-2.5 rounded-lg bg-neutral-50/70 hover:bg-neutral-100/70 transition-colors text-center">
-                        <span className="text-[9px] font-medium uppercase tracking-wider text-neutral-400 block mb-0.5">
+                        <span className="text-[10px] font-medium uppercase tracking-wider text-neutral-500 block mb-0.5">
                           {sponsor.tier}
                         </span>
-                        <span className="text-[11px] font-semibold text-ink block">
+                        <span className="text-xs sm:text-sm font-semibold text-ink block">
                           {sponsor.name}
                         </span>
                       </div>
@@ -1576,31 +1576,31 @@ export const EventDetailPage: React.FC = () => {
             </section>
 
             {/* SECTION 6: CÂU HỎI THƯỜNG GẶP (FAQ) */}
-            <section className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-4">
+            <section className="bg-white border border-hairline rounded-xl p-5 sm:p-8 shadow-xs space-y-4">
               <div>
-                <span className="text-[11px] uppercase font-semibold tracking-wider text-brand-primary">
+                <span className="text-xs uppercase font-semibold tracking-wider text-brand-primary">
                   Hỏi đáp
                 </span>
-                <h2 className="text-xl sm:text-2xl font-semibold text-ink tracking-tight mt-1">
+                <h2 className="text-2xl sm:text-2xl font-semibold text-ink tracking-tight mt-1">
                   Câu Hỏi Thường Gặp Của Đại Biểu
                 </h2>
               </div>
 
               <div className="divide-y divide-neutral-200">
                 {faqs.map((faq, index) => (
-                  <div key={index} className="py-3">
+                  <div key={index} className="py-3.5">
                     <button
                       onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
-                      className="w-full text-left flex items-center justify-between font-semibold text-sm text-ink hover:text-brand-primary transition-colors py-1 cursor-pointer"
+                      className="w-full text-left flex items-center justify-between font-bold text-base text-ink hover:text-brand-primary transition-colors py-1 cursor-pointer"
                     >
                       <span className="flex items-center gap-2">
-                        <HelpCircle className="w-4 h-4 text-neutral-400 shrink-0" />
+                        <HelpCircle className="w-4.5 h-4.5 text-neutral-400 shrink-0" />
                         {faq.q}
                       </span>
                       <ChevronDown className={`w-4 h-4 text-neutral-400 transition-transform ${openFaqIndex === index ? 'rotate-180' : ''}`} />
                     </button>
                     {openFaqIndex === index && (
-                      <p className="text-xs text-ink-secondary leading-relaxed pt-2 pl-6 font-sans">
+                      <p className="text-base text-neutral-700 leading-relaxed pt-2.5 pl-6 font-sans">
                         {faq.a}
                       </p>
                     )}
@@ -2698,38 +2698,38 @@ export const EventDetailPage: React.FC = () => {
               </div>
             ) : isPendingApproval ? (
               <div className="space-y-0.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600 block">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-amber-600 block">
                   Đang xét duyệt
                 </span>
-                <span className="text-xs font-bold text-ink flex items-center gap-1 truncate">
+                <span className="text-sm font-bold text-ink flex items-center gap-1 truncate">
                   <Clock className="w-3.5 h-3.5 text-amber-500 shrink-0 animate-pulse" />
                   <span>Hồ sơ đang chờ duyệt</span>
                 </span>
               </div>
             ) : isWaitlisted ? (
               <div className="space-y-0.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600 block">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-amber-600 block">
                   Danh sách chờ
                 </span>
-                <span className="text-xs font-bold text-ink truncate block">
+                <span className="text-sm font-bold text-ink truncate block">
                   Hàng đợi chờ duyệt
                 </span>
               </div>
             ) : isFullEffective ? (
               <div className="space-y-0.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-rose-600 block">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-rose-600 block">
                   Đã hết chỗ
                 </span>
-                <span className="text-xs font-bold text-ink truncate block">
+                <span className="text-sm font-bold text-ink truncate block">
                   Cổng đăng ký chờ mở
                 </span>
               </div>
             ) : (
               <div className="space-y-0.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 block">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700 block">
                   Còn {event.availableSeats}/{event.totalSeats} chỗ
                 </span>
-                <span className="text-xs font-bold text-ink truncate block">
+                <span className="text-sm font-bold text-ink truncate block">
                   Miễn phí cho Hội viên VCF
                 </span>
               </div>
@@ -2742,7 +2742,7 @@ export const EventDetailPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => scrollToSection('resources')}
-                className="px-4 py-2.5 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white font-semibold text-xs flex items-center gap-1.5 shadow-sm min-h-[44px] cursor-pointer"
+                className="px-4 py-2.5 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white font-semibold text-sm flex items-center gap-1.5 shadow-sm min-h-[44px] cursor-pointer"
               >
                 <FileText className="w-4 h-4" />
                 <span>Xem tài liệu & kỷ yếu</span>
@@ -2751,7 +2751,7 @@ export const EventDetailPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => scrollToSection('tickets')}
-                className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs flex items-center gap-1.5 shadow-sm min-h-[44px] cursor-pointer"
+                className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm flex items-center gap-1.5 shadow-sm min-h-[44px] cursor-pointer"
               >
                 <QrCode className="w-4 h-4" />
                 <span>Xem vé & QR</span>
@@ -2760,7 +2760,7 @@ export const EventDetailPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => scrollToSection('tickets')}
-                className="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs flex items-center gap-1.5 shadow-sm min-h-[44px] cursor-pointer"
+                className="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm flex items-center gap-1.5 shadow-sm min-h-[44px] cursor-pointer"
               >
                 <Clock className="w-4 h-4" />
                 <span>Xem hồ sơ</span>
@@ -2772,7 +2772,7 @@ export const EventDetailPage: React.FC = () => {
                   setIsWaitlistModal(true);
                   setIsMemberModalOpen(true);
                 }}
-                className="px-4 py-2.5 rounded-xl bg-neutral-900 hover:bg-black text-white font-semibold text-xs flex items-center gap-1.5 shadow-sm min-h-[44px] cursor-pointer"
+                className="px-4 py-2.5 rounded-xl bg-neutral-900 hover:bg-black text-white font-semibold text-sm flex items-center gap-1.5 shadow-sm min-h-[44px] cursor-pointer"
               >
                 <span>Đăng ký chờ</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -2784,7 +2784,7 @@ export const EventDetailPage: React.FC = () => {
                   setIsWaitlistModal(false);
                   setIsMemberModalOpen(true);
                 }}
-                className="px-5 py-2.5 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white font-bold text-xs xs:text-sm flex items-center gap-1.5 shadow-md min-h-[44px] cursor-pointer active:scale-98 transition-all"
+                className="px-5 py-2.5 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white font-bold text-sm flex items-center gap-1.5 shadow-md min-h-[44px] cursor-pointer active:scale-98 transition-all"
               >
                 <span>Đăng ký sự kiện ngay</span>
                 <ArrowRight className="w-4 h-4" />
