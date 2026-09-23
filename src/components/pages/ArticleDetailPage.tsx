@@ -51,34 +51,28 @@ export const ArticleDetailPage: React.FC = () => {
             label: article.subCategory || article.categoryName || 'Chuyên đề', 
             route: 'knowledge', 
             params: { category: article.category } 
-          },
-          { label: article.title }
+          }
         ]}
       />
 
       {/* ARTICLE HEADER & CONTENT (max-w-4xl for comfortable reading typography) */}
       <article className="max-w-4xl space-y-6 sm:space-y-8">
         <div className="space-y-3 pb-5 sm:pb-6 border-b border-hairline">
-          {/* Category & Date (Không có badge BT Nguyễn Mạnh Hùng, Không có thời gian đọc) */}
+          {/* Published Date (Đã bỏ tag badge theo yêu cầu) */}
           <div className="flex items-center gap-2.5 flex-wrap">
-            {article.subCategory && (
-              <span className="bg-neutral-100 text-neutral-800 text-xs font-semibold px-3 py-1 border border-hairline uppercase tracking-wider">
-                {article.subCategory}
-              </span>
-            )}
-            <span className="text-xs text-ink-secondary flex items-center gap-1.5 font-medium">
+            <span className="text-xs sm:text-sm text-ink-secondary flex items-center gap-1.5 font-medium">
               <Calendar className="w-3.5 h-3.5 text-brand-primary" />
               {article.publishedDate}
             </span>
           </div>
 
-          <h1 className="text-[24px] sm:text-3xl lg:text-4xl font-bold sm:font-semibold text-ink tracking-tight leading-snug">
+          <h1 className="text-[32pt] font-bold text-ink tracking-tight leading-[1.25]">
             {article.title}
           </h1>
 
-          {/* Subtitle nhỏ gọn gàng, thanh lịch dưới tiêu đề */}
+          {/* Sapo / Tóm tắt mở đầu bài viết - Body size tối thiểu 17pt */}
           {article.sapo && (
-            <p className="text-sm sm:text-base text-neutral-600 font-normal leading-relaxed pt-1">
+            <p className="text-[17pt] text-neutral-600 font-normal leading-relaxed pt-1">
               {article.sapo}
             </p>
           )}
@@ -93,39 +87,39 @@ export const ArticleDetailPage: React.FC = () => {
           className="w-full border border-hairline overflow-hidden shadow-xs"
         />
 
-        {/* Full Article Content - Dài gấp 5 lần với cấu trúc bài báo chuyên sâu */}
-        <div className="prose prose-neutral max-w-none text-base text-neutral-700 space-y-5 leading-relaxed font-sans">
+        {/* Full Article Content - Body size text tối thiểu 17pt */}
+        <div className="max-w-none text-[17pt] text-neutral-700 space-y-6 leading-[1.7] font-sans">
           {article.content.map((paragraph, index) => {
             if (paragraph.startsWith('## ')) {
               return (
-                <h2 key={index} className="text-xl sm:text-2xl font-bold text-ink pt-6 pb-2 border-b border-hairline tracking-tight">
+                <h2 key={index} className="text-[20pt] sm:text-[24pt] font-bold text-ink pt-8 pb-3 border-b border-hairline tracking-tight leading-snug">
                   {paragraph.replace('## ', '')}
                 </h2>
               );
             }
             if (paragraph.startsWith('### ')) {
               return (
-                <h3 key={index} className="text-lg sm:text-xl font-semibold text-ink pt-4 pb-1">
+                <h3 key={index} className="text-[18pt] sm:text-[20pt] font-semibold text-ink pt-6 pb-2 leading-snug">
                   {paragraph.replace('### ', '')}
                 </h3>
               );
             }
             if (paragraph.startsWith('> ')) {
               return (
-                <blockquote key={index} className="my-6 pl-5 border-l-4 border-brand-primary italic text-neutral-800 bg-neutral-50 py-3 pr-4">
+                <blockquote key={index} className="my-6 pl-5 border-l-4 border-brand-primary italic text-neutral-800 bg-neutral-50 py-3 pr-4 text-[17pt] leading-relaxed">
                   {paragraph.replace('> ', '')}
                 </blockquote>
               );
             }
             if (paragraph.startsWith('• ') || paragraph.startsWith('- ')) {
               return (
-                <li key={index} className="text-base leading-relaxed text-neutral-700 ml-5 list-disc py-0.5">
+                <li key={index} className="text-[17pt] leading-[1.7] text-neutral-700 ml-6 list-disc py-1">
                   {paragraph.replace(/^[•-]\s*/, '')}
                 </li>
               );
             }
             return (
-              <p key={index} className="text-base leading-relaxed text-neutral-700">
+              <p key={index} className="text-[17pt] leading-[1.7] text-neutral-700">
                 {paragraph}
               </p>
             );
@@ -134,7 +128,7 @@ export const ArticleDetailPage: React.FC = () => {
           {/* Inline Quote Section */}
           <div className="my-8 p-6 bg-red-50/60 border border-red-200 text-sm space-y-2">
             <div className="font-semibold text-brand-primary uppercase tracking-wide text-xs">TRÍCH ĐOẠN KHUYẾN NGHỊ QUẢN TRỊ LGM</div>
-            <p className="text-neutral-900 italic leading-relaxed font-medium">
+            <p className="text-neutral-900 italic leading-relaxed font-medium text-[17pt]">
               "Lãnh đạo trong nghịch cảnh đòi hỏi sự bình tâm và định hướng rõ ràng. Một khi hệ thống quản trị đủ minh bạch, mọi mắt xích trong tổ chức sẽ tự động vận hành mà không cần sự can thiệp vi mô liên tục của người đứng đầu."
             </p>
           </div>
