@@ -103,7 +103,7 @@ export const EventCard: React.FC<EventCardProps> = ({
               {isRegistered ? (
                 <>
                   <CheckCircle2 className="w-3.5 h-3.5 mr-1" />
-                  Đã xác nhận tham dự
+                  Xem thông tin tham dự
                 </>
               ) : isFullEffective ? (
                 'Đăng ký danh sách chờ'
@@ -193,7 +193,7 @@ export const EventCard: React.FC<EventCardProps> = ({
           {isRegistered ? (
             <>
               <CheckCircle2 className="w-3.5 h-3.5 mr-1" />
-              Đã xác nhận tham dự
+              Xem thông tin tham dự
             </>
           ) : isFullEffective ? (
             'Đăng ký danh sách chờ'

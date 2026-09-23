@@ -161,7 +161,7 @@ export const MOCK_EVENTS: EventItem[] = [
     availableSeats: 42,
     totalSeats: 500,
     isFull: false,
-    status: 'upcoming',
+    status: 'ongoing',
     speakers: [
       {
         name: 'Nguyễn Mạnh Hùng',
@@ -212,7 +212,48 @@ export const MOCK_EVENTS: EventItem[] = [
       { time: '15:45 - 17:00', topic: 'Đối thoại mở: Thách thức thế hệ kế nghiệp doanh nghiệp tư nhân' },
       { time: '17:00 - 17:30', topic: 'Tổng kết & Công bố Thông điệp Lãnh đạo VCF 2026' }
     ],
-    imagePlaceholder: '[Ảnh sự kiện: Toàn cảnh khán phòng CEO Summit 2026]'
+    imagePlaceholder: '[Ảnh sự kiện: Toàn cảnh khán phòng CEO Summit 2026]',
+    imageUrl: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    id: 'event-talk-finance',
+    title: 'Talkshow: AI trong lĩnh vực Tài chính – Ngân hàng',
+    activityId: 'ceo-talk',
+    activityName: 'Talkshow',
+    datetime: '14:00 - 16:00, Thứ Năm, 15/10/2026',
+    dateStr: '2026-10-15',
+    timeStr: '14:00 - 16:00',
+    location: 'Khách sạn Lotte, Hà Nội',
+    type: 'Hybrid',
+    availableSeats: 45,
+    totalSeats: 100,
+    isFull: false,
+    status: 'upcoming',
+    speakers: [
+      {
+        name: 'Trần Minh Tú',
+        role: 'Giám đốc Khối Công nghệ Ngân hàng số',
+        avatarPlaceholder: '[Ảnh: Diễn giả Trần Minh Tú]'
+      },
+      {
+        name: 'Nguyễn Thanh Tùng',
+        role: 'Phó Tổng Giám đốc Vietcombank',
+        avatarPlaceholder: '[Ảnh: Diễn giả Nguyễn Thanh Tùng]'
+      },
+      {
+        name: 'TS. Phạm Hải Đăng',
+        role: 'Chuyên gia Trưởng FinTech & AI Lab',
+        avatarPlaceholder: '[Ảnh: TS. Phạm Hải Đăng]'
+      }
+    ],
+    description: 'Chương trình tọa đàm chuyên sâu về tác động và cơ hội đột phá của trí tuệ nhân tạo (AI) trong thẩm định tín dụng, tối ưu dòng vốn và nâng cao trải nghiệm khách hàng ngành ngân hàng.',
+    agenda: [
+      { time: '14:00 - 14:15', topic: 'Khai mạc & Giới thiệu xu hướng AI Banking 2026' },
+      { time: '14:15 - 15:15', topic: 'Case study: Ứng dụng GenAI vào xử lý giao dịch tự động' },
+      { time: '15:15 - 16:00', topic: 'Tọa đàm bàn tròn cùng các lãnh đạo ngân hàng hàng đầu' }
+    ],
+    imagePlaceholder: '[Ảnh sự kiện: Tòa nhà tài chính ngân hàng]',
+    imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80'
   },
   {
     id: 'event-forum-fintech',
@@ -322,7 +363,7 @@ export const MOCK_EVENTS: EventItem[] = [
     availableSeats: 0,
     totalSeats: 15,
     isFull: true,
-    status: 'upcoming',
+    status: 'past',
     speakers: [
       {
         name: 'TS. Nguyễn Trọng Điều',
@@ -337,6 +378,66 @@ export const MOCK_EVENTS: EventItem[] = [
       { time: '16:00 - 17:00', topic: 'Hội ý cố vấn tài chính & Kế hoạch hành động bảo toàn thanh khoản' }
     ],
     imagePlaceholder: '[Ảnh sự kiện: Phiên thảo luận bàn tròn CEO Peer Group Hà Nội]'
+  },
+  {
+    id: 'event-talk-oct02',
+    title: 'Hội thảo Chuyên đề: Quản trị Tài chính & Chiến lược Mua bán Sáp nhập (M&A)',
+    activityId: 'ceo-forum',
+    activityName: 'Hội thảo',
+    datetime: '09:00 - 11:30, Thứ Sáu, 02/10/2026',
+    dateStr: '2026-10-02',
+    timeStr: '09:00 - 11:30',
+    location: 'Khách sạn Daewoo, Ba Đình, Hà Nội',
+    type: 'Trực tiếp',
+    availableSeats: 0,
+    totalSeats: 80,
+    isFull: true,
+    status: 'past',
+    speakers: [
+      {
+        name: 'Đặng Bá Cường',
+        role: 'Chuyên gia Tư vấn M&A Cấp cao',
+        avatarPlaceholder: '[Ảnh: Diễn giả Đặng Bá Cường]'
+      }
+    ],
+    description: 'Tổng kết các thương vụ M&A tiêu biểu trong năm 2026 và các lưu ý pháp lý khi định giá doanh nghiệp vừa và lớn.',
+    agenda: [
+      { time: '09:00 - 09:30', topic: 'Đón tiếp đại biểu và Khai mạc hội thảo' },
+      { time: '09:30 - 10:45', topic: 'Phân tích các tình huống M&A thành công năm 2026' },
+      { time: '10:45 - 11:30', topic: 'Hỏi đáp pháp lý & Chiến lược định giá' }
+    ],
+    imagePlaceholder: '[Ảnh sự kiện: Hội thảo M&A]',
+    imageUrl: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    id: 'event-talk-oct22',
+    title: 'Tọa đàm: Tối ưu Hóa Chi phí Logistics & Vận tải Chuỗi Cung Ứng',
+    activityId: 'ceo-talk',
+    activityName: 'Tọa đàm',
+    datetime: '14:00 - 16:30, Thứ Năm, 22/10/2026',
+    dateStr: '2026-10-22',
+    timeStr: '14:00 - 16:30',
+    location: 'Trung tâm Hội nghị Almaz, Vinhomes Riverside, Long Biên, Hà Nội',
+    type: 'Hybrid',
+    availableSeats: 25,
+    totalSeats: 60,
+    isFull: false,
+    status: 'upcoming',
+    speakers: [
+      {
+        name: 'Lê Minh Tuấn',
+        role: 'Giám đốc Vận hành Logistics Tân Cảng',
+        avatarPlaceholder: '[Ảnh: Diễn giả Lê Minh Tuấn]'
+      }
+    ],
+    description: 'Chia sẻ kinh nghiệm thực tiễn về ứng dụng công nghệ IoT và AI để cắt giảm chi phí kho bãi, rút ngắn thời gian giao nhận.',
+    agenda: [
+      { time: '14:00 - 14:30', topic: 'Check-in đại biểu và tiệc trà chiều' },
+      { time: '14:30 - 15:30', topic: 'Báo cáo xu hướng chuỗi cung ứng và logistics thông minh' },
+      { time: '15:30 - 16:30', topic: 'Thảo luận giải pháp cắt giảm chi phí kho bãi & vận tải' }
+    ],
+    imagePlaceholder: '[Ảnh sự kiện: Tọa đàm Logistics]',
+    imageUrl: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80'
   },
   {
     id: 'event-summit-2025',
