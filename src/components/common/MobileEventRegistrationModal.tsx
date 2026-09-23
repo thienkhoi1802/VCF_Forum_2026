@@ -508,100 +508,107 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
       role="dialog"
       aria-modal="true"
       aria-labelledby="mobile-reg-title"
-      className="fixed inset-0 z-50 flex flex-col bg-white overflow-hidden animate-fadeIn"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-xs p-0 sm:p-4 md:p-6 overflow-hidden animate-fadeIn"
     >
-      {/* =========================================================================
-          P1: COMPACT MOBILE HEADER (Sticky top)
-          Item 1: Title "Đăng ký tham dự" Style tăng lên gấp 2 (text-2xl sm:text-3xl font-extrabold)
-          ========================================================================= */}
-      <header className="sticky top-0 z-30 bg-white border-b border-hairline px-4 pt-3.5 pb-2.5 shrink-0 shadow-2xs">
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0 flex-1">
-            {/* Title size enlarged by 2x */}
-            <h1 id="mobile-reg-title" className="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink leading-tight">
-              {isWaitlist ? 'Đăng ký danh sách chờ' : 'Đăng ký tham dự'}
-            </h1>
-            <p className="text-xs sm:text-sm text-ink-secondary font-medium line-clamp-2 mt-1 leading-snug">
-              {eventTitle}
-            </p>
-            <p className="text-xs text-neutral-500 font-medium font-sans mt-0.5">
-              {getCompactDateLocation()}
-            </p>
+      {/* Click outside backdrop on desktop */}
+      <div 
+        className="fixed inset-0 hidden sm:block -z-10" 
+        onClick={onClose}
+        aria-hidden="true" 
+      />
+
+      {/* Responsive Unified Modal Card */}
+      <div className="relative z-10 flex flex-col bg-white w-full h-full sm:h-auto sm:max-h-[90vh] sm:max-w-2xl sm:rounded-2xl sm:shadow-2xl sm:border sm:border-neutral-200 overflow-hidden">
+        {/* =========================================================================
+            HEADER (Unified Modern Style: Clean White, Clear Typography)
+            ========================================================================= */}
+        <header className="sticky top-0 z-30 bg-white border-b border-hairline px-4 sm:px-6 pt-4 sm:pt-5 pb-3 sm:pb-3.5 shrink-0 shadow-2xs">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0 flex-1">
+              <h1 id="mobile-reg-title" className="text-xl sm:text-2xl font-extrabold tracking-tight text-ink leading-tight">
+                {isWaitlist ? 'Đăng ký danh sách chờ' : 'Đăng ký tham dự'}
+              </h1>
+              <p className="text-xs sm:text-sm text-ink-secondary font-medium line-clamp-2 mt-1 leading-snug">
+                {eventTitle}
+              </p>
+              <p className="text-xs text-neutral-500 font-medium font-sans mt-0.5">
+                {getCompactDateLocation()}
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Đóng"
+              className="flex size-10 shrink-0 -mr-1 -mt-1 items-center justify-center rounded-full text-neutral-500 hover:text-ink hover:bg-neutral-100 transition-colors cursor-pointer"
+            >
+              <X className="size-5 sm:size-6" />
+            </button>
           </div>
 
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Đóng"
-            className="flex size-11 shrink-0 -mr-2 -mt-1 items-center justify-center rounded-full text-neutral-500 hover:text-ink hover:bg-neutral-100 transition-colors cursor-pointer"
-          >
-            <X className="size-6" />
-          </button>
-        </div>
+          {/* =======================================================================
+              STEPPER (Short labels on mobile, full labels on desktop, no truncation)
+              ======================================================================= */}
+          {!fastTrackMode && !isSuccess && (
+            <div className="mt-3.5 pt-3 border-t border-hairline/80">
+              <div className={`grid gap-1 sm:gap-2 ${currentUser ? 'grid-cols-4' : 'grid-cols-5'}`}>
+                {[
+                  { step: 1, label: 'Đại biểu', fullLabel: 'Đại biểu' },
+                  { step: 2, label: 'Công ty', fullLabel: 'Doanh nghiệp' },
+                  { step: 3, label: 'Quan tâm', fullLabel: 'Quan tâm' },
+                  { step: 4, label: 'Cố vấn', fullLabel: 'Chuyên gia' },
+                  ...(!currentUser ? [{ step: 5, label: 'Tài khoản', fullLabel: 'Tài khoản' }] : [])
+                ].map(item => {
+                  const isCompleted = currentStep > item.step;
+                  const isCurrent = currentStep === item.step;
 
-        {/* =======================================================================
-            MOBILE STEPPER (Short labels, no truncation)
-            Only show during wizard (not during Fast Track or Success)
-            ======================================================================= */}
-        {!fastTrackMode && !isSuccess && (
-          <div className="mt-3 pt-2.5 border-t border-hairline/80">
-            <div className={`grid gap-1 ${currentUser ? 'grid-cols-4' : 'grid-cols-5'}`}>
-              {[
-                { step: 1, label: 'Đại biểu' },
-                { step: 2, label: 'Công ty' },
-                { step: 3, label: 'Quan tâm' },
-                { step: 4, label: 'Cố vấn' },
-                ...(!currentUser ? [{ step: 5, label: 'Tài khoản' }] : [])
-              ].map(item => {
-                const isCompleted = currentStep > item.step;
-                const isCurrent = currentStep === item.step;
-
-                return (
-                  <div key={item.step} className="flex flex-col items-center text-center">
-                    <div className="flex items-center justify-center mb-1">
-                      <div
-                        className={`size-6 rounded-full flex items-center justify-center text-[11px] font-semibold transition-all ${
-                          isCompleted
-                            ? 'bg-emerald-600 text-white'
-                            : isCurrent
-                            ? 'bg-brand-primary text-white ring-2 ring-red-200'
-                            : 'bg-neutral-100 text-neutral-500 border border-neutral-200'
+                  return (
+                    <div key={item.step} className="flex flex-col items-center text-center">
+                      <div className="flex items-center justify-center mb-1">
+                        <div
+                          className={`size-6 sm:size-7 rounded-full flex items-center justify-center text-[11px] sm:text-xs font-semibold transition-all ${
+                            isCompleted
+                              ? 'bg-emerald-600 text-white'
+                              : isCurrent
+                              ? 'bg-brand-primary text-white ring-2 ring-red-200 shadow-xs'
+                              : 'bg-neutral-100 text-neutral-500 border border-neutral-200'
+                          }`}
+                        >
+                          {isCompleted ? <Check className="size-3.5 stroke-[2.5]" /> : item.step}
+                        </div>
+                      </div>
+                      <span
+                        className={`text-[10px] sm:text-xs font-medium leading-none truncate w-full ${
+                          isCurrent
+                            ? 'text-brand-primary font-bold'
+                            : isCompleted
+                            ? 'text-emerald-700'
+                            : 'text-neutral-500'
                         }`}
                       >
-                        {isCompleted ? <Check className="size-3.5 stroke-[2.5]" /> : item.step}
-                      </div>
+                        <span className="sm:hidden">{item.label}</span>
+                        <span className="hidden sm:inline">{item.fullLabel}</span>
+                      </span>
                     </div>
-                    <span
-                      className={`text-[10px] sm:text-[11px] font-medium leading-none truncate w-full ${
-                        isCurrent
-                          ? 'text-brand-primary font-bold'
-                          : isCompleted
-                          ? 'text-emerald-700'
-                          : 'text-neutral-500'
-                      }`}
-                    >
-                      {item.label}
-                    </span>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        )}
-      </header>
+          )}
+        </header>
 
-      {/* =========================================================================
-          SCROLLABLE FORM CONTENT CONTAINER
-          ========================================================================= */}
-      <div
-        ref={scrollContainerRef}
-        className="flex-1 overflow-y-auto px-4 py-4 overscroll-contain bg-white"
-      >
+        {/* =========================================================================
+            SCROLLABLE FORM CONTENT CONTAINER
+            ========================================================================= */}
+        <div
+          ref={scrollContainerRef}
+          className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-5 overscroll-contain bg-white"
+        >
         {/* =======================================================================
             BRANCH A: MEMBER FAST TRACK (Separate branch BEFORE wizard)
             ======================================================================= */}
         {fastTrackMode && !isSuccess && (
-          <div className="space-y-4 max-w-lg mx-auto">
+          <div className="space-y-4 max-w-xl mx-auto">
             {/* Header info */}
             <div className="space-y-1">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-red-50 text-brand-primary border border-red-200">
@@ -703,7 +710,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
             BRANCH B: WIZARD STEPS
             ======================================================================= */}
         {!fastTrackMode && !isSuccess && (
-          <div className="space-y-4 max-w-lg mx-auto">
+          <div className="space-y-4 max-w-xl mx-auto">
             {/* -----------------------------------------------------------------
                 STEP 1: THÔNG TIN ĐẠI BIỂU
                 ----------------------------------------------------------------- */}
@@ -1317,7 +1324,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
             Item 2: Hiển thị đầy đủ thông tin xác nhận đăng ký sự kiện thành công
             ======================================================================= */}
         {isSuccess && (
-          <div className="space-y-4 max-w-lg mx-auto py-1 animate-fadeIn">
+          <div className="space-y-4 max-w-xl mx-auto py-1 animate-fadeIn">
             {/* KHỐI TRẠNG THÁI HỒ SƠ */}
             <div className="space-y-2.5 pb-2 border-b border-hairline text-left">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-900">
@@ -1475,12 +1482,12 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
       </div>
 
       {/* =========================================================================
-          P1: STICKY BOTTOM MOBILE ACTION BAR (Only 1 dominant primary CTA)
+          STICKY BOTTOM ACTION BAR (Unified for Mobile & Desktop)
           ========================================================================= */}
       {!fastTrackMode && !isSuccess && (
-        <footer className="sticky bottom-0 z-30 bg-white border-t border-hairline px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shrink-0 shadow-lg">
-          <div className="max-w-lg mx-auto flex items-center gap-3">
-            {currentStep > 1 && (
+        <footer className="sticky bottom-0 z-30 bg-white border-t border-hairline px-4 sm:px-6 py-3 sm:py-3.5 pb-[max(0.75rem,env(safe-area-inset-bottom))] shrink-0 shadow-lg">
+          <div className="max-w-xl mx-auto flex items-center justify-between gap-3">
+            {currentStep > 1 ? (
               <button
                 type="button"
                 onClick={handleBack}
@@ -1490,67 +1497,72 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
               >
                 <ArrowLeft className="size-5 stroke-[2.2]" />
               </button>
+            ) : (
+              <div />
             )}
 
-            {currentStep < 4 ? (
-              <button
-                type="button"
-                onClick={handleNext}
-                className="flex-1 min-h-[46px] py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-white bg-brand-primary hover:bg-brand-primary-hover active:scale-[0.99] flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md"
-              >
-                <span>Tiếp tục</span>
-                <ArrowRight className="size-4" />
-              </button>
-            ) : currentStep === 4 ? (
-              <button
-                type="button"
-                onClick={() => {
-                  if (validateStep4()) {
-                    if (currentUser) {
-                      handleMemberSubmit();
-                    } else {
-                      setCurrentStep(5);
+            <div className="flex-1 sm:flex-initial sm:min-w-[240px] flex justify-end">
+              {currentStep < 4 ? (
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  className="w-full sm:w-auto sm:min-w-[200px] min-h-[46px] py-2.5 px-5 rounded-xl text-xs sm:text-sm font-bold text-white bg-brand-primary hover:bg-brand-primary-hover active:scale-[0.99] flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md"
+                >
+                  <span>Tiếp tục Bước {currentStep + 1}</span>
+                  <ArrowRight className="size-4" />
+                </button>
+              ) : currentStep === 4 ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (validateStep4()) {
+                      if (currentUser) {
+                        handleMemberSubmit();
+                      } else {
+                        setCurrentStep(5);
+                      }
                     }
-                  }
-                }}
-                disabled={isSubmitting}
-                className="flex-1 min-h-[46px] py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-white bg-brand-primary hover:bg-brand-primary-hover active:scale-[0.99] disabled:bg-neutral-300 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md"
-              >
-                {isSubmitting ? (
-                  <span>Đang xử lý...</span>
-                ) : currentUser ? (
-                  <>
-                    <span>Xác nhận đăng ký</span>
-                    <Check className="size-4 stroke-[2.5]" />
-                  </>
-                ) : (
-                  <>
-                    <span>Tiếp tục: Tạo tài khoản</span>
-                    <ArrowRight className="size-4" />
-                  </>
-                )}
-              </button>
-            ) : (
-              /* Step 5: Quick account creation submit */
-              <button
-                type="button"
-                onClick={handleGuestAccountSubmit}
-                disabled={isSubmitting}
-                className="flex-1 min-h-[46px] py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-white bg-brand-primary hover:bg-brand-primary-hover active:scale-[0.99] disabled:bg-neutral-300 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md"
-              >
-                {isSubmitting ? (
-                  <span>Đang xử lý...</span>
-                ) : (
-                  <>
-                    <span>{userExists ? 'Đăng nhập & Hoàn tất' : 'Hoàn tất đăng ký & Nhận vé'}</span>
-                    <Check className="size-4 stroke-[2.5]" />
-                  </>
-                )}
-              </button>
-            )}
+                  }}
+                  disabled={isSubmitting}
+                  className="w-full sm:w-auto sm:min-w-[220px] min-h-[46px] py-2.5 px-5 rounded-xl text-xs sm:text-sm font-bold text-white bg-brand-primary hover:bg-brand-primary-hover active:scale-[0.99] disabled:bg-neutral-300 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md"
+                >
+                  {isSubmitting ? (
+                    <span>Đang xử lý...</span>
+                  ) : currentUser ? (
+                    <>
+                      <span>Xác nhận đăng ký</span>
+                      <Check className="size-4 stroke-[2.5]" />
+                    </>
+                  ) : (
+                    <>
+                      <span>Tiếp tục Bước 5</span>
+                      <ArrowRight className="size-4" />
+                    </>
+                  )}
+                </button>
+              ) : (
+                /* Step 5: Quick account creation submit */
+                <button
+                  type="button"
+                  onClick={handleGuestAccountSubmit}
+                  disabled={isSubmitting}
+                  className="w-full sm:w-auto sm:min-w-[240px] min-h-[46px] py-2.5 px-5 rounded-xl text-xs sm:text-sm font-bold text-white bg-brand-primary hover:bg-brand-primary-hover active:scale-[0.99] disabled:bg-neutral-300 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md"
+                >
+                  {isSubmitting ? (
+                    <span>Đang xử lý...</span>
+                  ) : (
+                    <>
+                      <span>{userExists ? 'Đăng nhập & Hoàn tất' : 'Hoàn tất đăng ký & Nhận vé'}</span>
+                      <Check className="size-4 stroke-[2.5]" />
+                    </>
+                  )}
+                </button>
+              )}
+            </div>
           </div>
         </footer>
       )}
+      </div>
     </div>
   );
 };

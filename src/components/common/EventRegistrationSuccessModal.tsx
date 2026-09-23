@@ -94,24 +94,24 @@ export const EventRegistrationSuccessModal: React.FC<EventRegistrationSuccessMod
       className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-fadeIn"
       onClick={onClose}
     >
-      {/* Modal Dialog Container: Ultra-compact, strictly no-scroll on mobile and desktop */}
+      {/* Modal Dialog Container: Properly centered and constrained on all screen sizes */}
       <div
         ref={modalRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="registration-status-modal-title"
-        className="relative w-full max-w-[460px] max-w-[calc(100vw-24px)] bg-white rounded-2xl shadow-2xl p-4 sm:p-6 border border-hairline my-auto overflow-hidden animate-scaleUp"
+        className="relative w-full max-w-md sm:max-w-[480px] bg-white rounded-2xl shadow-2xl p-5 sm:p-7 border border-hairline my-auto overflow-hidden animate-scaleUp mx-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close icon button at top right */}
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-2.5 right-2.5 sm:top-3.5 sm:right-3.5 size-8 inline-flex items-center justify-center rounded-full text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-colors cursor-pointer z-20"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 size-8 inline-flex items-center justify-center rounded-full text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-colors cursor-pointer z-20"
           title="Đóng"
           aria-label="Đóng"
         >
-          <X className="w-4.5 h-4.5" />
+          <X className="w-4 h-4" />
         </button>
 
         {/* 1. Success Icon with subtle celebration dots */}
