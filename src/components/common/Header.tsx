@@ -123,7 +123,7 @@ export const Header: React.FC = () => {
                 <div id="knowledge-menu" className="absolute left-0 top-full w-[420px] rounded-lg border border-hairline bg-white p-3 animate-fadeIn">
                   <p className="px-3 pb-2 pt-1 text-xs font-medium text-ink-secondary">Kho tri thức lãnh đạo và quản trị</p>
                   {[
-                    ['hung-bt', 'Bài viết của BT Nguyễn Mạnh Hùng', 'Triết lý lãnh đạo, văn hóa và tầm nhìn'],
+                    ['hung-bt', 'Tác giả BT. Nguyễn Mạnh Hùng', 'Triết lý lãnh đạo, văn hóa và tầm nhìn'],
                     ['other-authors', 'Góc nhìn chuyên gia', 'Kinh tế, quản trị, pháp lý và thị trường'],
                     ['derived-knowledge', 'Tri thức phái sinh', 'Case study, sách và nghiên cứu ứng dụng'],
                   ].map(([category, title, description]) => (
@@ -244,7 +244,7 @@ export const Header: React.FC = () => {
               {mobileKnowledgeOpen ? (
                 <div className="mb-4 space-y-1 border-l-2 border-brand-primary pl-4">
                   <button type="button" onClick={() => navigateTo('knowledge')} className="block min-h-11 w-full text-left text-sm font-medium text-brand-primary">Trang chủ hệ tri thức</button>
-                  <button type="button" onClick={() => navigateTo('knowledge-category', { category: 'hung-bt' })} className="block min-h-11 w-full text-left text-sm">BT Nguyễn Mạnh Hùng</button>
+                  <button type="button" onClick={() => navigateTo('knowledge-category', { category: 'hung-bt' })} className="block min-h-11 w-full text-left text-sm">Tác giả BT. Nguyễn Mạnh Hùng</button>
                   <button type="button" onClick={() => navigateTo('knowledge-category', { category: 'other-authors' })} className="block min-h-11 w-full text-left text-sm">Góc nhìn chuyên gia</button>
                   <button type="button" onClick={() => navigateTo('knowledge-category', { category: 'derived-knowledge' })} className="block min-h-11 w-full text-left text-sm">Tri thức phái sinh</button>
                 </div>

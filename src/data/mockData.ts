@@ -637,7 +637,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
+    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
     subCategory: 'Triết lý Lãnh đạo',
     publishedDate: '12/08/2026',
     readTime: '8 phút đọc',
@@ -672,7 +672,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
+    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
     subCategory: 'Văn hóa Doanh nghiệp',
     publishedDate: '01/08/2026',
     readTime: '6 phút đọc',
@@ -696,7 +696,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
+    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
     subCategory: 'Khát vọng Việt Nam',
     publishedDate: '25/07/2026',
     readTime: '7 phút đọc',
@@ -720,7 +720,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
+    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
     subCategory: 'Chuyển đổi số & AI',
     publishedDate: '18/07/2026',
     readTime: '9 phút đọc',
@@ -744,7 +744,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
+    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
     subCategory: 'Triết lý Lãnh đạo',
     publishedDate: '09/07/2026',
     readTime: '6 phút đọc',
@@ -768,7 +768,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
+    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
     subCategory: 'Tầm nhìn Quốc gia',
     publishedDate: '02/07/2026',
     readTime: '8 phút đọc',
@@ -792,7 +792,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
+    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
     subCategory: 'Triết lý Lãnh đạo',
     publishedDate: '24/06/2026',
     readTime: '6 phút đọc',
@@ -1198,7 +1198,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
+    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
     subCategory: 'Tầm nhìn Quốc gia',
     publishedDate: '28/04/2026',
     readTime: '7 phút đọc',
@@ -1294,7 +1294,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
+    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
     subCategory: 'Triết lý Lãnh đạo',
     publishedDate: '10/04/2026',
     readTime: '6 phút đọc',
@@ -1414,7 +1414,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
+    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
     subCategory: 'Văn hóa Doanh nghiệp',
     publishedDate: '10/03/2026',
     readTime: '7 phút đọc',

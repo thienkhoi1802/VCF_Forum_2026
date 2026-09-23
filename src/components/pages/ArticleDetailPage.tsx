@@ -43,7 +43,7 @@ export const ArticleDetailPage: React.FC = () => {
   };
 
   return (
-    <div className="vcf-container py-6 pb-24 space-y-8 font-sans">
+    <div className="vcf-container py-4 sm:py-6 pb-16 sm:pb-24 space-y-6 sm:space-y-8 font-sans">
       <Breadcrumb
         items={[
           { label: 'Hệ tri thức LGM', route: 'knowledge', params: { category: 'all' } },
@@ -57,8 +57,8 @@ export const ArticleDetailPage: React.FC = () => {
       />
 
       {/* ARTICLE HEADER & CONTENT (max-w-4xl for comfortable reading typography) */}
-      <article className="max-w-4xl space-y-8">
-        <div className="space-y-3 pb-6 border-b border-hairline">
+      <article className="max-w-4xl space-y-6 sm:space-y-8">
+        <div className="space-y-3 pb-5 sm:pb-6 border-b border-hairline">
           {/* Category & Date (Không có badge BT Nguyễn Mạnh Hùng, Không có thời gian đọc) */}
           <div className="flex items-center gap-2.5 flex-wrap">
             {article.subCategory && (
@@ -72,7 +72,7 @@ export const ArticleDetailPage: React.FC = () => {
             </span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-ink tracking-tight leading-snug">
+          <h1 className="text-[24px] sm:text-3xl lg:text-4xl font-bold sm:font-semibold text-ink tracking-tight leading-snug">
             {article.title}
           </h1>
 

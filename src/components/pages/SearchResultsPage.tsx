@@ -66,7 +66,7 @@ export const SearchResultsPage: React.FC = () => {
               type="text"
               value={inputQuery}
               onChange={(e) => setInputQuery(e.target.value)}
-              placeholder="Nhập từ khóa tìm kiếm (VD: Hội nghị, Chuyển đổi số, Kế nghiệp, BT Nguyễn Mạnh Hùng...)"
+              placeholder="Nhập từ khóa tìm kiếm (VD: Hội nghị, Chuyển đổi số, Kế nghiệp, Tác giả BT. Nguyễn Mạnh Hùng...)"
               className="w-full pl-10 pr-4 py-3 text-sm bg-white border border-neutral-300 rounded-full focus:outline-none focus:border-brand-primary font-sans shadow-xs transition-all duration-150"
             />
             <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5" />

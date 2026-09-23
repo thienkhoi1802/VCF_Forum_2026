@@ -232,7 +232,7 @@ export const ActivityDetailPage: React.FC = () => {
               <div className="bg-ink text-white rounded-lg p-6 md:p-8 space-y-4 shadow-xs">
                 <h3 className="text-xl font-semibold">Khám Phá Học Thuyết Quản Trị LGM Việt Nam</h3>
                 <p className="text-xs text-neutral-300 leading-relaxed max-w-xl">
-                  Toàn bộ các công trình nghiên cứu, bài viết chuyên luận của Bộ trưởng Nguyễn Mạnh Hùng và các chuyên gia Hội đồng Khoa học được lưu trữ tại Hệ Tri Thức LGM.
+                  Toàn bộ các công trình nghiên cứu, bài viết chuyên luận của Tác giả BT. Nguyễn Mạnh Hùng và các chuyên gia Hội đồng Khoa học được lưu trữ tại Hệ Tri Thức LGM.
                 </p>
                 <CustomButton
                   variant="primary"
