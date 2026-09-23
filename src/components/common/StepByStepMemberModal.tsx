@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { UserProfile } from '../../types';
+import { MobileEventRegistrationModal } from './MobileEventRegistrationModal';
 import {
   Check,
   ArrowRight,
@@ -75,8 +76,25 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
     checkEmailExistsInSystem,
     showNotification,
     navigateTo,
-    registeredEvents
+    registeredEvents,
+    viewportMode
   } = useApp();
+
+  const [isMobile, setIsMobile] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 640;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Steps:
   // 1: Thông tin đại biểu & Liên hệ (KHÔNG hỏi email/mật khẩu)
@@ -537,6 +555,23 @@ export const StepByStepMemberModal: React.FC<StepByStepMemberModalProps> = ({
   };
 
   if (!isOpen) return null;
+
+  if (isMobile || viewportMode === 'mobile') {
+    return (
+      <MobileEventRegistrationModal
+        isOpen={isOpen}
+        onClose={onClose}
+        onSuccess={onSuccess}
+        onSwitchToLogin={onSwitchToLogin}
+        eventTitle={eventTitle}
+        eventId={eventId}
+        eventDatetime={eventDatetime}
+        eventLocation={eventLocation}
+        eventActivityName={eventActivityName}
+        isWaitlist={isWaitlist}
+      />
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm sm:p-4 overflow-y-auto">

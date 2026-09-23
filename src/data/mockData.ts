@@ -206,7 +206,7 @@ export const MOCK_EVENTS: EventItem[] = [
     agenda: [
       { time: '08:00 - 08:30', topic: 'Đón tiếp đại biểu & Check-in qua mã QR định danh' },
       { time: '08:30 - 09:15', topic: 'Phát biểu khai mạc & Báo cáo Tổng quan Kinh tế Lãnh đạo 2026-2030' },
-      { time: '09:15 - 10:30', topic: 'Phiên 1: Tái cấu trúc tổ chức bằng Trí tuệ Nhân tạo thực chiến', presenter: 'Hội đồng Khoa học PTIT & Chuyên gia AI' },
+      { time: '09:15 - 10:30', topic: 'Phiên 1: Tái cấu trúc tổ chức bằng Trí tuệ Nhân tạo thực chiến' },
       { time: '10:45 - 12:00', topic: 'Tọa đàm bàn tròn: Vốn, Năng lượng sạch và Chuỗi cung ứng mới' },
       { time: '13:30 - 15:30', topic: 'Phiên chuyên đề phân nhánh: Sản xuất thông minh & Bán lẻ đa kênh' },
       { time: '15:45 - 17:00', topic: 'Đối thoại mở: Thách thức thế hệ kế nghiệp doanh nghiệp tư nhân' },

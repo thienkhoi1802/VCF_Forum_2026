@@ -75,7 +75,7 @@ export const EventDetailPage: React.FC = () => {
   // Find event or fallback to default summit
   const event = MOCK_EVENTS.find(e => e.id === selectedEventId) || MOCK_EVENTS[0];
 
-  const [activeTab, setActiveTab] = useState<'overview' | 'agenda' | 'speakers' | 'tickets' | 'venue' | 'partners'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'resources' | 'agenda' | 'speakers' | 'tickets' | 'venue' | 'partners'>('overview');
   const [selectedPassType, setSelectedPassType] = useState<'member' | 'standard'>('member');
   
   const isManualScrollingRef = React.useRef(false);
@@ -183,24 +183,28 @@ export const EventDetailPage: React.FC = () => {
           const windowHeight = window.innerHeight;
           const docHeight = document.documentElement.scrollHeight;
 
+          const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+          const lastTab = (!isPast && isMobile) ? 'tickets' : 'partners';
           // If scrolled near bottom of page, highlight the last section
           if (scrollY + windowHeight >= docHeight - 80) {
-            setActiveTab('partners');
+            setActiveTab(lastTab);
             ticking = false;
             return;
           }
 
-          const sections: { id: 'overview' | 'agenda' | 'speakers' | 'venue' | 'partners'; el: HTMLElement | null }[] = [
+          const sections: { id: 'overview' | 'resources' | 'agenda' | 'speakers' | 'venue' | 'partners' | 'tickets'; el: HTMLElement | null }[] = [
             { id: 'overview', el: document.getElementById('section-overview') },
+            ...(isPast ? [{ id: 'resources' as const, el: document.getElementById('section-resources') }] : []),
             { id: 'agenda', el: document.getElementById('section-agenda') },
             { id: 'speakers', el: document.getElementById('section-speakers') },
             { id: 'venue', el: document.getElementById('section-venue') },
             { id: 'partners', el: document.getElementById('section-partners') },
+            ...(!isPast && isMobile ? [{ id: 'tickets' as const, el: document.getElementById('section-tickets') }] : []),
           ];
 
           // Offset threshold below sticky subnav (sticky at top-0, height ~52px)
           const offset = 85;
-          let currentTab: 'overview' | 'agenda' | 'speakers' | 'venue' | 'partners' = 'overview';
+          let currentTab: 'overview' | 'resources' | 'agenda' | 'speakers' | 'venue' | 'partners' | 'tickets' = 'overview';
 
           for (let i = 0; i < sections.length; i++) {
             const item = sections[i];
@@ -455,7 +459,7 @@ export const EventDetailPage: React.FC = () => {
     setTimeout(() => setCopiedLink(false), 2000);
   };
 
-  const scrollToSection = (tab: 'overview' | 'agenda' | 'speakers' | 'tickets' | 'venue' | 'partners') => {
+  const scrollToSection = (tab: 'overview' | 'resources' | 'agenda' | 'speakers' | 'tickets' | 'venue' | 'partners') => {
     setActiveTab(tab);
     isManualScrollingRef.current = true;
     if (manualScrollTimerRef.current) {
@@ -469,9 +473,9 @@ export const EventDetailPage: React.FC = () => {
     const targetId = tab === 'tickets' ? 'section-tickets' : `section-${tab}`;
     const element = document.getElementById(targetId) || document.getElementById('registration-form-container');
     if (element) {
-      const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
-      // Offset: In-page sticky subnav (~52px) + 16px buffer
-      const headerOffset = isMobile ? 60 : 72;
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+      // Offset: In-page sticky subnav (~52px) + buffer
+      const headerOffset = isMobile ? 54 : 72;
       const elementPosition = element.getBoundingClientRect().top;
       const targetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -544,7 +548,7 @@ export const EventDetailPage: React.FC = () => {
   ];
 
   return (
-    <div className="bg-parchment min-h-screen pb-24 font-sans text-ink">
+    <div className="bg-parchment min-h-screen font-sans text-ink">
       {/* Spec Annotation if enabled */}
       {showSpecAnnotations && (
         <div className="bg-neutral-100 border-b border-hairline px-4 py-2 text-xs font-mono text-neutral-700 flex items-center justify-between flex-wrap gap-2">
@@ -559,9 +563,233 @@ export const EventDetailPage: React.FC = () => {
       )}
 
       {/* =========================================================================
-          HERO BANNER (WAN-IFRA Summit Style)
+          MOBILE HERO BANNER (< lg) — COMPACT, ACTION-ORIENTED, LIFECYCLE-ADAPTIVE
+          According to EVENT_DETAIL_MOBILE_GUIDE.md
           ========================================================================= */}
-      <section className="bg-surface-dark text-white relative overflow-hidden">
+      <section className="lg:hidden bg-surface-dark text-white relative overflow-hidden">
+        {/* Ambient Background with subtle dark overlay */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <img 
+            src={event.imageUrl || 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80'}
+            alt={event.title}
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/80 to-black/92" />
+        </div>
+
+        <div className="px-5 pt-4 pb-6 relative z-10 space-y-3.5">
+          {/* Breadcrumb back link to Events (Above Title) */}
+          <div className="flex items-center justify-between">
+            <button
+              type="button"
+              onClick={() => navigateTo('events')}
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-300 hover:text-white transition-colors cursor-pointer min-h-[32px] -ml-1 px-1.5 py-1 rounded-md bg-white/10 active:bg-white/20"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 text-white" />
+              <span>Sự kiện</span>
+            </button>
+            <span className="text-[11px] font-semibold text-neutral-400 uppercase tracking-wider">
+              {event.activityName}
+            </span>
+          </div>
+
+          {/* Category & Status badges */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-[11px] font-bold uppercase tracking-wider bg-brand-primary text-white px-2.5 py-0.5 rounded-full shadow-2xs">
+              {event.activityName}
+            </span>
+
+            {isPast ? (
+              <span className="text-[11px] font-semibold text-neutral-300 bg-neutral-800/90 border border-neutral-700 px-2.5 py-0.5 rounded-full">
+                ĐÃ KẾT THÚC
+              </span>
+            ) : isConfirmed ? (
+              <span className="text-[11px] font-semibold text-emerald-300 bg-emerald-950/90 border border-emerald-500/50 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                <span>ĐÃ XÁC NHẬN</span>
+              </span>
+            ) : isPendingApproval ? (
+              <span className="text-[11px] font-semibold text-amber-300 bg-amber-950/90 border border-amber-500/50 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                <Clock className="w-3 h-3 text-amber-400 animate-pulse" />
+                <span>ĐANG CHỜ DUYỆT</span>
+              </span>
+            ) : isWaitlisted ? (
+              <span className="text-[11px] font-semibold text-amber-300 bg-amber-950/90 border border-amber-500/50 px-2.5 py-0.5 rounded-full">
+                DANH SÁCH CHỜ
+              </span>
+            ) : isFullEffective ? (
+              <span className="text-[11px] font-semibold text-rose-300 bg-rose-950/90 border border-rose-600/70 px-2.5 py-0.5 rounded-full">
+                HẾT CHỖ (WAITLIST)
+              </span>
+            ) : (
+              <span className="text-[11px] font-semibold text-emerald-400 bg-emerald-950/80 border border-emerald-800/80 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Còn chỗ ({event.availableSeats}/{event.totalSeats})</span>
+              </span>
+            )}
+          </div>
+
+          {/* Event Title - Strong, readable, compact line-height */}
+          <h1 className="text-xl xs:text-2xl font-bold tracking-tight text-white leading-snug">
+            {event.title}
+          </h1>
+
+          {/* Compact Metadata Rows (No heavy cards!) */}
+          <div className="space-y-1.5 text-xs text-neutral-300 pt-0.5">
+            <div className="flex items-center gap-2">
+              <Clock className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
+              <span className="font-medium text-white">{event.datetime}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MapPin className="w-3.5 h-3.5 text-brand-primary shrink-0" />
+              <span className="font-medium text-neutral-200 truncate">
+                {event.venueDetails?.hall ? `${event.venueDetails.hall}, Hà Nội` : (event.location ? event.location.split(',')[0] : 'Hà Nội')}
+              </span>
+            </div>
+          </div>
+
+          {/* ONE Dominant Primary CTA */}
+          <div className="pt-2">
+            {isPast ? (
+              <button
+                type="button"
+                onClick={() => scrollToSection('resources')}
+                className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white font-semibold text-xs xs:text-sm flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
+              >
+                <FileText className="w-4 h-4" />
+                <span>Xem tài liệu & Kỷ yếu</span>
+              </button>
+            ) : isConfirmed ? (
+              <button
+                type="button"
+                onClick={() => scrollToSection('tickets')}
+                className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs xs:text-sm flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
+              >
+                <QrCode className="w-4 h-4" />
+                <span>Xem thẻ vé & Mã QR check-in</span>
+              </button>
+            ) : (isPendingApproval || isWaitlisted) ? (
+              <button
+                type="button"
+                onClick={() => scrollToSection('tickets')}
+                className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs xs:text-sm flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
+              >
+                <Clock className="w-4 h-4" />
+                <span>Xem tình trạng hồ sơ</span>
+              </button>
+            ) : isFullEffective ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setIsWaitlistModal(true);
+                  setIsMemberModalOpen(true);
+                }}
+                className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-semibold text-xs xs:text-sm flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer border border-neutral-700"
+              >
+                <span>Đăng ký danh sách chờ</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  setIsWaitlistModal(false);
+                  setIsMemberModalOpen(true);
+                }}
+                className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white font-bold text-xs xs:text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer"
+              >
+                <span>Đăng ký tham dự</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+
+          {/* Secondary Actions Row */}
+          <div className="flex items-center gap-2 pt-0.5">
+            {!isPast ? (
+              <>
+                <div className="relative flex-1">
+                  <button
+                    type="button"
+                    onClick={() => setShowCalendarMenu(!showCalendarMenu)}
+                    className="w-full min-h-[40px] px-3 py-2 rounded-lg text-xs font-semibold text-neutral-300 hover:text-white bg-neutral-800/80 border border-neutral-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <CalendarPlus className="w-3.5 h-3.5 text-brand-primary" />
+                    <span>Thêm vào lịch</span>
+                    <ChevronDown className="w-3 h-3 text-neutral-400" />
+                  </button>
+
+                  {showCalendarMenu && (
+                    <>
+                      <div 
+                        className="fixed inset-0 z-20" 
+                        onClick={() => setShowCalendarMenu(false)} 
+                      />
+                      <div className="absolute left-0 top-full mt-1.5 w-full bg-neutral-900 border border-neutral-700 rounded-xl shadow-2xl p-1.5 z-30 text-xs font-sans">
+                        <button
+                          type="button"
+                          onClick={handleAddToGoogleCalendar}
+                          className="w-full text-left px-3 py-2.5 rounded-lg text-white hover:bg-neutral-800 flex items-center justify-between transition-colors cursor-pointer"
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-red-500" />
+                            <span className="font-semibold">Google Calendar</span>
+                          </div>
+                          <ExternalLink className="w-3 h-3 text-neutral-400" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleDownloadIcs}
+                          className="w-full text-left px-3 py-2.5 rounded-lg text-white hover:bg-neutral-800 flex items-center justify-between transition-colors cursor-pointer"
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-blue-500" />
+                            <span className="font-semibold">Apple / Outlook (.ics)</span>
+                          </div>
+                          <Download className="w-3 h-3 text-neutral-400" />
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleCopyLink}
+                  className="flex-1 min-h-[40px] px-3 py-2 rounded-lg text-xs font-semibold text-neutral-300 hover:text-white bg-neutral-800/80 border border-neutral-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <Share2 className="w-3.5 h-3.5" />
+                  <span>{copiedLink ? 'Đã chép!' : 'Chia sẻ'}</span>
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={() => scrollToSection('agenda')}
+                  className="flex-1 min-h-[40px] px-3 py-2 rounded-lg text-xs font-semibold text-neutral-300 hover:text-white bg-neutral-800/80 border border-neutral-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <FileText className="w-3.5 h-3.5" />
+                  <span>Xem chương trình</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleCopyLink}
+                  className="flex-1 min-h-[40px] px-3 py-2 rounded-lg text-xs font-semibold text-neutral-300 hover:text-white bg-neutral-800/80 border border-neutral-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <Share2 className="w-3.5 h-3.5" />
+                  <span>{copiedLink ? 'Đã chép!' : 'Chia sẻ'}</span>
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          DESKTOP HERO BANNER (>= lg) (WAN-IFRA Summit Style - Preserved Intact)
+          ========================================================================= */}
+      <section className="hidden lg:block bg-surface-dark text-white relative overflow-hidden">
         {/* Full-width Event Photo Ambient Background */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <img 
@@ -572,8 +800,24 @@ export const EventDetailPage: React.FC = () => {
           <div className="absolute inset-0 bg-black/68" />
         </div>
         
-        <div className="vcf-container py-16 sm:py-20 relative z-10">
+        <div className="vcf-container py-12 sm:py-16 relative z-10">
           <div className="max-w-4xl space-y-6">
+            {/* Desktop Breadcrumb (Above Title) */}
+            <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-medium text-neutral-300">
+              <button
+                type="button"
+                onClick={() => navigateTo('events')}
+                className="inline-flex items-center gap-1.5 text-neutral-300 hover:text-white transition-colors cursor-pointer py-1 px-2 -ml-2 rounded-md hover:bg-white/10"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Sự kiện</span>
+              </button>
+              <span className="text-neutral-500">/</span>
+              <span className="text-neutral-300 font-semibold">{event.activityName}</span>
+              <span className="text-neutral-500">/</span>
+              <span className="text-neutral-400 truncate max-w-sm">{event.title}</span>
+            </nav>
+
             {/* Event Badges */}
             <div className="flex flex-wrap items-center gap-2.5">
               <span className="text-xs font-semibold uppercase tracking-wider bg-brand-primary text-white px-3.5 py-1 rounded-full shadow-xs">
@@ -781,23 +1025,54 @@ export const EventDetailPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Breadcrumb Bar (Ghép ngay dưới Banner - Tiết kiệm khoảng trống màu xám) */}
-      <div className="bg-white border-b border-hairline">
-        <div className="vcf-container py-2.5">
-          <Breadcrumb 
-            className="!border-0 !mb-0 !py-0"
-            items={[
-              { label: 'Sự kiện', route: 'events' },
-              { label: event.title }
-            ]} 
-          />
-        </div>
-      </div>
-
       {/* =========================================================================
           STICKY IN-PAGE NAVIGATION (Menu cấp 2 - Sticky top-0 when scrolling)
           ========================================================================= */}
-      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-hairline shadow-xs transition-shadow">
+      {/* Mobile Sticky Navigation: NO back arrow inside tab row, never cropped, no scrollbar */}
+      <div className="lg:hidden sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-hairline shadow-xs">
+        <div 
+          ref={navContainerRef}
+          className="flex items-center gap-1.5 overflow-x-auto no-scrollbar px-4 py-1 scroll-smooth"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {(isPast 
+            ? [
+                { id: 'overview', label: 'Tổng quan' },
+                { id: 'resources', label: 'Tài liệu' },
+                { id: 'agenda', label: 'Chương trình' },
+                { id: 'speakers', label: 'Diễn giả' },
+                { id: 'venue', label: 'Địa điểm' },
+                { id: 'partners', label: 'Đối tác' },
+              ]
+            : [
+                { id: 'overview', label: 'Tổng quan' },
+                { id: 'agenda', label: 'Chương trình' },
+                { id: 'speakers', label: 'Diễn giả' },
+                { id: 'venue', label: 'Địa điểm' },
+                { id: 'partners', label: 'Đối tác' },
+                { id: 'tickets', label: isAlreadyRegistered ? 'Thẻ vé' : 'Đăng ký' },
+              ]
+          ).map((tab) => (
+            <button
+              key={tab.id}
+              data-tab={tab.id}
+              onClick={() => scrollToSection(tab.id as any)}
+              className={`px-3.5 py-2.5 text-xs font-semibold whitespace-nowrap transition-colors border-b-2 shrink-0 cursor-pointer min-h-[44px] flex items-center justify-center ${
+                activeTab === tab.id
+                  ? 'border-brand-primary text-brand-primary'
+                  : 'border-transparent text-ink-secondary hover:text-ink'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+          {/* Visual affordance spacing at the end so last tab isn't flush against edge */}
+          <div className="w-6 shrink-0" aria-hidden="true" />
+        </div>
+      </div>
+
+      {/* Desktop Sticky Navigation (Preserved intact) */}
+      <div className="hidden lg:block sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-hairline shadow-xs transition-shadow">
         <div className="vcf-container">
           <div className="flex items-center justify-between py-1 gap-1">
             {/* Back button to events list */}
@@ -814,9 +1089,13 @@ export const EventDetailPage: React.FC = () => {
             </div>
 
             {/* Scrollable Tabs */}
-            <div ref={navContainerRef} className="flex items-center gap-1 overflow-x-auto no-scrollbar flex-1 py-1">
+            <div 
+              className="flex items-center gap-1 overflow-x-auto no-scrollbar flex-1 py-1"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
               {[
                 { id: 'overview', label: 'Tổng quan' },
+                ...(isPast ? [{ id: 'resources', label: 'Tài liệu & Kỷ yếu' }] : []),
                 { id: 'agenda', label: 'Chương trình nghị sự' },
                 { id: 'speakers', label: 'Diễn giả & Cố vấn' },
                 { id: 'venue', label: 'Địa điểm & Di chuyển' },
@@ -843,26 +1122,27 @@ export const EventDetailPage: React.FC = () => {
       {/* =========================================================================
           MAIN CONTENT AREA (2 Columns WAN-IFRA Layout)
           ========================================================================= */}
-      <div className="vcf-container py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="vcf-container py-6 sm:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           
           {/* =====================================================================
               LEFT COLUMN: DETAILED SECTIONS (~7 COLS)
+              24px (space-y-6) separation between boxes as requested
               ===================================================================== */}
-          <div className="lg:col-span-8 space-y-12">
+          <div className="lg:col-span-8 space-y-6">
             
             {/* SECTION 1: TỔNG QUAN & NỘI DUNG TRỌNG TÂM */}
-            <section id="section-overview" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-6 scroll-mt-16 sm:scroll-mt-20">
+            <section id="section-overview" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
               <div>
-                <span className="text-[11px] uppercase font-semibold tracking-wider text-brand-primary">
+                <span className="text-[11px] uppercase font-bold tracking-wider text-brand-primary">
                   Giới thiệu tổng quan
                 </span>
-                <h2 className="text-xl sm:text-2xl font-semibold text-ink tracking-tight mt-1">
+                <h2 className="text-xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
                   Về {event.activityName}
                 </h2>
               </div>
 
-              <div className="prose prose-neutral max-w-none text-sm sm:text-base leading-relaxed text-neutral-700 space-y-4">
+              <div className="prose prose-neutral max-w-none text-sm sm:text-base leading-relaxed text-neutral-700 space-y-4 font-sans">
                 <p>
                   {event.description}
                 </p>
@@ -870,58 +1150,145 @@ export const EventDetailPage: React.FC = () => {
               </div>
             </section>
 
+            {/* SECTION 1.5: TÀI LIỆU SAU SỰ KIỆN (Hiển thị ngay sau Tổng quan cho sự kiện đã kết thúc) */}
+            {isPast && (
+              <section id="section-resources" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
+                <div className="border-b border-neutral-100 pb-3">
+                  <span className="text-[11px] uppercase font-bold tracking-wider text-brand-primary">
+                    Tài liệu sau sự kiện
+                  </span>
+                  <h2 className="text-xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
+                    Tài Liệu, Kỷ Yếu & Kế Thừa Tri Thức
+                  </h2>
+                  <p className="text-xs sm:text-sm text-ink-secondary mt-1 font-sans">
+                    Tài liệu, hình ảnh và nội dung tổng kết từ chương trình.
+                  </p>
+                </div>
+
+                <div className="space-y-2.5">
+                  <div 
+                    onClick={() => navigateTo('knowledge')}
+                    className="p-3.5 sm:p-4 rounded-xl bg-neutral-50/80 hover:bg-neutral-100/80 transition-all flex items-center justify-between gap-3 cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-10 h-10 rounded-lg bg-brand-primary/10 text-brand-primary flex items-center justify-center shrink-0 group-hover:bg-brand-primary group-hover:text-white transition-colors">
+                        <FileText className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-semibold text-ink group-hover:text-brand-primary transition-colors">
+                          Báo cáo & Kỷ yếu hội nghị
+                        </h4>
+                        <p className="text-xs text-ink-secondary mt-0.5">
+                          Kỷ yếu tổng hợp 12 bài tham luận & nghiên cứu (PDF • 18.5 MB)
+                        </p>
+                      </div>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-brand-primary group-hover:translate-x-1 transition-all shrink-0" />
+                  </div>
+
+                  <div 
+                    onClick={() => alert('Bộ ảnh & Video highlights toàn cảnh sự kiện đã sẵn sàng trong thư viện Media VCF.')}
+                    className="p-3.5 sm:p-4 rounded-xl bg-neutral-50/80 hover:bg-neutral-100/80 transition-all flex items-center justify-between gap-3 cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-600 flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                        <Sparkles className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-semibold text-ink group-hover:text-brand-primary transition-colors">
+                          Bộ ảnh & Video toàn cảnh sự kiện
+                        </h4>
+                        <p className="text-xs text-ink-secondary mt-0.5">
+                          Kho 250+ hình ảnh chất lượng cao & video tư liệu chương trình
+                        </p>
+                      </div>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-brand-primary group-hover:translate-x-1 transition-all shrink-0" />
+                  </div>
+
+                  <div 
+                    onClick={() => alert('Đang tải trọn bộ Slide thuyết trình các phiên thảo luận của diễn giả (ZIP • 42 MB)...')}
+                    className="p-3.5 sm:p-4 rounded-xl bg-neutral-50/80 hover:bg-neutral-100/80 transition-all flex items-center justify-between gap-3 cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-600 flex items-center justify-center shrink-0 group-hover:bg-amber-600 group-hover:text-white transition-colors">
+                        <Download className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-semibold text-ink group-hover:text-brand-primary transition-colors">
+                          Slide & tài liệu diễn giả
+                        </h4>
+                        <p className="text-xs text-ink-secondary mt-0.5">
+                          Bản trình chiếu độc quyền từ các chuyên gia & cố vấn
+                        </p>
+                      </div>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-brand-primary group-hover:translate-x-1 transition-all shrink-0" />
+                  </div>
+                </div>
+              </section>
+            )}
+
             {/* SECTION 2: CHƯƠNG TRÌNH NGHỊ SỰ CHI TIẾT */}
-            <section id="section-agenda" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
+            <section id="section-agenda" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-100 pb-4">
                 <div>
-                  <span className="text-[11px] uppercase font-semibold tracking-wider text-brand-primary">
+                  <span className="text-[11px] uppercase font-bold tracking-wider text-brand-primary">
                     Chương trình nghị sự
                   </span>
-                  <h2 className="text-xl sm:text-2xl font-semibold text-ink tracking-tight mt-1">
+                  <h2 className="text-xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
                     Khung Chương Trình Chi Tiết
                   </h2>
                 </div>
 
                 <button
                   onClick={() => alert('Đang tạo và tải về tài liệu Agenda PDF bản chuẩn in ấn (5.2 MB)...')}
-                  className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-300 hover:border-black rounded-lg text-xs font-semibold transition-all bg-parchment hover:bg-white cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2 border border-neutral-300 hover:border-black rounded-lg text-xs font-semibold transition-all bg-neutral-50 hover:bg-white cursor-pointer min-h-[40px] w-fit"
                 >
                   <Download className="w-3.5 h-3.5 text-ink-secondary" />
-                  <span>Tải Agenda (PDF)</span>
+                  <span>↓ Tải Agenda (PDF)</span>
                 </button>
               </div>
 
-              {/* Agenda Timeline: chỉ tiêu đề chính + kèm thời gian + Diễn giả */}
-              <div className="space-y-3 pt-1">
+              {/* Clean Agenda Timeline - No nested boxes */}
+              <div className="divide-y divide-neutral-100">
                 {event.agenda.map((item, i) => (
-                  <div key={i} className="border border-hairline rounded-lg p-4 hover:border-brand-primary transition-colors bg-parchment/50 space-y-1.5">
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-3.5 h-3.5 text-brand-primary shrink-0" />
-                      <span className="font-mono text-xs font-semibold text-ink">{item.time}</span>
+                  <div 
+                    key={i} 
+                    className="py-4 first:pt-1 last:pb-1 flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-6 group hover:bg-neutral-50/70 -mx-3 sm:-mx-4 px-3 sm:px-4 rounded-xl transition-colors"
+                  >
+                    {/* Time Column */}
+                    <div className="sm:w-36 shrink-0 flex items-center gap-2 sm:pt-0.5">
+                      <div className="w-2 h-2 rounded-full bg-brand-primary/80 shrink-0 group-hover:scale-125 transition-transform" />
+                      <span className="font-mono text-xs sm:text-[13px] font-semibold text-neutral-600 group-hover:text-brand-primary transition-colors">
+                        {item.time}
+                      </span>
                     </div>
 
-                    <h4 className="text-sm sm:text-base font-semibold text-ink leading-snug">
-                      {item.topic}
-                    </h4>
-
-                    {item.presenter && (
-                      <div className="pt-1 flex items-center gap-2 text-xs text-neutral-700">
-                        <span className="text-ink-secondary font-medium">Diễn giả:</span>
-                        <strong className="text-ink">{item.presenter}</strong>
-                      </div>
-                    )}
+                    {/* Topic and Speaker */}
+                    <div className="flex-1 space-y-1">
+                      <h4 className="text-sm sm:text-base font-bold text-ink leading-snug group-hover:text-neutral-900 transition-colors">
+                        {item.topic}
+                      </h4>
+                      {item.presenter && !item.presenter.includes('Hội đồng Khoa học PTIT') && (
+                        <div className="flex items-center gap-1.5 text-xs text-neutral-600 pt-0.5">
+                          <span className="text-neutral-400 font-medium">Diễn giả:</span>
+                          <span className="font-semibold text-neutral-800">{item.presenter}</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
             </section>
 
-            {/* SECTION 3: DIỄN GIẢ & KHÁCH MỜI DANH DỰ (Avatar + Tên + Chức vụ) */}
-            <section id="section-speakers" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-6 scroll-mt-16 sm:scroll-mt-20">
+            {/* SECTION 3: DIỄN GIẢ & KHÁCH MỜI DANH DỰ */}
+            <section id="section-speakers" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-6 scroll-mt-16 sm:scroll-mt-20">
               <div>
-                <span className="text-[11px] uppercase font-semibold tracking-wider text-brand-primary">
+                <span className="text-[11px] uppercase font-bold tracking-wider text-brand-primary">
                   Diễn giả & Chuyên gia
                 </span>
-                <h2 className="text-xl sm:text-2xl font-semibold text-ink tracking-tight mt-1">
+                <h2 className="text-xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
                   Đội Ngũ Diễn Giả Hàng Đầu
                 </h2>
                 <p className="text-xs text-ink-secondary mt-1 font-sans">
@@ -929,45 +1296,73 @@ export const EventDetailPage: React.FC = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {event.speakers.map((spk, idx) => (
-                  <div key={spk.name} className="border border-hairline rounded-lg p-4 flex items-center gap-4 bg-parchment hover:bg-white hover:border-brand-primary transition-all group">
-                    <div className="w-14 h-14 rounded-full bg-neutral-200 border-2 border-white shadow-xs shrink-0 flex items-center justify-center font-semibold text-base text-neutral-700 group-hover:bg-brand-primary group-hover:text-white transition-colors overflow-hidden">
-                      {spk.avatarUrl ? <img src={spk.avatarUrl} alt="" className="h-full w-full object-cover" /> : spk.name.charAt(0)}
-                    </div>
-                    <div className="space-y-0.5">
-                      <h4 className="text-sm font-semibold text-ink leading-tight group-hover:text-brand-primary transition-colors">
-                        {spk.name}
-                      </h4>
-                      <div className="text-xs text-ink-secondary font-medium leading-snug">
-                        {spk.role}
+              {/* Clean Speaker Grid - No harsh nested box borders */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                {event.speakers.map((spk) => {
+                  const initials = spk.name
+                    .split(' ')
+                    .filter(Boolean)
+                    .slice(-2)
+                    .map(n => n.charAt(0))
+                    .join('')
+                    .toUpperCase() || 'SP';
+
+                  return (
+                    <div 
+                      key={spk.name} 
+                      className="p-3 sm:p-3.5 rounded-xl flex items-center gap-3.5 bg-neutral-50/70 hover:bg-neutral-100/70 transition-all group"
+                    >
+                      <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-gradient-to-br from-neutral-800 to-neutral-950 text-white shadow-xs shrink-0 flex items-center justify-center font-bold text-sm sm:text-base tracking-wide group-hover:ring-2 group-hover:ring-brand-primary/50 transition-all overflow-hidden">
+                        {spk.avatarUrl ? (
+                          <img src={spk.avatarUrl} alt={spk.name} className="h-full w-full object-cover" />
+                        ) : (
+                          <span>{initials}</span>
+                        )}
+                      </div>
+                      <div className="space-y-0.5 min-w-0 flex-1">
+                        <h4 className="text-sm font-bold text-ink leading-tight group-hover:text-brand-primary transition-colors truncate">
+                          {spk.name}
+                        </h4>
+                        <div className="text-xs text-ink-secondary font-medium leading-snug line-clamp-2">
+                          {spk.role}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </section>
 
-            {/* SECTION 4: ĐỊA ĐIỂM (Chỉ giữ địa điểm + button Điều hướng Google Maps) */}
-            <section id="section-venue" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-4 scroll-mt-16 sm:scroll-mt-20">
+            {/* SECTION 4: ĐỊA ĐIỂM */}
+            <section id="section-venue" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-4 scroll-mt-16 sm:scroll-mt-20">
               <div>
-                <span className="text-[11px] uppercase font-semibold tracking-wider text-brand-primary">
+                <span className="text-[11px] uppercase font-bold tracking-wider text-brand-primary">
                   Địa điểm
                 </span>
-                <h2 className="text-xl sm:text-2xl font-semibold text-ink tracking-tight mt-1">
+                <h2 className="text-xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
                   Địa Điểm Tổ Chức
                 </h2>
               </div>
 
-              <div className="border border-hairline rounded-lg p-5 bg-parchment flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="flex items-start gap-3">
-                  <Building className="w-5 h-5 text-brand-primary shrink-0 mt-0.5" />
+              {/* Direct venue layout - No redundant nested box */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
+                <div className="flex items-start gap-3.5">
+                  <div className="size-10 rounded-xl bg-red-50 text-brand-primary flex items-center justify-center shrink-0">
+                    <Building className="w-5 h-5" />
+                  </div>
                   <div>
-                    <div className="font-semibold text-base text-ink">{event.venueDetails?.hall || event.location}</div>
-                    <div className="text-xs text-ink-secondary mt-0.5">
+                    <div className="font-bold text-base sm:text-lg text-ink">
+                      {event.venueDetails?.hall || event.location}
+                    </div>
+                    <div className="text-xs sm:text-sm text-neutral-600 mt-1">
                       {event.venueDetails?.address || event.location}
                     </div>
-                    {event.venueDetails?.notes && <div className="text-xs text-ink-secondary mt-1">{event.venueDetails.notes}</div>}
+                    {event.venueDetails?.notes && (
+                      <div className="text-xs text-neutral-500 mt-1.5 flex items-center gap-1.5">
+                        <span className="inline-block size-1.5 rounded-full bg-neutral-400" />
+                        <span>{event.venueDetails.notes}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -975,61 +1370,95 @@ export const EventDetailPage: React.FC = () => {
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold text-white bg-brand-primary hover:bg-brand-primary-hover transition-colors shadow-xs shrink-0 cursor-pointer w-fit"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-white bg-brand-primary hover:bg-brand-primary-hover transition-colors shadow-xs shrink-0 cursor-pointer min-h-[44px] w-full sm:w-auto"
                 >
                   <Navigation className="w-4 h-4" />
                   <span>Điều hướng Google Maps</span>
-                  <ExternalLink className="w-3 h-3 opacity-80" />
+                  <ExternalLink className="w-3.5 h-3.5 opacity-80" />
                 </a>
               </div>
             </section>
 
-            {/* SECTION 5: ĐƠN VỊ CHỦ TRÌ & NHÀ TÀI TRỢ (Chỉ listing các nhà tài trợ + cắt giảm text tối đa) */}
-            <section id="section-partners" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
+            {/* SECTION 5: ĐƠN VỊ CHỦ TRÌ & NHÀ TÀI TRỢ (Visual Hierarchy) */}
+            <section id="section-partners" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
               <div>
-                <span className="text-[11px] uppercase font-semibold tracking-wider text-brand-primary">
+                <span className="text-[11px] uppercase font-bold tracking-wider text-brand-primary">
                   Hệ sinh thái đồng hành
                 </span>
-                <h2 className="text-xl sm:text-2xl font-semibold text-ink tracking-tight mt-1">
+                <h2 className="text-xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
                   Đơn Vị Chủ Trì & Nhà Tài Trợ
                 </h2>
               </div>
 
-              <div className="space-y-3">
-                {/* Đơn vị chủ trì */}
-                <div className="border border-hairline rounded-lg p-3.5 bg-parchment flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 bg-brand-primary text-white rounded-md flex items-center justify-center font-semibold text-sm shrink-0">
+              <div className="space-y-4">
+                {/* 1. Đơn vị chủ trì: Soft banner without harsh border */}
+                <div className="p-3.5 sm:p-4 bg-neutral-50/80 rounded-xl flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-11 h-11 bg-brand-primary text-white rounded-lg flex items-center justify-center font-bold text-base shrink-0 shadow-2xs">
                       VCF
                     </div>
                     <div>
-                      <span className="text-[10px] uppercase font-semibold text-neutral-400 block">Đơn vị chủ trì</span>
-                      <strong className="text-sm font-semibold text-ink">Diễn Đàn CEO Việt Nam (Vietnam CEO Forum)</strong>
+                      <span className="text-[10px] uppercase font-bold text-brand-primary tracking-wider block">Đơn vị chủ trì</span>
+                      <strong className="text-sm sm:text-base font-bold text-ink">Diễn Đàn CEO Việt Nam (Vietnam CEO Forum)</strong>
                     </div>
                   </div>
                 </div>
 
-                {/* Listing Nhà tài trợ & Đối tác */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
-                  {[
-                    { tier: 'Bảo trợ học thuật', name: 'Viện Quản trị LGM' },
-                    { tier: 'Bảo trợ truyền thông', name: 'VnExpress' },
-                    { tier: 'Tài trợ Kim Cương', name: 'VinaSteel Corp' },
-                    { tier: 'Tài trợ Vàng', name: 'Techcombank' },
-                    { tier: 'Tài trợ Vàng', name: 'FPT Corporation' },
-                    { tier: 'Đối tác Công nghệ', name: 'Viettel Solutions' },
-                    { tier: 'Tài trợ Bạc', name: 'Thaco Group' },
-                    { tier: 'Đồng hành', name: 'PTIT Academy' }
-                  ].map((sponsor, idx) => (
-                    <div key={idx} className="border border-hairline rounded-lg p-3 bg-white hover:border-brand-primary transition-colors text-center">
-                      <span className="text-[10px] font-semibold uppercase tracking-wider text-neutral-400 block mb-1">
-                        {sponsor.tier}
-                      </span>
-                      <span className="text-xs font-semibold text-ink block">
-                        {sponsor.name}
-                      </span>
-                    </div>
-                  ))}
+                {/* 2. Tài trợ Kim Cương: Soft warm surface */}
+                <div className="p-3.5 sm:p-4 bg-amber-50/50 rounded-xl flex items-center justify-between gap-3">
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 flex items-center gap-1.5">
+                      <Crown className="w-3.5 h-3.5 text-amber-500" />
+                      <span>Nhà Tài Trợ Kim Cương</span>
+                    </span>
+                    <span className="text-sm sm:text-base font-bold text-ink block mt-0.5">
+                      VinaSteel Corporation
+                    </span>
+                  </div>
+                  <span className="text-[11px] font-semibold text-amber-800 bg-amber-100/80 px-3 py-1 rounded-full shrink-0">
+                    Diamond Partner
+                  </span>
+                </div>
+
+                {/* 3. Tài trợ Vàng: Clean minimal cards */}
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block mb-1.5">
+                    Nhà Tài Trợ Vàng
+                  </span>
+                  <div className="grid grid-cols-2 gap-2.5">
+                    {['Techcombank', 'FPT Corporation'].map((name) => (
+                      <div key={name} className="py-2.5 px-3.5 rounded-xl bg-neutral-50 hover:bg-neutral-100/80 transition-colors text-center">
+                        <span className="text-xs sm:text-sm font-semibold text-ink block">
+                          {name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 4. Đối tác & Bảo trợ: Clean compact tags */}
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block mb-1.5">
+                    Bảo Trợ & Đối Tác Đồng Hành
+                  </span>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {[
+                      { tier: 'Bảo trợ học thuật', name: 'Viện Quản trị LGM' },
+                      { tier: 'Bảo trợ truyền thông', name: 'VnExpress' },
+                      { tier: 'Đối tác Công nghệ', name: 'Viettel Solutions' },
+                      { tier: 'Tài trợ Bạc', name: 'Thaco Group' },
+                      { tier: 'Đồng hành', name: 'PTIT Academy' }
+                    ].map((sponsor, idx) => (
+                      <div key={idx} className="p-2.5 rounded-lg bg-neutral-50/70 hover:bg-neutral-100/70 transition-colors text-center">
+                        <span className="text-[9px] font-medium uppercase tracking-wider text-neutral-400 block mb-0.5">
+                          {sponsor.tier}
+                        </span>
+                        <span className="text-[11px] font-semibold text-ink block">
+                          {sponsor.name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </section>
@@ -1073,8 +1502,9 @@ export const EventDetailPage: React.FC = () => {
           {/* =====================================================================
               RIGHT COLUMN: STICKY REGISTRATION & PASS WIDGET (~5 COLS)
               (WAN-IFRA Ticket Booking on-page, No popup needed!)
+              Hidden on mobile for ended events to avoid redundant disabled box
               ===================================================================== */}
-          <div id="section-tickets" className="lg:col-span-4 lg:sticky lg:top-20 space-y-6 self-start scroll-mt-16 sm:scroll-mt-20 z-10">
+          <div id="section-tickets" className={`lg:col-span-4 lg:sticky lg:top-20 space-y-6 self-start scroll-mt-16 sm:scroll-mt-20 z-10 ${isPast ? 'hidden lg:block' : ''}`}>
             
             {/* Registration Card */}
             <div id="registration-form-container" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 shadow-sm relative overflow-hidden scroll-mt-16 sm:scroll-mt-20">
@@ -2122,6 +2552,135 @@ export const EventDetailPage: React.FC = () => {
 
         </div>
       </div>
+
+      {/* =========================================================================
+          MOBILE STICKY BOTTOM BAR (< lg)
+          Sticky Registration / Status Action Bar with Lifecycle Adaptation
+          ========================================================================= */}
+      <aside 
+        aria-label="Đăng ký sự kiện"
+        className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-hairline px-4 py-3 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] pb-[max(0.75rem,env(safe-area-inset-bottom))]"
+      >
+        <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
+          {/* Left: Event status / seat info */}
+          <div className="min-w-0 flex-1">
+            {isPast ? (
+              <div className="space-y-0.5">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
+                  Trạng thái
+                </span>
+                <span className="text-xs font-bold text-neutral-700 flex items-center gap-1 truncate">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-neutral-500 shrink-0" />
+                  <span>Sự kiện đã kết thúc</span>
+                </span>
+              </div>
+            ) : isConfirmed ? (
+              <div className="space-y-0.5">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 block">
+                  Đã xác nhận
+                </span>
+                <span className="text-xs font-bold text-ink flex items-center gap-1 truncate">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>Mã QR đã sẵn sàng</span>
+                </span>
+              </div>
+            ) : isPendingApproval ? (
+              <div className="space-y-0.5">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600 block">
+                  Đang xét duyệt
+                </span>
+                <span className="text-xs font-bold text-ink flex items-center gap-1 truncate">
+                  <Clock className="w-3.5 h-3.5 text-amber-500 shrink-0 animate-pulse" />
+                  <span>Hồ sơ đang chờ duyệt</span>
+                </span>
+              </div>
+            ) : isWaitlisted ? (
+              <div className="space-y-0.5">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600 block">
+                  Danh sách chờ
+                </span>
+                <span className="text-xs font-bold text-ink truncate block">
+                  Hàng đợi chờ duyệt
+                </span>
+              </div>
+            ) : isFullEffective ? (
+              <div className="space-y-0.5">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-rose-600 block">
+                  Đã hết chỗ
+                </span>
+                <span className="text-xs font-bold text-ink truncate block">
+                  Cổng đăng ký chờ mở
+                </span>
+              </div>
+            ) : (
+              <div className="space-y-0.5">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 block">
+                  Còn {event.availableSeats}/{event.totalSeats} chỗ
+                </span>
+                <span className="text-xs font-bold text-ink truncate block">
+                  Miễn phí cho Hội viên VCF
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Right: Primary Action Button */}
+          <div className="shrink-0">
+            {isPast ? (
+              <button
+                type="button"
+                onClick={() => scrollToSection('resources')}
+                className="px-4 py-2.5 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white font-semibold text-xs flex items-center gap-1.5 shadow-sm min-h-[44px] cursor-pointer"
+              >
+                <FileText className="w-4 h-4" />
+                <span>Xem tài liệu & kỷ yếu</span>
+              </button>
+            ) : isConfirmed ? (
+              <button
+                type="button"
+                onClick={() => scrollToSection('tickets')}
+                className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs flex items-center gap-1.5 shadow-sm min-h-[44px] cursor-pointer"
+              >
+                <QrCode className="w-4 h-4" />
+                <span>Xem vé & QR</span>
+              </button>
+            ) : isPendingApproval || isWaitlisted ? (
+              <button
+                type="button"
+                onClick={() => scrollToSection('tickets')}
+                className="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs flex items-center gap-1.5 shadow-sm min-h-[44px] cursor-pointer"
+              >
+                <Clock className="w-4 h-4" />
+                <span>Xem hồ sơ</span>
+              </button>
+            ) : isFullEffective ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setIsWaitlistModal(true);
+                  setIsMemberModalOpen(true);
+                }}
+                className="px-4 py-2.5 rounded-xl bg-neutral-900 hover:bg-black text-white font-semibold text-xs flex items-center gap-1.5 shadow-sm min-h-[44px] cursor-pointer"
+              >
+                <span>Đăng ký chờ</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  setIsWaitlistModal(false);
+                  setIsMemberModalOpen(true);
+                }}
+                className="px-5 py-2.5 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white font-bold text-xs xs:text-sm flex items-center gap-1.5 shadow-md min-h-[44px] cursor-pointer active:scale-98 transition-all"
+              >
+                <span>Đăng ký sự kiện ngay</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+        </div>
+      </aside>
 
       {/* Step-by-Step Membership & Event Registration Modal */}
       <StepByStepMemberModal

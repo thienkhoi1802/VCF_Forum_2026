@@ -33,6 +33,17 @@ export const Header: React.FC = () => {
   }, [currentRoute]);
 
   useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return;
       setSearchModalOpen(false);
@@ -63,8 +74,8 @@ export const Header: React.FC = () => {
     }`;
 
   return (
-    <header className={currentRoute === 'event-detail' ? 'relative z-40 w-full' : 'sticky top-0 z-40 w-full'}>
-      <div className="border-b border-black/8 bg-white/88 backdrop-blur-xl">
+    <header className={mobileMenuOpen ? 'fixed top-0 inset-x-0 z-50 w-full' : (currentRoute === 'event-detail' ? 'relative z-40 w-full' : 'sticky top-0 z-40 w-full')}>
+      <div className={`border-b border-black/8 transition-colors ${mobileMenuOpen ? 'bg-white' : 'bg-white/88 backdrop-blur-xl'}`}>
         <div className="vcf-container flex h-16 items-center justify-between gap-6">
           <button
             type="button"
@@ -225,7 +236,7 @@ export const Header: React.FC = () => {
       </div>
 
       {mobileMenuOpen ? (
-        <div className="fixed inset-x-0 bottom-0 top-[100px] z-50 overflow-y-auto bg-white p-5 lg:hidden">
+        <div className="fixed inset-x-0 bottom-0 top-16 z-50 overflow-y-auto bg-white p-5 lg:hidden shadow-2xl">
           <nav aria-label="Điều hướng trên điện thoại" className="vcf-container divide-y divide-hairline">
             <button type="button" onClick={() => navigateTo('home')} className="flex min-h-14 w-full items-center justify-between text-left text-base font-medium">Trang chủ <ChevronRight className="size-4 text-ink-secondary" /></button>
             <div>
