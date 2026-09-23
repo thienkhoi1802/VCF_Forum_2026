@@ -43,8 +43,8 @@ export const KnowledgeFeaturedGrid: React.FC<KnowledgeFeaturedGridProps> = ({
 
               {/* Nội dung: Bỏ tag đỏ, bỏ mô tả bài viết, show full toàn bộ title */}
               <div className="p-3.5 sm:p-5">
-                {/* Title: heading lớn 24px (bài đầu trên mobile), title bài sau 20px, show full toàn bộ */}
-                <h3 className={`${idx === 0 ? 'text-[24px]' : 'text-[20px]'} sm:text-lg lg:text-xl font-bold text-ink leading-snug tracking-tight group-hover:text-brand-primary transition-colors`}>
+                {/* Title: cùng style đồng nhất 20px trên mobile, show full toàn bộ */}
+                <h3 className="text-[20px] sm:text-lg lg:text-xl font-bold text-ink leading-snug tracking-tight group-hover:text-brand-primary transition-colors">
                   {article.title}
                 </h3>
               </div>

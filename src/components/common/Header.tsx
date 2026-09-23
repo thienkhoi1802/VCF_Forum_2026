@@ -327,9 +327,9 @@ export const Header: React.FC = () => {
       </div>
 
       {mobileMenuOpen ? (
-        <div className="fixed inset-x-0 bottom-0 top-16 z-50 overflow-y-auto bg-white p-5 lg:hidden shadow-2xl">
+        <div className="fixed inset-x-0 bottom-0 top-16 z-50 overflow-y-auto bg-white px-6 py-5 lg:hidden shadow-2xl">
           {/* Mobile Search: Mở rộng thanh tìm kiếm bên trong menu theo yêu cầu */}
-          <div className="vcf-container mb-4 pb-2">
+          <div className="mb-4 pb-2">
             <form
               onSubmit={(event) => {
                 event.preventDefault();
@@ -365,20 +365,84 @@ export const Header: React.FC = () => {
             </form>
           </div>
 
-          <nav aria-label="Điều hướng trên điện thoại" className="vcf-container divide-y divide-hairline">
-            <button type="button" onClick={() => navigateTo('home')} className="flex min-h-14 w-full items-center justify-between text-left text-base font-medium">Trang chủ <ChevronRight className="size-4 text-ink-secondary" /></button>
+          <nav aria-label="Điều hướng trên điện thoại" className="divide-y divide-hairline">
+            <button 
+              type="button" 
+              onClick={() => {
+                setMobileMenuOpen(false);
+                navigateTo('home');
+              }} 
+              className="flex min-h-14 w-full items-center justify-between text-left text-base font-medium"
+            >
+              Trang chủ <ChevronRight className="size-4 text-ink-secondary" />
+            </button>
             <div>
-              <button type="button" onClick={() => setMobileKnowledgeOpen((value) => !value)} aria-expanded={mobileKnowledgeOpen} className="flex min-h-14 w-full items-center justify-between text-left text-base font-medium">Hệ tri thức <ChevronDown className={`size-4 transition ${mobileKnowledgeOpen ? 'rotate-180' : ''}`} /></button>
+              <div className="flex min-h-14 w-full items-center justify-between">
+                <button 
+                  type="button" 
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    navigateTo('knowledge');
+                  }} 
+                  className="flex-1 text-left text-base font-medium py-3 hover:text-brand-primary"
+                >
+                  Hệ tri thức
+                </button>
+                <button 
+                  type="button" 
+                  onClick={() => setMobileKnowledgeOpen((value) => !value)} 
+                  aria-expanded={mobileKnowledgeOpen} 
+                  className="p-3 text-ink-secondary hover:text-ink"
+                  aria-label="Mở rộng danh mục hệ tri thức"
+                >
+                  <ChevronDown className={`size-4 transition ${mobileKnowledgeOpen ? 'rotate-180' : ''}`} />
+                </button>
+              </div>
               {mobileKnowledgeOpen ? (
                 <div className="mb-4 space-y-1 border-l-2 border-brand-primary pl-4">
-                  <button type="button" onClick={() => navigateTo('knowledge')} className="block min-h-11 w-full text-left text-sm font-medium text-brand-primary">Trang chủ hệ tri thức</button>
-                  <button type="button" onClick={() => navigateTo('knowledge-category', { category: 'hung-bt' })} className="block min-h-11 w-full text-left text-sm">Tác giả BT. Nguyễn Mạnh Hùng</button>
-                  <button type="button" onClick={() => navigateTo('knowledge-category', { category: 'other-authors' })} className="block min-h-11 w-full text-left text-sm">Góc nhìn chuyên gia</button>
-                  <button type="button" onClick={() => navigateTo('knowledge-category', { category: 'derived-knowledge' })} className="block min-h-11 w-full text-left text-sm">Tri thức phái sinh</button>
+                  <button 
+                    type="button" 
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      navigateTo('knowledge-category', { category: 'hung-bt' });
+                    }} 
+                    className="block min-h-11 w-full text-left text-sm text-neutral-700 hover:text-brand-primary"
+                  >
+                    Tác giả BT. Nguyễn Mạnh Hùng
+                  </button>
+                  <button 
+                    type="button" 
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      navigateTo('knowledge-category', { category: 'other-authors' });
+                    }} 
+                    className="block min-h-11 w-full text-left text-sm text-neutral-700 hover:text-brand-primary"
+                  >
+                    Góc nhìn chuyên gia
+                  </button>
+                  <button 
+                    type="button" 
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      navigateTo('knowledge-category', { category: 'derived-knowledge' });
+                    }} 
+                    className="block min-h-11 w-full text-left text-sm text-neutral-700 hover:text-brand-primary"
+                  >
+                    Tri thức phái sinh
+                  </button>
                 </div>
               ) : null}
             </div>
-            <button type="button" onClick={() => navigateTo('events')} className="flex min-h-14 w-full items-center justify-between text-left text-base font-medium">Sự kiện <ChevronRight className="size-4 text-ink-secondary" /></button>
+            <button 
+              type="button" 
+              onClick={() => {
+                setMobileMenuOpen(false);
+                navigateTo('events');
+              }} 
+              className="flex min-h-14 w-full items-center justify-between text-left text-base font-medium"
+            >
+              Sự kiện <ChevronRight className="size-4 text-ink-secondary" />
+            </button>
             <div>
               <div className="flex min-h-14 w-full items-center justify-between">
                 <button 
@@ -429,11 +493,32 @@ export const Header: React.FC = () => {
                 </div>
               ) : null}
             </div>
-            <button type="button" onClick={() => navigateTo('programs')} className="flex min-h-14 w-full items-center justify-between text-left text-base font-medium">Đào tạo CEO <ChevronRight className="size-4 text-ink-secondary" /></button>
-            <button type="button" onClick={() => navigateTo('about')} className="flex min-h-14 w-full items-center justify-between text-left text-base font-medium">Giới thiệu <ChevronRight className="size-4 text-ink-secondary" /></button>
+            <button 
+              type="button" 
+              onClick={() => {
+                setMobileMenuOpen(false);
+                navigateTo('programs');
+              }} 
+              className="flex min-h-14 w-full items-center justify-between text-left text-base font-medium"
+            >
+              Đào tạo CEO <ChevronRight className="size-4 text-ink-secondary" />
+            </button>
+            <button 
+              type="button" 
+              onClick={() => {
+                setMobileMenuOpen(false);
+                navigateTo('about');
+              }} 
+              className="flex min-h-14 w-full items-center justify-between text-left text-base font-medium"
+            >
+              Giới thiệu <ChevronRight className="size-4 text-ink-secondary" />
+            </button>
           </nav>
-          <div className="vcf-container mt-8 border-t border-hairline pt-6">
-            <CustomButton fullWidth onClick={() => navigateTo(isLoggedIn ? 'profile' : 'login')}>
+          <div className="mt-8 border-t border-hairline pt-6">
+            <CustomButton fullWidth onClick={() => {
+              setMobileMenuOpen(false);
+              navigateTo(isLoggedIn ? 'profile' : 'login');
+            }}>
               <User className="size-4" /> {isLoggedIn ? 'Hồ sơ hội viên' : 'Đăng nhập tài khoản'}
             </CustomButton>
           </div>

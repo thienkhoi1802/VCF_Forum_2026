@@ -1,7 +1,7 @@
 import React from 'react';
 import { TrainingProgram } from '../../types';
 import { WireframeImage } from '../wireframe/WireframeImage';
-import { GraduationCap, Calendar, ExternalLink } from 'lucide-react';
+import { Calendar, Clock, ExternalLink } from 'lucide-react';
 
 interface ProgramCardProps {
   program: TrainingProgram;
@@ -36,12 +36,12 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
           </a>
         </div>
 
-        <div className="p-5 space-y-3">
-          <div className="flex items-center justify-between text-[11px]">
-            <span className="bg-red-50 border border-red-200 text-brand-primary px-3 py-1 font-semibold rounded-full">
+        <div className="p-4 sm:p-5 space-y-3">
+          <div className="flex items-center justify-between text-xs gap-2">
+            <span className="bg-red-50 border border-red-200 text-brand-primary px-3 py-1 font-semibold rounded-full whitespace-nowrap shrink-0">
               {program.code}
             </span>
-            <span className="text-ink-secondary font-semibold">{program.duration}</span>
+            <span className="text-ink-secondary font-medium truncate text-right">{program.format}</span>
           </div>
 
           <h3 className="text-xl font-semibold text-ink leading-tight group-hover:text-brand-primary transition-colors">
@@ -56,7 +56,7 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
             </a>
           </h3>
 
-          <div className="text-sm text-ink-secondary bg-parchment p-4 rounded-md font-normal">
+          <div className="text-sm text-ink-secondary bg-parchment p-3.5 sm:p-4 rounded-md font-normal">
             <span className="font-semibold text-ink">Đối tượng: </span>
             {program.targetAudience}
           </div>
@@ -65,20 +65,20 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
             {program.shortDesc}
           </p>
 
-          <div className="space-y-1.5 text-xs text-ink-secondary pt-1 font-medium">
+          <div className="space-y-2 text-xs sm:text-sm text-ink-secondary pt-1 font-medium">
             <div className="flex items-center gap-2">
-              <Calendar className="w-3.5 h-3.5 text-brand-primary shrink-0" />
-              <span>{program.nextCohort}</span>
+              <Calendar className="w-4 h-4 text-brand-primary shrink-0" />
+              <span className="text-neutral-700">{program.nextCohort}</span>
             </div>
             <div className="flex items-center gap-2">
-              <GraduationCap className="w-3.5 h-3.5 text-brand-primary shrink-0" />
-              <span className="font-semibold text-ink">{program.tuitionFee}</span>
+              <Clock className="w-4 h-4 text-brand-primary shrink-0" />
+              <span className="font-semibold text-ink">Thời lượng: {program.duration}</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="p-5 pt-0 flex flex-col gap-2">
+      <div className="p-4 sm:p-5 pt-0 flex flex-col gap-2">
         <a
           id={`program-btn-${program.id}`}
           href={externalUrl}

@@ -24,6 +24,7 @@ interface AppContextType {
     category?: KnowledgeTabType;
     searchQuery?: string;
     eventId?: string;
+    timingFilter?: 'all' | 'upcoming' | 'ongoing' | 'past';
   }) => void;
   selectedActivityId: ActivityId;
   selectedArticleId: string;
@@ -32,6 +33,8 @@ interface AppContextType {
   setSelectedKnowledgeCategory: (cat: KnowledgeTabType) => void;
   selectedEventId: string;
   setSelectedEventId: (id: string) => void;
+  eventTimingFilter: 'all' | 'upcoming' | 'ongoing' | 'past';
+  setEventTimingFilter: (filter: 'all' | 'upcoming' | 'ongoing' | 'past') => void;
   searchFilter: SearchFilterState;
   setSearchFilter: React.Dispatch<React.SetStateAction<SearchFilterState>>;
   searchQuery: string;
@@ -121,6 +124,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [selectedProgramId, setSelectedProgramId] = useState<string>('program-ceo-lgm-mastery');
   const [selectedKnowledgeCategory, setSelectedKnowledgeCategory] = useState<KnowledgeTabType>('all');
   const [selectedEventId, setSelectedEventId] = useState<string>('event-summit-2026');
+  const [eventTimingFilter, setEventTimingFilter] = useState<'all' | 'upcoming' | 'ongoing' | 'past'>('all');
   const [searchFilter, setSearchFilter] = useState<SearchFilterState>({ query: '', category: 'all' });
   
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
@@ -191,6 +195,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       category?: KnowledgeTabType;
       searchQuery?: string;
       eventId?: string;
+      timingFilter?: 'all' | 'upcoming' | 'ongoing' | 'past';
     }
   ) => {
     if (params?.activityId) setSelectedActivityId(params.activityId);
@@ -202,6 +207,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       setSelectedKnowledgeCategory('all');
     }
     if (params?.eventId) setSelectedEventId(params.eventId);
+    if (params?.timingFilter) {
+      setEventTimingFilter(params.timingFilter);
+    }
     if (params?.searchQuery !== undefined) {
       setSearchFilter(prev => ({ ...prev, query: params.searchQuery || '' }));
     }
@@ -604,6 +612,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         setSelectedKnowledgeCategory,
         selectedEventId,
         setSelectedEventId,
+        eventTimingFilter,
+        setEventTimingFilter,
         searchFilter,
         setSearchFilter,
         searchQuery: searchFilter.query,

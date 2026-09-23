@@ -171,15 +171,15 @@ export const HomePage: React.FC = () => {
               </p>
             </div>
           ) : (
-            <div className="space-y-8">
+            <div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {MOCK_EVENTS.slice(0, 3).map((evt) => (
                   <EventCard key={evt.id} event={evt} />
                 ))}
               </div>
 
-              {/* Button "Xem tất cả lịch sự kiện" ở dưới 3 sự kiện chính */}
-              <div className="text-center pt-2">
+              {/* Button "Xem tất cả lịch sự kiện" ở dưới 3 sự kiện chính: cách box Sự kiện đúng 24px trên mobile */}
+              <div className="text-center mt-6 sm:mt-8">
                 <CustomButton
                   variant="secondary"
                   size="lg"

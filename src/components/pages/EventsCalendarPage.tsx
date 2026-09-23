@@ -22,11 +22,12 @@ export const EventsCalendarPage: React.FC = () => {
     showSpecAnnotations,
     simulatedState,
     navigateTo,
-    registeredEvents
+    registeredEvents,
+    eventTimingFilter: timingFilter,
+    setEventTimingFilter: setTimingFilter
   } = useApp();
 
   const [viewMode, setViewMode] = useState<'calendar' | 'list'>('list');
-  const [timingFilter, setTimingFilter] = useState<'all' | 'upcoming' | 'past'>('all');
   const [selectedMonth, setSelectedMonth] = useState<number>(10); // October
   const [selectedYear, setSelectedYear] = useState<number>(2026);
   // Default to null: When opening calendar tab, no date is active until user clicks a date
@@ -39,13 +40,16 @@ export const EventsCalendarPage: React.FC = () => {
 
   // Separate upcoming, ongoing, past
   const ongoingEvents = useMemo(() => MOCK_EVENTS.filter(evt => evt.status === 'ongoing'), []);
-  const upcomingEvents = useMemo(() => MOCK_EVENTS.filter(evt => evt.status === 'upcoming' || evt.status === 'ongoing'), []);
+  const upcomingEvents = useMemo(() => MOCK_EVENTS.filter(evt => evt.status === 'upcoming'), []);
   const pastEvents = useMemo(() => MOCK_EVENTS.filter(evt => evt.status === 'past'), []);
 
   // Filtered events based on timing filter
   const filteredEvents = useMemo(() => {
     if (timingFilter === 'upcoming') {
-      return MOCK_EVENTS.filter(evt => evt.status === 'upcoming' || evt.status === 'ongoing');
+      return MOCK_EVENTS.filter(evt => evt.status === 'upcoming');
+    }
+    if (timingFilter === 'ongoing') {
+      return MOCK_EVENTS.filter(evt => evt.status === 'ongoing');
     }
     if (timingFilter === 'past') {
       return MOCK_EVENTS.filter(evt => evt.status === 'past');
@@ -256,8 +260,8 @@ export const EventsCalendarPage: React.FC = () => {
           </button>
         </div>
 
-        {/* 2. BỘ LỌC TRẠNG THÁI: Tất cả / Sắp diễn ra / Đã diễn ra - TỐI ƯU KHÔNG PHẢI SCROLL (grid-cols-3 w-full) */}
-        <div className="grid grid-cols-3 w-full md:w-auto md:flex md:items-center gap-1.5 sm:gap-2 py-0.5">
+        {/* 2. BỘ LỌC TRẠNG THÁI: Tất cả / Sắp diễn ra / Đang diễn ra / Đã kết thúc */}
+        <div className="grid grid-cols-2 xs:grid-cols-4 w-full md:w-auto md:flex md:items-center gap-1.5 sm:gap-2 py-0.5">
           <button
             type="button"
             onClick={() => setTimingFilter('all')}
@@ -284,6 +288,18 @@ export const EventsCalendarPage: React.FC = () => {
 
           <button
             type="button"
+            onClick={() => setTimingFilter('ongoing')}
+            className={`min-h-[36px] flex items-center justify-center px-1 sm:px-3 text-center text-[11px] xs:text-xs sm:text-sm font-semibold rounded-full transition-all cursor-pointer w-full md:w-auto truncate ${
+              timingFilter === 'ongoing'
+                ? 'bg-brand-primary text-white shadow-xs'
+                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+            }`}
+          >
+            Đang diễn ra ({ongoingEvents.length})
+          </button>
+
+          <button
+            type="button"
             onClick={() => setTimingFilter('past')}
             className={`min-h-[36px] flex items-center justify-center px-1 sm:px-3 text-center text-[11px] xs:text-xs sm:text-sm font-semibold rounded-full transition-all cursor-pointer w-full md:w-auto truncate ${
               timingFilter === 'past'
@@ -291,7 +307,7 @@ export const EventsCalendarPage: React.FC = () => {
                 : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
             }`}
           >
-            Đã diễn ra ({pastEvents.length})
+            Đã kết thúc ({pastEvents.length})
           </button>
         </div>
       </div>

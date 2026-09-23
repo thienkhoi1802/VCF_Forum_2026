@@ -1506,7 +1506,7 @@ export const MOCK_PROGRAMS: TrainingProgram[] = [
     duration: '6 tháng (12 chuyên đề cuối tuần)',
     format: 'Trực tiếp tại Hà Nội & Thực địa doanh nghiệp',
     nextCohort: 'Khóa 08 — Khai giảng ngày 14/11/2026',
-    tuitionFee: '120.000.000 VNĐ / Học viên (Bao gồm tài liệu, ăn trưa và chi phí thực địa)',
+    tuitionFee: 'Liên hệ để nhận thông tin học phí & học bổng',
     scholarshipInfo: 'Học bổng 20% dành cho Hội viên Doanh nghiệp VCF đăng ký trước 30/09/2026.',
     externalUrl: 'https://daotao.ptit.edu.vn/khoa-hoc/ceo-lgm-mastery-demo',
     imagePlaceholder: '[Ảnh chương trình: Lớp học CEO LGM Mastery cao cấp]',
@@ -1576,7 +1576,7 @@ export const MOCK_PROGRAMS: TrainingProgram[] = [
     duration: '3 tháng (6 chuyên đề cuối tuần)',
     format: 'Hybrid (Trực tiếp kết hợp Trực tuyến chất lượng cao)',
     nextCohort: 'Khóa 05 — Khai giảng ngày 20/10/2026',
-    tuitionFee: '65.000.000 VNĐ / Học viên',
+    tuitionFee: 'Liên hệ để nhận thông tin học phí & học bổng',
     externalUrl: 'https://daotao.ptit.edu.vn/khoa-hoc/strategic-cfo-demo',
     imagePlaceholder: '[Ảnh chương trình: Khóa đào tạo Strategic CFO]',
     objectives: [
