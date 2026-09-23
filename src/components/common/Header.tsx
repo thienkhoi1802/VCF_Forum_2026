@@ -55,6 +55,19 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener('keydown', handleEscape);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('#user-dropdown-container') && !target.closest('#mobile-user-dropdown-container')) {
+        setUserDropdownOpen(false);
+      }
+    };
+    if (userDropdownOpen) {
+      document.addEventListener('click', handleClickOutside);
+    }
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [userDropdownOpen]);
+
   const handleSearchSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const query = quickSearchText.trim();
@@ -198,12 +211,80 @@ export const Header: React.FC = () => {
             <button type="button" onClick={() => navigateTo('about')} className={navClass(currentRoute === 'about')}>Giới thiệu</button>
           </nav>
 
-          <div className="flex items-center gap-2">
-            <button type="button" onClick={() => setSearchModalOpen(true)} aria-label="Mở tìm kiếm" className="flex size-11 items-center justify-center rounded-full text-ink-secondary hover:bg-parchment hover:text-ink">
+          <div className="flex items-center gap-1 sm:gap-2">
+            {/* Desktop: Nút Search mở modal */}
+            <button
+              type="button"
+              onClick={() => setSearchModalOpen(true)}
+              aria-label="Mở tìm kiếm"
+              className="hidden lg:flex size-11 items-center justify-center rounded-full text-ink-secondary hover:bg-parchment hover:text-ink transition-colors"
+            >
               <Search className="size-5" />
             </button>
 
-            <div className="relative hidden lg:block">
+            {/* Mobile: Biểu tượng icon User thay thế nút search - Hỗ trợ cả 2 trạng thái Chưa login và Đã login */}
+            <div id="mobile-user-dropdown-container" className="relative lg:hidden">
+              {isLoggedIn ? (
+                <button
+                  type="button"
+                  onClick={() => setUserDropdownOpen((value) => !value)}
+                  aria-label="Tài khoản hội viên đã đăng nhập"
+                  aria-expanded={userDropdownOpen}
+                  className="flex size-11 items-center justify-center rounded-full hover:bg-parchment transition-colors"
+                >
+                  <span className="flex size-8 items-center justify-center rounded-full bg-brand-primary text-xs font-semibold text-white shadow-xs ring-2 ring-white">
+                    {currentUser?.fullName?.charAt(0) || 'U'}
+                  </span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => navigateTo('login')}
+                  aria-label="Đăng nhập tài khoản"
+                  className="flex size-11 items-center justify-center rounded-full text-ink-secondary hover:bg-parchment hover:text-ink transition-colors"
+                >
+                  <User className="size-5.5 text-ink" />
+                </button>
+              )}
+
+              {/* Popover menu người dùng trên mobile khi đã đăng nhập */}
+              {userDropdownOpen && isLoggedIn ? (
+                <div className="absolute right-0 top-[calc(100%+0.5rem)] w-72 rounded-xl border border-hairline bg-white p-3 shadow-xl z-50 animate-fadeIn">
+                  <div className="border-b border-hairline px-3 pb-3">
+                    <p className="truncate text-sm font-semibold text-ink">{currentUser?.fullName}</p>
+                    <p className="mt-0.5 truncate text-xs text-ink-secondary">{currentUser?.companyName}</p>
+                    <p className="mt-2 flex items-center gap-1.5 text-xs font-medium text-brand-primary">
+                      <ShieldCheck className="size-3.5" /> Hội viên {currentUser?.memberId}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setUserDropdownOpen(false);
+                      navigateTo('profile');
+                    }}
+                    className="mt-2 flex min-h-11 w-full items-center justify-between rounded-md px-3 text-left text-sm font-medium hover:bg-parchment"
+                  >
+                    <span>Hồ sơ và sự kiện</span>
+                    <ChevronRight className="size-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setUserDropdownOpen(false);
+                      logout();
+                    }}
+                    className="flex min-h-11 w-full items-center gap-2 rounded-md px-3 text-left text-sm text-danger hover:bg-danger-soft"
+                  >
+                    <LogOut className="size-4" />
+                    <span>Đăng xuất</span>
+                  </button>
+                </div>
+              ) : null}
+            </div>
+
+            {/* Desktop: User Account button */}
+            <div id="user-dropdown-container" className="relative hidden lg:block">
               {isLoggedIn ? (
                 <button type="button" onClick={() => setUserDropdownOpen((value) => !value)} aria-expanded={userDropdownOpen} className="flex min-h-11 items-center gap-2 rounded-full border border-hairline px-3 text-sm font-medium text-ink hover:bg-parchment">
                   <span className="flex size-7 items-center justify-center rounded-full bg-brand-primary text-xs text-white">{currentUser?.fullName.charAt(0) || 'U'}</span>
@@ -228,7 +309,17 @@ export const Header: React.FC = () => {
               ) : null}
             </div>
 
-            <button type="button" onClick={() => setMobileMenuOpen((value) => !value)} aria-label={mobileMenuOpen ? 'Đóng menu' : 'Mở menu'} aria-expanded={mobileMenuOpen} className="flex size-11 items-center justify-center rounded-full text-ink hover:bg-parchment lg:hidden">
+            {/* Hamburger button */}
+            <button
+              type="button"
+              onClick={() => {
+                setUserDropdownOpen(false);
+                setMobileMenuOpen((value) => !value);
+              }}
+              aria-label={mobileMenuOpen ? 'Đóng menu' : 'Mở menu'}
+              aria-expanded={mobileMenuOpen}
+              className="flex size-11 items-center justify-center rounded-full text-ink hover:bg-parchment lg:hidden"
+            >
               {mobileMenuOpen ? <X className="size-6" /> : <Menu className="size-6" />}
             </button>
           </div>
@@ -237,6 +328,43 @@ export const Header: React.FC = () => {
 
       {mobileMenuOpen ? (
         <div className="fixed inset-x-0 bottom-0 top-16 z-50 overflow-y-auto bg-white p-5 lg:hidden shadow-2xl">
+          {/* Mobile Search: Mở rộng thanh tìm kiếm bên trong menu theo yêu cầu */}
+          <div className="vcf-container mb-4 pb-2">
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+                const query = quickSearchText.trim();
+                if (!query) return;
+                setMobileMenuOpen(false);
+                setQuickSearchText('');
+                navigateTo('search', { searchQuery: query });
+              }}
+              role="search"
+              className="relative"
+            >
+              <label htmlFor="mobile-menu-search-input" className="sr-only">Tìm kiếm</label>
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-ink-secondary pointer-events-none" />
+              <input
+                id="mobile-menu-search-input"
+                type="search"
+                value={quickSearchText}
+                onChange={(event) => setQuickSearchText(event.target.value)}
+                placeholder="Tìm kiếm sự kiện, bài viết, hoạt động..."
+                className="w-full rounded-full border border-neutral-300 bg-parchment/60 py-2.5 pl-10 pr-10 text-sm text-ink placeholder:text-neutral-500 focus:bg-white focus:border-brand-primary focus:outline-none transition-all shadow-2xs"
+              />
+              {quickSearchText ? (
+                <button
+                  type="button"
+                  onClick={() => setQuickSearchText('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-neutral-400 hover:text-ink"
+                  aria-label="Xóa từ khóa tìm kiếm"
+                >
+                  <X className="size-3.5" />
+                </button>
+              ) : null}
+            </form>
+          </div>
+
           <nav aria-label="Điều hướng trên điện thoại" className="vcf-container divide-y divide-hairline">
             <button type="button" onClick={() => navigateTo('home')} className="flex min-h-14 w-full items-center justify-between text-left text-base font-medium">Trang chủ <ChevronRight className="size-4 text-ink-secondary" /></button>
             <div>
