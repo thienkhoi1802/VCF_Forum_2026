@@ -48,7 +48,7 @@ export const WireframeHeaderBar: React.FC = () => {
 
   return (
     <aside aria-label="Khung điều khiển & mô phỏng Wireframe" className="bg-ink text-white text-xs border-b border-neutral-800 sticky top-0 z-50 select-none shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-3">
+      <div className="vcf-container py-2 flex flex-wrap items-center justify-between gap-3">
         {/* Left: Spec Title & Page selector */}
         <div className="flex items-center gap-3 flex-wrap">
           <div className="flex items-center gap-2 font-mono text-[11px] font-semibold text-neutral-300">

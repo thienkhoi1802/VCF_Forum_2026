@@ -36,7 +36,7 @@ export const ActivityDetailPage: React.FC = () => {
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
 
   return (
-    <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6 pb-20 space-y-8">
+    <div className="vcf-container py-6 pb-20 space-y-8 font-sans">
       <Breadcrumb
         items={[
           { label: 'Hoạt động VCF', route: 'activities' },

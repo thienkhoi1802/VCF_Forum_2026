@@ -63,7 +63,6 @@ export const KnowledgeFeaturedGrid: React.FC<KnowledgeFeaturedGridProps> = ({
             <div className="px-6 py-4 border-t border-neutral-100 flex items-center justify-between bg-parchment/40 mt-auto">
               <div className="flex items-center gap-2 text-xs text-ink-secondary">
                 <span>{article.publishedDate || '15/10/2026'}</span>
-                {article.readTime && <span>• {article.readTime}</span>}
               </div>
               <span className="text-xs font-semibold text-brand-primary group-hover:translate-x-1 transition-transform flex items-center gap-1">
                 <span>Chi tiết</span>
@@ -122,7 +121,6 @@ export const KnowledgeFeaturedGrid: React.FC<KnowledgeFeaturedGridProps> = ({
             <div className="px-6 py-4 border-t border-neutral-100 flex items-center justify-between bg-parchment/40 mt-auto">
               <div className="flex items-center gap-2 text-xs text-ink-secondary">
                 <span>{leadArticle.publishedDate || '15/10/2026'}</span>
-                {leadArticle.readTime && <span>• {leadArticle.readTime}</span>}
               </div>
               <span className="text-xs font-semibold text-brand-primary group-hover:translate-x-1 transition-transform flex items-center gap-1">
                 <span>Đọc toàn văn</span>

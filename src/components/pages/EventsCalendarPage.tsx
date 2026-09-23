@@ -92,7 +92,7 @@ export const EventsCalendarPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6 pb-24 space-y-8 font-sans">
+    <div className="vcf-container py-6 pb-24 space-y-8 font-sans">
       {showSpecAnnotations && (
         <div className="bg-neutral-100 border border-hairline p-2.5 rounded-lg text-xs font-mono flex items-center justify-between flex-wrap gap-2">
           <div className="flex items-center gap-2">
@@ -147,7 +147,7 @@ export const EventsCalendarPage: React.FC = () => {
       {/* THANH LỌC TINH GỌN (COMPACT FILTER TOOLBAR - KHÔNG CHIẾM DIỆN TÍCH) */}
       <div className="relative z-20 bg-white border border-hairline rounded-xl p-2 sm:px-3.5 sm:py-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
         {/* 1. Chỉ xuất hiện phần lọc theo thời gian: Tất cả, Sắp diễn ra, Đã diễn ra */}
-        <div className="flex items-center p-1 bg-neutral-100 border border-hairline/70 rounded-lg text-xs font-semibold overflow-x-auto">
+        <div className="flex items-center p-1 bg-neutral-100 rounded-lg text-xs font-semibold overflow-x-auto">
           <button
             onClick={() => setTimingFilter('all')}
             className={`py-1.5 px-3 rounded-md transition-all whitespace-nowrap cursor-pointer ${
@@ -401,9 +401,6 @@ export const EventsCalendarPage: React.FC = () => {
                 <h2 className="text-lg font-semibold text-ink uppercase tracking-tight">
                   Sự Kiện Sắp Diễn Ra ({upcomingEvents.length})
                 </h2>
-                <span className="text-xs bg-red-50 text-brand-primary font-semibold px-2 py-0.5 rounded border border-red-200">
-                  Ưu tiên hiển thị
-                </span>
               </div>
               <span className="text-xs text-ink-secondary hidden sm:inline font-medium">
                 Đang mở cổng tiếp nhận đăng ký đại biểu

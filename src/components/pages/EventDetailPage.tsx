@@ -572,7 +572,7 @@ export const EventDetailPage: React.FC = () => {
           <div className="absolute inset-0 bg-black/68" />
         </div>
         
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 sm:py-20 relative z-10">
+        <div className="vcf-container py-16 sm:py-20 relative z-10">
           <div className="max-w-4xl space-y-6">
             {/* Event Badges */}
             <div className="flex flex-wrap items-center gap-2.5">
@@ -783,7 +783,7 @@ export const EventDetailPage: React.FC = () => {
 
       {/* Breadcrumb Bar (Ghép ngay dưới Banner - Tiết kiệm khoảng trống màu xám) */}
       <div className="bg-white border-b border-hairline">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-2.5">
+        <div className="vcf-container py-2.5">
           <Breadcrumb 
             className="!border-0 !mb-0 !py-0"
             items={[
@@ -798,7 +798,7 @@ export const EventDetailPage: React.FC = () => {
           STICKY IN-PAGE NAVIGATION (Menu cấp 2 - Sticky top-0 when scrolling)
           ========================================================================= */}
       <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-hairline shadow-xs transition-shadow">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="vcf-container">
           <div className="flex items-center justify-between py-1 gap-1">
             {/* Back button to events list */}
             <div className="flex items-center gap-1.5 shrink-0 pr-2 sm:pr-3 border-r border-hairline my-1">
@@ -843,7 +843,7 @@ export const EventDetailPage: React.FC = () => {
       {/* =========================================================================
           MAIN CONTENT AREA (2 Columns WAN-IFRA Layout)
           ========================================================================= */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-10">
+      <div className="vcf-container py-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* =====================================================================

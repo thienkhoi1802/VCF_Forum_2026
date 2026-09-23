@@ -85,7 +85,7 @@ export const KnowledgeHomePage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6 pb-24 space-y-8 font-sans">
+    <div className="vcf-container py-6 pb-24 space-y-8 font-sans">
       {/* Header: Title chính: Hệ tri thức LGM -> Bên dưới phân tab (Tất cả / Tác giả Bộ trưởng Nguyễn Mạnh Hùng / Tác giả khác / Tri thức phái sinh) */}
       <div className="space-y-4">
         <h1 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight">

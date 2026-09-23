@@ -43,7 +43,7 @@ export const ArticleDetailPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-6 lg:px-8 py-6 pb-24 space-y-8 font-sans">
+    <div className="vcf-container py-6 pb-24 space-y-8 font-sans">
       <Breadcrumb
         items={[
           { label: 'Hệ tri thức LGM', route: 'knowledge', params: { category: 'all' } },
@@ -56,8 +56,8 @@ export const ArticleDetailPage: React.FC = () => {
         ]}
       />
 
-      {/* ARTICLE HEADER */}
-      <article className="space-y-8">
+      {/* ARTICLE HEADER & CONTENT (max-w-4xl for comfortable reading typography) */}
+      <article className="max-w-4xl space-y-8">
         <div className="space-y-3 pb-6 border-b border-hairline">
           {/* Category & Date (Không có badge BT Nguyễn Mạnh Hùng, Không có thời gian đọc) */}
           <div className="flex items-center gap-2.5 flex-wrap">

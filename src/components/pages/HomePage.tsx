@@ -70,7 +70,7 @@ export const HomePage: React.FC = () => {
           ========================================================================= */}
       <section className="w-full -mt-0">
         {showSpecAnnotations && (
-          <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-3 flex items-center gap-2">
+          <div className="vcf-container pb-3 flex items-center gap-2">
             <SpecBadge label="Hero Banner: Dạng Slide WAN-IFRA (Tối đa 5 slide)" type="prd" />
             <SpecBadge label="State: S-LOGGED-IN / S-GUEST" type="state" />
           </div>
@@ -218,13 +218,16 @@ export const HomePage: React.FC = () => {
               </p>
             </div>
 
-            <CustomButton
-              variant="secondary"
-              size="sm"
-              onClick={() => navigateTo('activities')}
-            >
-              Xem trang tổng quan 9 hoạt động →
-            </CustomButton>
+            {/* Desktop CTA: Nằm bên phải tiêu đề trên màn hình sm trở lên */}
+            <div className="hidden sm:block shrink-0">
+              <CustomButton
+                variant="secondary"
+                size="sm"
+                onClick={() => navigateTo('activities')}
+              >
+                Xem trang tổng quan 9 hoạt động →
+              </CustomButton>
+            </div>
           </div>
 
           {/* Grid đầy đủ 9 Activity Card */}
@@ -264,22 +267,35 @@ export const HomePage: React.FC = () => {
               </div>
             ))}
           </div>
+
+          {/* Mobile CTA: Hiển thị ở vị trí cuối cùng của box, cụ thể dưới CEO Club */}
+          <div className="mt-6 sm:hidden">
+            <CustomButton
+              variant="secondary"
+              size="md"
+              fullWidth
+              onClick={() => navigateTo('activities')}
+              className="border-neutral-300 hover:border-black text-sm font-semibold shadow-xs py-3"
+            >
+              Xem trang tổng quan 9 hoạt động →
+            </CustomButton>
+          </div>
         </div>
       </section>
 
       {/* =========================================================================
           BLOCK 6: CHƯƠNG TRÌNH ĐÀO TẠO
           Tham chiếu: 01-trang-chu.md (Mục 6)
-          H2 + 2-3 Program Card + CTA "Xem chương trình đào tạo"
+          H2 + 2-3 Program Card
           ========================================================================= */}
       <section className="vcf-section bg-parchment">
         <div className="vcf-container">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+        <div className="mb-8">
           <div>
             {showSpecAnnotations && (
               <div className="flex items-center gap-2 mb-1">
                 <SpecBadge label="Block 6: Chương trình đào tạo" type="prd" />
-                <SpecBadge label="2-3 Program Card • CTA dẫn tới /dao-tao" type="source" />
+                <SpecBadge label="2-3 Program Card" type="source" />
               </div>
             )}
             <h2 className="vcf-section-title">
@@ -289,14 +305,6 @@ export const HomePage: React.FC = () => {
               Các khóa bồi dưỡng chuyên sâu do Hội đồng Chuyên gia VLGM và Học viện PTIT đồng thiết kế
             </p>
           </div>
-
-          <CustomButton
-            variant="secondary"
-            size="sm"
-            onClick={() => navigateTo('programs')}
-          >
-            Xem chương trình đào tạo →
-          </CustomButton>
         </div>
 
         {/* State Handling for Programs */}

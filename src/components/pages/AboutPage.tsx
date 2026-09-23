@@ -9,7 +9,7 @@ export const AboutPage: React.FC = () => {
   const { navigateTo, showSpecAnnotations, isLoggedIn } = useApp();
 
   return (
-    <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6 pb-24 space-y-16 font-sans">
+    <div className="vcf-container py-6 pb-24 space-y-16 font-sans">
       {showSpecAnnotations && (
         <div className="bg-neutral-100 border border-hairline p-2.5 rounded-lg text-xs font-mono flex items-center justify-between">
           <div className="flex items-center gap-2">
