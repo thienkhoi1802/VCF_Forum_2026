@@ -91,16 +91,17 @@ export const EventRegistrationSuccessModal: React.FC<EventRegistrationSuccessMod
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-fadeIn"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-fadeIn overflow-y-auto"
       onClick={onClose}
     >
-      {/* Modal Dialog Container: Properly centered and constrained on all screen sizes */}
+      {/* Modal Dialog Container: Properly centered and constrained on all screen sizes with inline style guarantee */}
       <div
         ref={modalRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="registration-status-modal-title"
-        className="relative w-full max-w-md sm:max-w-[480px] bg-white rounded-2xl shadow-2xl p-5 sm:p-7 border border-hairline my-auto overflow-hidden animate-scaleUp mx-auto"
+        style={{ maxWidth: '480px', width: '100%' }}
+        className="relative w-full max-w-[480px] bg-white rounded-2xl shadow-2xl p-5 sm:p-7 border border-hairline my-auto overflow-hidden mx-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close icon button at top right */}
@@ -132,7 +133,7 @@ export const EventRegistrationSuccessModal: React.FC<EventRegistrationSuccessMod
         {/* 2. Main confirmation headline */}
         <h2
           id="registration-status-modal-title"
-          className="text-xl sm:text-[23px] font-extrabold text-ink tracking-tight text-center mt-2 sm:mt-2.5 leading-snug"
+          className="text-xl sm:text-[22px] font-extrabold text-ink tracking-tight text-center mt-2 sm:mt-2.5 leading-snug"
         >
           Đã gửi đăng ký thành công
         </h2>
@@ -151,38 +152,39 @@ export const EventRegistrationSuccessModal: React.FC<EventRegistrationSuccessMod
         </p>
 
         {/* 5. Three-step status/progress indicator: Horizontal on ALL screens */}
-        <div className="mt-3.5 sm:mt-4 px-1 sm:px-2">
-          <div className="flex items-center justify-between relative">
+        <div className="mt-4 px-1 sm:px-2">
+          <div className="relative flex items-start justify-between">
+            {/* Background connecting track connecting centers of circles */}
+            <div className="absolute top-2.5 left-7 right-7 h-0.5 bg-neutral-200 -z-0">
+              <div className="h-full bg-emerald-500 w-1/2" />
+            </div>
+
             {/* Step 1: Completed */}
-            <div className="flex flex-col items-center flex-1">
-              <div className="size-5 sm:size-5.5 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-xs z-10">
+            <div className="relative z-10 flex flex-col items-center text-center flex-1 max-w-[110px]">
+              <div className="size-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-xs">
                 <Check className="w-3 h-3 stroke-[3]" />
               </div>
-              <span className="text-[10px] sm:text-[11px] font-semibold text-neutral-800 text-center mt-1 leading-tight">
+              <span className="text-[10px] sm:text-[11px] font-semibold text-neutral-800 mt-1 leading-tight">
                 Đã gửi đăng ký
               </span>
             </div>
 
-            {/* Connecting line 1-2 */}
-            <div className="h-0.5 bg-emerald-500 flex-1 -mt-4 sm:-mt-4.5 mx-0.5" />
-
             {/* Step 2: Current (Highlighted) */}
-            <div className="flex flex-col items-center flex-1">
-              <div className="size-5 sm:size-5.5 rounded-full border-2 border-amber-500 bg-white flex items-center justify-center shadow-xs z-10">
-                <div className="size-2 sm:size-2.5 rounded-full bg-amber-500" />
+            <div className="relative z-10 flex flex-col items-center text-center flex-1 max-w-[110px]">
+              <div className="size-5 rounded-full border-2 border-amber-500 bg-white flex items-center justify-center shadow-xs">
+                <div className="size-2 rounded-full bg-amber-500" />
               </div>
-              <span className="text-[10px] sm:text-[11px] font-bold text-amber-900 text-center mt-1 leading-tight">
+              <span className="text-[10px] sm:text-[11px] font-bold text-amber-900 mt-1 leading-tight">
                 Đang xét duyệt
               </span>
             </div>
 
-            {/* Connecting line 2-3 */}
-            <div className="h-0.5 bg-neutral-200 flex-1 -mt-4 sm:-mt-4.5 mx-0.5" />
-
             {/* Step 3: Upcoming */}
-            <div className="flex flex-col items-center flex-1">
-              <div className="size-5 sm:size-5.5 rounded-full border-2 border-neutral-300 bg-white flex items-center justify-center z-10" />
-              <span className="text-[10px] sm:text-[11px] font-medium text-neutral-500 text-center mt-1 leading-tight">
+            <div className="relative z-10 flex flex-col items-center text-center flex-1 max-w-[110px]">
+              <div className="size-5 rounded-full border-2 border-neutral-300 bg-white flex items-center justify-center">
+                <div className="size-1.5 rounded-full bg-neutral-300" />
+              </div>
+              <span className="text-[10px] sm:text-[11px] font-medium text-neutral-500 mt-1 leading-tight">
                 Nhận kết quả & QR
               </span>
             </div>
