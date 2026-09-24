@@ -60,7 +60,7 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
             </div>
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-brand-primary shrink-0" />
-              <span className="font-semibold text-ink">Thời lượng: {program.duration}</span>
+              <span className="text-sm font-semibold text-ink">Thời lượng: {program.duration}</span>
             </div>
           </div>
         </div>

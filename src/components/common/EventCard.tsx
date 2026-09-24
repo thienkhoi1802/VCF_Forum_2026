@@ -157,7 +157,7 @@ export const EventCard: React.FC<EventCardProps> = ({
 
         {/* Card Body */}
         <div className="p-5 space-y-3">
-          <div className="flex items-center justify-between text-[11px]">
+          <div className="flex items-center justify-between text-sm">
             <span className="flex items-center gap-1 text-ink-secondary font-semibold">
               <Calendar className="w-3.5 h-3.5 text-brand-primary" />
               {event.timeStr}, {event.dateStr}

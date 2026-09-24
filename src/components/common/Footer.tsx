@@ -71,7 +71,7 @@ export const Footer: React.FC = () => {
               </div>
             </div>
 
-            {/* C. Hoạt động VCF (9 hoạt động) */}
+            {/* C. Hoạt động VCF */}
             <div>
               {sectionButton('activities', 'Hoạt động VCF')}
               <div className={`${openSection === 'activities' ? 'block' : 'hidden'} md:block`}>
@@ -150,10 +150,10 @@ export const Footer: React.FC = () => {
 
         <div className="flex flex-col gap-4 border-t border-black/10 pt-6 text-xs leading-5 text-ink-secondary md:flex-row md:items-center md:justify-between">
           <p>© 2026 Diễn đàn CEO Việt Nam · VLGM & PTIT.</p>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <span className="flex items-center gap-1.5"><ShieldCheck className="size-4 text-brand-primary" />Bảo vệ dữ liệu cá nhân</span>
-            <button type="button" className="hover:text-ink">Điều khoản sử dụng</button>
-            <button type="button" className="hover:text-ink">Quyền riêng tư</button>
+          <div className="flex flex-nowrap items-center gap-x-4 overflow-x-auto whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <span className="flex shrink-0 items-center gap-1.5"><ShieldCheck className="size-4 text-brand-primary" />Bảo vệ dữ liệu cá nhân</span>
+            <button type="button" className="shrink-0 hover:text-ink">Điều khoản sử dụng</button>
+            <button type="button" className="shrink-0 hover:text-ink">Quyền riêng tư</button>
           </div>
         </div>
       </div>

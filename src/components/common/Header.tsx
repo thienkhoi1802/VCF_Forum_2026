@@ -404,7 +404,7 @@ export const Header: React.FC = () => {
                   }} 
                   className="flex-1 text-left text-base font-medium py-3 hover:text-brand-primary"
                 >
-                  Hoạt động VCF (9 hoạt động)
+                  Hoạt động VCF
                 </button>
                 <button 
                   type="button" 

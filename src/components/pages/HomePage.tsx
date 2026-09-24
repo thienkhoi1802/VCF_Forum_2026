@@ -93,7 +93,7 @@ export const HomePage: React.FC = () => {
                 </div>
               )}
               <h2 className="vcf-section-title vcf-home-section-title">
-                Bài Viết Tri Thức Nổi Bật
+                Bài viết tri thức
               </h2>
               <p className="vcf-lead mt-2">
                 Tri thức lãnh đạo, quản trị thực chiến và góc nhìn vĩ mô từ Hội đồng Cố vấn & chuyên gia
