@@ -73,7 +73,7 @@ export const Footer: React.FC = () => {
 
             {/* C. Hoạt động VCF (9 hoạt động) */}
             <div>
-              {sectionButton('activities', 'Hoạt động VCF (9 hoạt động)')}
+              {sectionButton('activities', 'Hoạt động VCF')}
               <div className={`${openSection === 'activities' ? 'block' : 'hidden'} md:block`}>
                 <h2 className="mb-4 hidden text-sm font-semibold md:block">Hoạt động VCF</h2>
                 <ul className="space-y-1.5 pb-3 text-sm text-ink-secondary md:pb-0">

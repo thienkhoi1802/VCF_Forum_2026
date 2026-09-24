@@ -287,7 +287,7 @@ export const ArticleDetailPage: React.FC = () => {
             3. Thời gian xuất bản (Bỏ 8 phút đọc, bỏ tác giả, bỏ social share trên mobile) */}
         <header className="space-y-2 sm:space-y-2.5">
           {/* 1. Title bài viết */}
-          <h1 className="text-[22px] sm:text-3xl lg:text-[36px] font-bold text-neutral-900 tracking-tight leading-[1.28]">
+          <h1 className="text-[32px] sm:text-[32px] lg:text-[36px] font-bold text-neutral-900 tracking-tight leading-[1.28]">
             {article.title}
           </h1>
 
@@ -464,7 +464,7 @@ export const ArticleDetailPage: React.FC = () => {
       {/* RELATED NEWS: "Tin cùng chuyên mục" (Full 1280px container, 3 uniform cards, gap 32px) */}
       {relatedArticles.length > 0 && (
         <section className="related-news mt-16 sm:mt-20 pt-5 border-t border-hairline space-y-4">
-          <h3 className="text-xl sm:text-2xl font-bold sm:font-semibold text-ink uppercase tracking-tight">
+          <h3 className="text-xl sm:text-2xl font-normal text-ink tracking-tight">
             Tin cùng chuyên mục
           </h3>
           <div className="related-news-grid">
@@ -493,7 +493,6 @@ export const ArticleDetailPage: React.FC = () => {
             aria-label="Mở menu hệ thống"
           >
             <Menu className="w-4 h-4 text-neutral-800" />
-            <span className="text-xs font-semibold text-neutral-900">Menu</span>
           </button>
 
           {/* Cụm Tính năng Cỡ chữ & Share dạng thiết bị */}
@@ -510,7 +509,7 @@ export const ArticleDetailPage: React.FC = () => {
                 }`}
                 aria-label="Điều chỉnh cỡ chữ"
               >
-                <span className="font-serif font-bold text-xs tracking-tight">Aa</span>
+                <span className="font-sans font-bold text-xs tracking-tight">Aa</span>
                 <span className="text-xs font-medium">Cỡ chữ</span>
               </button>
 
