@@ -9,7 +9,7 @@ export const AboutPage: React.FC = () => {
   const { navigateTo, showSpecAnnotations, isLoggedIn } = useApp();
 
   return (
-    <div className="vcf-container py-6 pb-24 space-y-16 font-sans">
+    <div className="vcf-container py-6 pb-0 space-y-16 font-sans">
       {showSpecAnnotations && (
         <div className="bg-neutral-100 border border-hairline p-2.5 rounded-lg text-xs font-mono flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -56,6 +56,8 @@ export const AboutPage: React.FC = () => {
         <div className="lg:col-span-6">
           <WireframeImage
             label="[Ảnh: Hội đồng Cố vấn Cấp cao và Ban Điều hành VCF]"
+            imageUrl="/images/about/leadership-forum.jpg"
+            alt="Các lãnh đạo doanh nghiệp tại Diễn đàn CEO Việt Nam"
             aspectRatio="4:3"
             className="w-full border border-hairline rounded-lg overflow-hidden shadow-xs"
           />
@@ -145,11 +147,11 @@ export const AboutPage: React.FC = () => {
       </div>
 
       {/* CTA Bottom */}
-      <div className="bg-parchment border border-hairline p-8 md:p-10 rounded-lg text-center space-y-4 max-w-3xl mx-auto shadow-xs">
-        <h3 className="text-[28px] font-semibold text-ink">
+      <div className="w-full bg-black px-6 py-6 md:px-10 md:py-8 text-center space-y-4">
+        <h3 className="text-[28px] font-semibold text-white">
           Đồng hành cùng diễn đàn CEO Việt Nam
         </h3>
-        <p className="text-base text-ink-secondary max-w-lg mx-auto leading-relaxed">
+        <p className="text-base text-neutral-300 max-w-lg mx-auto leading-relaxed">
           Đăng ký để trở thành hội viên chính thức hoặc tham gia ban cố vấn chuyên môn của Diễn đàn.
         </p>
         <CustomButton

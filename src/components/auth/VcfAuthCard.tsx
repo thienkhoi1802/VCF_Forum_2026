@@ -490,7 +490,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
     >
       {/* 2. Card Header */}
       <div className="text-center mb-3 sm:mb-5">
-        <h1 className={`text-xl sm:text-2xl ${cardMode === 'login' ? 'md:text-[32px]' : 'md:text-[25px]'} font-bold text-neutral-900 tracking-tight leading-snug`}>
+        <h1 className={`${cardMode === 'login' ? 'text-[32px]' : 'text-xl sm:text-2xl'} ${cardMode === 'login' ? 'md:text-[32px]' : 'md:text-[25px]'} font-bold text-neutral-900 tracking-tight leading-snug`}>
           {cardMode === 'login' && 'Đăng nhập'}
           {cardMode === 'register' && 'Đăng ký Hội viên'}
           {cardMode === 'forgot-password' && 'Khôi phục mật khẩu'}
