@@ -1,0 +1,116 @@
+<svg viewBox="0 0 320 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g fill="#AB071E" stroke="#AB071E" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer Contour Arcs (Left Hemisphere Perimeter) -->
+    <path d="M 68 28 C 45 46 26 72 15 105" />
+    <circle cx="68" cy="28" r="9.5" />
+    <circle cx="15" cy="105" r="9.5" />
+
+    <path d="M 12 128 C 6 155 6 185 12 212" />
+    <circle cx="12" cy="128" r="9.5" />
+    <circle cx="12" cy="212" r="9.5" />
+
+    <path d="M 15 235 C 26 268 45 294 68 312" />
+    <circle cx="15" cy="235" r="9.5" />
+    <circle cx="68" cy="312" r="9.5" />
+
+    <path d="M 88 326 C 108 335 130 338 152 336" />
+    <circle cx="88" cy="326" r="9.5" />
+    <circle cx="152" cy="336" r="9.5" />
+
+    <path d="M 88 14 C 108 5 130 2 152 4" />
+    <circle cx="88" cy="14" r="9.5" />
+    <circle cx="152" cy="4" r="9.5" />
+
+    <!-- Top Cap Layer -->
+    <path d="M 85 45 H 115 V 68 H 150" />
+    <circle cx="85" cy="45" r="9.5" />
+    <circle cx="115" cy="45" r="9.5" />
+    <circle cx="115" cy="68" r="9.5" />
+    <circle cx="150" cy="68" r="9.5" />
+
+    <path d="M 170 42 H 200" />
+    <circle cx="170" cy="42" r="9.5" />
+    <circle cx="200" cy="42" r="9.5" />
+
+    <path d="M 220 54 H 248" />
+    <circle cx="220" cy="54" r="9.5" />
+    <circle cx="248" cy="54" r="9.5" />
+
+    <!-- Row 2: Upper Hemisphere -->
+    <path d="M 46 88 H 76 V 114 H 112" />
+    <circle cx="46" cy="88" r="9.5" />
+    <circle cx="76" cy="88" r="9.5" />
+    <circle cx="76" cy="114" r="9.5" />
+    <circle cx="112" cy="114" r="9.5" />
+
+    <path d="M 136 92 H 176 V 118 H 216" />
+    <circle cx="136" cy="92" r="9.5" />
+    <circle cx="176" cy="92" r="9.5" />
+    <circle cx="176" cy="118" r="9.5" />
+    <circle cx="216" cy="118" r="9.5" />
+
+    <path d="M 232 98 H 262" />
+    <circle cx="232" cy="98" r="9.5" />
+    <circle cx="262" cy="98" r="9.5" />
+
+    <!-- Row 3: Mid-Upper -->
+    <path d="M 32 142 H 66 V 166 H 106" />
+    <circle cx="32" cy="142" r="9.5" />
+    <circle cx="66" cy="142" r="9.5" />
+    <circle cx="66" cy="166" r="9.5" />
+    <circle cx="106" cy="166" r="9.5" />
+
+    <path d="M 130 142 H 174 V 170 H 220" />
+    <circle cx="130" cy="142" r="9.5" />
+    <circle cx="174" cy="142" r="9.5" />
+    <circle cx="174" cy="170" r="9.5" />
+    <circle cx="220" cy="170" r="9.5" />
+
+    <path d="M 238 146 H 272" />
+    <circle cx="238" cy="146" r="9.5" />
+    <circle cx="272" cy="146" r="9.5" />
+
+    <!-- Row 4: Equator / Apex -->
+    <path d="M 32 196 H 64 V 220 H 104" />
+    <circle cx="32" cy="196" r="9.5" />
+    <circle cx="64" cy="196" r="9.5" />
+    <circle cx="64" cy="220" r="9.5" />
+    <circle cx="104" cy="220" r="9.5" />
+
+    <path d="M 128 196 H 168 V 222 H 210" />
+    <circle cx="128" cy="196" r="9.5" />
+    <circle cx="168" cy="196" r="9.5" />
+    <circle cx="168" cy="222" r="9.5" />
+    <circle cx="210" cy="222" r="9.5" />
+
+    <path d="M 226 196 H 262" />
+    <circle cx="226" cy="196" r="9.5" />
+    <circle cx="262" cy="196" r="9.5" />
+
+    <!-- Row 5: Mid-Lower -->
+    <path d="M 46 250 H 80 V 274 H 116" />
+    <circle cx="46" cy="250" r="9.5" />
+    <circle cx="80" cy="250" r="9.5" />
+    <circle cx="80" cy="274" r="9.5" />
+    <circle cx="116" cy="274" r="9.5" />
+
+    <path d="M 136 250 H 176 V 274 H 216" />
+    <circle cx="136" cy="250" r="9.5" />
+    <circle cx="176" cy="250" r="9.5" />
+    <circle cx="176" cy="274" r="9.5" />
+    <circle cx="216" cy="274" r="9.5" />
+
+    <!-- Row 6: Bottom Pole -->
+    <path d="M 76 298 H 108 V 316 H 142" />
+    <circle cx="76" cy="298" r="9.5" />
+    <circle cx="108" cy="298" r="9.5" />
+    <circle cx="108" cy="316" r="9.5" />
+    <circle cx="142" cy="316" r="9.5" />
+
+    <path d="M 162 298 H 192 V 316 H 220" />
+    <circle cx="162" cy="298" r="9.5" />
+    <circle cx="192" cy="298" r="9.5" />
+    <circle cx="192" cy="316" r="9.5" />
+    <circle cx="220" cy="316" r="9.5" />
+  </g>
+</svg>
