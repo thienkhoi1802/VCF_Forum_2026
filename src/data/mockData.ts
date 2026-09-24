@@ -1600,6 +1600,7 @@ export const MOCK_PROGRAMS: TrainingProgram[] = [
     scholarshipInfo: 'Học bổng 20% dành cho Hội viên Doanh nghiệp VCF đăng ký trước 30/09/2026.',
     externalUrl: 'https://daotao.ptit.edu.vn/khoa-hoc/ceo-lgm-mastery-demo',
     imagePlaceholder: '[Ảnh chương trình: Lớp học CEO LGM Mastery cao cấp]',
+    imageUrl: '/images/programs/01-ceo-lgm-mastery.jpg',
     objectives: [
       'Làm chủ tư duy quản trị hệ thống và hoạch định chiến lược kinh doanh 5 năm',
       'Hoàn thiện cấu trúc tài chính, dòng tiền và kiểm soát rủi ro pháp lý toàn diện',
@@ -1669,6 +1670,7 @@ export const MOCK_PROGRAMS: TrainingProgram[] = [
     tuitionFee: 'Liên hệ để nhận thông tin học phí & học bổng',
     externalUrl: 'https://daotao.ptit.edu.vn/khoa-hoc/strategic-cfo-demo',
     imagePlaceholder: '[Ảnh chương trình: Khóa đào tạo Strategic CFO]',
+    imageUrl: '/images/programs/02-strategic-cfo.jpg',
     objectives: [
       'Thiết lập hệ thống kiểm soát tài chính tự động hóa bằng công nghệ',
       'Nắm vững kỹ thuật M&A, định giá và cấu trúc thương vụ đầu tư',
