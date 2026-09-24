@@ -1154,14 +1154,14 @@ export const EventDetailPage: React.FC = () => {
                 { id: 'agenda', label: 'Chương trình' },
                 { id: 'speakers', label: 'Diễn giả' },
                 { id: 'venue', label: 'Địa điểm' },
-                { id: 'partners', label: 'Đối tác' },
+                { id: 'partners', label: 'Nhà tài trợ' },
               ]
             : [
                 { id: 'overview', label: 'Tổng quan' },
                 { id: 'agenda', label: 'Chương trình' },
                 { id: 'speakers', label: 'Diễn giả' },
                 { id: 'venue', label: 'Địa điểm' },
-                { id: 'partners', label: 'Đối tác' },
+                { id: 'partners', label: 'Nhà tài trợ' },
                 { id: 'tickets', label: isAlreadyRegistered ? 'Thẻ vé' : 'Đăng ký' },
               ]
           ).map((tab) => (
@@ -1183,23 +1183,10 @@ export const EventDetailPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Desktop Sticky Navigation (Preserved intact) */}
+      {/* Desktop Sticky Navigation (No back button, clean tab strip) */}
       <div className="hidden lg:block sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-hairline shadow-xs transition-shadow">
         <div className="vcf-container">
           <div className="flex items-center justify-between py-1 gap-1">
-            {/* Back button to events list */}
-            <div className="flex items-center gap-1.5 shrink-0 pr-2 sm:pr-3 border-r border-hairline my-1">
-              <button
-                type="button"
-                onClick={() => navigateTo('events')}
-                className="flex items-center gap-1.5 text-xs font-semibold text-ink-secondary hover:text-brand-primary transition-colors py-1.5 px-2 rounded-md hover:bg-neutral-100 cursor-pointer"
-                title="Quay lại danh sách sự kiện"
-              >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Sự kiện</span>
-              </button>
-            </div>
-
             {/* Scrollable Tabs */}
             <div 
               className="flex items-center gap-1 overflow-x-auto no-scrollbar flex-1 py-1"
@@ -1211,7 +1198,7 @@ export const EventDetailPage: React.FC = () => {
                 { id: 'agenda', label: 'Chương trình nghị sự' },
                 { id: 'speakers', label: 'Diễn giả & Cố vấn' },
                 { id: 'venue', label: 'Địa điểm & Di chuyển' },
-                { id: 'partners', label: 'Ban tổ chức & Đối tác' },
+                { id: 'partners', label: 'Nhà tài trợ' },
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -1465,12 +1452,6 @@ export const EventDetailPage: React.FC = () => {
                   <div className="text-base text-neutral-700 mt-1 leading-relaxed">
                     {event.venueDetails?.address || event.location}
                   </div>
-                  {event.venueDetails?.notes && (
-                    <div className="text-sm text-neutral-600 mt-1.5 flex items-center gap-1.5">
-                      <span className="inline-block size-1.5 rounded-full bg-neutral-400" />
-                      <span>{event.venueDetails.notes}</span>
-                    </div>
-                  )}
                 </div>
 
                 <a
@@ -1486,85 +1467,112 @@ export const EventDetailPage: React.FC = () => {
               </div>
             </section>
 
-            {/* SECTION 5: ĐƠN VỊ CHỦ TRÌ & NHÀ TÀI TRỢ (Visual Hierarchy) */}
-            <section id="section-partners" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
+            {/* SECTION 5: NHÀ TÀI TRỢ */}
+            <section id="section-partners" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-6 scroll-mt-16 sm:scroll-mt-20">
               <div>
-                <span className="text-xs uppercase font-bold tracking-wider text-brand-primary">
-                  Hệ sinh thái đồng hành
-                </span>
-                <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
-                  Đơn Vị Chủ Trì & Nhà Tài Trợ
+                <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight">
+                  Nhà tài trợ
                 </h2>
               </div>
 
-              <div className="space-y-4">
-                {/* 1. Đơn vị chủ trì */}
-                <div className="p-3.5 sm:p-4 bg-neutral-50/80 rounded-xl flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-12 h-12 bg-brand-primary text-white rounded-lg flex items-center justify-center font-bold text-base shrink-0 shadow-2xs">
-                      VCF
-                    </div>
-                    <div>
-                      <span className="text-xs uppercase font-bold text-brand-primary tracking-wider block">Đơn vị chủ trì</span>
-                      <strong className="text-base sm:text-base font-bold text-ink">Diễn Đàn CEO Việt Nam (Vietnam CEO Forum)</strong>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 2. Tài trợ Kim Cương */}
-                <div className="p-3.5 sm:p-4 bg-amber-50/50 rounded-xl flex items-center justify-between gap-3">
-                  <div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-amber-700 flex items-center gap-1.5">
-                      <Crown className="w-3.5 h-3.5 text-amber-500" />
-                      <span>Nhà Tài Trợ Kim Cương</span>
-                    </span>
-                    <span className="text-base sm:text-base font-bold text-ink block mt-0.5">
-                      VinaSteel Corporation
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+                {/* 1. VinaSteel */}
+                <div className="h-20 sm:h-22 px-4 py-3 bg-neutral-50/80 hover:bg-white border border-neutral-200/80 hover:border-neutral-300 rounded-lg flex items-center justify-center transition-all shadow-none hover:shadow-xs group">
+                  <div className="flex items-center gap-2">
+                    <svg viewBox="0 0 28 28" className="w-6 h-6 shrink-0" fill="none">
+                      <polygon points="14,2 26,22 14,18 2,22" fill="#AB071E" />
+                      <polygon points="14,7 21,19 14,16 7,19" fill="#8E0518" />
+                    </svg>
+                    <span className="font-black text-sm sm:text-base tracking-wider text-neutral-800 group-hover:text-ink transition-colors">
+                      VINASTEEL
                     </span>
                   </div>
-                  <span className="text-xs font-semibold text-amber-800 bg-amber-100/80 px-3 py-1 rounded-full shrink-0">
-                    Diamond Partner
-                  </span>
                 </div>
 
-                {/* 3. Tài trợ Vàng */}
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 block mb-1.5">
-                    Nhà Tài Trợ Vàng
-                  </span>
-                  <div className="grid grid-cols-2 gap-2.5">
-                    {['Techcombank', 'FPT Corporation'].map((name) => (
-                      <div key={name} className="py-2.5 px-3.5 rounded-xl bg-neutral-50 hover:bg-neutral-100/80 transition-colors text-center">
-                        <span className="text-sm sm:text-base font-semibold text-ink block">
-                          {name}
-                        </span>
-                      </div>
-                    ))}
+                {/* 2. Techcombank */}
+                <div className="h-20 sm:h-22 px-4 py-3 bg-neutral-50/80 hover:bg-white border border-neutral-200/80 hover:border-neutral-300 rounded-lg flex items-center justify-center transition-all shadow-none hover:shadow-xs group">
+                  <div className="flex items-center gap-2">
+                    <svg viewBox="0 0 24 24" className="w-6 h-6 shrink-0" fill="none">
+                      <rect x="3" y="3" width="7" height="7" fill="#AB071E" transform="rotate(45 6.5 6.5)" />
+                      <rect x="11" y="11" width="7" height="7" fill="#AB071E" transform="rotate(45 14.5 14.5)" />
+                    </svg>
+                    <span className="font-bold text-xs sm:text-sm tracking-tight text-neutral-800 group-hover:text-ink transition-colors">
+                      TECHCOMBANK
+                    </span>
                   </div>
                 </div>
 
-                {/* 4. Đối tác & Bảo trợ */}
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 block mb-1.5">
-                    Bảo Trợ & Đối Tác Đồng Hành
-                  </span>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    {[
-                      { tier: 'Bảo trợ học thuật', name: 'Viện Quản trị LGM' },
-                      { tier: 'Bảo trợ truyền thông', name: 'VnExpress' },
-                      { tier: 'Đối tác Công nghệ', name: 'Viettel Solutions' },
-                      { tier: 'Tài trợ Bạc', name: 'Thaco Group' },
-                      { tier: 'Đồng hành', name: 'PTIT Academy' }
-                    ].map((sponsor, idx) => (
-                      <div key={idx} className="p-2.5 rounded-lg bg-neutral-50/70 hover:bg-neutral-100/70 transition-colors text-center">
-                        <span className="text-[10px] font-medium uppercase tracking-wider text-neutral-500 block mb-0.5">
-                          {sponsor.tier}
-                        </span>
-                        <span className="text-xs sm:text-sm font-semibold text-ink block">
-                          {sponsor.name}
-                        </span>
-                      </div>
-                    ))}
+                {/* 3. FPT */}
+                <div className="h-20 sm:h-22 px-4 py-3 bg-neutral-50/80 hover:bg-white border border-neutral-200/80 hover:border-neutral-300 rounded-lg flex items-center justify-center transition-all shadow-none hover:shadow-xs group">
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center -space-x-1">
+                      <span className="w-2.5 h-6 bg-[#F37021] skew-x-[-20deg] rounded-2xs inline-block" />
+                      <span className="w-2.5 h-6 bg-[#0054A5] skew-x-[-20deg] rounded-2xs inline-block" />
+                      <span className="w-2.5 h-6 bg-[#00A850] skew-x-[-20deg] rounded-2xs inline-block" />
+                    </div>
+                    <span className="font-black italic text-base sm:text-lg text-[#0054A5] tracking-tight ml-1">
+                      FPT
+                    </span>
+                  </div>
+                </div>
+
+                {/* 4. Viettel Solutions */}
+                <div className="h-20 sm:h-22 px-4 py-3 bg-neutral-50/80 hover:bg-white border border-neutral-200/80 hover:border-neutral-300 rounded-lg flex items-center justify-center transition-all shadow-none hover:shadow-xs group">
+                  <div className="flex flex-col items-center justify-center text-center">
+                    <span className="font-black text-sm sm:text-base text-[#EE0033] tracking-tighter lowercase leading-none">
+                      viettel
+                    </span>
+                    <span className="text-[10px] sm:text-[11px] font-semibold text-neutral-600 tracking-wider uppercase mt-0.5">
+                      Solutions
+                    </span>
+                  </div>
+                </div>
+
+                {/* 5. THACO */}
+                <div className="h-20 sm:h-22 px-4 py-3 bg-neutral-50/80 hover:bg-white border border-neutral-200/80 hover:border-neutral-300 rounded-lg flex items-center justify-center transition-all shadow-none hover:shadow-xs group">
+                  <div className="flex items-center gap-1.5">
+                    <span className="px-2 py-0.5 bg-[#003B70] text-white font-black text-xs rounded-2xs">
+                      T
+                    </span>
+                    <span className="font-black text-sm sm:text-base text-[#003B70] tracking-wider">
+                      THACO GROUP
+                    </span>
+                  </div>
+                </div>
+
+                {/* 6. VnExpress */}
+                <div className="h-20 sm:h-22 px-4 py-3 bg-neutral-50/80 hover:bg-white border border-neutral-200/80 hover:border-neutral-300 rounded-lg flex items-center justify-center transition-all shadow-none hover:shadow-xs group">
+                  <div className="flex items-baseline">
+                    <span className="font-serif font-black text-base sm:text-lg text-[#9F224E]">
+                      Vn
+                    </span>
+                    <span className="font-serif font-bold text-sm sm:text-base text-neutral-800">
+                      Express
+                    </span>
+                  </div>
+                </div>
+
+                {/* 7. Viện Quản trị LGM */}
+                <div className="h-20 sm:h-22 px-4 py-3 bg-neutral-50/80 hover:bg-white border border-neutral-200/80 hover:border-neutral-300 rounded-lg flex items-center justify-center transition-all shadow-none hover:shadow-xs group">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 bg-neutral-900 text-white font-bold text-[10px] rounded-2xs flex items-center justify-center shrink-0">
+                      LGM
+                    </div>
+                    <span className="font-bold text-xs sm:text-sm text-neutral-800 leading-tight">
+                      Viện LGM
+                    </span>
+                  </div>
+                </div>
+
+                {/* 8. PTIT Academy */}
+                <div className="h-20 sm:h-22 px-4 py-3 bg-neutral-50/80 hover:bg-white border border-neutral-200/80 hover:border-neutral-300 rounded-lg flex items-center justify-center transition-all shadow-none hover:shadow-xs group">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 border-2 border-[#C8102E] text-[#C8102E] font-black text-[9px] rounded-2xs flex items-center justify-center shrink-0">
+                      PTIT
+                    </div>
+                    <span className="font-bold text-xs sm:text-sm text-neutral-800 tracking-tight">
+                      PTIT Academy
+                    </span>
                   </div>
                 </div>
               </div>

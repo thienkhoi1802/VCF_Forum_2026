@@ -13,6 +13,7 @@ import { useApp } from '../../context/AppContext';
 import { MOCK_ACTIVITIES } from '../../data/mockData';
 import { KnowledgeCategoryType } from '../../types';
 import { CustomButton } from './CustomButton';
+import { VcfLogo } from './VcfLogo';
 
 type MegaMenu = 'activities' | 'knowledge' | null;
 
@@ -79,10 +80,10 @@ export const Header: React.FC = () => {
   const isKnowledgeRoute = ['knowledge', 'knowledge-category', 'article-detail'].includes(currentRoute);
   const isActivityRoute = ['activities', 'activity-detail'].includes(currentRoute);
   const navClass = (active: boolean) =>
-    `relative flex min-h-16 items-center px-1 text-sm font-medium transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:transition-colors ${
+    `group relative flex h-16 items-center px-1.5 text-sm font-medium transition-colors cursor-pointer after:absolute after:inset-x-0 after:bottom-0 after:h-[2.5px] after:transition-all ${
       active
-        ? 'text-ink after:bg-brand-primary'
-        : 'text-ink-secondary after:bg-transparent hover:text-ink hover:after:bg-hairline'
+        ? 'text-ink font-semibold after:bg-brand-primary'
+        : 'text-ink-secondary hover:text-ink after:bg-transparent hover:after:bg-neutral-300'
     }`;
 
   return (
@@ -92,14 +93,10 @@ export const Header: React.FC = () => {
           <button
             type="button"
             onClick={() => navigateTo('home')}
-            aria-label="Về trang chủ VCF"
-            className="group flex shrink-0 items-center gap-3 text-left"
+            aria-label="Về trang chủ Vietnam CEO Forum"
+            className="group flex shrink-0 items-center text-left cursor-pointer transition-opacity hover:opacity-90 py-1"
           >
-            <span className="flex size-10 items-center justify-center rounded-sm bg-brand-primary text-base font-semibold tracking-[-0.04em] text-white transition-transform group-active:scale-95">VCF</span>
-            <span className="hidden border-l border-hairline pl-3 sm:block">
-              <span className="block text-[13px] font-semibold leading-tight tracking-[-0.02em] text-ink">Diễn đàn CEO Việt Nam</span>
-              <span className="mt-0.5 block text-[10px] text-ink-secondary">Kết nối · Tri thức · Kiến tạo</span>
-            </span>
+            <VcfLogo height={38} className="transition-transform group-active:scale-95" />
           </button>
 
           <nav aria-label="Điều hướng chính" className="hidden h-full items-center gap-5 lg:flex">
@@ -116,20 +113,13 @@ export const Header: React.FC = () => {
                   setActiveMegaMenu(null);
                   navigateTo('knowledge', { category: 'all' });
                 }}
-                className={navClass(isKnowledgeRoute)}
-                aria-label="Mở trang listing Hệ tri thức LGM"
-              >
-                Tri thức
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveMegaMenu(activeMegaMenu === 'knowledge' ? null : 'knowledge')}
-                className="-ml-1 flex size-11 items-center justify-center rounded-md text-ink-secondary transition-colors hover:bg-parchment hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info"
-                aria-label="Mở menu con Tri thức"
+                className={`${navClass(isKnowledgeRoute)} gap-1.5`}
                 aria-expanded={activeMegaMenu === 'knowledge'}
                 aria-controls="knowledge-menu"
+                aria-label="Mở trang Hệ tri thức LGM"
               >
-                <ChevronDown className={`size-3.5 transition-transform ${activeMegaMenu === 'knowledge' ? 'rotate-180' : ''}`} />
+                <span>Tri thức</span>
+                <ChevronDown className={`size-3.5 shrink-0 transition-transform duration-200 ${activeMegaMenu === 'knowledge' ? 'rotate-180' : ''}`} />
               </button>
               {activeMegaMenu === 'knowledge' ? (
                 <div id="knowledge-menu" className="absolute left-0 top-full w-[400px] rounded-none border border-neutral-200 bg-white p-3 shadow-lg animate-fadeIn z-50">
@@ -141,7 +131,7 @@ export const Header: React.FC = () => {
                         setActiveMegaMenu(null);
                         navigateTo('knowledge', { category: 'all' });
                       }}
-                      className="text-xs font-semibold text-[#E31309] hover:underline cursor-pointer"
+                      className="text-xs font-semibold text-[#AB071E] hover:underline cursor-pointer"
                     >
                       Xem tất cả →
                     </button>
@@ -172,7 +162,7 @@ export const Header: React.FC = () => {
                       }}
                       className="block w-full rounded-none px-3 py-3 text-left hover:bg-neutral-50 group cursor-pointer transition-colors border-b border-neutral-100 last:border-b-0"
                     >
-                      <span className="block text-sm font-semibold text-neutral-900 group-hover:text-[#E31309] transition-colors">{title}</span>
+                      <span className="block text-sm font-semibold text-neutral-900 group-hover:text-[#AB071E] transition-colors">{title}</span>
                       <span className="mt-0.5 block text-xs text-neutral-500">{description}</span>
                     </button>
                   ))}
@@ -193,12 +183,13 @@ export const Header: React.FC = () => {
                   setActiveMegaMenu(null);
                   navigateTo('activities');
                 }}
-                className={`${navClass(isActivityRoute)} gap-1`}
+                className={`${navClass(isActivityRoute)} gap-1.5`}
                 aria-expanded={activeMegaMenu === 'activities'}
                 aria-controls="activities-menu"
                 aria-label="Mở trang tổng quan 9 hoạt động VCF"
               >
-                Hoạt động <ChevronDown className={`size-3.5 transition-transform duration-150 ${activeMegaMenu === 'activities' ? 'rotate-180' : ''}`} />
+                <span>Hoạt động</span>
+                <ChevronDown className={`size-3.5 shrink-0 transition-transform duration-200 ${activeMegaMenu === 'activities' ? 'rotate-180' : ''}`} />
               </button>
               {activeMegaMenu === 'activities' ? (
                 <div id="activities-menu" className="absolute left-1/2 top-full grid w-[620px] -translate-x-1/2 grid-cols-2 gap-1 rounded-lg border border-hairline bg-white p-3 shadow-xl z-50 animate-fadeIn">

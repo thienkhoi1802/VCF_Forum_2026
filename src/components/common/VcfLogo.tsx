@@ -1,0 +1,332 @@
+import React from 'react';
+
+interface VcfLogoProps {
+  className?: string;
+  variant?: 'full' | 'mark' | 'horizontal-sm';
+  mode?: 'color' | 'white';
+  height?: number | string;
+}
+
+/**
+ * Official Vietnam CEO Forum (VCF) Logo Component
+ * Reconstructed with exact brand geometry from the official Logo.svg asset.
+ */
+export const VcfLogo: React.FC<VcfLogoProps> = ({
+  className = '',
+  variant = 'full',
+  mode = 'color',
+  height = 42,
+}) => {
+  const markColor = '#AB071E'; // Brand red #AB071E
+  const textColor = mode === 'white' ? '#FFFFFF' : '#2B2B2B';
+  const accentColor = mode === 'white' ? '#1D1D1F' : '#FFFFFF';
+
+  if (variant === 'mark') {
+    return (
+      <svg
+        viewBox="0 0 320 340"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className={`shrink-0 ${className}`}
+        style={{ height }}
+        aria-label="Vietnam CEO Forum Logo Mark"
+      >
+        <g fill={markColor} stroke={markColor} strokeWidth="11" strokeLinecap="round" strokeLinejoin="round">
+          {/* Outer Contour Arcs (Left Hemisphere Perimeter) */}
+          <path d="M 68 28 C 45 46 26 72 15 105" />
+          <circle cx="68" cy="28" r="9.5" />
+          <circle cx="15" cy="105" r="9.5" />
+
+          <path d="M 12 128 C 6 155 6 185 12 212" />
+          <circle cx="12" cy="128" r="9.5" />
+          <circle cx="12" cy="212" r="9.5" />
+
+          <path d="M 15 235 C 26 268 45 294 68 312" />
+          <circle cx="15" cy="235" r="9.5" />
+          <circle cx="68" cy="312" r="9.5" />
+
+          <path d="M 88 326 C 108 335 130 338 152 336" />
+          <circle cx="88" cy="326" r="9.5" />
+          <circle cx="152" cy="336" r="9.5" />
+
+          <path d="M 88 14 C 108 5 130 2 152 4" />
+          <circle cx="88" cy="14" r="9.5" />
+          <circle cx="152" cy="4" r="9.5" />
+
+          {/* Top Cap Layer */}
+          <path d="M 85 45 H 115 V 68 H 150" />
+          <circle cx="85" cy="45" r="9.5" />
+          <circle cx="115" cy="45" r="9.5" />
+          <circle cx="115" cy="68" r="9.5" />
+          <circle cx="150" cy="68" r="9.5" />
+
+          <path d="M 170 42 H 200" />
+          <circle cx="170" cy="42" r="9.5" />
+          <circle cx="200" cy="42" r="9.5" />
+
+          <path d="M 220 54 H 248" />
+          <circle cx="220" cy="54" r="9.5" />
+          <circle cx="248" cy="54" r="9.5" />
+
+          {/* Row 2: Upper Hemisphere */}
+          <path d="M 46 88 H 76 V 114 H 112" />
+          <circle cx="46" cy="88" r="9.5" />
+          <circle cx="76" cy="88" r="9.5" />
+          <circle cx="76" cy="114" r="9.5" />
+          <circle cx="112" cy="114" r="9.5" />
+
+          <path d="M 136 92 H 176 V 118 H 216" />
+          <circle cx="136" cy="92" r="9.5" />
+          <circle cx="176" cy="92" r="9.5" />
+          <circle cx="176" cy="118" r="9.5" />
+          <circle cx="216" cy="118" r="9.5" />
+
+          <path d="M 232 98 H 262" />
+          <circle cx="232" cy="98" r="9.5" />
+          <circle cx="262" cy="98" r="9.5" />
+
+          {/* Row 3: Mid-Upper */}
+          <path d="M 32 142 H 66 V 166 H 106" />
+          <circle cx="32" cy="142" r="9.5" />
+          <circle cx="66" cy="142" r="9.5" />
+          <circle cx="66" cy="166" r="9.5" />
+          <circle cx="106" cy="166" r="9.5" />
+
+          <path d="M 130 142 H 174 V 170 H 220" />
+          <circle cx="130" cy="142" r="9.5" />
+          <circle cx="174" cy="142" r="9.5" />
+          <circle cx="174" cy="170" r="9.5" />
+          <circle cx="220" cy="170" r="9.5" />
+
+          <path d="M 238 146 H 272" />
+          <circle cx="238" cy="146" r="9.5" />
+          <circle cx="272" cy="146" r="9.5" />
+
+          {/* Row 4: Equator / Apex */}
+          <path d="M 32 196 H 64 V 220 H 104" />
+          <circle cx="32" cy="196" r="9.5" />
+          <circle cx="64" cy="196" r="9.5" />
+          <circle cx="64" cy="220" r="9.5" />
+          <circle cx="104" cy="220" r="9.5" />
+
+          <path d="M 128 196 H 168 V 222 H 210" />
+          <circle cx="128" cy="196" r="9.5" />
+          <circle cx="168" cy="196" r="9.5" />
+          <circle cx="168" cy="222" r="9.5" />
+          <circle cx="210" cy="222" r="9.5" />
+
+          <path d="M 226 196 H 262" />
+          <circle cx="226" cy="196" r="9.5" />
+          <circle cx="262" cy="196" r="9.5" />
+
+          {/* Row 5: Mid-Lower */}
+          <path d="M 46 250 H 80 V 274 H 116" />
+          <circle cx="46" cy="250" r="9.5" />
+          <circle cx="80" cy="250" r="9.5" />
+          <circle cx="80" cy="274" r="9.5" />
+          <circle cx="116" cy="274" r="9.5" />
+
+          <path d="M 136 250 H 176 V 274 H 216" />
+          <circle cx="136" cy="250" r="9.5" />
+          <circle cx="176" cy="250" r="9.5" />
+          <circle cx="176" cy="274" r="9.5" />
+          <circle cx="216" cy="274" r="9.5" />
+
+          {/* Row 6: Bottom Pole */}
+          <path d="M 76 298 H 108 V 316 H 142" />
+          <circle cx="76" cy="298" r="9.5" />
+          <circle cx="108" cy="298" r="9.5" />
+          <circle cx="108" cy="316" r="9.5" />
+          <circle cx="142" cy="316" r="9.5" />
+
+          <path d="M 162 298 H 192 V 316 H 220" />
+          <circle cx="162" cy="298" r="9.5" />
+          <circle cx="192" cy="298" r="9.5" />
+          <circle cx="192" cy="316" r="9.5" />
+          <circle cx="220" cy="316" r="9.5" />
+        </g>
+      </svg>
+    );
+  }
+
+  return (
+    <svg
+      viewBox="0 0 680 340"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={`shrink-0 ${className}`}
+      style={{ height, width: 'auto' }}
+      aria-label="Vietnam CEO Forum Logo"
+    >
+      {/* 3D Network Hemisphere Mark in Brand Red #AB071E */}
+      <g fill={markColor} stroke={markColor} strokeWidth="11" strokeLinecap="round" strokeLinejoin="round">
+        {/* Outer Contour Arcs (Left Hemisphere Perimeter) */}
+        <path d="M 68 28 C 45 46 26 72 15 105" />
+        <circle cx="68" cy="28" r="9.5" />
+        <circle cx="15" cy="105" r="9.5" />
+
+        <path d="M 12 128 C 6 155 6 185 12 212" />
+        <circle cx="12" cy="128" r="9.5" />
+        <circle cx="12" cy="212" r="9.5" />
+
+        <path d="M 15 235 C 26 268 45 294 68 312" />
+        <circle cx="15" cy="235" r="9.5" />
+        <circle cx="68" cy="312" r="9.5" />
+
+        <path d="M 88 326 C 108 335 130 338 152 336" />
+        <circle cx="88" cy="326" r="9.5" />
+        <circle cx="152" cy="336" r="9.5" />
+
+        <path d="M 88 14 C 108 5 130 2 152 4" />
+        <circle cx="88" cy="14" r="9.5" />
+        <circle cx="152" cy="4" r="9.5" />
+
+        {/* Top Cap Layer */}
+        <path d="M 85 45 H 115 V 68 H 150" />
+        <circle cx="85" cy="45" r="9.5" />
+        <circle cx="115" cy="45" r="9.5" />
+        <circle cx="115" cy="68" r="9.5" />
+        <circle cx="150" cy="68" r="9.5" />
+
+        <path d="M 170 42 H 200" />
+        <circle cx="170" cy="42" r="9.5" />
+        <circle cx="200" cy="42" r="9.5" />
+
+        <path d="M 220 54 H 248" />
+        <circle cx="220" cy="54" r="9.5" />
+        <circle cx="248" cy="54" r="9.5" />
+
+        {/* Row 2: Upper Hemisphere */}
+        <path d="M 46 88 H 76 V 114 H 112" />
+        <circle cx="46" cy="88" r="9.5" />
+        <circle cx="76" cy="88" r="9.5" />
+        <circle cx="76" cy="114" r="9.5" />
+        <circle cx="112" cy="114" r="9.5" />
+
+        <path d="M 136 92 H 176 V 118 H 216" />
+        <circle cx="136" cy="92" r="9.5" />
+        <circle cx="176" cy="92" r="9.5" />
+        <circle cx="176" cy="118" r="9.5" />
+        <circle cx="216" cy="118" r="9.5" />
+
+        <path d="M 232 98 H 262" />
+        <circle cx="232" cy="98" r="9.5" />
+        <circle cx="262" cy="98" r="9.5" />
+
+        {/* Row 3: Mid-Upper */}
+        <path d="M 32 142 H 66 V 166 H 106" />
+        <circle cx="32" cy="142" r="9.5" />
+        <circle cx="66" cy="142" r="9.5" />
+        <circle cx="66" cy="166" r="9.5" />
+        <circle cx="106" cy="166" r="9.5" />
+
+        <path d="M 130 142 H 174 V 170 H 220" />
+        <circle cx="130" cy="142" r="9.5" />
+        <circle cx="174" cy="142" r="9.5" />
+        <circle cx="174" cy="170" r="9.5" />
+        <circle cx="220" cy="170" r="9.5" />
+
+        <path d="M 238 146 H 272" />
+        <circle cx="238" cy="146" r="9.5" />
+        <circle cx="272" cy="146" r="9.5" />
+
+        {/* Row 4: Equator / Apex */}
+        <path d="M 32 196 H 64 V 220 H 104" />
+        <circle cx="32" cy="196" r="9.5" />
+        <circle cx="64" cy="196" r="9.5" />
+        <circle cx="64" cy="220" r="9.5" />
+        <circle cx="104" cy="220" r="9.5" />
+
+        <path d="M 128 196 H 168 V 222 H 210" />
+        <circle cx="128" cy="196" r="9.5" />
+        <circle cx="168" cy="196" r="9.5" />
+        <circle cx="168" cy="222" r="9.5" />
+        <circle cx="210" cy="222" r="9.5" />
+
+        <path d="M 226 196 H 262" />
+        <circle cx="226" cy="196" r="9.5" />
+        <circle cx="262" cy="196" r="9.5" />
+
+        {/* Row 5: Mid-Lower */}
+        <path d="M 46 250 H 80 V 274 H 116" />
+        <circle cx="46" cy="250" r="9.5" />
+        <circle cx="80" cy="250" r="9.5" />
+        <circle cx="80" cy="274" r="9.5" />
+        <circle cx="116" cy="274" r="9.5" />
+
+        <path d="M 136 250 H 176 V 274 H 216" />
+        <circle cx="136" cy="250" r="9.5" />
+        <circle cx="176" cy="250" r="9.5" />
+        <circle cx="176" cy="274" r="9.5" />
+        <circle cx="216" cy="274" r="9.5" />
+
+        {/* Row 6: Bottom Pole */}
+        <path d="M 76 298 H 108 V 316 H 142" />
+        <circle cx="76" cy="298" r="9.5" />
+        <circle cx="108" cy="298" r="9.5" />
+        <circle cx="108" cy="316" r="9.5" />
+        <circle cx="142" cy="316" r="9.5" />
+
+        <path d="M 162 298 H 192 V 316 H 220" />
+        <circle cx="162" cy="298" r="9.5" />
+        <circle cx="192" cy="298" r="9.5" />
+        <circle cx="192" cy="316" r="9.5" />
+        <circle cx="220" cy="316" r="9.5" />
+      </g>
+
+      {/* Typography: Exact Bespoke Brand Logotype */}
+      <g fill={textColor}>
+        {/* LINE 1: Vietnam */}
+        {/* V */}
+        <path d="M 306 32 L 322 32 L 333 66 L 344 32 L 360 32 L 341 80 L 325 80 Z" />
+        {/* i stem */}
+        <path d="M 368 47 H 380 V 80 H 368 Z" />
+        {/* e */}
+        <path d="M 396 47 H 416 L 423 54 V 66 H 399 V 71 H 423 V 80 H 396 L 387 71 V 56 L 396 47 Z" />
+        {/* t */}
+        <path d="M 430 36 H 441 V 47 H 450 V 55 H 441 V 73 L 446 76 H 450 V 80 H 442 L 430 72 Z" />
+        <path d="M 425 47 H 430 V 55 H 425 Z" />
+        {/* n */}
+        <path d="M 456 47 H 467 V 55 L 474 47 H 483 L 492 56 V 80 H 481 V 59 L 477 56 H 467 V 80 H 456 Z" />
+        {/* a */}
+        <path d="M 505 47 H 526 V 80 H 516 V 73 L 509 80 H 503 L 495 72 V 57 L 505 47 Z" />
+        {/* m */}
+        <path d="M 532 47 H 543 V 55 L 550 47 H 558 L 566 55 V 47 H 574 L 582 55 V 80 H 571 V 58 L 568 55 H 561 V 80 H 550 V 58 L 547 55 H 543 V 80 H 532 Z" />
+
+        {/* LINE 2: CEO (Bold Octagonal Cut) */}
+        {/* C */}
+        <path d="M 334 116 L 306 144 V 198 L 334 226 H 386 V 198 H 342 L 334 190 V 152 L 342 144 H 386 V 116 Z" />
+        {/* E */}
+        <path d="M 400 116 V 226 H 456 L 472 210 V 198 H 426 V 181 H 460 V 161 H 426 V 144 H 472 V 132 L 456 116 Z" />
+        {/* O */}
+        <path d="M 510 116 L 484 142 V 200 L 510 226 H 542 L 568 200 V 142 L 542 116 Z" />
+
+        {/* LINE 3: Forum */}
+        {/* F */}
+        <path d="M 306 260 V 324 H 320 V 298 H 340 V 287 H 320 V 273 H 348 L 354 267 V 260 Z" />
+        {/* o */}
+        <path d="M 366 272 L 352 286 V 310 L 366 324 H 382 L 396 310 V 286 L 382 272 Z" />
+        {/* r */}
+        <path d="M 404 272 H 417 V 282 L 424 272 H 434 L 439 277 V 286 H 429 L 417 288 V 324 H 404 Z" />
+        {/* u */}
+        <path d="M 444 272 H 456 V 310 L 461 315 H 470 L 475 310 V 272 H 487 V 310 L 474 324 H 458 L 444 310 Z" />
+        {/* m */}
+        <path d="M 494 272 H 505 V 281 L 512 272 H 520 L 528 281 V 272 H 536 L 544 281 V 324 H 533 V 284 L 530 281 H 523 V 324 H 513 V 284 L 510 281 H 505 V 324 H 494 Z" />
+      </g>
+
+      {/* Signature White Accents & Counters (from Logo.svg) */}
+      <g fill={accentColor}>
+        {/* Dot of i in Vietnam */}
+        <polygon points="374,34 381,40.5 374,47 367,40.5" />
+        {/* Eye of e in Vietnam */}
+        <polygon points="399,53 412,53 415,56 415,60 399,60" />
+        {/* Counter of a in Vietnam */}
+        <polygon points="506,54 517,54 517,68 506,68" />
+        {/* Center Pill of O in CEO */}
+        <rect x="512" y="141" width="28" height="60" rx="7" />
+        {/* Center Pill of o in Forum */}
+        <rect x="367" y="285" width="14" height="26" rx="4" />
+      </g>
+    </svg>
+  );
+};

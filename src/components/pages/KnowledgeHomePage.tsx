@@ -107,7 +107,7 @@ export const KnowledgeHomePage: React.FC = () => {
                 onClick={() => handleTabChange(tab.key)}
                 className={`pb-2.5 sm:pb-3 pt-1 text-xs sm:text-sm font-semibold whitespace-nowrap transition-all border-b-2 -mb-px shrink-0 cursor-pointer ${
                   isActive
-                    ? 'border-[#E31309] text-[#E31309]'
+                    ? 'border-[#AB071E] text-[#AB071E]'
                     : 'border-transparent text-ink-secondary hover:text-ink hover:border-neutral-300'
                 }`}
               >
@@ -122,7 +122,7 @@ export const KnowledgeHomePage: React.FC = () => {
         <SkeletonLoader variant="card" count={4} />
       ) : isEmpty || filteredArticles.length === 0 ? (
         <div className="border border-hairline bg-white rounded-none p-8 sm:p-12 text-center space-y-4 shadow-xs">
-          <div className="w-12 h-12 rounded-none bg-red-50 text-[#E31309] flex items-center justify-center mx-auto font-semibold text-lg">
+          <div className="w-12 h-12 rounded-none bg-red-50 text-[#AB071E] flex items-center justify-center mx-auto font-semibold text-lg">
             !
           </div>
           <div className="font-semibold text-base sm:text-lg text-ink">Chưa có bài viết nào trong danh mục này</div>
@@ -130,7 +130,7 @@ export const KnowledgeHomePage: React.FC = () => {
             onClick={() => {
               handleTabChange('all');
             }}
-            className="px-5 py-2.5 rounded-none text-xs font-semibold text-white bg-[#E31309] hover:bg-[#c41008] transition-colors cursor-pointer"
+            className="px-5 py-2.5 rounded-none text-xs font-semibold text-white bg-[#AB071E] hover:bg-[#8E0518] transition-colors cursor-pointer"
           >
             Xem tất cả bài viết
           </button>

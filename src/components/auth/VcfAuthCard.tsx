@@ -19,6 +19,7 @@ import {
   recordOtpAttempt,
   clearStoredOtp
 } from '../../utils/authService';
+import { VcfLogo } from '../common/VcfLogo';
 
 interface VcfAuthCardProps {
   initialMode?: 'login' | 'register';
@@ -497,14 +498,8 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
       aria-live="polite"
     >
       {/* 1. VCF Brand Mark */}
-      <div className="flex items-center justify-center gap-2 mb-2 sm:mb-3">
-        <div className="bg-[#E31309] text-white font-black text-xs sm:text-sm px-2.5 py-1.5 leading-none tracking-tight rounded-none shadow-none">
-          VCF
-        </div>
-        <div className="flex flex-col text-left">
-          <span className="text-[10px] font-black text-neutral-900 tracking-wider uppercase leading-none">VIETNAM</span>
-          <span className="text-[10px] font-black text-neutral-900 tracking-wider uppercase leading-none mt-0.5">CEO FORUM</span>
-        </div>
+      <div className="flex items-center justify-center mb-3 sm:mb-4">
+        <VcfLogo height={42} />
       </div>
 
       {/* 2. Card Header */}
@@ -527,7 +522,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
           role="alert"
           className="mb-3.5 sm:mb-4 p-3 bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm flex items-start gap-2 rounded-none"
         >
-          <AlertCircle className="w-4 h-4 text-[#E31309] shrink-0 mt-0.5" />
+          <AlertCircle className="w-4 h-4 text-[#AB071E] shrink-0 mt-0.5" />
           <div className="flex-1 leading-snug">
             {errorMessage === 'EMAIL_NOT_FOUND' ? (
               <div>
@@ -539,7 +534,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                     setRegEmail(email);
                     setErrorMessage('');
                   }}
-                  className="text-[#E31309] font-bold underline hover:text-[#c41008] cursor-pointer"
+                  className="text-[#AB071E] font-bold underline hover:text-[#8E0518] cursor-pointer"
                 >
                   Đăng ký thành viên
                 </button>
@@ -571,7 +566,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                   setForgotPasswordSuccess(false);
                   setErrorMessage('');
                 }}
-                className="w-full h-11 sm:h-12 bg-[#E31309] hover:bg-[#c41008] text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-colors rounded-none cursor-pointer flex items-center justify-center"
+                className="w-full h-11 sm:h-12 bg-[#AB071E] hover:bg-[#8E0518] text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-colors rounded-none cursor-pointer flex items-center justify-center"
               >
                 QUAY LẠI ĐĂNG NHẬP
               </button>
@@ -606,7 +601,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full h-10 sm:h-12 bg-[#E31309] hover:bg-[#c41008] text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-colors rounded-none cursor-pointer flex items-center justify-center gap-2 mt-3"
+                className="w-full h-10 sm:h-12 bg-[#AB071E] hover:bg-[#8E0518] text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-colors rounded-none cursor-pointer flex items-center justify-center gap-2 mt-3"
               >
                 {isLoading ? (
                   <>
@@ -763,7 +758,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                       setCardMode('forgot-password');
                       setErrorMessage('');
                     }}
-                    className="text-xs font-medium text-[#E31309] hover:underline cursor-pointer"
+                    className="text-xs font-medium text-[#AB071E] hover:underline cursor-pointer"
                   >
                     Quên mật khẩu?
                   </button>
@@ -802,7 +797,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
               <button
                 type="submit"
                 disabled={isLoading || rateLimitLocked}
-                className="w-full h-11 sm:h-12 bg-[#E31309] hover:bg-[#c41008] text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-colors rounded-none cursor-pointer flex items-center justify-center gap-2 mt-4 sm:mt-5 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full h-11 sm:h-12 bg-[#AB071E] hover:bg-[#8E0518] text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-colors rounded-none cursor-pointer flex items-center justify-center gap-2 mt-4 sm:mt-5 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <>
@@ -822,7 +817,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                     setCardMode('register');
                     setErrorMessage('');
                   }}
-                  className="text-[#E31309] font-bold hover:underline cursor-pointer"
+                  className="text-[#AB071E] font-bold hover:underline cursor-pointer"
                 >
                   Đăng ký thành viên
                 </button>
@@ -872,7 +867,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full h-11 sm:h-12 bg-[#E31309] hover:bg-[#c41008] text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-colors rounded-none cursor-pointer flex items-center justify-center gap-2 mt-4 sm:mt-5 disabled:opacity-50"
+                    className="w-full h-11 sm:h-12 bg-[#AB071E] hover:bg-[#8E0518] text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-colors rounded-none cursor-pointer flex items-center justify-center gap-2 mt-4 sm:mt-5 disabled:opacity-50"
                   >
                     {isLoading ? (
                       <>
@@ -892,7 +887,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                         setCardMode('register');
                         setErrorMessage('');
                       }}
-                      className="text-[#E31309] font-bold hover:underline cursor-pointer"
+                      className="text-[#AB071E] font-bold hover:underline cursor-pointer"
                     >
                       Đăng ký thành viên
                     </button>
@@ -918,7 +913,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                           setErrorMessage('');
                           setOtpDigits(['', '', '', '', '', '']);
                         }}
-                        className="text-[#E31309] underline font-medium hover:text-[#c41008] cursor-pointer text-xs"
+                        className="text-[#AB071E] underline font-medium hover:text-[#8E0518] cursor-pointer text-xs"
                       >
                         Đổi email
                       </button>
@@ -960,7 +955,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                   <button
                     type="submit"
                     disabled={isLoading || otpDigits.join('').length < 6 || rateLimitLocked}
-                    className="w-full h-11 sm:h-12 bg-[#E31309] hover:bg-[#c41008] text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-colors rounded-none cursor-pointer flex items-center justify-center gap-2 mt-3 sm:mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full h-11 sm:h-12 bg-[#AB071E] hover:bg-[#8E0518] text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-colors rounded-none cursor-pointer flex items-center justify-center gap-2 mt-3 sm:mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isLoading ? (
                       <>
@@ -984,7 +979,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                       className={`font-medium underline cursor-pointer ${
                         otpTimerSeconds > 0
                           ? 'text-neutral-400 cursor-not-allowed no-underline'
-                          : 'text-[#E31309] hover:text-[#c41008]'
+                          : 'text-[#AB071E] hover:text-[#8E0518]'
                       }`}
                     >
                       Gửi lại mã
@@ -999,7 +994,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                         setCardMode('register');
                         setErrorMessage('');
                       }}
-                      className="text-[#E31309] font-medium hover:underline cursor-pointer"
+                      className="text-[#AB071E] font-medium hover:underline cursor-pointer"
                     >
                       Đăng ký thành viên
                     </button>
@@ -1024,7 +1019,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
           {/* Full Name */}
           <div>
             <label htmlFor="reg-fullname" className="block text-xs font-semibold text-neutral-800 mb-0.5">
-              Họ và tên của bạn <span className="text-[#E31309]">*</span>
+              Họ và tên của bạn <span className="text-[#AB071E]">*</span>
             </label>
             <input
               id="reg-fullname"
@@ -1049,7 +1044,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
           {/* Work Email */}
           <div>
             <label htmlFor="reg-email" className="block text-xs font-semibold text-neutral-800 mb-0.5">
-              Email công tác <span className="text-[#E31309]">*</span>
+              Email công tác <span className="text-[#AB071E]">*</span>
             </label>
             <input
               id="reg-email"
@@ -1077,7 +1072,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                         setEmail(regEmail);
                         setErrorMessage('');
                       }}
-                      className="font-bold underline text-[#E31309]"
+                      className="font-bold underline text-[#AB071E]"
                     >
                       Đăng nhập ngay
                     </button>
@@ -1093,7 +1088,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
             <div>
               <label htmlFor="reg-company" className="block text-xs font-semibold text-neutral-800 mb-0.5">
-                Doanh nghiệp / Tổ chức <span className="text-[#E31309]">*</span>
+                Doanh nghiệp / Tổ chức <span className="text-[#AB071E]">*</span>
               </label>
               <input
                 id="reg-company"
@@ -1115,7 +1110,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
 
             <div>
               <label htmlFor="reg-jobtitle" className="block text-xs font-semibold text-neutral-800 mb-0.5">
-                Chức danh / Chức vụ <span className="text-[#E31309]">*</span>
+                Chức danh / Chức vụ <span className="text-[#AB071E]">*</span>
               </label>
               <input
                 id="reg-jobtitle"
@@ -1140,7 +1135,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
             <div>
               <label htmlFor="reg-password" className="block text-xs font-semibold text-neutral-800 mb-0.5">
-                Mật khẩu (≥ 8 ký tự) <span className="text-[#E31309]">*</span>
+                Mật khẩu (≥ 8 ký tự) <span className="text-[#AB071E]">*</span>
               </label>
               <div className="relative">
                 <input
@@ -1171,7 +1166,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
 
             <div>
               <label htmlFor="reg-confirm" className="block text-xs font-semibold text-neutral-800 mb-0.5">
-                Xác nhận mật khẩu <span className="text-[#E31309]">*</span>
+                Xác nhận mật khẩu <span className="text-[#AB071E]">*</span>
               </label>
               <input
                 id="reg-confirm"
@@ -1216,7 +1211,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full h-11 sm:h-12 bg-[#E31309] hover:bg-[#c41008] text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-colors rounded-none cursor-pointer flex items-center justify-center gap-2 mt-3 sm:mt-4 disabled:opacity-50"
+            className="w-full h-11 sm:h-12 bg-[#AB071E] hover:bg-[#8E0518] text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-colors rounded-none cursor-pointer flex items-center justify-center gap-2 mt-3 sm:mt-4 disabled:opacity-50"
           >
             {isLoading ? (
               <>
@@ -1236,7 +1231,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                 setCardMode('login');
                 setErrorMessage('');
               }}
-              className="text-[#E31309] font-bold hover:underline cursor-pointer"
+              className="text-[#AB071E] font-bold hover:underline cursor-pointer"
             >
               Đăng nhập ngay
             </button>

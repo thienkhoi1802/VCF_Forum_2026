@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ChevronDown, ChevronRight, Mail, MapPin, Phone, ShieldCheck } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { MOCK_ACTIVITIES } from '../../data/mockData';
+import { VcfLogo } from './VcfLogo';
 
 export const Footer: React.FC = () => {
   const { navigateTo, currentRoute } = useApp();
@@ -27,12 +28,13 @@ export const Footer: React.FC = () => {
       <div className="vcf-container py-10 sm:py-16">
         <div className="grid gap-0 md:gap-10 border-b border-black/10 pb-8 md:pb-12 md:grid-cols-2 lg:grid-cols-5 lg:gap-12">
           <div className="pb-6 md:pb-0 lg:col-span-4 xl:col-span-3">
-            <button type="button" onClick={() => navigateTo('home')} className="flex items-center gap-3 text-left cursor-pointer">
-              <span className="flex size-10 items-center justify-center rounded-sm bg-brand-primary font-semibold text-white">VCF</span>
-              <span>
-                <span className="block text-sm font-semibold tracking-[-0.02em]">Diễn đàn CEO Việt Nam</span>
-                <span className="block text-xs text-ink-secondary">Vietnam CEO Forum</span>
-              </span>
+            <button
+              type="button"
+              onClick={() => navigateTo('home')}
+              className="flex items-center text-left cursor-pointer transition-opacity hover:opacity-90"
+              aria-label="Về trang chủ Vietnam CEO Forum"
+            >
+              <VcfLogo height={52} />
             </button>
             <p className="mt-5 max-w-sm text-sm leading-6 text-ink-secondary">
               Nền tảng kết nối, chuyển giao tri thức và phát triển năng lực lãnh đạo cho cộng đồng người đứng đầu doanh nghiệp Việt Nam, hợp tác bởi VLGM và PTIT.
