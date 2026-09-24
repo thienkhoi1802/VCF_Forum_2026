@@ -400,14 +400,6 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
       errors.email = 'EMAIL_ALREADY_EXISTS';
     }
 
-    if (!regCompany.trim()) {
-      errors.company = 'Vui lòng nhập tên Doanh nghiệp / Tổ chức';
-    }
-
-    if (!regJobTitle.trim()) {
-      errors.jobTitle = 'Vui lòng nhập Chức vụ của quý vị';
-    }
-
     if (!regPassword) {
       errors.password = 'Vui lòng nhập mật khẩu';
     } else if (regPassword.length < 8) {
@@ -504,7 +496,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
           {cardMode === 'forgot-password' && 'Khôi phục mật khẩu'}
         </h1>
         <p className="text-xs sm:text-sm text-neutral-500 mt-1 leading-relaxed line-clamp-2 sm:line-clamp-none">
-          {cardMode === 'login' && 'Truy cập hồ sơ, sự kiện và đặc quyền dành cho hội viên VCF'}
+          {cardMode === 'login' && 'Quản lý tài khoản, theo dõi sự kiện và tận hưởng đặc quyền độc quyền VCF'}
           {cardMode === 'register' && 'Trở thành thành viên Diễn đàn CEO Việt Nam để mở rộng cơ hội phát triển'}
           {cardMode === 'forgot-password' && 'Nhập email công tác để nhận liên kết thiết lập lại mật khẩu'}
         </p>
@@ -716,7 +708,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
           {authTab === 'password' && (
             <form onSubmit={handlePasswordLogin} className="space-y-2.5 sm:space-y-3.5" noValidate>
               <div>
-                <label htmlFor="login-email" className="block text-xs font-semibold text-neutral-800 mb-1">
+                <label htmlFor="login-email" className="block text-sm font-semibold text-neutral-800 mb-1">
                   Địa chỉ Email
                 </label>
                 <input
@@ -742,7 +734,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
 
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label htmlFor="login-password" className="text-xs font-semibold text-neutral-800">
+                  <label htmlFor="login-password" className="text-sm font-semibold text-neutral-800">
                     Mật khẩu
                   </label>
                   <button
@@ -751,7 +743,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                       setCardMode('forgot-password');
                       setErrorMessage('');
                     }}
-                    className="text-xs font-medium text-[#AB071E] hover:underline cursor-pointer"
+                    className="text-sm font-medium text-[#AB071E] hover:underline cursor-pointer"
                   >
                     Quên mật khẩu?
                   </button>
@@ -802,7 +794,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                 )}
               </button>
 
-              <div className="pt-1.5 text-center text-[14pt] text-neutral-600">
+              <div className="pt-1.5 text-center text-sm text-neutral-600">
                 Chưa có tài khoản?{' '}
                 <button
                   type="button"
@@ -810,7 +802,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                     setCardMode('register');
                     setErrorMessage('');
                   }}
-                  className="text-[14pt] text-[#AB071E] font-bold hover:underline cursor-pointer"
+                  className="text-sm text-[#AB071E] font-bold hover:underline cursor-pointer"
                 >
                   Đăng ký thành viên
                 </button>
@@ -872,7 +864,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                     )}
                   </button>
 
-                  <div className="pt-1.5 text-center text-[14pt] text-neutral-600">
+                  <div className="pt-1.5 text-center text-sm text-neutral-600">
                     Chưa có tài khoản?{' '}
                     <button
                       type="button"
@@ -880,7 +872,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                         setCardMode('register');
                         setErrorMessage('');
                       }}
-                      className="text-[14pt] text-[#AB071E] font-bold hover:underline cursor-pointer"
+                      className="text-sm text-[#AB071E] font-bold hover:underline cursor-pointer"
                     >
                       Đăng ký thành viên
                     </button>
@@ -1081,7 +1073,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
             <div>
               <label htmlFor="reg-company" className="block text-xs font-semibold text-neutral-800 mb-0.5">
-                Doanh nghiệp / Tổ chức <span className="text-[#AB071E]">*</span>
+                Doanh nghiệp / Tổ chức
               </label>
               <input
                 id="reg-company"
@@ -1089,38 +1081,24 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                 value={regCompany}
                 onChange={(e) => {
                   setRegCompany(e.target.value);
-                  if (fieldErrors.company) setFieldErrors(prev => ({ ...prev, company: '' }));
                 }}
                 placeholder="Tập đoàn ABC"
-                className={`w-full h-10 sm:h-11 px-3 border text-xs sm:text-sm text-neutral-900 rounded-none focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 ${
-                  fieldErrors.company ? 'border-red-500 bg-red-50/20' : 'border-neutral-300'
-                }`}
+                className="w-full h-10 sm:h-11 px-3 border border-neutral-300 text-xs sm:text-sm text-neutral-900 rounded-none focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
               />
-              {fieldErrors.company && (
-                <p className="text-[11px] text-red-600 mt-0.5">{fieldErrors.company}</p>
-              )}
             </div>
 
             <div>
               <label htmlFor="reg-jobtitle" className="block text-xs font-semibold text-neutral-800 mb-0.5">
-                Chức danh / Chức vụ <span className="text-[#AB071E]">*</span>
+                Chức danh / Chức vụ
               </label>
               <input
                 id="reg-jobtitle"
                 type="text"
                 value={regJobTitle}
-                onChange={(e) => {
-                  setRegJobTitle(e.target.value);
-                  if (fieldErrors.jobTitle) setFieldErrors(prev => ({ ...prev, jobTitle: '' }));
-                }}
+                onChange={(e) => setRegJobTitle(e.target.value)}
                 placeholder="Tổng Giám Đốc (CEO)"
-                className={`w-full h-10 sm:h-11 px-3 border text-xs sm:text-sm text-neutral-900 rounded-none focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 ${
-                  fieldErrors.jobTitle ? 'border-red-500 bg-red-50/20' : 'border-neutral-300'
-                }`}
+                className="w-full h-10 sm:h-11 px-3 border border-neutral-300 text-xs sm:text-sm text-neutral-900 rounded-none focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
               />
-              {fieldErrors.jobTitle && (
-                <p className="text-[11px] text-red-600 mt-0.5">{fieldErrors.jobTitle}</p>
-              )}
             </div>
           </div>
 

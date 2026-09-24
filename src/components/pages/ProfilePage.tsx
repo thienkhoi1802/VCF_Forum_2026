@@ -80,33 +80,48 @@ export const ProfilePage: React.FC = () => {
       )}
 
       {/* Member Header Card */}
-      <div className="border border-hairline bg-white p-6 sm:p-8 rounded-lg shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded-full bg-brand-primary text-white flex items-center justify-center font-semibold text-xl font-mono shadow-xs">
+      <div className="bg-white p-4 sm:p-8 rounded-lg shadow-xs flex flex-col md:flex-row items-center text-center md:items-center md:text-left justify-between gap-5 sm:gap-6">
+        <div className="flex w-full min-w-0 flex-col items-center gap-3 text-center md:w-auto md:flex-row md:items-center md:gap-4 md:text-left">
+          <div className="member-avatar size-16 shrink-0 rounded-full bg-neutral-500 text-white flex items-center justify-center font-semibold text-xl font-mono shadow-xs md:bg-brand-primary">
             {currentUser.fullName.split(' ').map(n => n[0]).slice(-2).join('')}
           </div>
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <h1 className="text-xl sm:text-2xl font-semibold text-ink">
-                {currentUser.fullName}
-              </h1>
-              <span className="bg-red-50 text-brand-primary border border-red-200 text-[10px] px-3 py-0.5 font-semibold uppercase rounded-full">
+          <div className="w-full min-w-0 space-y-1.5 md:flex-1">
+            <h1 className="break-words text-xl sm:text-2xl font-semibold leading-tight text-ink">
+              {currentUser.fullName}
+            </h1>
+            <div className="flex flex-col items-center gap-2 md:flex-row md:items-center">
+              <span className="inline-flex w-fit max-w-full self-center bg-red-50 text-brand-primary border border-red-200 text-[10px] px-3 py-1 font-semibold uppercase md:self-auto">
                 {currentUser.membershipStatus === 'approved' ? 'Hội viên chính thức' : currentUser.membershipStatus === 'pending' ? 'Đang chờ duyệt' : 'Đã hết hạn'}
               </span>
             </div>
-            <div className="text-xs text-ink-secondary font-sans">
-              {currentUser.jobTitle} • <strong className="text-ink">{currentUser.companyName}</strong>
+            <div className="text-sm text-ink-secondary font-sans">
+              {currentUser.jobTitle && <>{currentUser.jobTitle} • </>}
+              <strong className="text-ink">{currentUser.companyName || 'Chưa cập nhật'}</strong>
             </div>
-            <div className="text-[11px] text-neutral-400 font-medium">
-              Mã hội viên: <span className="font-mono text-brand-primary font-semibold">{currentUser.memberId}</span> | Ngày gia nhập: {currentUser.joinedDate}
+            <div className="flex flex-wrap justify-center gap-x-2 text-sm text-neutral-500 font-medium md:justify-start md:text-[11px]">
+              <span className="hidden md:inline">Mã hội viên: <span className="font-mono text-brand-primary font-semibold">{currentUser.memberId}</span></span>
+              <span>Ngày gia nhập: {currentUser.joinedDate}</span>
             </div>
+            <CustomButton
+              variant="ghost"
+              size="sm"
+              className="mx-auto mt-2 min-h-11 w-60 !border !border-[#b8b8b8] !bg-white md:hidden"
+              onClick={() => {
+                logout();
+                navigateTo('home');
+              }}
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              Đăng xuất
+            </CustomButton>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 w-full md:w-auto">
+        <div className="hidden w-auto items-center gap-3 md:flex">
           <CustomButton
             variant="secondary"
             size="sm"
+            className="hidden min-h-11 justify-center md:inline-flex md:w-auto"
             onClick={() => {
               logout();
               navigateTo('home');
@@ -120,17 +135,17 @@ export const ProfilePage: React.FC = () => {
 
       {/* Progressive Profile Completion Banner if Lite Profile */}
       {!currentUser.isProfileComplete && (
-        <div className="bg-warning-soft border border-amber-200 rounded-lg p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fadeIn">
+        <div className="bg-warning-soft border border-amber-200 rounded-lg p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 animate-fadeIn">
           <div className="flex items-start gap-3">
             <div className="w-9 h-9 rounded-full bg-brand-primary text-white flex items-center justify-center shrink-0 mt-0.5">
               <Sparkles className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-ink">
-                Hồ sơ hội viên đang ở mức cơ bản (Lite Member)
+              <h4 className="text-base font-semibold text-ink">
+                Hồ sơ hội viên cơ bản
               </h4>
-              <p className="text-xs text-ink-secondary mt-0.5">
-                Bổ sung thông tin chức danh, doanh nghiệp và thách thức quản trị để nhận quyền lợi kết nối Mentor 1-1 và được xếp chỗ ưu tiên tại các sự kiện.
+              <p className="text-sm text-ink-secondary mt-0.5 leading-relaxed">
+                Bổ sung thông tin để tăng cơ hội kết nối Mentor 1–1 và được ưu tiên tại sự kiện.
               </p>
             </div>
           </div>
@@ -138,53 +153,58 @@ export const ProfilePage: React.FC = () => {
             variant="primary"
             size="sm"
             onClick={() => openProgressiveProfile()}
-            className="shrink-0 whitespace-nowrap"
+            className="min-h-11 w-full shrink-0 justify-center whitespace-nowrap md:w-auto"
           >
-            Hoàn thiện hồ sơ ngay →
+            Hoàn thiện hồ sơ
           </CustomButton>
         </div>
       )}
 
+      <div className="space-y-0 md:space-y-8">
       {/* Tabs Navigation */}
-      <div className="flex border border-hairline p-1 bg-neutral-100 rounded-full gap-2 overflow-x-auto text-xs">
+      <div className="grid grid-cols-2 gap-2 border border-hairline p-1 bg-neutral-100">
         <button
           onClick={() => setActiveTab('profile')}
-          className={`px-5 py-2 font-semibold rounded-full transition-all duration-150 flex items-center gap-2 whitespace-nowrap ${
+          aria-label="Thông tin hội viên"
+          aria-pressed={activeTab === 'profile'}
+          className={`flex min-h-11 w-full items-center justify-center gap-2 px-2 text-sm font-semibold transition-all duration-150 whitespace-nowrap ${
             activeTab === 'profile'
-              ? 'bg-brand-primary text-white shadow-xs'
+              ? 'bg-[#342729] text-white shadow-xs'
               : 'text-ink-secondary hover:text-ink'
           }`}
         >
           <User className="w-4 h-4" />
-          <span>Thông Tin Hội Viên</span>
+          <span>Hồ sơ</span>
         </button>
 
         <button
           onClick={() => setActiveTab('history')}
-          className={`px-5 py-2 font-semibold rounded-full transition-all duration-150 flex items-center gap-2 whitespace-nowrap ${
+          aria-label={`Lịch sử đăng ký sự kiện (${registeredEvents.length})`}
+          aria-pressed={activeTab === 'history'}
+          className={`flex min-h-11 w-full items-center justify-center gap-2 px-2 text-sm font-semibold transition-all duration-150 whitespace-nowrap ${
             activeTab === 'history'
-              ? 'bg-brand-primary text-white shadow-xs'
+              ? 'bg-[#342729] text-white shadow-xs'
               : 'text-ink-secondary hover:text-ink'
           }`}
         >
           <Calendar className="w-4 h-4" />
-          <span>Lịch Sử Đăng Ký Sự Kiện ({registeredEvents.length})</span>
+          <span>Sự kiện ({registeredEvents.length})</span>
         </button>
       </div>
 
       {/* TAB CONTENT: PROFILE */}
       {activeTab === 'profile' && (
-        <div className="border border-hairline bg-white p-6 md:p-8 rounded-lg shadow-xs space-y-6">
-          <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
-            <h3 className="font-semibold text-base text-ink uppercase">
-              Chi Tiết Hồ Sơ Quản Trị
+        <div className="border border-hairline bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-xs space-y-6">
+          <div className="flex items-center justify-between gap-3 pb-4 border-b border-neutral-100">
+            <h3 className="font-semibold text-base text-ink">
+              Thông tin hồ sơ
             </h3>
             <button
               onClick={() => setIsEditing(!isEditing)}
-              className="text-xs font-semibold text-brand-primary hover:underline flex items-center gap-1"
+              className="flex min-h-11 shrink-0 items-center justify-center gap-2 border border-hairline px-3 text-sm font-semibold text-brand-primary hover:bg-parchment"
             >
-              <Edit3 className="w-3.5 h-3.5" />
-              {isEditing ? 'Hủy chỉnh sửa' : 'Chỉnh sửa thông tin'}
+              <Edit3 className="w-4 h-4" />
+              {isEditing ? 'Hủy chỉnh sửa' : 'Chỉnh sửa'}
             </button>
           </div>
 
@@ -244,18 +264,65 @@ export const ProfilePage: React.FC = () => {
               </div>
             </form>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
-              <div className="p-5 bg-parchment border border-hairline rounded-lg space-y-2.5">
+            <>
+            <div className="space-y-4 md:hidden">
+              <section className="border border-hairline bg-white">
+                <h4 className="bg-parchment px-4 py-3 text-base font-semibold text-ink">
+                  Thông tin cá nhân
+                </h4>
+                <dl className="px-4">
+                  <div className="grid grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-3 py-3 text-sm">
+                    <dt className="text-ink-secondary">Họ và tên</dt>
+                    <dd className="min-w-0 break-words font-medium text-ink">{currentUser.fullName || 'Chưa cập nhật'}</dd>
+                  </div>
+                  <div className="grid grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-3 py-3 text-sm">
+                    <dt className="text-ink-secondary">Email</dt>
+                    <dd className="min-w-0 break-all font-medium text-ink">{currentUser.email || 'Chưa cập nhật'}</dd>
+                  </div>
+                  <div className="grid grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-3 py-3 text-sm">
+                    <dt className="text-ink-secondary">Số điện thoại</dt>
+                    <dd className="min-w-0 break-words font-medium text-ink">{currentUser.phone || 'Chưa cập nhật'}</dd>
+                  </div>
+                  <div className="grid grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-3 py-3 text-sm">
+                    <dt className="text-ink-secondary">Chức danh</dt>
+                    <dd className="min-w-0 break-words font-medium text-ink">{currentUser.jobTitle || 'Chưa cập nhật'}</dd>
+                  </div>
+                </dl>
+              </section>
+
+              <section className="border border-hairline bg-white">
+                <h4 className="bg-parchment px-4 py-3 text-base font-semibold text-ink">
+                  Thông tin doanh nghiệp
+                </h4>
+                <dl className="px-4">
+                  <div className="grid grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-3 py-3 text-sm">
+                    <dt className="text-ink-secondary">Tên doanh nghiệp</dt>
+                    <dd className="min-w-0 break-words font-medium text-ink">{currentUser.companyName || 'Chưa cập nhật'}</dd>
+                  </div>
+                  <div className="grid grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-3 py-3 text-sm">
+                    <dt className="text-ink-secondary">Lĩnh vực hoạt động</dt>
+                    <dd className="min-w-0 break-words font-medium text-ink">{currentUser.industry || 'Chưa cập nhật'}</dd>
+                  </div>
+                  <div className="grid grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-3 py-3 text-sm">
+                    <dt className="text-ink-secondary">Quy mô</dt>
+                    <dd className="min-w-0 break-words font-medium text-ink">{currentUser.companySize || 'Chưa cập nhật'}</dd>
+                  </div>
+                </dl>
+              </section>
+            </div>
+
+            <div className="hidden grid-cols-1 gap-4 text-sm md:grid md:grid-cols-2 md:gap-6">
+              <div className="p-4 sm:p-5 bg-parchment border border-hairline rounded-lg space-y-3">
                 <div className="font-semibold text-ink border-b border-hairline pb-2">
                   Thông tin cá nhân
                 </div>
                 <div>• Họ tên: <strong className="text-ink">{currentUser.fullName}</strong></div>
                 <div>• Email: <strong className="text-ink">{currentUser.email}</strong></div>
-                <div>• SĐT: <strong className="text-ink">{currentUser.phone}</strong></div>
-                <div>• Chức vụ: <strong className="text-ink">{currentUser.jobTitle}</strong></div>
+                <div>• SĐT: <strong className="text-ink">{currentUser.phone || 'Chưa cập nhật'}</strong></div>
+                <div>• Chức vụ: <strong className="text-ink">{currentUser.jobTitle || 'Chưa cập nhật'}</strong></div>
               </div>
 
-              <div className="p-5 bg-parchment border border-hairline rounded-lg space-y-2.5">
+              <div className="p-4 sm:p-5 bg-parchment border border-hairline rounded-lg space-y-3">
                 <div className="font-semibold text-ink border-b border-hairline pb-2">
                   Thông tin doanh nghiệp
                 </div>
@@ -265,14 +332,15 @@ export const ProfilePage: React.FC = () => {
                 <div>• Trạng thái hồ sơ: <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-0.5 rounded-full font-semibold text-[10px]">ĐÃ XÁC THỰC</span></div>
               </div>
             </div>
+            </>
           )}
         </div>
       )}
 
       {/* TAB CONTENT: EVENT REGISTRATION HISTORY */}
       {activeTab === 'history' && (
-        <div className="border border-hairline bg-white p-6 md:p-8 rounded-lg shadow-xs space-y-6">
-          <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
+        <div className="border border-hairline bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-xs space-y-6">
+          <div className="flex flex-col gap-3 pb-4 border-b border-neutral-100 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h3 className="font-semibold text-base text-ink uppercase">
                 Danh Sách Vé Mời & Sự Kiện Đã Đăng Ký
@@ -285,20 +353,14 @@ export const ProfilePage: React.FC = () => {
             <CustomButton
               variant="secondary"
               size="sm"
+              className="w-full justify-center sm:w-auto"
               onClick={() => navigateTo('events')}
             >
               + Đăng ký thêm sự kiện
             </CustomButton>
           </div>
 
-          {registeredEvents.length === 0 ? (
-            <div className="border border-hairline p-8 text-center bg-parchment rounded-lg space-y-2 text-xs">
-              <div className="font-semibold text-ink">[S-EMPTY] Bạn chưa đăng ký tham dự sự kiện nào</div>
-              <CustomButton variant="primary" size="sm" onClick={() => navigateTo('events')}>
-                Xem lịch sự kiện VCF
-              </CustomButton>
-            </div>
-          ) : (
+          {registeredEvents.length > 0 && (
             <div className="space-y-4">
               {registeredEvents.map((item) => (
                 <div
@@ -512,6 +574,7 @@ export const ProfilePage: React.FC = () => {
           )}
         </div>
       )}
+      </div>
 
       {/* QR TICKET MODAL */}
       {selectedQrTicket && (

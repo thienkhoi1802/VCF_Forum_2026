@@ -270,7 +270,7 @@ export const ArticleDetailPage: React.FC = () => {
   return (
     <div className="w-full pb-20 sm:pb-24 font-sans bg-white relative">
       {/* Top Breadcrumb navigation - Bỏ hiển thị tác giả, chỉ giữ Hệ tri thức LGM */}
-      <div className="w-[min(100%-3rem,780px)] mx-auto pt-4 sm:pt-6">
+      <div className="w-[min(100%-3rem,780px)] mx-auto pt-1.5 sm:pt-6">
         <Breadcrumb
           className="mb-0"
           items={[
@@ -438,35 +438,32 @@ export const ArticleDetailPage: React.FC = () => {
         )}
 
         {/* THIẾT KẾ ĐIỀU HƯỚNG DƯỚI BODY (Đã bỏ Lưu & Bỏ Thêm Google; Đồng bộ chia sẻ với bên trên) */}
-        <div className="pt-6 sm:pt-8 border-t border-hairline flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+        <div className="pt-6 sm:pt-8 flex items-center justify-between gap-3">
           {/* Trái: Duy nhất Nút Trở lại Hệ tri thức LGM (Đã bỏ nút Lưu theo yêu cầu) */}
           <button
             type="button"
             onClick={() => navigateTo('knowledge', { category: article.category })}
-            className="h-10 px-4 border border-neutral-300 bg-white hover:bg-neutral-50 hover:border-neutral-400 text-neutral-800 text-sm font-medium flex items-center gap-2 shadow-2xs transition-colors cursor-pointer w-fit"
+            className="h-10 px-3 sm:px-4 border border-neutral-300 bg-white hover:bg-neutral-50 hover:border-neutral-400 text-neutral-800 text-sm font-medium flex items-center gap-2 shadow-2xs transition-colors cursor-pointer w-fit"
           >
             <ArrowLeft className="w-4 h-4 text-neutral-600 shrink-0" />
             <span>Trở lại Hệ tri thức LGM</span>
           </button>
 
-          {/* Phải: Cụm Icon Chia sẻ Dưới - Đồng bộ 100% với cụm trên (Đã bỏ nút Thêm VCF trên Google) */}
-          <div className="flex items-center gap-3 self-start sm:self-auto">
-            <span className="text-xs text-neutral-400 font-medium hidden sm:inline-block">Chia sẻ:</span>
-            <ShareBar
-              copied={copied}
-              onShareFacebook={handleShareFacebook}
-              onShareTwitter={handleShareTwitter}
-              onShareLinkedin={handleShareLinkedin}
-              onShareEmail={handleShareEmail}
-              onCopyLink={handleCopyLink}
-            />
-          </div>
+          <button
+            type="button"
+            onClick={handleDeviceShare}
+            className="h-10 px-3 border border-neutral-300 bg-white hover:bg-neutral-50 hover:border-neutral-400 text-neutral-800 text-sm font-medium flex items-center gap-2 shadow-2xs transition-colors cursor-pointer shrink-0"
+            aria-label="Chia sẻ bài viết"
+          >
+            <Share2 className="w-4 h-4 text-neutral-600 shrink-0" />
+            <span>Chia sẻ</span>
+          </button>
         </div>
       </article>
 
       {/* RELATED NEWS: "Tin cùng chuyên mục" (Full 1280px container, 3 uniform cards, gap 32px) */}
       {relatedArticles.length > 0 && (
-        <section className="related-news mt-16 sm:mt-20 pt-8 sm:pt-10 border-t border-hairline space-y-6 sm:space-y-8">
+        <section className="related-news mt-16 sm:mt-20 pt-5 border-t border-hairline space-y-4">
           <h3 className="text-xl sm:text-2xl font-bold sm:font-semibold text-ink uppercase tracking-tight">
             Tin cùng chuyên mục
           </h3>
@@ -478,9 +475,7 @@ export const ArticleDetailPage: React.FC = () => {
         </section>
       )}
 
-      {/* MOBILE STICKY BAR KHI SCROLL:
-          Bên trái: Menu (mở drawer điều hướng + mục lục)
-          Bên phải: Cỡ chữ (Aa điều chỉnh kích thước font) + Share dạng thiết bị (navigator.share) */}
+      {/* MOBILE STICKY BAR KHI SCROLL: Điều chỉnh cỡ chữ + chia sẻ theo thiết bị */}
       <div 
         className={`fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-neutral-200/90 shadow-[0_-4px_25px_rgba(0,0,0,0.08)] px-4 py-2 transition-all duration-300 transform sm:hidden ${
           showStickyBar ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
@@ -488,7 +483,6 @@ export const ArticleDetailPage: React.FC = () => {
         style={{ paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom, 0px))' }}
       >
         <div className="flex items-center justify-between gap-3 max-w-md mx-auto relative">
-          {/* Bên trái: Menu - Dùng chung nội dung & cấu trúc menu hệ thống */}
           <button
             type="button"
             onClick={() => {
@@ -502,7 +496,7 @@ export const ArticleDetailPage: React.FC = () => {
             <span className="text-xs font-semibold text-neutral-900">Menu</span>
           </button>
 
-          {/* Bên phải: Cụm Tính năng Cỡ chữ & Share dạng thiết bị */}
+          {/* Cụm Tính năng Cỡ chữ & Share dạng thiết bị */}
           <div className="flex items-center gap-2">
             {/* 1. Nút Điều chỉnh kích font chữ */}
             <div className="relative">
@@ -517,7 +511,7 @@ export const ArticleDetailPage: React.FC = () => {
                 aria-label="Điều chỉnh cỡ chữ"
               >
                 <span className="font-serif font-bold text-xs tracking-tight">Aa</span>
-                <span className="text-[11px] font-medium">Cỡ chữ</span>
+                <span className="text-xs font-medium">Cỡ chữ</span>
               </button>
 
               {/* Popover điều chỉnh font chữ nổi ngay phía trên */}

@@ -37,13 +37,6 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
         </div>
 
         <div className="p-4 sm:p-5 space-y-3">
-          <div className="flex items-center justify-between text-xs gap-2">
-            <span className="bg-red-50 border border-red-200 text-brand-primary px-3 py-1 font-semibold rounded-full whitespace-nowrap shrink-0">
-              {program.code}
-            </span>
-            <span className="text-ink-secondary font-medium truncate text-right">{program.format}</span>
-          </div>
-
           <h3 className="text-xl font-semibold text-ink leading-tight group-hover:text-brand-primary transition-colors">
             <a
               href={externalUrl}
@@ -56,19 +49,14 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
             </a>
           </h3>
 
-          <div className="text-sm text-ink-secondary bg-parchment p-3.5 sm:p-4 rounded-md font-normal">
-            <span className="font-semibold text-ink">Đối tượng: </span>
-            {program.targetAudience}
-          </div>
-
-          <p className="text-sm text-ink-secondary line-clamp-2 leading-relaxed">
+          <p className="text-base text-ink-secondary line-clamp-2 leading-relaxed">
             {program.shortDesc}
           </p>
 
           <div className="space-y-2 text-xs sm:text-sm text-ink-secondary pt-1 font-medium">
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-brand-primary shrink-0" />
-              <span className="text-neutral-700">{program.nextCohort}</span>
+              <span className="text-sm text-neutral-700">{program.nextCohort}</span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-brand-primary shrink-0" />

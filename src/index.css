@@ -65,6 +65,10 @@
     border-radius: 0 !important;
   }
 
+  .member-avatar {
+    border-radius: 50% !important;
+  }
+
   html {
     font-family: var(--font-sans);
     scroll-behavior: smooth;
@@ -378,4 +382,3 @@ main .shadow-md {
     gap: 32px;
   }
 }
-

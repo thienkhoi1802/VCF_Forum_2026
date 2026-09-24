@@ -62,7 +62,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({ activity, showCover 
         </div>
 
         <div>
-          <h3 className="font-semibold text-base text-ink leading-snug group-hover:text-brand-primary transition-colors">
+          <h3 className="font-semibold text-xl text-ink leading-snug group-hover:text-brand-primary transition-colors">
             {activity.title}
           </h3>
           <div className="text-xs text-ink-secondary mt-1">

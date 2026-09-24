@@ -90,11 +90,14 @@ export const KnowledgeFeaturedGrid: React.FC<KnowledgeFeaturedGridProps> = ({
                 />
               </div>
 
-              {/* Headline - Bỏ tag đỏ, bỏ mô tả, show full toàn bộ title */}
+              {/* Headline and article summary */}
               <div className="p-3.5 sm:p-5">
                 <h2 className="text-[24px] sm:text-2xl lg:text-[26px] font-bold text-ink leading-snug tracking-tight group-hover:text-brand-primary transition-colors">
                   {leadArticle.title}
                 </h2>
+                <p className="mt-3 text-sm sm:text-base text-ink-secondary leading-relaxed">
+                  {leadArticle.sapo}
+                </p>
               </div>
             </div>
 

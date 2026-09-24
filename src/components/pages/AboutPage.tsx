@@ -22,9 +22,6 @@ export const AboutPage: React.FC = () => {
 
       {/* Page Hero */}
       <div className="space-y-4 max-w-4xl">
-        <span className="text-xs font-semibold uppercase bg-red-50 text-brand-primary border border-red-200 px-3 py-1 rounded-full">
-          Về Diễn Đàn CEO Việt Nam
-        </span>
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-ink tracking-tight leading-tight">
           Hội Tụ Tinh Hoa Lãnh Đạo.<br />
           <span className="text-brand-primary">Phụng Sự Doanh Nghiệp Quốc Gia.</span>
@@ -43,15 +40,15 @@ export const AboutPage: React.FC = () => {
               <span>Tầm Nhìn 2030</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-semibold text-ink">
-              Diễn Đàn Lãnh Đạo Doanh Nghiệp Uy Tín Hàng Đầu Khu Vực
+              Diễn đàn lãnh đạo doanh nghiệp uy tín hàng đầu khu vực
             </h2>
           </div>
 
-          <p className="text-sm text-ink-secondary leading-relaxed">
+          <p className="text-base text-ink-secondary leading-relaxed">
             Trở thành biểu tượng của trí tuệ quản trị và năng lực lãnh đạo Việt Nam, nơi quy tụ và đồng hành cùng hơn 5.000 CEO, Chủ tịch tập đoàn hàng đầu dẫn dắt công cuộc chuyển đổi số, đổi mới sáng tạo và hội nhập kinh tế toàn cầu.
           </p>
 
-          <div className="p-5 bg-red-50/60 border-l-4 border-brand-primary rounded-r-lg text-xs text-neutral-800 italic leading-relaxed">
+          <div className="p-5 bg-red-50/60 border-l-4 border-brand-primary rounded-r-lg text-sm text-neutral-800 italic leading-relaxed">
             "Không có quốc gia hùng cường nếu thiếu vắng những tập đoàn kinh tế mạnh. Không có tập đoàn lớn mạnh nếu thiếu những người thuyền trưởng có tầm nhìn và triết lý phụng sự."
           </div>
         </div>
@@ -82,11 +79,11 @@ export const AboutPage: React.FC = () => {
               <span>Sứ Mệnh Cốt Lõi</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-semibold text-ink">
-              Hệ Thống Hóa & Lan Tỏa Trường Phái Quản Trị LGM
+              Hệ thống hóa & lan tỏa trường phái quản trị LGM
             </h2>
           </div>
 
-          <ul className="space-y-3 text-xs text-neutral-700 font-sans">
+          <ul className="space-y-3 text-base text-neutral-700 font-sans">
             <li className="flex items-start gap-2.5">
               <Award className="w-4 h-4 text-brand-primary mt-0.5 shrink-0" />
               <span><strong className="text-ink">Đúc kết tri thức thực chiến:</strong> Nghiên cứu và số hóa các bài học thành bại của doanh nhân Việt Nam qua các thời kỳ.</span>
@@ -107,7 +104,7 @@ export const AboutPage: React.FC = () => {
       <div className="border-t border-hairline pt-12 space-y-8">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
           <h2 className="text-2xl font-semibold text-ink">
-            Đơn Vị Chủ Trì & Đối Tác Phát Triển
+            Đơn vị chủ trì & đối tác phát triển
           </h2>
           <p className="text-xs text-ink-secondary font-medium">
             Sự kết hợp giữa học thuật hàn lâm công nghệ viễn thông và triết lý quản trị tinh hoa
@@ -119,8 +116,8 @@ export const AboutPage: React.FC = () => {
             <div className="w-12 h-12 rounded-lg bg-brand-primary text-white flex items-center justify-center font-semibold font-mono shadow-xs">
               PTIT
             </div>
-            <h3 className="font-semibold text-base text-ink">Học Viện CN Bưu Chính Viễn Thông</h3>
-            <p className="text-xs text-ink-secondary leading-relaxed font-sans">
+            <h3 className="font-semibold text-lg text-ink">Học viện Bưu Chính Viễn Thông</h3>
+            <p className="text-sm text-ink-secondary leading-relaxed font-sans">
               Trường đại học trọng điểm quốc gia về Công nghệ thông tin và Truyền thông, đơn vị bảo trợ học thuật và nền tảng hạ tầng công nghệ số cho VCF.
             </p>
           </div>
@@ -129,8 +126,8 @@ export const AboutPage: React.FC = () => {
             <div className="w-12 h-12 rounded-lg bg-ink text-white flex items-center justify-center font-semibold font-mono shadow-xs">
               VLGM
             </div>
-            <h3 className="font-semibold text-base text-ink">Viện Lãnh Đạo & Quản Trị LGM</h3>
-            <p className="text-xs text-ink-secondary leading-relaxed font-sans">
+            <h3 className="font-semibold text-lg text-ink">Viện lãnh đạo & Quản trị LGM</h3>
+            <p className="text-sm text-ink-secondary leading-relaxed font-sans">
               Viện nghiên cứu và tư vấn chiến lược chuyên sâu về phương pháp luận quản trị doanh nghiệp và bồi dưỡng lãnh đạo tinh hoa.
             </p>
           </div>
@@ -139,8 +136,8 @@ export const AboutPage: React.FC = () => {
             <div className="w-12 h-12 rounded-lg bg-brand-primary text-white flex items-center justify-center font-semibold font-mono shadow-xs">
               VNE
             </div>
-            <h3 className="font-semibold text-base text-ink">Báo Điện Tử VnExpress</h3>
-            <p className="text-xs text-ink-secondary leading-relaxed font-sans">
+            <h3 className="font-semibold text-lg text-ink">Báo điện tử VnExpress</h3>
+            <p className="text-sm text-ink-secondary leading-relaxed font-sans">
               Đối tác chiến lược thiết kế trải nghiệm người dùng, truyền thông và lan tỏa các giá trị học thuật tới cộng đồng độc giả doanh nhân.
             </p>
           </div>
@@ -149,10 +146,10 @@ export const AboutPage: React.FC = () => {
 
       {/* CTA Bottom */}
       <div className="bg-parchment border border-hairline p-8 md:p-10 rounded-lg text-center space-y-4 max-w-3xl mx-auto shadow-xs">
-        <h3 className="text-2xl font-semibold text-ink">
-          Đồng Hành Cùng Diễn Đàn CEO Việt Nam
+        <h3 className="text-[28px] font-semibold text-ink">
+          Đồng hành cùng diễn đàn CEO Việt Nam
         </h3>
-        <p className="text-xs text-ink-secondary max-w-lg mx-auto leading-relaxed">
+        <p className="text-base text-ink-secondary max-w-lg mx-auto leading-relaxed">
           Đăng ký để trở thành hội viên chính thức hoặc tham gia ban cố vấn chuyên môn của Diễn đàn.
         </p>
         <CustomButton

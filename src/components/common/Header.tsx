@@ -80,16 +80,16 @@ export const Header: React.FC = () => {
   const isKnowledgeRoute = ['knowledge', 'knowledge-category', 'article-detail'].includes(currentRoute);
   const isActivityRoute = ['activities', 'activity-detail'].includes(currentRoute);
   const navClass = (active: boolean) =>
-    `group relative flex h-16 items-center px-1.5 text-sm font-medium transition-colors cursor-pointer after:absolute after:inset-x-0 after:bottom-0 after:h-[2.5px] after:transition-all ${
+    `group relative flex h-full items-center px-1.5 text-sm font-medium transition-colors cursor-pointer after:absolute after:inset-x-0 after:bottom-0 after:h-[2.5px] after:transition-all ${
       active
         ? 'text-ink font-semibold after:bg-brand-primary'
         : 'text-ink-secondary hover:text-ink after:bg-transparent hover:after:bg-neutral-300'
     }`;
 
   return (
-    <header className={mobileMenuOpen ? 'fixed top-0 inset-x-0 z-50 w-full' : (['event-detail', 'article-detail'].includes(currentRoute) ? 'relative z-40 w-full' : 'sticky top-0 z-40 w-full')}>
+    <header className={mobileMenuOpen ? 'fixed top-0 inset-x-0 z-50 w-full' : (['event-detail', 'article-detail'].includes(currentRoute) ? 'relative z-40 w-full lg:sticky lg:top-0' : 'sticky top-0 z-40 w-full')}>
       <div className={`border-b border-black/8 transition-colors ${mobileMenuOpen ? 'bg-white' : 'bg-white/88 backdrop-blur-xl'}`}>
-        <div className="vcf-container flex h-16 items-center justify-between gap-6">
+        <div className="vcf-container flex h-16 lg:h-[55px] items-center justify-between gap-6">
           <button
             type="button"
             onClick={() => navigateTo('home')}
@@ -123,36 +123,20 @@ export const Header: React.FC = () => {
               </button>
               {activeMegaMenu === 'knowledge' ? (
                 <div id="knowledge-menu" className="absolute left-0 top-full w-[400px] rounded-none border border-neutral-200 bg-white p-3 shadow-lg animate-fadeIn z-50">
-                  <div className="flex items-center justify-between px-3 pb-2 pt-1 border-b border-neutral-100 mb-1">
-                    <p className="text-xs font-semibold text-neutral-500">Kho tri thức lãnh đạo và quản trị</p>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setActiveMegaMenu(null);
-                        navigateTo('knowledge', { category: 'all' });
-                      }}
-                      className="text-xs font-semibold text-[#AB071E] hover:underline cursor-pointer"
-                    >
-                      Xem tất cả →
-                    </button>
-                  </div>
                   {[
                     {
                       category: 'hung-bt' as const,
                       title: 'Tác giả BT. Nguyễn Mạnh Hùng',
-                      description: 'Triết lý lãnh đạo, văn hóa và tầm nhìn',
                     },
                     {
                       category: 'other-authors' as const,
                       title: 'Góc nhìn chuyên gia',
-                      description: 'Kinh tế, quản trị, pháp lý và thị trường',
                     },
                     {
                       category: 'derived-knowledge' as const,
                       title: 'Tri thức phái sinh',
-                      description: 'Case study, sách và nghiên cứu ứng dụng',
                     },
-                  ].map(({ category, title, description }) => (
+                  ].map(({ category, title }) => (
                     <button
                       key={category}
                       type="button"
@@ -163,7 +147,6 @@ export const Header: React.FC = () => {
                       className="block w-full rounded-none px-3 py-3 text-left hover:bg-neutral-50 group cursor-pointer transition-colors border-b border-neutral-100 last:border-b-0"
                     >
                       <span className="block text-sm font-semibold text-neutral-900 group-hover:text-[#AB071E] transition-colors">{title}</span>
-                      <span className="mt-0.5 block text-xs text-neutral-500">{description}</span>
                     </button>
                   ))}
                 </div>
@@ -244,12 +227,11 @@ export const Header: React.FC = () => {
               {isLoggedIn ? (
                 <button
                   type="button"
-                  onClick={() => setUserDropdownOpen((value) => !value)}
-                  aria-label="Tài khoản hội viên đã đăng nhập"
-                  aria-expanded={userDropdownOpen}
+                  onClick={() => navigateTo('profile')}
+                  aria-label="Mở hồ sơ hội viên"
                   className="flex size-11 items-center justify-center rounded-full hover:bg-parchment transition-colors"
                 >
-                  <span className="flex size-8 items-center justify-center rounded-full bg-brand-primary text-xs font-semibold text-white shadow-xs ring-2 ring-white">
+                  <span style={{ borderRadius: '50%' }} className="flex size-8 aspect-square items-center justify-center bg-brand-primary text-xs font-semibold text-white shadow-xs ring-2 ring-white overflow-hidden">
                     {currentUser?.fullName?.charAt(0) || 'U'}
                   </span>
                 </button>
@@ -264,48 +246,13 @@ export const Header: React.FC = () => {
                 </button>
               )}
 
-              {/* Popover menu người dùng trên mobile khi đã đăng nhập */}
-              {userDropdownOpen && isLoggedIn ? (
-                <div className="absolute right-0 top-[calc(100%+0.5rem)] w-72 rounded-xl border border-hairline bg-white p-3 shadow-xl z-50 animate-fadeIn">
-                  <div className="border-b border-hairline px-3 pb-3">
-                    <p className="truncate text-sm font-semibold text-ink">{currentUser?.fullName}</p>
-                    <p className="mt-0.5 truncate text-xs text-ink-secondary">{currentUser?.companyName}</p>
-                    <p className="mt-2 flex items-center gap-1.5 text-xs font-medium text-brand-primary">
-                      <ShieldCheck className="size-3.5" /> Hội viên {currentUser?.memberId}
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setUserDropdownOpen(false);
-                      navigateTo('profile');
-                    }}
-                    className="mt-2 flex min-h-11 w-full items-center justify-between rounded-md px-3 text-left text-sm font-medium hover:bg-parchment"
-                  >
-                    <span>Hồ sơ và sự kiện</span>
-                    <ChevronRight className="size-4" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setUserDropdownOpen(false);
-                      logout();
-                    }}
-                    className="flex min-h-11 w-full items-center gap-2 rounded-md px-3 text-left text-sm text-danger hover:bg-danger-soft"
-                  >
-                    <LogOut className="size-4" />
-                    <span>Đăng xuất</span>
-                  </button>
-                </div>
-              ) : null}
             </div>
 
             {/* Desktop: User Account button */}
             <div id="user-dropdown-container" className="relative hidden lg:block">
               {isLoggedIn ? (
-                <button type="button" onClick={() => setUserDropdownOpen((value) => !value)} aria-expanded={userDropdownOpen} className="flex min-h-11 items-center gap-2 rounded-full border border-hairline px-3 text-sm font-medium text-ink hover:bg-parchment">
-                  <span className="flex size-7 items-center justify-center rounded-full bg-brand-primary text-xs text-white">{currentUser?.fullName.charAt(0) || 'U'}</span>
-                  <span className="max-w-32 truncate">{currentUser?.fullName || 'Hội viên'}</span>
+                <button type="button" onClick={() => setUserDropdownOpen((value) => !value)} aria-label="Mở menu tài khoản hội viên" aria-expanded={userDropdownOpen} className="flex min-h-11 items-center gap-1 rounded-full px-1.5 text-sm font-medium text-ink hover:bg-parchment">
+                  <span className="member-avatar flex size-7 items-center justify-center rounded-full bg-brand-primary text-xs text-white">{currentUser?.fullName.charAt(0) || 'U'}</span>
                   <ChevronDown className="size-3.5 text-ink-secondary" />
                 </button>
               ) : (

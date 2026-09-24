@@ -36,7 +36,7 @@ export const Footer: React.FC = () => {
             >
               <VcfLogo height={52} />
             </button>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-ink-secondary">
+            <p className="mt-5 w-full max-w-[2000px] text-sm leading-6 text-ink-secondary">
               Nền tảng kết nối, chuyển giao tri thức và phát triển năng lực lãnh đạo cho cộng đồng người đứng đầu doanh nghiệp Việt Nam, hợp tác bởi VLGM và PTIT.
             </p>
             <address className="mt-6 space-y-3 text-sm not-italic text-ink-secondary">

@@ -26,10 +26,10 @@ export const VcfAuthTrustPanel: React.FC = () => {
             </svg>
           </div>
           <div>
-            <h2 className="text-base sm:text-lg font-bold text-neutral-900 leading-snug">
+            <h2 className="text-base sm:text-xl font-bold text-neutral-900 leading-snug">
               Mở rộng quan hệ
             </h2>
-            <p className="text-xs sm:text-sm text-neutral-600 mt-1 leading-relaxed">
+            <p className="text-sm sm:text-base text-neutral-600 mt-1 leading-relaxed">
               Kết nối với cộng đồng CEO, chuyên gia và đối tác uy tín.
             </p>
           </div>
@@ -47,10 +47,10 @@ export const VcfAuthTrustPanel: React.FC = () => {
             </svg>
           </div>
           <div>
-            <h2 className="text-base sm:text-lg font-bold text-neutral-900 leading-snug">
+            <h2 className="text-base sm:text-xl font-bold text-neutral-900 leading-snug">
               Tiếp cận sự kiện
             </h2>
-            <p className="text-xs sm:text-sm text-neutral-600 mt-1 leading-relaxed">
+            <p className="text-sm sm:text-base text-neutral-600 mt-1 leading-relaxed">
               Tham dự các diễn đàn, hội thảo và chương trình dành riêng cho hội viên.
             </p>
           </div>
@@ -66,10 +66,10 @@ export const VcfAuthTrustPanel: React.FC = () => {
             </svg>
           </div>
           <div>
-            <h2 className="text-base sm:text-lg font-bold text-neutral-900 leading-snug">
+            <h2 className="text-base sm:text-xl font-bold text-neutral-900 leading-snug">
               Đặc quyền hội viên
             </h2>
-            <p className="text-xs sm:text-sm text-neutral-600 mt-1 leading-relaxed">
+            <p className="text-sm sm:text-base text-neutral-600 mt-1 leading-relaxed">
               Nhận thông tin sớm, nội dung chuyên sâu và cơ hội hợp tác chiến lược.
             </p>
           </div>

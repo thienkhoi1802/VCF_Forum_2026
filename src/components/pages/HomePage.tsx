@@ -107,7 +107,7 @@ export const HomePage: React.FC = () => {
                 size="sm"
                 onClick={() => navigateTo('knowledge')}
               >
-                Khám phá Hệ tri thức LGM →
+                Khám phá thêm
               </CustomButton>
             </div>
           </div>
@@ -128,7 +128,7 @@ export const HomePage: React.FC = () => {
                   onClick={() => navigateTo('knowledge')}
                   className="border-neutral-300 hover:border-black text-sm font-semibold shadow-xs py-3"
                 >
-                  Khám phá Hệ tri thức LGM →
+                  Khám phá thêm
                 </CustomButton>
               </div>
             </>
@@ -214,7 +214,7 @@ export const HomePage: React.FC = () => {
                 Hoạt Động Của Diễn Đàn CEO Việt Nam
               </h2>
               <p className="vcf-lead mt-2">
-                9 trụ cột hoạt động đồng bộ từ hội nghị thượng đỉnh, cố vấn 1-1 tới đào tạo và sinh hoạt định kỳ
+                9 trụ cột đồng bộ: hội nghị, cố vấn 1-1, đào tạo và sinh hoạt
               </p>
             </div>
 
@@ -225,7 +225,7 @@ export const HomePage: React.FC = () => {
                 size="sm"
                 onClick={() => navigateTo('activities')}
               >
-                Xem trang tổng quan 9 hoạt động →
+                Xem chi tiết
               </CustomButton>
             </div>
           </div>
@@ -277,7 +277,7 @@ export const HomePage: React.FC = () => {
               onClick={() => navigateTo('activities')}
               className="border-neutral-300 hover:border-black text-sm font-semibold shadow-xs py-3"
             >
-              Xem trang tổng quan 9 hoạt động →
+              Xem chi tiết
             </CustomButton>
           </div>
         </div>
@@ -302,7 +302,7 @@ export const HomePage: React.FC = () => {
               Chương Trình Đào Tạo CEO
             </h2>
             <p className="vcf-lead mt-2">
-              Các khóa bồi dưỡng chuyên sâu do Hội đồng Chuyên gia VLGM và Học viện PTIT đồng thiết kế
+              Khóa học chuyên sâu đồng thiết kế bởi VLGM - PTIT
             </p>
           </div>
         </div>

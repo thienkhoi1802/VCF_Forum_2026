@@ -165,12 +165,12 @@ export const MOCK_EVENTS: EventItem[] = [
     speakers: [
       {
         name: 'Nguyễn Mạnh Hùng',
-        role: 'Bộ trưởng Bộ TT&TT, Chủ tịch Danh dự Hội đồng Cố vấn VLGM',
+        role: 'Bộ trưởng Bộ TT&TT',
         avatarPlaceholder: '[Ảnh chân dung: Diễn giả Nguyễn Mạnh Hùng]'
       },
       {
         name: 'PGS. TS. Vũ Văn San',
-        role: 'Giám đốc Học viện Công nghệ Bưu chính Viễn thông (PTIT)',
+        role: 'Giám đốc Học viện',
         avatarPlaceholder: '[Ảnh chân dung: PGS. TS. Vũ Văn San]'
       },
       {
@@ -1838,4 +1838,3 @@ export const MOCK_REGISTRATIONS: RegistrationHistoryItem[] = [
     passType: 'member'
   }
 ];
-

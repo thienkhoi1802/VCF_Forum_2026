@@ -94,7 +94,7 @@ export const ActivityDetailPage: React.FC = () => {
                   <Target className="w-4 h-4 text-brand-primary" />
                   Mục Tiêu & Giá Trị Cốt Lõi
                 </h3>
-                <ul className="space-y-2 text-xs text-ink-secondary">
+                <ul className="space-y-2 text-base font-extralight text-ink-secondary">
                   {activity.objectives.map((obj, i) => (
                     <li key={i} className="flex items-start gap-2.5">
                       <CheckCircle2 className="w-4 h-4 text-brand-primary mt-0.5 shrink-0" />
@@ -114,8 +114,8 @@ export const ActivityDetailPage: React.FC = () => {
             <div className="p-4 bg-neutral-100 rounded-lg border border-hairline flex items-center gap-3">
               <Calendar className="w-5 h-5 text-brand-primary shrink-0" />
               <div>
-                <div className="font-semibold text-sm text-ink">{activity.frequency}</div>
-                <div className="text-xs text-ink-secondary font-sans">Thông tin lịch trình được cập nhật định kỳ qua Ban Thư ký VCF</div>
+                <div className="font-semibold text-base text-ink">{activity.frequency}</div>
+                <div className="text-sm text-ink-secondary font-sans">Thông tin lịch trình được cập nhật định kỳ qua Ban Thư ký VCF</div>
               </div>
             </div>
           </div>
@@ -399,23 +399,27 @@ export const ActivityDetailPage: React.FC = () => {
           {/* Block: Sự kiện đã và sắp diễn ra (nếu có sự kiện liên quan) */}
           {activity.hasEvents && relatedEvents.length > 0 && (
             <div className="border-t border-hairline pt-8 space-y-6">
-              <div className="flex items-center justify-between">
+              <div>
                 <h3 className="text-xl font-semibold text-ink">
                   Sự Kiện Thuộc Hoạt Động Này
                 </h3>
-                <CustomButton
-                  variant="secondary"
-                  size="sm"
-                  onClick={() => navigateTo('events')}
-                >
-                  Xem toàn bộ lịch sự kiện
-                </CustomButton>
               </div>
 
               <div className="space-y-4">
                 {relatedEvents.map((evt) => (
-                  <EventCard key={evt.id} event={evt} layout="list" />
+                  <EventCard key={evt.id} event={evt} layout="list" showListBadges={false} />
                 ))}
+              </div>
+
+              <div className="flex justify-end">
+                <CustomButton
+                  variant="secondary"
+                  size="sm"
+                  className="w-full justify-center sm:w-auto"
+                  onClick={() => navigateTo('events')}
+                >
+                  Xem toàn bộ lịch sự kiện
+                </CustomButton>
               </div>
             </div>
           )}
@@ -441,21 +445,21 @@ export const ActivityDetailPage: React.FC = () => {
                 Thông Tin Tóm Tắt
               </span>
               <h3 className="text-lg font-semibold text-ink">{activity.title}</h3>
-              <p className="text-xs text-ink-secondary">{activity.shortDesc}</p>
+              <p className="text-base text-ink-secondary">{activity.shortDesc}</p>
             </div>
 
-            <div className="space-y-3 text-xs">
+            <div className="space-y-3">
               <div>
-                <span className="text-ink-secondary block">Đơn vị chủ trì:</span>
-                <strong className="text-ink font-sans">Viện VLGM & Học viện PTIT</strong>
+                <span className="text-sm text-ink-secondary block">Đơn vị chủ trì:</span>
+                <strong className="text-base text-ink font-sans">Viện VLGM & Học viện PTIT</strong>
               </div>
               <div>
-                <span className="text-ink-secondary block">Tần suất:</span>
-                <strong className="text-ink">{activity.frequency}</strong>
+                <span className="text-sm text-ink-secondary block">Tần suất:</span>
+                <strong className="text-sm text-ink">{activity.frequency}</strong>
               </div>
               <div>
-                <span className="text-ink-secondary block">Hình thức tham gia:</span>
-                <strong className="text-ink">Dành riêng cho Hội viên VCF</strong>
+                <span className="text-sm text-ink-secondary block">Hình thức tham gia:</span>
+                <strong className="text-base text-ink">Dành riêng cho Hội viên VCF</strong>
               </div>
             </div>
 
@@ -495,21 +499,13 @@ export const ActivityDetailPage: React.FC = () => {
                   Đăng Ký Thành Viên VCF
                 </CustomButton>
 
-                <CustomButton
-                  variant="secondary"
-                  size="sm"
-                  fullWidth
-                  onClick={() => navigateTo('activities')}
-                >
-                  ← Quay lại danh sách 9 hoạt động
-                </CustomButton>
               </div>
             )}
           </div>
 
           {/* Quick Contact Box */}
-          <div className="border border-hairline bg-parchment rounded-lg p-4 text-xs text-ink-secondary space-y-2">
-            <div className="font-semibold text-ink">Ban Thư Ký VCF:</div>
+          <div className="border border-hairline bg-parchment rounded-lg p-4 text-sm text-ink-secondary space-y-2">
+            <div className="font-semibold text-sm text-ink">Ban Thư Ký VCF:</div>
             <div>Hotline: (024) 3756 2186</div>
             <div>Email: vcf-secretariat@ptit.edu.vn</div>
           </div>

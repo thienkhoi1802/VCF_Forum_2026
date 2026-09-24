@@ -202,7 +202,7 @@ export const EventDetailPage: React.FC = () => {
             ...(!isPast && isMobile ? [{ id: 'tickets' as const, el: document.getElementById('section-tickets') }] : []),
           ];
 
-          // Offset threshold below sticky subnav (sticky at top-0, height ~52px)
+          // Offset threshold below sticky subnav (sticky at top-0, height ~48px)
           const offset = 85;
           let currentTab: 'overview' | 'resources' | 'agenda' | 'speakers' | 'venue' | 'partners' | 'tickets' = 'overview';
 
@@ -474,8 +474,8 @@ export const EventDetailPage: React.FC = () => {
     const element = document.getElementById(targetId) || document.getElementById('registration-form-container');
     if (element) {
       const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
-      // Offset: In-page sticky subnav (~52px) + buffer
-      const headerOffset = isMobile ? 54 : 72;
+      // Offset: In-page sticky subnav (54px desktop / 48px mobile) + buffer
+      const headerOffset = isMobile ? 50 : 63;
       const elementPosition = element.getBoundingClientRect().top;
       const targetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -678,7 +678,7 @@ export const EventDetailPage: React.FC = () => {
           </div>
 
           {/* Event Title - Enlarged Commanding H1 */}
-          <h1 className="text-2xl xs:text-[27px] sm:text-3xl font-extrabold tracking-tight text-white leading-[1.22] font-sans">
+          <h1 className="text-[32px] sm:text-3xl font-extrabold tracking-tight text-white leading-[1.22] font-sans">
             {event.title}
           </h1>
 
@@ -811,15 +811,6 @@ export const EventDetailPage: React.FC = () => {
               </>
             ) : (
               <>
-                <button
-                  type="button"
-                  onClick={() => scrollToSection('agenda')}
-                  className="flex-1 min-h-[42px] px-3 py-2 rounded-lg text-xs font-semibold text-neutral-300 hover:text-white bg-neutral-800/80 border border-neutral-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-                >
-                  <FileText className="w-3.5 h-3.5" />
-                  <span>Xem chương trình</span>
-                </button>
-
                 <button
                   type="button"
                   onClick={handleCopyLink}
@@ -1082,16 +1073,6 @@ export const EventDetailPage: React.FC = () => {
                   </button>
                 )}
 
-                {/* Secondary CTA */}
-                <button
-                  type="button"
-                  onClick={() => scrollToSection('agenda')}
-                  className="min-h-[50px] px-6 py-3.5 rounded-xl border border-white/20 bg-white/10 hover:bg-white/15 text-white font-semibold text-sm flex items-center gap-2 transition-colors cursor-pointer"
-                >
-                  <FileText className="w-4 h-4 text-neutral-300" />
-                  <span>Xem chương trình</span>
-                </button>
-
                 {/* Tertiary Action (Share) */}
                 <button
                   type="button"
@@ -1120,16 +1101,8 @@ export const EventDetailPage: React.FC = () => {
                     <Users className="w-4 h-4 text-brand-primary shrink-0" />
                     <span>Chúng tôi sẽ thông báo nếu có suất mới.</span>
                   </span>
-                ) : isNearlyFull ? (
-                  <span className="text-amber-300 font-medium flex items-center gap-1.5">
-                    <Users className="w-4 h-4 text-amber-400 shrink-0" />
-                    <span>Chỉ còn {event.availableSeats} chỗ còn lại trên tổng {event.totalSeats}</span>
-                  </span>
                 ) : (
-                  <span className="text-neutral-300 flex items-center gap-1.5">
-                    <Users className="w-4 h-4 text-brand-primary shrink-0" />
-                    <span>{event.availableSeats} chỗ còn lại trên tổng {event.totalSeats}</span>
-                  </span>
+                  null
                 )}
               </div>
             </div>
@@ -1144,7 +1117,7 @@ export const EventDetailPage: React.FC = () => {
       <div className="lg:hidden sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-hairline shadow-xs">
         <div 
           ref={navContainerRef}
-          className="flex items-center gap-1.5 overflow-x-auto no-scrollbar px-4 py-1 scroll-smooth"
+          className="flex items-center gap-1.5 overflow-x-auto no-scrollbar px-4 pt-1 pb-0 scroll-smooth"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {(isPast 
@@ -1184,12 +1157,12 @@ export const EventDetailPage: React.FC = () => {
       </div>
 
       {/* Desktop Sticky Navigation (No back button, clean tab strip) */}
-      <div className="hidden lg:block sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-hairline shadow-xs transition-shadow">
-        <div className="vcf-container">
-          <div className="flex items-center justify-between py-1 gap-1">
+      <div className="hidden lg:block sticky top-0 z-50 h-[56px] bg-white border-b border-hairline">
+        <div className="vcf-container h-full">
+          <div className="flex h-full items-center justify-between gap-1">
             {/* Scrollable Tabs */}
             <div 
-              className="flex items-center gap-1 overflow-x-auto no-scrollbar flex-1 py-1"
+              className="flex h-full items-center gap-1 overflow-x-auto no-scrollbar flex-1"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               {[
@@ -1204,7 +1177,7 @@ export const EventDetailPage: React.FC = () => {
                   key={tab.id}
                   data-tab={tab.id}
                   onClick={() => scrollToSection(tab.id as any)}
-                  className={`px-3.5 sm:px-4 py-3 text-xs sm:text-sm font-semibold whitespace-nowrap transition-colors border-b-2 cursor-pointer ${
+                  className={`h-full px-3.5 sm:px-4 text-xs sm:text-sm font-semibold whitespace-nowrap transition-colors border-b-2 cursor-pointer ${
                     activeTab === tab.id
                       ? 'border-brand-primary text-brand-primary'
                       : 'border-transparent text-ink-secondary hover:text-ink hover:border-neutral-300'
@@ -1241,7 +1214,7 @@ export const EventDetailPage: React.FC = () => {
                 </h2>
               </div>
 
-              <div className="prose prose-neutral max-w-none text-base sm:text-base lg:text-[17px] leading-relaxed text-neutral-800 space-y-4 font-sans">
+              <div className="prose prose-neutral max-w-none text-base leading-relaxed text-neutral-800 space-y-4 font-sans">
                 <p>
                   {event.description}
                 </p>
@@ -1336,7 +1309,7 @@ export const EventDetailPage: React.FC = () => {
                     Chương trình nghị sự
                   </span>
                   <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
-                    Khung Chương Trình Chi Tiết
+                    Chương trình sự kiện
                   </h2>
                 </div>
 
@@ -1359,14 +1332,14 @@ export const EventDetailPage: React.FC = () => {
                     {/* Time Column */}
                     <div className="sm:w-36 shrink-0 flex items-center gap-2.5 sm:pt-0.5">
                       <div className="w-2.5 h-2.5 rounded-full bg-brand-primary shrink-0 group-hover:scale-125 transition-transform" />
-                      <span className="font-mono text-sm sm:text-sm font-bold text-neutral-800 group-hover:text-brand-primary transition-colors">
+                      <span className="font-sans text-sm sm:text-sm font-extralight text-neutral-800 group-hover:text-brand-primary transition-colors" style={{ fontFamily: '"Inter Variable", Arial, sans-serif' }}>
                         {item.time}
                       </span>
                     </div>
 
                     {/* Topic and Speaker - Cỡ chữ tối thiểu 16px trên mobile */}
                     <div className="flex-1 space-y-1.5">
-                      <h4 className="text-base sm:text-lg font-bold text-ink leading-snug group-hover:text-neutral-900 transition-colors">
+                      <h4 className="text-base sm:text-lg font-extralight text-ink leading-snug group-hover:text-neutral-900 transition-colors">
                         {item.topic}
                       </h4>
                       {item.presenter && !item.presenter.includes('Hội đồng Khoa học PTIT') && (
@@ -1388,7 +1361,7 @@ export const EventDetailPage: React.FC = () => {
                   Diễn giả & Chuyên gia
                 </span>
                 <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
-                  Đội Ngũ Diễn Giả Hàng Đầu
+                  Diễn giả
                 </h2>
                 <p className="text-sm sm:text-base text-neutral-600 mt-1 font-sans">
                   Quy tụ các nhà hoạch định chính sách, chuyên gia kinh tế và lãnh đạo doanh nghiệp xuất sắc
@@ -1439,14 +1412,14 @@ export const EventDetailPage: React.FC = () => {
                   Địa điểm
                 </span>
                 <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
-                  Địa Điểm Tổ Chức
+                  Địa điểm tổ chức
                 </h2>
               </div>
 
               {/* Direct venue layout */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
                 <div>
-                  <div className="font-bold text-lg sm:text-xl text-ink">
+                  <div className="font-bold text-base text-ink">
                     {event.venueDetails?.hall || event.location}
                   </div>
                   <div className="text-base text-neutral-700 mt-1 leading-relaxed">
@@ -1458,7 +1431,7 @@ export const EventDetailPage: React.FC = () => {
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm sm:text-base font-semibold text-white bg-brand-primary hover:bg-brand-primary-hover transition-colors shadow-xs shrink-0 cursor-pointer min-h-[44px] w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-brand-primary hover:bg-brand-primary-hover transition-colors shadow-xs shrink-0 cursor-pointer min-h-[44px] w-full sm:w-auto"
                 >
                   <Navigation className="w-4 h-4" />
                   <span>Điều hướng Google Maps</span>
@@ -1585,7 +1558,7 @@ export const EventDetailPage: React.FC = () => {
                   Hỏi đáp
                 </span>
                 <h2 className="text-2xl sm:text-2xl font-semibold text-ink tracking-tight mt-1">
-                  Câu Hỏi Thường Gặp Của Đại Biểu
+                  Câu hỏi thường gặp
                 </h2>
               </div>
 
@@ -1623,7 +1596,7 @@ export const EventDetailPage: React.FC = () => {
             
             {/* Registration Card */}
             <div id="registration-form-container" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 shadow-sm relative overflow-hidden scroll-mt-16 sm:scroll-mt-20">
-              <div className={`absolute top-0 right-0 text-white text-[10px] font-semibold px-3 py-1 rounded-bl-lg uppercase tracking-wider ${
+              {(isPast || isConfirmed || isPendingApproval || isWaitlisted || isFullEffective) && <div className={`absolute top-0 right-0 text-white text-[10px] font-semibold px-3 py-1 rounded-bl-lg uppercase tracking-wider ${
                 isPast 
                   ? 'bg-neutral-700' 
                   : isConfirmed 
@@ -1646,11 +1619,11 @@ export const EventDetailPage: React.FC = () => {
                   ? 'Danh sách chờ' 
                   : isFullEffective 
                   ? 'Đã đầy chỗ' 
-                  : 'Mở đăng ký'}
-              </div>
+                  : null}
+              </div>}
 
               <div className="space-y-1 mb-5">
-                <h3 className="text-lg font-semibold text-ink tracking-tight flex items-center gap-2">
+                <h3 className="text-xl font-semibold text-ink tracking-tight flex items-center gap-2">
                   <UserCheck className="w-5 h-5 text-brand-primary" />
                   {isPast
                     ? 'Sự Kiện Đã Kết Thúc'
@@ -1664,7 +1637,7 @@ export const EventDetailPage: React.FC = () => {
                     ? 'Sự Kiện Đã Kín Chỗ'
                     : 'Đăng Ký Tham Dự Sự Kiện'}
                 </h3>
-                <p className="text-xs text-ink-secondary font-sans">
+                <p className="text-sm lg:text-xs text-ink-secondary font-sans">
                   {isPast
                     ? `Sự kiện đã diễn ra vào ngày ${event.datetime}. Cổng đăng ký trực tuyến đã đóng.`
                     : isConfirmed
@@ -1956,7 +1929,7 @@ export const EventDetailPage: React.FC = () => {
                 <div className="space-y-4">
                   {/* Pass Type Preview */}
                   <div className="space-y-2">
-                    <label className="text-xs font-semibold text-neutral-800 block">
+                    <label className="text-sm font-semibold text-neutral-800 block">
                       Đặc quyền loại vé tham dự:
                     </label>
 
@@ -1971,7 +1944,7 @@ export const EventDetailPage: React.FC = () => {
                           MIỄN PHÍ
                         </span>
                       </div>
-                      <div className="text-[11px] text-ink-secondary mt-1.5 font-sans space-y-0.5">
+              <div className="text-xs text-ink-secondary mt-1.5 font-sans space-y-0.5">
                         <div className="flex items-center gap-1 text-emerald-700 font-semibold">
                           <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                           <span>Hàng ghế VIP khán phòng chính</span>
@@ -2648,13 +2621,13 @@ export const EventDetailPage: React.FC = () => {
                 <Phone className="w-4 h-4 text-brand-primary" />
                 Hỗ Trợ Đại Biểu & Ban Thư Ký
               </div>
-              <p className="text-ink-secondary font-sans leading-relaxed">
+              <p className="text-base lg:text-sm text-ink-secondary font-sans leading-relaxed">
                 Ban Thư ký sự kiện Diễn Đàn CEO Việt Nam sẵn sàng hỗ trợ sắp xếp chỗ ngồi VIP, đón tiếp đại biểu hoặc xuất hoá đơn GTGT.
               </p>
-              <div className="space-y-1.5 pt-1 text-neutral-700 font-medium">
+              <div className="space-y-1.5 pt-1 text-base lg:text-sm text-neutral-700 font-medium">
                 <div className="flex items-center gap-2">
                   <Phone className="w-3.5 h-3.5 text-neutral-400" />
-                  <span>Hotline: <strong>024.3756.8888</strong> (Nhánh 102)</span>
+                  <span>Hotline: <strong>024.3756.8888</strong></span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="w-3.5 h-3.5 text-neutral-400" />
@@ -2729,11 +2702,11 @@ export const EventDetailPage: React.FC = () => {
               </div>
             ) : (
               <div className="space-y-0.5">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700 block">
+                <span className="text-[11px] font-bold tracking-normal text-emerald-700 block">
                   Còn {event.availableSeats}/{event.totalSeats} chỗ
                 </span>
                 <span className="text-sm font-bold text-ink truncate block">
-                  Miễn phí cho Hội viên VCF
+                  Miễn phí
                 </span>
               </div>
             )}

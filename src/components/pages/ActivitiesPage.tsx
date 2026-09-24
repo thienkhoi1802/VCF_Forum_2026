@@ -4,7 +4,7 @@ import { ActivityCard } from '../common/ActivityCard';
 import { CustomButton } from '../common/CustomButton';
 import { SpecBadge } from '../wireframe/SpecBadge';
 import { MOCK_ACTIVITIES } from '../../data/mockData';
-import { Layers, HelpCircle } from 'lucide-react';
+import { HelpCircle } from 'lucide-react';
 
 export const ActivitiesPage: React.FC = () => {
   const { navigateTo, showSpecAnnotations, isLoggedIn } = useApp();
@@ -23,11 +23,6 @@ export const ActivitiesPage: React.FC = () => {
 
       {/* Page Hero */}
       <div className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase bg-red-50 text-brand-primary border border-red-200 px-3 py-1 rounded-full">
-          <Layers className="w-3.5 h-3.5 text-brand-primary" />
-          <span>Hệ Sinh Thái VCF • 9 Hoạt Động Trọng Tâm</span>
-        </div>
-
         <h1 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
           Tổng Quan 9 Hoạt Động Trọng Tâm
         </h1>
@@ -51,7 +46,7 @@ export const ActivitiesPage: React.FC = () => {
             <HelpCircle className="w-5 h-5 text-brand-primary" />
             Chưa biết bắt đầu từ hoạt động nào?
           </h3>
-          <p className="text-xs text-ink-secondary max-w-xl">
+          <p className="text-base text-ink-secondary max-w-xl">
             Đăng ký thành viên VCF để được Ban Thư ký thẩm định hồ sơ, tư vấn lộ trình tham gia các nhóm Peer Group phù hợp hoặc kết nối Mentor cùng ngành.
           </p>
         </div>
