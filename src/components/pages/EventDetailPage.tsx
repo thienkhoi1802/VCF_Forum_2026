@@ -48,6 +48,240 @@ import {
   XCircle
 } from 'lucide-react';
 
+interface EventHeroProps {
+  event: typeof MOCK_EVENTS[number];
+  eventTime: string;
+  eventDate: string;
+  venueName: string;
+  venueAddress: string;
+  eventDescription: string;
+  isNearlyFull: boolean;
+  isPast: boolean;
+  isConfirmed: boolean;
+  isPendingApproval: boolean;
+  isWaitlisted: boolean;
+  isFullEffective: boolean;
+  showCalendarMenu: boolean;
+  setShowCalendarMenu: React.Dispatch<React.SetStateAction<boolean>>;
+  copiedLink: boolean;
+  onNavigateToEvents: () => void;
+  onOpenRegistration: () => void;
+  onOpenWaitlist: () => void;
+  onScrollToSection: (tab: 'resources' | 'tickets') => void;
+  onCopyLink: () => void;
+  onAddToGoogleCalendar: () => void;
+  onDownloadIcs: () => void;
+}
+
+const EventHero: React.FC<EventHeroProps> = ({
+  event,
+  eventTime,
+  eventDate,
+  venueName,
+  venueAddress,
+  eventDescription,
+  isNearlyFull,
+  isPast,
+  isConfirmed,
+  isPendingApproval,
+  isWaitlisted,
+  isFullEffective,
+  showCalendarMenu,
+  setShowCalendarMenu,
+  copiedLink,
+  onNavigateToEvents,
+  onOpenRegistration,
+  onOpenWaitlist,
+  onScrollToSection,
+  onCopyLink,
+  onAddToGoogleCalendar,
+  onDownloadIcs
+}) => {
+  const heroTitle = event.title.replace(/^Tọa đàm:\s*/i, '');
+  const displayEventTime = eventTime.replace(/\s-\s/g, ' – ');
+  const availabilityLabel = isPast
+    ? 'Sự kiện đã kết thúc'
+    : isConfirmed
+    ? 'Bạn đã đăng ký'
+    : isPendingApproval
+    ? 'Đang chờ xét duyệt'
+    : isWaitlisted
+    ? 'Đang trong danh sách chờ'
+    : isFullEffective
+    ? 'Hết chỗ'
+    : isNearlyFull
+    ? `Sắp hết chỗ · Còn ${event.availableSeats} chỗ trống`
+    : `Còn ${event.availableSeats} chỗ trống`;
+
+  const availabilityBadge = isPast
+    ? 'ĐÃ KẾT THÚC'
+    : isFullEffective
+    ? 'HẾT CHỖ'
+    : `Còn ${event.availableSeats}/${event.totalSeats} chỗ`;
+
+  const availabilityTone = isPast || isFullEffective
+    ? 'border-neutral-500/70 bg-neutral-900/80 text-neutral-200'
+    : isConfirmed
+    ? 'border-emerald-400/60 bg-emerald-950/70 text-emerald-200'
+    : isPendingApproval || isWaitlisted || isNearlyFull
+    ? 'border-amber-400/60 bg-amber-950/70 text-amber-200'
+    : 'border-emerald-400/60 bg-emerald-950/70 text-emerald-200';
+
+  const availabilityDot = isPast || isFullEffective
+    ? 'bg-neutral-300'
+    : isPendingApproval || isWaitlisted || isNearlyFull
+    ? 'bg-amber-300'
+    : 'bg-emerald-300';
+
+  return (
+    <section className={`relative z-10 min-h-[calc(100svh-5.5rem)] overflow-visible bg-surface-dark text-white ${showCalendarMenu ? 'z-[60]' : ''}`}>
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <img
+          src={event.imageUrl || 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2000&q=86'}
+          alt={event.title}
+          className="h-full w-full object-cover object-[58%_center] lg:object-center"
+        />
+        <div className="absolute inset-0 bg-black/25" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80" />
+      </div>
+
+      <div className="vcf-container relative z-10 flex min-h-[calc(100svh-5.5rem)] items-center py-8 sm:py-10 lg:min-h-[calc(100svh-5rem)] lg:py-12 xl:py-16">
+        <div className="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-12 xl:grid-cols-[minmax(0,1fr)_400px] xl:gap-16">
+          <div className="max-w-3xl lg:-mt-3 lg:pb-24">
+            <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-sm font-medium text-neutral-200 sm:mb-8">
+              <button
+                type="button"
+                onClick={onNavigateToEvents}
+                aria-label="Quay lại danh sách sự kiện"
+                className="inline-flex min-h-11 items-center gap-2 px-1.5 py-1 text-neutral-100 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info"
+              >
+                <ArrowLeft className="size-4" aria-hidden="true" />
+                <span>Sự kiện</span>
+              </button>
+              <span aria-hidden="true" className="text-neutral-400">/</span>
+              <span>{event.activityName || 'Tọa đàm'}</span>
+            </nav>
+
+            <div className="mb-5 flex flex-wrap items-center gap-3 sm:mb-6">
+              <span className="inline-flex min-h-10 items-center border border-white/30 bg-black px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-white">
+                {(event.activityName || 'Tọa đàm').toUpperCase()}
+              </span>
+              <span className={`inline-flex min-h-10 items-center gap-2 border px-3.5 py-2 text-sm font-semibold ${availabilityTone}`}>
+                <span className={`size-2 rounded-full ${availabilityDot}`} aria-hidden="true" />
+                {availabilityBadge}
+              </span>
+            </div>
+
+            <h1 className="max-w-4xl text-[clamp(2.25rem,4.13vw,3.5rem)] font-extrabold leading-[1.04] tracking-[-0.045em] text-white">
+              {heroTitle}
+            </h1>
+            <p className="mt-6 max-w-3xl text-base font-extralight leading-relaxed text-neutral-200 sm:text-lg">
+              {eventDescription}
+            </p>
+          </div>
+
+          <aside aria-labelledby="event-hero-info" className="relative w-full border border-white/30 bg-black/75 p-5 shadow-2xl backdrop-blur-md sm:p-6 lg:p-7">
+            <h2 id="event-hero-info" className="mb-5 text-base font-bold tracking-wide text-white">
+              THÔNG TIN SỰ KIỆN
+            </h2>
+
+            <div className="space-y-5">
+              <div className="flex items-start gap-4 border-b border-white/20 pb-5">
+                <Calendar className="mt-1 size-7 shrink-0 text-white" aria-hidden="true" />
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-neutral-400">Thời gian</p>
+                  <p className="mt-1 text-2xl font-bold leading-tight text-white">{displayEventTime}</p>
+                  <p className="mt-1 text-sm text-neutral-300">{eventDate}</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 border-b border-white/20 pb-5">
+                <MapPin className="mt-1 size-7 shrink-0 text-white" aria-hidden="true" />
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-neutral-400">Địa điểm</p>
+                  <p className="mt-1 text-xl font-bold leading-tight text-white">{venueName}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-neutral-300">{venueAddress}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 text-base font-semibold text-white">
+                <Users className="size-7 shrink-0 text-white" aria-hidden="true" />
+                <span className={isPast || isFullEffective ? 'text-neutral-200' : isNearlyFull ? 'text-amber-300' : 'text-emerald-300'}>
+                  {availabilityLabel}
+                </span>
+              </div>
+
+              {isPast ? (
+                <button type="button" disabled aria-label="Sự kiện đã kết thúc" className="flex min-h-12 w-full items-center justify-center gap-2 border border-neutral-600 bg-neutral-700 px-4 py-3 text-base font-bold text-neutral-300 disabled:cursor-not-allowed">
+                  <span>Sự kiện đã kết thúc</span>
+                </button>
+              ) : isConfirmed ? (
+                <button type="button" onClick={() => onScrollToSection('tickets')} aria-label="Xem thông tin đăng ký" className="flex min-h-12 w-full items-center justify-center gap-2 border border-emerald-500 bg-emerald-700 px-4 py-3 text-base font-bold text-white transition-colors hover:bg-emerald-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info">
+                  <span>Bạn đã đăng ký</span>
+                  <CheckCircle2 className="size-5" aria-hidden="true" />
+                </button>
+              ) : isPendingApproval ? (
+                <button type="button" onClick={() => onScrollToSection('tickets')} aria-label="Xem trạng thái hồ sơ" className="flex min-h-12 w-full items-center justify-center gap-2 border border-white/30 bg-white/10 px-4 py-3 text-base font-bold text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info">
+                  <span>Xem trạng thái hồ sơ</span>
+                  <ArrowRight className="size-5" aria-hidden="true" />
+                </button>
+              ) : isWaitlisted || isFullEffective ? (
+                <button type="button" onClick={onOpenWaitlist} aria-label="Đăng ký danh sách chờ" className="flex min-h-12 w-full items-center justify-center gap-2 border border-neutral-300 bg-neutral-800 px-4 py-3 text-base font-bold text-white transition-colors hover:bg-neutral-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info">
+                  <span>Đăng ký danh sách chờ</span>
+                  <ArrowRight className="size-5" aria-hidden="true" />
+                </button>
+              ) : (
+                <button type="button" onClick={onOpenRegistration} aria-label="Đăng ký tham dự sự kiện" className="flex min-h-12 w-full items-center justify-center gap-2 border border-brand-primary bg-brand-primary px-4 py-3 text-base font-bold text-white shadow-lg transition-colors hover:bg-brand-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info">
+                  <span>Đăng ký tham dự</span>
+                  <ArrowRight className="size-5" aria-hidden="true" />
+                </button>
+              )}
+
+              <div className="flex flex-row gap-3 max-[380px]:flex-col">
+                {!isPast && (
+                  <div className="relative min-w-0 flex-1">
+                    <button type="button" onClick={() => setShowCalendarMenu((value) => !value)} aria-expanded={showCalendarMenu} aria-haspopup="menu" className="flex min-h-12 w-full min-w-0 items-center justify-center gap-1.5 whitespace-nowrap border border-white/70 bg-transparent px-2 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info">
+                      <CalendarPlus className="size-5" aria-hidden="true" />
+                      <span>Thêm vào lịch</span>
+                      <ChevronDown className="size-4" aria-hidden="true" />
+                    </button>
+                    {showCalendarMenu && (
+                      <>
+                        <div className="fixed inset-0 z-[65]" onClick={() => setShowCalendarMenu(false)} aria-hidden="true" />
+                        <div role="menu" className="absolute bottom-full left-0 z-[70] mb-2 w-full border border-neutral-700 bg-neutral-900 p-1.5 text-sm shadow-2xl sm:top-full sm:bottom-auto sm:mt-2 sm:mb-0">
+                          <button type="button" role="menuitem" onClick={onAddToGoogleCalendar} className="flex min-h-11 w-full items-center justify-between px-3 py-2.5 text-left text-white transition-colors hover:bg-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-info">
+                            <span className="flex items-center gap-2"><span className="size-2 rounded-full bg-red-400" aria-hidden="true" />Google Calendar</span>
+                            <ExternalLink className="size-4 text-neutral-400" aria-hidden="true" />
+                          </button>
+                          <button type="button" role="menuitem" onClick={onDownloadIcs} className="flex min-h-11 w-full items-center justify-between px-3 py-2.5 text-left text-white transition-colors hover:bg-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-info">
+                            <span className="flex items-center gap-2"><span className="size-2 rounded-full bg-blue-400" aria-hidden="true" />Apple / Outlook (.ics)</span>
+                            <Download className="size-4 text-neutral-400" aria-hidden="true" />
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                )}
+                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location || `${venueName}, ${venueAddress}`)}`} target="_blank" rel="noopener noreferrer" aria-label="Mở chỉ đường Google Maps trong tab mới" className="flex min-h-12 min-w-0 flex-1 items-center justify-center gap-1.5 whitespace-nowrap border border-white/70 bg-transparent px-2 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info">
+                  <Navigation className="size-5" aria-hidden="true" />
+                  <span>Chỉ đường</span>
+                  <ExternalLink className="size-4" aria-hidden="true" />
+                </a>
+              </div>
+
+              <button type="button" onClick={onCopyLink} aria-label="Chia sẻ sự kiện" className="flex min-h-11 w-full items-center gap-3 border-t border-white/20 pt-4 text-left text-sm font-semibold text-white underline-offset-4 transition-colors hover:text-neutral-300 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info">
+                <Share2 className="size-5" aria-hidden="true" />
+                <span>{copiedLink ? 'Đã sao chép liên kết!' : 'Chia sẻ sự kiện'}</span>
+              </button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 export const EventDetailPage: React.FC = () => {
   const { 
     selectedEventId, 
@@ -75,7 +309,7 @@ export const EventDetailPage: React.FC = () => {
   // Find event or fallback to default summit
   const event = MOCK_EVENTS.find(e => e.id === selectedEventId) || MOCK_EVENTS[0];
 
-  const [activeTab, setActiveTab] = useState<'overview' | 'resources' | 'agenda' | 'speakers' | 'tickets' | 'venue' | 'partners'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'resources' | 'agenda' | 'speakers' | 'tickets' | 'venue' | 'partners' | 'faq'>('overview');
   const [selectedPassType, setSelectedPassType] = useState<'member' | 'standard'>('member');
   
   const isManualScrollingRef = React.useRef(false);
@@ -192,19 +426,20 @@ export const EventDetailPage: React.FC = () => {
             return;
           }
 
-          const sections: { id: 'overview' | 'resources' | 'agenda' | 'speakers' | 'venue' | 'partners' | 'tickets'; el: HTMLElement | null }[] = [
+          const sections: { id: 'overview' | 'resources' | 'agenda' | 'speakers' | 'venue' | 'partners' | 'faq' | 'tickets'; el: HTMLElement | null }[] = [
             { id: 'overview', el: document.getElementById('section-overview') },
             ...(isPast ? [{ id: 'resources' as const, el: document.getElementById('section-resources') }] : []),
             { id: 'agenda', el: document.getElementById('section-agenda') },
             { id: 'speakers', el: document.getElementById('section-speakers') },
             { id: 'venue', el: document.getElementById('section-venue') },
             { id: 'partners', el: document.getElementById('section-partners') },
+            { id: 'faq', el: document.getElementById('section-faq') },
             ...(!isPast && isMobile ? [{ id: 'tickets' as const, el: document.getElementById('section-tickets') }] : []),
           ];
 
           // Offset threshold below sticky subnav (sticky at top-0, height ~48px)
           const offset = 85;
-          let currentTab: 'overview' | 'resources' | 'agenda' | 'speakers' | 'venue' | 'partners' | 'tickets' = 'overview';
+          let currentTab: 'overview' | 'resources' | 'agenda' | 'speakers' | 'venue' | 'partners' | 'faq' | 'tickets' = 'overview';
 
           for (let i = 0; i < sections.length; i++) {
             const item = sections[i];
@@ -459,7 +694,7 @@ export const EventDetailPage: React.FC = () => {
     setTimeout(() => setCopiedLink(false), 2000);
   };
 
-  const scrollToSection = (tab: 'overview' | 'resources' | 'agenda' | 'speakers' | 'tickets' | 'venue' | 'partners') => {
+  const scrollToSection = (tab: 'overview' | 'resources' | 'agenda' | 'speakers' | 'tickets' | 'venue' | 'partners' | 'faq') => {
     setActiveTab(tab);
     isManualScrollingRef.current = true;
     if (manualScrollTimerRef.current) {
@@ -486,15 +721,30 @@ export const EventDetailPage: React.FC = () => {
     }
   };
 
+  const calendarDateRange = React.useMemo(() => {
+    const [year, month, day] = (event.dateStr || '2026-10-15').split('-').map(Number);
+    const [startTime = '08:00', endTime = '17:30'] = (event.timeStr || '08:00 - 17:30').split(/\s*-\s*/);
+    const toUtcStamp = (time: string) => {
+      const [hours, minutes] = time.split(':').map(Number);
+      const utcDate = new Date(Date.UTC(year, month - 1, day, hours - 7, minutes));
+      return utcDate.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+    };
+
+    return {
+      start: toUtcStamp(startTime),
+      end: toUtcStamp(endTime)
+    };
+  }, [event.dateStr, event.timeStr]);
+
   const handleAddToGoogleCalendar = () => {
     const title = encodeURIComponent(event.title);
     const details = encodeURIComponent(
       `Sự kiện: ${event.title}\nĐơn vị tổ chức: Diễn Đàn CEO Việt Nam (VCF)\nĐịa điểm: ${event.location}\nChương trình quy tụ các chuyên gia kinh tế, nhà hoạch định chính sách và lãnh đạo C-Level hàng đầu.\nThông tin & check-in: ${window.location.href}`
     );
     const location = encodeURIComponent(event.location);
-    // Summit date: 15/10/2026 from 08:00 to 17:30 ICT (UTC+7 -> 01:00Z to 10:30Z)
-    const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261015T010000Z/20261015T103000Z&details=${details}&location=${location}`;
-    window.open(gCalUrl, '_blank');
+    const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${calendarDateRange.start}/${calendarDateRange.end}&details=${details}&location=${location}`;
+    const calendarWindow = window.open(gCalUrl, '_blank', 'noopener,noreferrer');
+    showNotification(calendarWindow ? 'Đã mở Google Calendar trong tab mới.' : 'Không thể mở Google Calendar. Vui lòng cho phép mở tab mới.');
     setShowCalendarMenu(false);
   };
 
@@ -506,10 +756,10 @@ export const EventDetailPage: React.FC = () => {
       'CALSCALE:GREGORIAN',
       'METHOD:PUBLISH',
       'BEGIN:VEVENT',
-      `UID:${event.id || 'ceo-summit-2026'}-20261015@vcf.org.vn`,
+      `UID:${event.id || 'vcf-event'}-${event.dateStr}@vcf.org.vn`,
       `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`,
-      'DTSTART:20261015T010000Z',
-      'DTEND:20261015T103000Z',
+      `DTSTART:${calendarDateRange.start}`,
+      `DTEND:${calendarDateRange.end}`,
       `SUMMARY:${event.title}`,
       `DESCRIPTION:Sự kiện ${event.title} do Diễn Đàn CEO Việt Nam (VCF) tổ chức. Địa điểm: ${event.location}`,
       `LOCATION:${event.location}`,
@@ -525,6 +775,7 @@ export const EventDetailPage: React.FC = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    showNotification('Đã tải lịch sự kiện xuống thiết bị.');
     setShowCalendarMenu(false);
   };
 
@@ -593,7 +844,7 @@ export const EventDetailPage: React.FC = () => {
   }, [event?.location, event?.venueDetails]);
 
   const isNearlyFull = !isPast && !isFullEffective && event.availableSeats > 0 && event.availableSeats <= 20;
-  const eventDescription = event.description || event.subtitle || 'Sự kiện quy tụ lãnh đạo doanh nghiệp, chuyên gia trong và ngoài nước để cùng thảo luận các xu hướng, giải pháp và cơ hội phát triển bền vững trong kỷ nguyên AI và chuyển đổi xanh.';
+  const eventDescription = event.heroDescription || event.subtitle || event.description || 'Sự kiện quy tụ lãnh đạo doanh nghiệp, chuyên gia trong và ngoài nước để cùng thảo luận các xu hướng, giải pháp và cơ hội phát triển bền vững trong kỷ nguyên AI và chuyển đổi xanh.';
 
 
   return (
@@ -614,7 +865,38 @@ export const EventDetailPage: React.FC = () => {
       {/* =========================================================================
           MOBILE HERO BANNER (< lg) — ENLARGED, ACTION-ORIENTED, COMMANDING H1
           ========================================================================= */}
-      <section className="lg:hidden bg-surface-dark text-white relative overflow-hidden min-h-[480px] sm:min-h-[520px] flex flex-col justify-center">
+      <EventHero
+        event={event}
+        eventTime={eventTime}
+        eventDate={eventDate}
+        venueName={venueName}
+        venueAddress={venueAddress}
+        eventDescription={eventDescription}
+        isNearlyFull={isNearlyFull}
+        isPast={isPast}
+        isConfirmed={isConfirmed}
+        isPendingApproval={isPendingApproval}
+        isWaitlisted={isWaitlisted}
+        isFullEffective={isFullEffective}
+        showCalendarMenu={showCalendarMenu}
+        setShowCalendarMenu={setShowCalendarMenu}
+        copiedLink={copiedLink}
+        onNavigateToEvents={() => navigateTo('events')}
+        onOpenRegistration={() => {
+          setIsWaitlistModal(false);
+          setIsMemberModalOpen(true);
+        }}
+        onOpenWaitlist={() => {
+          setIsWaitlistModal(true);
+          setIsMemberModalOpen(true);
+        }}
+        onScrollToSection={scrollToSection}
+        onCopyLink={handleCopyLink}
+        onAddToGoogleCalendar={handleAddToGoogleCalendar}
+        onDownloadIcs={handleDownloadIcs}
+      />
+
+      <section className="hidden">
         {/* Ambient Background with subtle dark overlay */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <img 
@@ -769,10 +1051,10 @@ export const EventDetailPage: React.FC = () => {
                   {showCalendarMenu && (
                     <>
                       <div 
-                        className="fixed inset-0 z-20" 
+                        className="fixed inset-0 z-[65]"
                         onClick={() => setShowCalendarMenu(false)} 
                       />
-                      <div className="absolute left-0 top-full mt-1.5 w-full bg-neutral-900 border border-neutral-700 rounded-xl shadow-2xl p-1.5 z-30 text-xs font-sans">
+                      <div className="absolute left-0 top-full mt-1.5 w-full bg-neutral-900 border border-neutral-700 rounded-xl shadow-2xl p-1.5 z-[70] text-xs font-sans">
                         <button
                           type="button"
                           onClick={handleAddToGoogleCalendar}
@@ -828,7 +1110,7 @@ export const EventDetailPage: React.FC = () => {
       {/* =========================================================================
           DESKTOP HERO BANNER (>= lg) (Executive Editorial Summit Style)
           ========================================================================= */}
-      <section className="hidden lg:block bg-surface-dark text-white relative overflow-hidden">
+      <section className="hidden">
         {/* Full-width Event Photo Ambient Background with Directional Gradient */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <img 
@@ -950,10 +1232,10 @@ export const EventDetailPage: React.FC = () => {
                     {showCalendarMenu && (
                       <>
                         <div 
-                          className="fixed inset-0 z-20" 
+                          className="fixed inset-0 z-[65]"
                           onClick={() => setShowCalendarMenu(false)} 
                         />
-                        <div className="absolute left-0 top-full mt-1.5 w-52 bg-neutral-900 border border-neutral-700 rounded-xl shadow-2xl p-1.5 z-30 text-xs font-sans">
+                        <div className="absolute left-0 top-full mt-1.5 w-52 bg-neutral-900 border border-neutral-700 rounded-xl shadow-2xl p-1.5 z-[70] text-xs font-sans">
                           <button
                             type="button"
                             onClick={handleAddToGoogleCalendar}
@@ -1128,6 +1410,7 @@ export const EventDetailPage: React.FC = () => {
                 { id: 'speakers', label: 'Diễn giả' },
                 { id: 'venue', label: 'Địa điểm' },
                 { id: 'partners', label: 'Nhà tài trợ' },
+                { id: 'faq', label: 'Câu hỏi thường gặp' },
               ]
             : [
                 { id: 'overview', label: 'Tổng quan' },
@@ -1135,6 +1418,7 @@ export const EventDetailPage: React.FC = () => {
                 { id: 'speakers', label: 'Diễn giả' },
                 { id: 'venue', label: 'Địa điểm' },
                 { id: 'partners', label: 'Nhà tài trợ' },
+                { id: 'faq', label: 'Câu hỏi thường gặp' },
                 { id: 'tickets', label: isAlreadyRegistered ? 'Thẻ vé' : 'Đăng ký' },
               ]
           ).map((tab) => (
@@ -1172,6 +1456,7 @@ export const EventDetailPage: React.FC = () => {
                 { id: 'speakers', label: 'Diễn giả & Cố vấn' },
                 { id: 'venue', label: 'Địa điểm & Di chuyển' },
                 { id: 'partners', label: 'Nhà tài trợ' },
+                { id: 'faq', label: 'Câu hỏi thường gặp' },
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -1206,10 +1491,7 @@ export const EventDetailPage: React.FC = () => {
             {/* SECTION 1: TỔNG QUAN & NỘI DUNG TRỌNG TÂM */}
             <section id="section-overview" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
               <div>
-                <span className="text-xs uppercase font-bold tracking-wider text-brand-primary">
-                  Giới thiệu tổng quan
-                </span>
-                <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
+                <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight">
                   Về {event.activityName}
                 </h2>
               </div>
@@ -1226,10 +1508,7 @@ export const EventDetailPage: React.FC = () => {
             {isPast && (
               <section id="section-resources" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
                 <div className="border-b border-neutral-100 pb-3">
-                  <span className="text-xs uppercase font-bold tracking-wider text-brand-primary">
-                    Tài liệu sau sự kiện
-                  </span>
-                  <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
+                  <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight">
                     Tài Liệu, Kỷ Yếu & Kế Thừa Tri Thức
                   </h2>
                   <p className="text-sm sm:text-base text-neutral-600 mt-1 font-sans">
@@ -1305,10 +1584,7 @@ export const EventDetailPage: React.FC = () => {
             <section id="section-agenda" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-100 pb-4">
                 <div>
-                  <span className="text-xs uppercase font-bold tracking-wider text-brand-primary">
-                    Chương trình nghị sự
-                  </span>
-                  <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
+                  <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight">
                     Chương trình sự kiện
                   </h2>
                 </div>
@@ -1332,18 +1608,18 @@ export const EventDetailPage: React.FC = () => {
                     {/* Time Column */}
                     <div className="sm:w-36 shrink-0 flex items-center gap-2.5 sm:pt-0.5">
                       <div className="w-2.5 h-2.5 rounded-full bg-brand-primary shrink-0 group-hover:scale-125 transition-transform" />
-                      <span className="font-sans text-sm sm:text-sm font-extralight text-neutral-800 group-hover:text-brand-primary transition-colors" style={{ fontFamily: '"Inter Variable", Arial, sans-serif' }}>
+                      <span className="font-sans text-lg sm:text-lg font-extralight text-neutral-800 group-hover:text-brand-primary transition-colors" style={{ fontFamily: '"Inter Variable", Arial, sans-serif' }}>
                         {item.time}
                       </span>
                     </div>
 
                     {/* Topic and Speaker - Cỡ chữ tối thiểu 16px trên mobile */}
                     <div className="flex-1 space-y-1.5">
-                      <h4 className="text-base sm:text-lg font-extralight text-ink leading-snug group-hover:text-neutral-900 transition-colors">
+                      <h4 className="text-lg font-extralight text-ink leading-snug group-hover:text-neutral-900 transition-colors">
                         {item.topic}
                       </h4>
                       {item.presenter && !item.presenter.includes('Hội đồng Khoa học PTIT') && (
-                        <div className="flex items-center gap-1.5 text-sm text-neutral-600 pt-0.5">
+                        <div className="flex items-center gap-1.5 text-lg text-neutral-600 pt-0.5">
                           <span className="text-neutral-500 font-medium">Diễn giả:</span>
                           <span className="font-bold text-neutral-800">{item.presenter}</span>
                         </div>
@@ -1357,10 +1633,7 @@ export const EventDetailPage: React.FC = () => {
             {/* SECTION 3: DIỄN GIẢ & KHÁCH MỜI DANH DỰ */}
             <section id="section-speakers" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-6 scroll-mt-16 sm:scroll-mt-20">
               <div>
-                <span className="text-xs uppercase font-bold tracking-wider text-brand-primary">
-                  Diễn giả & Chuyên gia
-                </span>
-                <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
+                <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight">
                   Diễn giả
                 </h2>
                 <p className="text-sm sm:text-base text-neutral-600 mt-1 font-sans">
@@ -1369,7 +1642,7 @@ export const EventDetailPage: React.FC = () => {
               </div>
 
               {/* Clean Speaker Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+              <div className="-mx-5 sm:-mx-6 lg:-mx-8 grid grid-cols-1 sm:grid-cols-2 gap-y-3.5 sm:gap-y-4">
                 {event.speakers.map((spk) => {
                   const initials = spk.name
                     .split(' ')
@@ -1382,7 +1655,7 @@ export const EventDetailPage: React.FC = () => {
                   return (
                     <div 
                       key={spk.name} 
-                      className="p-3.5 sm:p-4 rounded-xl flex items-center gap-3.5 bg-neutral-50/70 hover:bg-neutral-100/70 transition-all group"
+                      className="px-5 sm:px-6 lg:px-8 py-3.5 sm:py-4 flex items-center gap-3.5 hover:bg-neutral-50/50 transition-colors group"
                     >
                       <div className="vcf-avatar w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-neutral-800 to-neutral-950 text-white shadow-xs shrink-0 flex items-center justify-center font-bold text-base tracking-wide group-hover:ring-2 group-hover:ring-brand-primary/50 transition-all overflow-hidden">
                         {spk.avatarUrl ? (
@@ -1408,10 +1681,7 @@ export const EventDetailPage: React.FC = () => {
             {/* SECTION 4: ĐỊA ĐIỂM */}
             <section id="section-venue" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-4 scroll-mt-16 sm:scroll-mt-20">
               <div>
-                <span className="text-xs uppercase font-bold tracking-wider text-brand-primary">
-                  Địa điểm
-                </span>
-                <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight mt-1">
+                <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight">
                   Địa điểm tổ chức
                 </h2>
               </div>
@@ -1419,9 +1689,6 @@ export const EventDetailPage: React.FC = () => {
               {/* Direct venue layout */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
                 <div>
-                  <div className="font-bold text-base text-ink">
-                    {event.venueDetails?.hall || event.location}
-                  </div>
                   <div className="text-base text-neutral-700 mt-1 leading-relaxed">
                     {event.venueDetails?.address || event.location}
                   </div>
@@ -1449,115 +1716,32 @@ export const EventDetailPage: React.FC = () => {
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-                {/* 1. VinaSteel */}
-                <div className="h-20 sm:h-22 px-4 py-3 bg-neutral-50/80 hover:bg-white border border-neutral-200/80 hover:border-neutral-300 rounded-lg flex items-center justify-center transition-all shadow-none hover:shadow-xs group">
-                  <div className="flex items-center gap-2">
-                    <svg viewBox="0 0 28 28" className="w-6 h-6 shrink-0" fill="none">
-                      <polygon points="14,2 26,22 14,18 2,22" fill="#AB071E" />
-                      <polygon points="14,7 21,19 14,16 7,19" fill="#8E0518" />
-                    </svg>
-                    <span className="font-black text-sm sm:text-base tracking-wider text-neutral-800 group-hover:text-ink transition-colors">
-                      VINASTEEL
-                    </span>
+                {[
+                  { name: 'VINASTEEL', src: '/images/partners/vinasteel-logo.svg' },
+                  { name: 'TECHCOMBANK', src: '/images/partners/techcombank-logo.svg' },
+                  { name: 'FPT', src: '/images/partners/fpt-logo.svg' },
+                  { name: 'Viettel Solutions', src: '/images/partners/viettel-solutions-logo.svg' },
+                  { name: 'THACO GROUP', src: '/images/partners/thaco-logo.svg' },
+                  { name: 'VnExpress', src: '/images/partners/vnexpress-logo.png' },
+                  { name: 'Viện LGM', src: '/images/partners/vlgm-logo.png' },
+                  { name: 'PTIT Academy', src: '/images/partners/ptit-logo.png' }
+                ].map((partner) => (
+                  <div key={partner.name} className="h-20 sm:h-22 px-4 py-3 bg-neutral-50/80 hover:bg-white border border-neutral-200/80 hover:border-neutral-300 rounded-lg flex items-center justify-center transition-all shadow-none hover:shadow-xs">
+                    <img
+                      src={partner.src}
+                      alt={`${partner.name} logo`}
+                      loading="lazy"
+                      className="max-h-12 max-w-full object-contain"
+                    />
                   </div>
-                </div>
-
-                {/* 2. Techcombank */}
-                <div className="h-20 sm:h-22 px-4 py-3 bg-neutral-50/80 hover:bg-white border border-neutral-200/80 hover:border-neutral-300 rounded-lg flex items-center justify-center transition-all shadow-none hover:shadow-xs group">
-                  <div className="flex items-center gap-2">
-                    <svg viewBox="0 0 24 24" className="w-6 h-6 shrink-0" fill="none">
-                      <rect x="3" y="3" width="7" height="7" fill="#AB071E" transform="rotate(45 6.5 6.5)" />
-                      <rect x="11" y="11" width="7" height="7" fill="#AB071E" transform="rotate(45 14.5 14.5)" />
-                    </svg>
-                    <span className="font-bold text-xs sm:text-sm tracking-tight text-neutral-800 group-hover:text-ink transition-colors">
-                      TECHCOMBANK
-                    </span>
-                  </div>
-                </div>
-
-                {/* 3. FPT */}
-                <div className="h-20 sm:h-22 px-4 py-3 bg-neutral-50/80 hover:bg-white border border-neutral-200/80 hover:border-neutral-300 rounded-lg flex items-center justify-center transition-all shadow-none hover:shadow-xs group">
-                  <div className="flex items-center gap-2">
-                    <div className="flex items-center -space-x-1">
-                      <span className="w-2.5 h-6 bg-[#F37021] skew-x-[-20deg] rounded-2xs inline-block" />
-                      <span className="w-2.5 h-6 bg-[#0054A5] skew-x-[-20deg] rounded-2xs inline-block" />
-                      <span className="w-2.5 h-6 bg-[#00A850] skew-x-[-20deg] rounded-2xs inline-block" />
-                    </div>
-                    <span className="font-black italic text-base sm:text-lg text-[#0054A5] tracking-tight ml-1">
-                      FPT
-                    </span>
-                  </div>
-                </div>
-
-                {/* 4. Viettel Solutions */}
-                <div className="h-20 sm:h-22 px-4 py-3 bg-neutral-50/80 hover:bg-white border border-neutral-200/80 hover:border-neutral-300 rounded-lg flex items-center justify-center transition-all shadow-none hover:shadow-xs group">
-                  <div className="flex flex-col items-center justify-center text-center">
-                    <span className="font-black text-sm sm:text-base text-[#EE0033] tracking-tighter lowercase leading-none">
-                      viettel
-                    </span>
-                    <span className="text-[10px] sm:text-[11px] font-semibold text-neutral-600 tracking-wider uppercase mt-0.5">
-                      Solutions
-                    </span>
-                  </div>
-                </div>
-
-                {/* 5. THACO */}
-                <div className="h-20 sm:h-22 px-4 py-3 bg-neutral-50/80 hover:bg-white border border-neutral-200/80 hover:border-neutral-300 rounded-lg flex items-center justify-center transition-all shadow-none hover:shadow-xs group">
-                  <div className="flex items-center gap-1.5">
-                    <span className="px-2 py-0.5 bg-[#003B70] text-white font-black text-xs rounded-2xs">
-                      T
-                    </span>
-                    <span className="font-black text-sm sm:text-base text-[#003B70] tracking-wider">
-                      THACO GROUP
-                    </span>
-                  </div>
-                </div>
-
-                {/* 6. VnExpress */}
-                <div className="h-20 sm:h-22 px-4 py-3 bg-neutral-50/80 hover:bg-white border border-neutral-200/80 hover:border-neutral-300 rounded-lg flex items-center justify-center transition-all shadow-none hover:shadow-xs group">
-                  <div className="flex items-baseline">
-                    <span className="font-serif font-black text-base sm:text-lg text-[#9F224E]">
-                      Vn
-                    </span>
-                    <span className="font-serif font-bold text-sm sm:text-base text-neutral-800">
-                      Express
-                    </span>
-                  </div>
-                </div>
-
-                {/* 7. Viện Quản trị LGM */}
-                <div className="h-20 sm:h-22 px-4 py-3 bg-neutral-50/80 hover:bg-white border border-neutral-200/80 hover:border-neutral-300 rounded-lg flex items-center justify-center transition-all shadow-none hover:shadow-xs group">
-                  <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 bg-neutral-900 text-white font-bold text-[10px] rounded-2xs flex items-center justify-center shrink-0">
-                      LGM
-                    </div>
-                    <span className="font-bold text-xs sm:text-sm text-neutral-800 leading-tight">
-                      Viện LGM
-                    </span>
-                  </div>
-                </div>
-
-                {/* 8. PTIT Academy */}
-                <div className="h-20 sm:h-22 px-4 py-3 bg-neutral-50/80 hover:bg-white border border-neutral-200/80 hover:border-neutral-300 rounded-lg flex items-center justify-center transition-all shadow-none hover:shadow-xs group">
-                  <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 border-2 border-[#C8102E] text-[#C8102E] font-black text-[9px] rounded-2xs flex items-center justify-center shrink-0">
-                      PTIT
-                    </div>
-                    <span className="font-bold text-xs sm:text-sm text-neutral-800 tracking-tight">
-                      PTIT Academy
-                    </span>
-                  </div>
-                </div>
+                ))}
               </div>
             </section>
 
             {/* SECTION 6: CÂU HỎI THƯỜNG GẶP (FAQ) */}
-            <section className="bg-white border border-hairline rounded-xl p-5 sm:p-8 shadow-xs space-y-4">
+            <section id="section-faq" className="bg-white border border-hairline rounded-xl p-5 sm:p-8 shadow-xs space-y-4 scroll-mt-16 sm:scroll-mt-20">
               <div>
-                <span className="text-xs uppercase font-semibold tracking-wider text-brand-primary">
-                  Hỏi đáp
-                </span>
-                <h2 className="text-2xl sm:text-2xl font-semibold text-ink tracking-tight mt-1">
+                <h2 className="text-2xl sm:text-2xl font-semibold text-ink tracking-tight">
                   Câu hỏi thường gặp
                 </h2>
               </div>
@@ -1630,11 +1814,11 @@ export const EventDetailPage: React.FC = () => {
                     : isConfirmed 
                     ? 'Thẻ Vé Đại Biểu' 
                     : isPendingApproval 
-                    ? 'Tình Trạng Hồ Sơ Đăng Ký' 
+                    ? 'Tình trạng hồ sơ'
                     : isWaitlisted
                     ? 'Danh Sách Chờ Tham Dự'
                     : isFullEffective
-                    ? 'Sự Kiện Đã Kín Chỗ'
+                    ? 'Sự kiện đã kín chỗ'
                     : 'Đăng Ký Tham Dự Sự Kiện'}
                 </h3>
                 <p className="text-sm lg:text-xs text-ink-secondary font-sans">
@@ -1787,7 +1971,7 @@ export const EventDetailPage: React.FC = () => {
                           TRẠNG THÁI HỒ SƠ
                         </span>
                         <h4 className="text-sm font-bold text-ink mt-0.5">
-                          Đăng ký đang chờ xét duyệt
+                          Đang chờ xét duyệt
                         </h4>
                       </div>
                     </div>
@@ -1820,26 +2004,11 @@ export const EventDetailPage: React.FC = () => {
                       </CustomButton>
                     </div>
 
-                    <div className="flex gap-2">
-                      {/* Nút Hủy đăng ký theo Spec 3.2 */}
-                      <button
-                        type="button"
-                        onClick={() => {
-                          if (registeredItem) {
-                            cancelRegistration(registeredItem.id);
-                          } else {
-                            resetEventRegistration(event.id);
-                          }
-                        }}
-                        className="flex-1 py-2 px-3 text-xs border border-red-200 text-red-700 hover:bg-red-50 rounded-lg font-medium transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-                      >
-                        <XCircle className="w-3.5 h-3.5 text-red-500" />
-                        Hủy đăng ký
-                      </button>
+                    <div className="flex">
                       <button
                         type="button"
                         onClick={() => navigateTo('profile')}
-                        className="flex-1 py-2 px-3 text-xs bg-neutral-900 text-white hover:bg-neutral-800 rounded-lg font-medium transition-colors cursor-pointer"
+                        className="w-full py-2 px-3 text-sm bg-neutral-900 text-white hover:bg-neutral-800 rounded-lg font-medium transition-colors cursor-pointer"
                       >
                         Xem trong Hồ sơ →
                       </button>
@@ -1902,10 +2071,10 @@ export const EventDetailPage: React.FC = () => {
                    STATE 4: FULL -> WAITLIST CTA
                    ========================================================= */
                 <div className="bg-neutral-100 border border-neutral-300 rounded-xl p-6 text-center space-y-3">
-                  <div className="font-semibold text-base text-ink">
-                    Sự Kiện Đã Đạt Số Lượng Đại Biểu Tối Đa
+                  <div className="font-semibold text-lg text-ink">
+                    Hết vé
                   </div>
-                  <p className="text-xs text-ink-secondary font-sans leading-relaxed">
+                  <p className="text-sm text-ink-secondary font-sans leading-relaxed">
                     Khán phòng đã được đăng ký kín. Quý vị vui lòng đăng ký danh sách chờ (Waitlist) để nhận thông báo sớm khi có đại biểu thay đổi lịch.
                   </p>
                   <CustomButton
@@ -2617,14 +2786,14 @@ export const EventDetailPage: React.FC = () => {
 
             {/* Delegate Support Box */}
             <div className="bg-white border border-hairline rounded-xl p-5 shadow-xs space-y-3 text-xs">
-              <div className="font-semibold text-sm text-ink flex items-center gap-2">
+              <div className="font-semibold text-base text-ink flex items-center gap-2">
                 <Phone className="w-4 h-4 text-brand-primary" />
                 Hỗ Trợ Đại Biểu & Ban Thư Ký
               </div>
               <p className="text-base lg:text-sm text-ink-secondary font-sans leading-relaxed">
                 Ban Thư ký sự kiện Diễn Đàn CEO Việt Nam sẵn sàng hỗ trợ sắp xếp chỗ ngồi VIP, đón tiếp đại biểu hoặc xuất hoá đơn GTGT.
               </p>
-              <div className="space-y-1.5 pt-1 text-base lg:text-sm text-neutral-700 font-medium">
+              <div className="space-y-1.5 pt-1 text-base text-neutral-700 font-medium">
                 <div className="flex items-center gap-2">
                   <Phone className="w-3.5 h-3.5 text-neutral-400" />
                   <span>Hotline: <strong>024.3756.8888</strong></span>

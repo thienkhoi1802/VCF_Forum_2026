@@ -32,11 +32,27 @@ export const EventsCalendarPage: React.FC = () => {
   const [selectedYear, setSelectedYear] = useState<number>(2026);
   // Default to null: When opening calendar tab, no date is active until user clicks a date
   const [selectedDateStr, setSelectedDateStr] = useState<string | null>(null);
+  const [hideMobileViewTabs, setHideMobileViewTabs] = useState(false);
 
   const TODAY_STR = '2026-10-15';
 
   const isLoading = simulatedState === 'S-LOADING';
   const isEmptySimulated = simulatedState === 'S-EMPTY';
+
+  useEffect(() => {
+    const updateMobileTabVisibility = () => {
+      setHideMobileViewTabs(window.innerWidth < 768 && window.scrollY > 80);
+    };
+
+    updateMobileTabVisibility();
+    window.addEventListener('scroll', updateMobileTabVisibility, { passive: true });
+    window.addEventListener('resize', updateMobileTabVisibility);
+
+    return () => {
+      window.removeEventListener('scroll', updateMobileTabVisibility);
+      window.removeEventListener('resize', updateMobileTabVisibility);
+    };
+  }, []);
 
   // Separate upcoming, ongoing, past
   const ongoingEvents = useMemo(() => MOCK_EVENTS.filter(evt => evt.status === 'ongoing'), []);
@@ -226,10 +242,10 @@ export const EventsCalendarPage: React.FC = () => {
         </p>
       </div>
 
-      {/* KHU VỰC ĐIỀU HƯỚNG & BỘ LỌC: RỘNG HẾT GRID TRÊN MOBILE, NGANG HÀNG TRÊN DESKTOP */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2.5 sm:gap-3 pb-2 border-b border-neutral-100">
-        {/* 1. TABS: Danh sách & Lịch tháng - Rộng sang bằng grid tối đa trên mobile (grid-cols-2 w-full) */}
-        <div className="grid grid-cols-2 w-full md:w-auto md:flex md:items-center gap-2 sm:gap-2.5">
+      {/* MENU SỰ KIỆN: sticky khi cuộn */}
+      <div className="sticky top-16 z-30 flex flex-col gap-2.5 border-b border-neutral-200 bg-white py-2 backdrop-blur-md sm:gap-3 md:top-[55px] md:flex-row md:items-center md:justify-between">
+        {/* TABS: Danh sách & Lịch tháng - Rộng sang bằng grid tối đa trên mobile */}
+        <div className={`grid grid-cols-2 w-full md:w-auto md:flex md:items-center gap-2 sm:gap-2.5 ${hideMobileViewTabs ? 'hidden md:grid' : ''}`}>
           <button
             type="button"
             onClick={() => setViewMode('list')}
@@ -257,17 +273,17 @@ export const EventsCalendarPage: React.FC = () => {
           </button>
         </div>
 
-        {/* 2. BỘ LỌC TRẠNG THÁI: Tất cả / Sắp diễn ra / Đã kết thúc */}
-        <div
-          role="group"
-          aria-label="Lọc sự kiện theo trạng thái"
-          className="grid w-full min-w-0 grid-cols-3 gap-1 py-0.5 sm:gap-2 md:flex md:items-center md:w-auto"
-        >
+      {/* BỘ LỌC TRẠNG THÁI */}
+      <div
+        role="group"
+        aria-label="Lọc sự kiện theo trạng thái"
+        className="grid w-full min-w-0 grid-cols-3 gap-1 py-1.5 sm:gap-2 md:flex md:w-fit md:items-center"
+      >
           <button
             type="button"
             onClick={() => setTimingFilter('all')}
             aria-pressed={timingFilter === 'all'}
-            className={`flex min-h-11 min-w-0 w-full items-center justify-center whitespace-nowrap px-0 text-center text-xs sm:px-1 md:w-auto md:px-3 md:text-sm font-semibold rounded-full transition-all cursor-pointer ${
+            className={`flex min-h-9 min-w-0 w-full items-center justify-center whitespace-nowrap px-0 text-center text-xs sm:px-1 md:w-auto md:px-3 md:text-sm font-semibold rounded-full transition-all cursor-pointer ${
               timingFilter === 'all'
                 ? 'bg-brand-primary text-white shadow-xs'
                 : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
@@ -280,7 +296,7 @@ export const EventsCalendarPage: React.FC = () => {
             type="button"
             onClick={() => setTimingFilter('upcoming')}
             aria-pressed={timingFilter === 'upcoming'}
-            className={`flex min-h-11 min-w-0 w-full items-center justify-center whitespace-nowrap px-0 text-center text-xs sm:px-1 md:w-auto md:px-3 md:text-sm font-semibold rounded-full transition-all cursor-pointer ${
+            className={`flex min-h-9 min-w-0 w-full items-center justify-center whitespace-nowrap px-0 text-center text-xs sm:px-1 md:w-auto md:px-3 md:text-sm font-semibold rounded-full transition-all cursor-pointer ${
               timingFilter === 'upcoming'
                 ? 'bg-brand-primary text-white shadow-xs'
                 : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
@@ -293,7 +309,7 @@ export const EventsCalendarPage: React.FC = () => {
             type="button"
             onClick={() => setTimingFilter('past')}
             aria-pressed={timingFilter === 'past'}
-            className={`flex min-h-11 min-w-0 w-full items-center justify-center whitespace-nowrap px-0 text-center text-xs sm:px-1 md:w-auto md:px-3 md:text-sm font-semibold rounded-full transition-all cursor-pointer ${
+            className={`flex min-h-9 min-w-0 w-full items-center justify-center whitespace-nowrap px-0 text-center text-xs sm:px-1 md:w-auto md:px-3 md:text-sm font-semibold rounded-full transition-all cursor-pointer ${
               timingFilter === 'past'
                 ? 'bg-brand-primary text-white shadow-xs'
                 : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
@@ -301,7 +317,7 @@ export const EventsCalendarPage: React.FC = () => {
           >
             Đã kết thúc ({pastEvents.length})
           </button>
-        </div>
+      </div>
       </div>
 
       {/* STATE DISPLAY: LOADING OR EMPTY */}

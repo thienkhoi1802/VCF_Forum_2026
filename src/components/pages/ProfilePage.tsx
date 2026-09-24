@@ -89,17 +89,11 @@ export const ProfilePage: React.FC = () => {
             <h1 className="break-words text-xl sm:text-2xl font-semibold leading-tight text-ink">
               {currentUser.fullName}
             </h1>
-            <div className="flex flex-col items-center gap-2 md:flex-row md:items-center">
-              <span className="inline-flex w-fit max-w-full self-center bg-red-50 text-brand-primary border border-red-200 text-[10px] px-3 py-1 font-semibold uppercase md:self-auto">
-                {currentUser.membershipStatus === 'approved' ? 'Hội viên chính thức' : currentUser.membershipStatus === 'pending' ? 'Đang chờ duyệt' : 'Đã hết hạn'}
-              </span>
-            </div>
             <div className="text-sm text-ink-secondary font-sans">
               {currentUser.jobTitle && <>{currentUser.jobTitle} • </>}
               <strong className="text-ink">{currentUser.companyName || 'Chưa cập nhật'}</strong>
             </div>
             <div className="flex flex-wrap justify-center gap-x-2 text-sm text-neutral-500 font-medium md:justify-start md:text-[11px]">
-              <span className="hidden md:inline">Mã hội viên: <span className="font-mono text-brand-primary font-semibold">{currentUser.memberId}</span></span>
               <span>Ngày gia nhập: {currentUser.joinedDate}</span>
             </div>
             <CustomButton
@@ -329,7 +323,6 @@ export const ProfilePage: React.FC = () => {
                 <div>• Doanh nghiệp: <strong className="text-ink">{currentUser.companyName}</strong></div>
                 <div>• Lĩnh vực: <strong className="text-ink">{currentUser.industry}</strong></div>
                 <div>• Quy mô: <strong className="text-ink">{currentUser.companySize}</strong></div>
-                <div>• Trạng thái hồ sơ: <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-0.5 rounded-full font-semibold text-[10px]">ĐÃ XÁC THỰC</span></div>
               </div>
             </div>
             </>

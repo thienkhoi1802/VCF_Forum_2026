@@ -66,6 +66,7 @@ export interface EventItem {
   agenda: { time: string; topic: string; presenter?: string }[];
   imagePlaceholder: string;
   imageUrl?: string;
+  heroDescription?: string;
   subtitle?: string;
   highlights?: string[];
   targetAudience?: string[];

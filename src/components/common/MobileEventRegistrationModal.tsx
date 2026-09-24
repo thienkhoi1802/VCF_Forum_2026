@@ -489,18 +489,6 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
-  // Formatter for short date/location: "15/10/2026 · Hà Nội"
-  const getCompactDateLocation = () => {
-    const dateMatch = eventDatetime.match(/\d{1,2}\/\d{1,2}\/\d{4}/);
-    const dateStr = dateMatch ? dateMatch[0] : '15/10/2026';
-    const cityStr = eventLocation.includes('Hà Nội')
-      ? 'Hà Nội'
-      : eventLocation.includes('TP. Hồ Chí Minh') || eventLocation.includes('TP.HCM')
-      ? 'TP.HCM'
-      : 'Hà Nội';
-    return `${dateStr} · ${cityStr}`;
-  };
-
   if (!isOpen) return null;
 
   return (
@@ -530,9 +518,6 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
               </h1>
               <p className="text-sm text-ink-secondary font-medium line-clamp-2 mt-1 leading-snug">
                 {eventTitle}
-              </p>
-              <p className="text-sm sm:text-xs text-neutral-500 font-medium font-sans mt-0.5">
-                {getCompactDateLocation()}
               </p>
             </div>
 
@@ -725,7 +710,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                   <h2 className="text-base font-bold text-ink">
                     Thông tin đại biểu
                   </h2>
-                  <span className="shrink-0 text-[11px] font-mono font-bold text-brand-primary uppercase tracking-wider">
+                  <span className="shrink-0 text-sm font-sans font-bold text-brand-primary uppercase tracking-wider" style={{ fontFamily: '"Inter Variable", Arial, sans-serif' }}>
                     Bước 1/{currentUser ? '4' : '5'}
                   </span>
                 </div>
@@ -750,7 +735,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                 <div className="space-y-3.5">
                   {/* Họ và tên * */}
                   <div>
-                    <label htmlFor="reg-mobile-fullname" className="text-xs font-semibold text-neutral-800 block mb-1">
+                    <label htmlFor="reg-mobile-fullname" className="text-sm font-semibold text-neutral-800 block mb-1">
                       Họ và tên đại biểu *
                     </label>
                     <input
@@ -769,7 +754,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
 
                   {/* Email nhận vé & thông báo */}
                   <div>
-                    <label htmlFor="reg-mobile-email" className="text-xs font-semibold text-neutral-800 block mb-1">
+                    <label htmlFor="reg-mobile-email" className="text-sm font-semibold text-neutral-800 block mb-1">
                       Email nhận vé & thông báo
                     </label>
                     <input
@@ -787,7 +772,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
 
                   {/* Số điện thoại * */}
                   <div>
-                    <label htmlFor="reg-mobile-phone" className="text-xs font-semibold text-neutral-800 block mb-1">
+                    <label htmlFor="reg-mobile-phone" className="text-sm font-semibold text-neutral-800 block mb-1">
                       Số điện thoại liên hệ *
                     </label>
                     <input
@@ -806,7 +791,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
 
                   {/* Chức danh / Vai trò * */}
                   <div>
-                    <label htmlFor="reg-mobile-jobtitle" className="text-xs font-semibold text-neutral-800 block mb-1">
+                    <label htmlFor="reg-mobile-jobtitle" className="text-sm font-semibold text-neutral-800 block mb-1">
                       Chức danh / Vai trò *
                     </label>
                     <select
@@ -853,7 +838,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
             {currentStep === 2 && (
               <div className="space-y-4">
                 <div className="border-b border-hairline pb-2.5">
-                  <span className="text-[11px] font-mono font-bold text-brand-primary uppercase tracking-wider block">
+                  <span className="text-sm font-sans font-bold text-brand-primary uppercase tracking-wider block" style={{ fontFamily: '"Inter Variable", Arial, sans-serif' }}>
                     Bước 2/{currentUser ? '4' : '5'}
                   </span>
                   <h2 className="text-base font-bold text-ink">
@@ -864,7 +849,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                 <div className="space-y-3.5">
                   {/* Tên doanh nghiệp * */}
                   <div>
-                    <label htmlFor="reg-mobile-company" className="text-xs font-semibold text-neutral-800 block mb-1">
+                    <label htmlFor="reg-mobile-company" className="text-sm font-semibold text-neutral-800 block mb-1">
                       Tên doanh nghiệp / Tổ chức *
                     </label>
                     <input
@@ -883,7 +868,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
 
                   {/* Lĩnh vực hoạt động * */}
                   <div>
-                    <label htmlFor="reg-mobile-industry" className="text-xs font-semibold text-neutral-800 block mb-1">
+                    <label htmlFor="reg-mobile-industry" className="text-sm font-semibold text-neutral-800 block mb-1">
                       Lĩnh vực hoạt động / Ngành nghề *
                     </label>
                     <select
@@ -911,7 +896,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
 
                   {/* Quy mô nhân sự * */}
                   <div>
-                    <label htmlFor="reg-mobile-companysize" className="text-xs font-semibold text-neutral-800 block mb-1">
+                    <label htmlFor="reg-mobile-companysize" className="text-sm font-semibold text-neutral-800 block mb-1">
                       Quy mô nhân sự *
                     </label>
                     <select
@@ -942,7 +927,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
             {currentStep === 3 && (
               <div className="space-y-4">
                 <div className="border-b border-hairline pb-2.5">
-                  <span className="text-[11px] font-mono font-bold text-brand-primary uppercase tracking-wider block">
+                  <span className="text-sm font-sans font-bold text-brand-primary uppercase tracking-wider block" style={{ fontFamily: '"Inter Variable", Arial, sans-serif' }}>
                     Bước 3/{currentUser ? '4' : '5'}
                   </span>
                   <h2 className="text-base font-bold text-ink">
@@ -952,7 +937,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
 
                 <div className="space-y-3.5">
                   <div>
-                    <label className="text-xs font-semibold text-neutral-800 block mb-1">
+                    <label className="text-sm font-semibold text-neutral-800 block mb-1">
                       Hoạt động quan tâm (Chọn ít nhất 1) *
                     </label>
                     <p className="text-[11px] text-neutral-500 mb-2">
@@ -971,7 +956,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                           <div
                             key={act.id}
                             onClick={() => toggleInterestedActivity(act.id)}
-                            className={`p-3 rounded-xl border text-xs cursor-pointer transition-all flex items-start gap-3 min-h-[48px] ${
+                            className={`p-3 rounded-xl border text-sm cursor-pointer transition-all flex items-start gap-3 min-h-[48px] ${
                               isChecked
                                 ? 'border-brand-primary bg-red-50/70 text-ink shadow-2xs'
                                 : 'border-neutral-200 bg-white text-neutral-700 hover:border-neutral-300'
@@ -1005,14 +990,14 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
 
                   {/* Nguồn tiếp cận (Secondary & Optional) */}
                   <div className="pt-1">
-                    <label htmlFor="reg-mobile-leadsource" className="text-xs font-semibold text-neutral-800 block mb-1">
+                    <label htmlFor="reg-mobile-leadsource" className="text-sm font-semibold text-neutral-800 block mb-1">
                       Nguồn biết đến VCF (Tùy chọn)
                     </label>
                     <select
                       id="reg-mobile-leadsource"
                       value={formData.leadSource}
                       onChange={(e) => handleFieldChange('leadSource', e.target.value)}
-                      className="w-full min-h-[44px] px-3.5 py-2.5 text-xs sm:text-sm border border-neutral-300 rounded-xl bg-white focus:outline-none focus:border-brand-primary text-neutral-700"
+                      className="w-full min-h-[44px] px-3.5 py-2.5 text-sm border border-neutral-300 rounded-xl bg-white focus:outline-none focus:border-brand-primary text-neutral-700"
                     >
                       <option value="Giới thiệu từ Hội viên VCF">Giới thiệu từ Hội viên VCF</option>
                       <option value="Báo chí truyền thông (VnExpress, Cafef, Forbes...)">Báo chí truyền thông</option>
@@ -1032,7 +1017,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
             {currentStep === 4 && (
               <div className="space-y-4">
                 <div className="border-b border-hairline pb-2.5">
-                  <span className="text-[11px] font-mono font-bold text-brand-primary uppercase tracking-wider block">
+                  <span className="text-sm font-sans font-bold text-brand-primary uppercase tracking-wider block" style={{ fontFamily: '"Inter Variable", Arial, sans-serif' }}>
                     Bước 4/{currentUser ? '4' : '5'}
                   </span>
                   <h2 className="text-base font-bold text-ink">
@@ -1043,7 +1028,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                 <div className="space-y-3.5">
                   {/* Thách thức lớn nhất * */}
                   <div>
-                    <label htmlFor="reg-mobile-painpoints" className="text-xs font-semibold text-neutral-800 block mb-1">
+                    <label htmlFor="reg-mobile-painpoints" className="text-sm font-semibold text-neutral-800 block mb-1">
                       Thách thức lớn nhất của doanh nghiệp *
                     </label>
                     <textarea
@@ -1069,7 +1054,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                   {/* Câu hỏi cho Diễn giả / Mentor (Không bắt buộc) */}
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <label htmlFor="reg-mobile-mentorquestion" className="text-xs font-semibold text-neutral-800 block">
+                      <label htmlFor="reg-mobile-mentorquestion" className="text-sm font-semibold text-neutral-800 block">
                         Câu hỏi cho Diễn giả / Mentor
                       </label>
                       <span className="text-[11px] text-neutral-500 font-medium">
@@ -1092,7 +1077,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
 
                   {/* Consent Clean copy */}
                   <div className="pt-2 border-t border-hairline">
-                    <label className="flex items-start gap-2.5 text-xs text-neutral-700 cursor-pointer select-none">
+                    <label className="flex items-start gap-2.5 text-sm text-neutral-700 cursor-pointer select-none">
                       <input
                         type="checkbox"
                         checked={formData.agreedToTerms}
@@ -1130,7 +1115,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
 
                   {/* Save to Profile (Member only, Secondary) */}
                   {currentUser && (
-                    <div className="p-3 rounded-xl bg-neutral-50 border border-neutral-200/80 text-xs">
+                    <div className="p-3 rounded-xl bg-neutral-50 border border-neutral-200/80 text-sm">
                       <label className="flex items-start gap-2 text-neutral-700 cursor-pointer select-none">
                         <input
                           type="checkbox"
@@ -1161,7 +1146,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                     <div className="size-5 rounded-full bg-red-100 text-brand-primary flex items-center justify-center">
                       <KeyRound className="size-3" />
                     </div>
-                    <span className="text-[11px] font-mono font-bold text-brand-primary uppercase tracking-wider block">
+                  <span className="text-sm font-sans font-bold text-brand-primary uppercase tracking-wider block" style={{ fontFamily: '"Inter Variable", Arial, sans-serif' }}>
                       Bước 5/5
                     </span>
                   </div>
@@ -1176,7 +1161,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                 <div className="space-y-3.5">
                   {/* Email nhận vé & đăng nhập */}
                   <div>
-                    <label htmlFor="reg-mobile-step5-email" className="text-xs font-semibold text-neutral-800 block mb-1">
+                    <label htmlFor="reg-mobile-step5-email" className="text-sm font-semibold text-neutral-800 block mb-1">
                       Email đăng nhập & nhận vé *
                     </label>
                     <input
@@ -1208,7 +1193,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
 
                   {/* Mật khẩu */}
                   <div>
-                    <label htmlFor="reg-mobile-password" className="text-xs font-semibold text-neutral-800 block mb-1">
+                    <label htmlFor="reg-mobile-password" className="text-sm font-semibold text-neutral-800 block mb-1">
                       {userExists ? 'Mật khẩu tài khoản *' : 'Mật khẩu mới (tối thiểu 6 ký tự) *'}
                     </label>
                     <div className="relative">
@@ -1259,7 +1244,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                   {/* Nhập lại mật khẩu (chỉ khi tạo tài khoản mới) */}
                   {!userExists && (
                     <div>
-                      <label htmlFor="reg-mobile-confirm-password" className="text-xs font-semibold text-neutral-800 block mb-1">
+                      <label htmlFor="reg-mobile-confirm-password" className="text-sm font-semibold text-neutral-800 block mb-1">
                         Xác nhận lại mật khẩu *
                       </label>
                       <div className="relative">
@@ -1511,7 +1496,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="w-full sm:w-auto sm:min-w-[200px] min-h-[46px] py-2.5 px-5 rounded-xl text-xs sm:text-sm font-bold text-white bg-brand-primary hover:bg-brand-primary-hover active:scale-[0.99] flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md"
+                  className="w-full sm:w-auto sm:min-w-[200px] min-h-[46px] py-2.5 px-5 rounded-xl text-base sm:text-base font-bold text-white bg-brand-primary hover:bg-brand-primary-hover active:scale-[0.99] flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md"
                 >
                   <span>Tiếp tục Bước {currentStep + 1}</span>
                   <ArrowRight className="size-4" />

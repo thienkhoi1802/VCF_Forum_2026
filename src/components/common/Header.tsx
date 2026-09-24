@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  ArrowRight,
   ChevronDown,
   ChevronRight,
   LogOut,
@@ -17,23 +18,32 @@ import { VcfLogo } from './VcfLogo';
 
 type MegaMenu = 'activities' | 'knowledge' | null;
 
+const SEARCH_QUICK_LINKS = [
+  'Tri thức lãnh đạo',
+  'Chuyển đổi số',
+  'Quản trị doanh nghiệp',
+  'CEO Summit',
+  'Cố vấn & Mentor'
+];
+
 export const Header: React.FC = () => {
   const { currentRoute, navigateTo, isLoggedIn, currentUser, logout, mobileMenuOpen, setMobileMenuOpen } = useApp();
   const [mobileActivitiesOpen, setMobileActivitiesOpen] = useState(false);
   const [mobileKnowledgeOpen, setMobileKnowledgeOpen] = useState(false);
   const [activeMegaMenu, setActiveMegaMenu] = useState<MegaMenu>(null);
-  const [searchModalOpen, setSearchModalOpen] = useState(false);
+  const [desktopSearchOpen, setDesktopSearchOpen] = useState(false);
   const [quickSearchText, setQuickSearchText] = useState('');
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
 
   useEffect(() => {
     setMobileMenuOpen(false);
     setActiveMegaMenu(null);
+    setDesktopSearchOpen(false);
     setUserDropdownOpen(false);
   }, [currentRoute]);
 
   useEffect(() => {
-    if (mobileMenuOpen) {
+    if (mobileMenuOpen || desktopSearchOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -41,12 +51,13 @@ export const Header: React.FC = () => {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [mobileMenuOpen]);
+  }, [desktopSearchOpen, mobileMenuOpen]);
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return;
-      setSearchModalOpen(false);
+      setDesktopSearchOpen(false);
+      setQuickSearchText('');
       setMobileMenuOpen(false);
       setActiveMegaMenu(null);
       setUserDropdownOpen(false);
@@ -72,9 +83,21 @@ export const Header: React.FC = () => {
     event.preventDefault();
     const query = quickSearchText.trim();
     if (!query) return;
-    setSearchModalOpen(false);
+    setDesktopSearchOpen(false);
+    setMobileMenuOpen(false);
     setQuickSearchText('');
     navigateTo('search', { searchQuery: query });
+  };
+
+  const openDesktopSearch = () => {
+    setActiveMegaMenu(null);
+    setUserDropdownOpen(false);
+    setDesktopSearchOpen(true);
+  };
+
+  const closeDesktopSearch = () => {
+    setDesktopSearchOpen(false);
+    setQuickSearchText('');
   };
 
   const isKnowledgeRoute = ['knowledge', 'knowledge-category', 'article-detail'].includes(currentRoute);
@@ -87,7 +110,7 @@ export const Header: React.FC = () => {
     }`;
 
   return (
-    <header className={mobileMenuOpen ? 'fixed top-0 inset-x-0 z-50 w-full' : (['event-detail', 'article-detail'].includes(currentRoute) ? 'relative z-40 w-full lg:sticky lg:top-0' : 'sticky top-0 z-40 w-full')}>
+    <header className={desktopSearchOpen ? 'sticky top-0 z-[70] w-full' : mobileMenuOpen ? 'fixed top-0 inset-x-0 z-50 w-full' : (['event-detail', 'article-detail'].includes(currentRoute) ? 'relative z-40 w-full lg:sticky lg:top-0' : 'sticky top-0 z-40 w-full')}>
       <div className={`border-b border-black/8 transition-colors ${mobileMenuOpen ? 'bg-white' : 'bg-white/88 backdrop-blur-xl'}`}>
         <div className="vcf-container flex h-16 lg:h-[55px] items-center justify-between gap-6">
           <button
@@ -212,14 +235,15 @@ export const Header: React.FC = () => {
           </nav>
 
           <div className="flex items-center gap-1 sm:gap-2">
-            {/* Desktop: Nút Search mở modal */}
+            {/* Desktop: Search panel mở rộng từ ngay dưới header */}
             <button
               type="button"
-              onClick={() => setSearchModalOpen(true)}
-              aria-label="Mở tìm kiếm"
-              className="hidden lg:flex size-11 items-center justify-center rounded-full text-ink-secondary hover:bg-parchment hover:text-ink transition-colors"
+              onClick={desktopSearchOpen ? closeDesktopSearch : openDesktopSearch}
+              aria-label={desktopSearchOpen ? 'Đóng tìm kiếm' : 'Mở tìm kiếm'}
+              aria-expanded={desktopSearchOpen}
+              className="hidden size-11 items-center justify-center rounded-full text-ink-secondary transition-colors hover:bg-parchment hover:text-ink lg:flex"
             >
-              <Search className="size-5" />
+              {desktopSearchOpen ? <X className="size-5" /> : <Search className="size-5" />}
             </button>
 
             {/* Mobile: Biểu tượng icon User thay thế nút search - Hỗ trợ cả 2 trạng thái Chưa login và Đã login */}
@@ -289,6 +313,56 @@ export const Header: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {desktopSearchOpen ? (
+        <>
+          <button
+            type="button"
+            aria-label="Đóng tìm kiếm"
+            onClick={closeDesktopSearch}
+            className="fixed inset-x-0 bottom-0 top-[55px] z-40 hidden cursor-default bg-black/45 backdrop-blur-md lg:block"
+          />
+          <section aria-label="Tìm kiếm bài viết" className="absolute inset-x-0 top-full z-50 hidden min-h-[38rem] bg-[#f5f5f7] shadow-[0_18px_30px_rgba(0,0,0,0.12)] lg:block motion-safe:animate-fadeIn">
+            <div className="vcf-container py-16 xl:py-20">
+              <form onSubmit={handleSearchSubmit} role="search" className="max-w-5xl">
+                <label htmlFor="desktop-header-search" className="sr-only">Tìm kiếm bài viết</label>
+                <div className="relative flex items-center">
+                  <Search className="pointer-events-none mr-5 size-8 shrink-0 text-neutral-600" aria-hidden="true" />
+                  <input
+                    id="desktop-header-search"
+                    autoFocus
+                    type="search"
+                    value={quickSearchText}
+                    onChange={(event) => setQuickSearchText(event.target.value)}
+                    placeholder="Tìm kiếm bài viết"
+                    className="min-w-0 flex-1 bg-transparent py-2 text-[40px] font-semibold leading-tight tracking-tight text-ink placeholder:text-neutral-500 focus:outline-none"
+                  />
+                </div>
+              </form>
+
+              <div className="mt-16 max-w-5xl">
+                <p className="text-lg font-medium text-neutral-500">Liên kết nhanh</p>
+                <div className="mt-5 flex flex-col items-start gap-3">
+                  {SEARCH_QUICK_LINKS.map((link) => (
+                    <button
+                      key={link}
+                      type="button"
+                      onClick={() => {
+                        closeDesktopSearch();
+                        navigateTo('search', { searchQuery: link });
+                      }}
+                      className="flex min-h-10 items-center gap-3 text-left text-sm font-semibold text-ink transition-colors hover:text-brand-primary"
+                    >
+                      <ArrowRight className="size-5 text-neutral-500" aria-hidden="true" />
+                      <span>{link}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        </>
+      ) : null}
 
       {mobileMenuOpen ? (
         <div className="fixed inset-x-0 bottom-0 top-16 z-50 overflow-y-auto bg-white px-6 py-5 lg:hidden shadow-2xl">
@@ -476,24 +550,6 @@ export const Header: React.FC = () => {
         </div>
       ) : null}
 
-      {searchModalOpen ? (
-        <div className="fixed inset-0 z-[60] flex items-start justify-center bg-black/55 px-4 pt-24 backdrop-blur-sm" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) setSearchModalOpen(false); }}>
-          <div role="dialog" aria-modal="true" aria-labelledby="site-search-title" className="w-full max-w-2xl rounded-lg bg-white p-5 animate-fadeIn sm:p-7">
-            <div className="mb-5 flex items-center justify-between">
-              <h2 id="site-search-title" className="text-xl font-semibold text-ink">Tìm kiếm trên VCF</h2>
-              <button type="button" onClick={() => setSearchModalOpen(false)} aria-label="Đóng tìm kiếm" className="flex size-11 items-center justify-center rounded-full hover:bg-parchment"><X className="size-5" /></button>
-            </div>
-            <form onSubmit={handleSearchSubmit} role="search" className="space-y-4">
-              <label htmlFor="global-search" className="sr-only">Từ khóa tìm kiếm</label>
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 size-5 -translate-y-1/2 text-ink-secondary" />
-                <input id="global-search" autoFocus type="search" value={quickSearchText} onChange={(event) => setQuickSearchText(event.target.value)} placeholder="Sự kiện, bài viết, hoạt động..." className="vcf-field h-14 rounded-full pl-12 pr-5 text-base" />
-              </div>
-              <div className="flex justify-end"><CustomButton type="submit">Tìm kiếm</CustomButton></div>
-            </form>
-          </div>
-        </div>
-      ) : null}
     </header>
   );
 };

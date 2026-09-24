@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 64" role="img" aria-labelledby="title">
+  <title>FPT</title>
+  <path fill="#F37021" d="M10 8h18L16 56H0z"/><path fill="#0054A5" d="M32 8h18L38 56H22z"/><path fill="#00A850" d="M54 8h18L60 56H44z"/>
+  <text x="86" y="45" fill="#0054A5" font-family="Arial,sans-serif" font-size="34" font-weight="800" font-style="italic">FPT</text>
+</svg>
