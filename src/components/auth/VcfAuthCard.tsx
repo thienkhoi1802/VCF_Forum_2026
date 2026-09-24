@@ -19,7 +19,6 @@ import {
   recordOtpAttempt,
   clearStoredOtp
 } from '../../utils/authService';
-import { VcfLogo } from '../common/VcfLogo';
 
 interface VcfAuthCardProps {
   initialMode?: 'login' | 'register';
@@ -497,15 +496,10 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
       className={`w-full max-w-[480px] bg-white border border-neutral-200 p-4 sm:p-7 md:p-9 shadow-sm rounded-none font-sans text-neutral-900 ${className}`}
       aria-live="polite"
     >
-      {/* 1. VCF Brand Mark */}
-      <div className="flex items-center justify-center mb-3 sm:mb-4">
-        <VcfLogo height={42} />
-      </div>
-
       {/* 2. Card Header */}
       <div className="text-center mb-3 sm:mb-5">
         <h1 className="text-xl sm:text-2xl md:text-[25px] font-bold text-neutral-900 tracking-tight leading-snug">
-          {cardMode === 'login' && 'Đăng nhập Hội viên'}
+          {cardMode === 'login' && 'Đăng nhập'}
           {cardMode === 'register' && 'Đăng ký Hội viên'}
           {cardMode === 'forgot-password' && 'Khôi phục mật khẩu'}
         </h1>
@@ -575,7 +569,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
             <form onSubmit={handleForgotPasswordSubmit} className="space-y-3 sm:space-y-4">
               <div>
                 <label htmlFor="forgot-email" className="block text-xs font-semibold text-neutral-800 mb-1">
-                  Email công tác
+                  Địa chỉ Email
                 </label>
                 <input
                   id="forgot-email"
@@ -585,7 +579,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                     setEmail(e.target.value);
                     if (fieldErrors.email) setFieldErrors({});
                   }}
-                  placeholder="ten@doanhnghiep.vn"
+                  placeholder="Email@gmail.com"
                   className={`w-full h-10 sm:h-12 px-3 border text-xs sm:text-sm text-neutral-900 rounded-none focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 ${
                     fieldErrors.email ? 'border-red-500 bg-red-50/20' : 'border-neutral-300'
                   }`}
@@ -636,13 +630,12 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
       {cardMode !== 'forgot-password' && (
         <>
           {/* Social Buttons: Google & Facebook */}
-          {/* NOTE: "Tiếp tục với Facebook" strictly on 1 single line with whitespace-nowrap and overflow protection */}
-          <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-2.5 sm:mb-4">
+          <div className="flex flex-col gap-2 sm:gap-3 mb-2.5 sm:mb-4">
             <button
               type="button"
               onClick={() => handleSocialAction('google')}
               disabled={isLoading}
-              className="h-10 sm:h-11 px-1.5 sm:px-3 border border-neutral-300 bg-white hover:bg-neutral-50 flex items-center justify-center gap-1.5 sm:gap-2 rounded-none text-[12px] sm:text-[13px] md:text-sm font-medium text-neutral-800 transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 whitespace-nowrap min-w-0"
+              className="w-full h-10 sm:h-11 px-1.5 sm:px-3 border border-neutral-300 bg-white hover:bg-neutral-50 flex items-center justify-center gap-1.5 sm:gap-2 rounded-none text-sm sm:text-[15px] md:text-base font-medium text-neutral-800 transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 whitespace-nowrap min-w-0"
             >
               {socialLoadingProvider === 'google' ? (
                 <Loader2 className="w-4 h-4 animate-spin text-neutral-600 shrink-0" />
@@ -661,7 +654,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
               type="button"
               onClick={() => handleSocialAction('facebook')}
               disabled={isLoading}
-              className="h-10 sm:h-11 px-1.5 sm:px-3 border border-neutral-300 bg-white hover:bg-neutral-50 flex items-center justify-center gap-1.5 sm:gap-2 rounded-none text-[12px] sm:text-[13px] md:text-sm font-medium text-neutral-800 transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 whitespace-nowrap min-w-0"
+              className="w-full h-10 sm:h-11 px-1.5 sm:px-3 border border-neutral-300 bg-white hover:bg-neutral-50 flex items-center justify-center gap-1.5 sm:gap-2 rounded-none text-sm sm:text-[15px] md:text-base font-medium text-neutral-800 transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 whitespace-nowrap min-w-0"
             >
               {socialLoadingProvider === 'facebook' ? (
                 <Loader2 className="w-4 h-4 animate-spin text-neutral-600 shrink-0" />
@@ -724,7 +717,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
             <form onSubmit={handlePasswordLogin} className="space-y-2.5 sm:space-y-3.5" noValidate>
               <div>
                 <label htmlFor="login-email" className="block text-xs font-semibold text-neutral-800 mb-1">
-                  Email công tác
+                  Địa chỉ Email
                 </label>
                 <input
                   id="login-email"
@@ -734,7 +727,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                     setEmail(e.target.value);
                     if (fieldErrors.email) setFieldErrors(prev => ({ ...prev, email: '' }));
                   }}
-                  placeholder="ten@doanhnghiep.vn"
+                  placeholder="Email@gmail.com"
                   className={`w-full h-10 sm:h-11 px-3 border text-xs sm:text-sm text-neutral-900 rounded-none focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 ${
                     fieldErrors.email ? 'border-red-500 bg-red-50/20' : 'border-neutral-300'
                   }`}
@@ -809,7 +802,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                 )}
               </button>
 
-              <div className="pt-1.5 text-center text-xs text-neutral-600">
+              <div className="pt-1.5 text-center text-[14pt] text-neutral-600">
                 Chưa có tài khoản?{' '}
                 <button
                   type="button"
@@ -817,7 +810,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                     setCardMode('register');
                     setErrorMessage('');
                   }}
-                  className="text-[#AB071E] font-bold hover:underline cursor-pointer"
+                  className="text-[14pt] text-[#AB071E] font-bold hover:underline cursor-pointer"
                 >
                   Đăng ký thành viên
                 </button>
@@ -838,7 +831,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                 <form onSubmit={handleSendOtp} className="space-y-2.5 sm:space-y-3.5" noValidate>
                   <div>
                     <label htmlFor="otp-email" className="block text-xs font-semibold text-neutral-800 mb-1">
-                      Email công tác
+                      Địa chỉ Email
                     </label>
                     <input
                       id="otp-email"
@@ -848,7 +841,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                         setEmail(e.target.value);
                         if (fieldErrors.email) setFieldErrors({});
                       }}
-                      placeholder="ten@doanhnghiep.vn"
+                      placeholder="Email@gmail.com"
                       className={`w-full h-10 sm:h-11 px-3 border text-xs sm:text-sm text-neutral-900 rounded-none focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 ${
                         fieldErrors.email ? 'border-red-500 bg-red-50/20' : 'border-neutral-300'
                       }`}
@@ -860,7 +853,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                       </p>
                     )}
                     <p className="text-[11px] text-neutral-500 mt-1 leading-relaxed">
-                      Nhập email công tác của Hội viên đã đăng ký để nhận mã OTP dùng 1 lần.
+                      Nhập Email đã đăng ký thành viên để nhận mã OTP đăng nhập nhanh
                     </p>
                   </div>
 
@@ -879,7 +872,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                     )}
                   </button>
 
-                  <div className="pt-1.5 text-center text-xs text-neutral-600">
+                  <div className="pt-1.5 text-center text-[14pt] text-neutral-600">
                     Chưa có tài khoản?{' '}
                     <button
                       type="button"
@@ -887,7 +880,7 @@ export const VcfAuthCard: React.FC<VcfAuthCardProps> = ({
                         setCardMode('register');
                         setErrorMessage('');
                       }}
-                      className="text-[#AB071E] font-bold hover:underline cursor-pointer"
+                      className="text-[14pt] text-[#AB071E] font-bold hover:underline cursor-pointer"
                     >
                       Đăng ký thành viên
                     </button>

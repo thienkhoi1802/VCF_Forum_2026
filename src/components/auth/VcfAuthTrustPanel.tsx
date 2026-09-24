@@ -1,14 +1,8 @@
 import React from 'react';
-import { VcfLogo } from '../common/VcfLogo';
 
 export const VcfAuthTrustPanel: React.FC = () => {
   return (
     <div className="flex flex-col justify-start max-w-xl">
-      {/* Official VCF Logo */}
-      <div className="mb-6">
-        <VcfLogo height={48} />
-      </div>
-
       {/* Main Heading */}
       <h1 className="text-3xl sm:text-4xl lg:text-[40px] font-bold text-neutral-900 tracking-tight leading-tight">
         Cổng Hội viên VCF
