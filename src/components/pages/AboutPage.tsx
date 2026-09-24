@@ -118,8 +118,8 @@ export const AboutPage: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="border border-hairline p-6 bg-white rounded-lg shadow-xs space-y-3">
-            <div className="h-8 flex items-center">
-              <img src="/images/partners/ptit-logo.png" alt="Logo PTIT" className="h-8 w-auto object-contain" />
+            <div className="h-12 flex items-center">
+              <img src="/images/partners/ptit-logo.png" alt="Logo PTIT" className="h-12 w-auto object-contain" />
             </div>
             <h3 className="font-semibold text-lg text-ink">Học viện Bưu Chính Viễn Thông</h3>
             <p className="text-sm text-ink-secondary leading-relaxed font-sans">
@@ -128,8 +128,8 @@ export const AboutPage: React.FC = () => {
           </div>
 
           <div className="border border-hairline p-6 bg-white rounded-lg shadow-xs space-y-3">
-            <div className="h-8 flex items-center">
-              <img src="/images/partners/vlgm-logo.png" alt="Logo Viện lãnh đạo và Quản trị LGM" className="h-8 w-auto object-contain" />
+            <div className="h-12 flex items-center">
+              <img src="/images/partners/vlgm-logo.png" alt="Logo Viện lãnh đạo và Quản trị LGM" className="h-12 w-auto object-contain" />
             </div>
             <h3 className="font-semibold text-lg text-ink">Viện lãnh đạo & Quản trị LGM</h3>
             <p className="text-sm text-ink-secondary leading-relaxed font-sans">
@@ -138,8 +138,8 @@ export const AboutPage: React.FC = () => {
           </div>
 
           <div className="border border-hairline p-6 bg-white rounded-lg shadow-xs space-y-3">
-            <div className="h-8 flex items-center">
-              <img src="/images/partners/vnexpress-logo.png" alt="Logo VnExpress" className="h-8 w-auto object-contain" />
+            <div className="h-12 flex items-center">
+              <img src="/images/partners/vnexpress-logo.png" alt="Logo VnExpress" className="h-12 w-auto object-contain" />
             </div>
             <h3 className="font-semibold text-lg text-ink">Báo điện tử VnExpress</h3>
             <p className="text-sm text-ink-secondary leading-relaxed font-sans">
@@ -152,13 +152,13 @@ export const AboutPage: React.FC = () => {
       </div>
 
     {/* CTA Bottom */}
-    <section className="vcf-section bg-surface-dark text-white">
+    <section className="vcf-section mt-16 md:mt-[120px] bg-surface-dark text-white">
       <div className="vcf-container flex flex-col md:flex-row items-center justify-between gap-10">
         <div className="space-y-3 max-w-2xl">
           <h3 className="text-3xl sm:text-4xl font-semibold tracking-[-0.03em] text-white">
             Đồng hành cùng diễn đàn CEO Việt Nam
           </h3>
-          <p className="text-base text-white/68 leading-relaxed">
+          <p className="text-lg text-white/68 leading-relaxed">
             Đăng ký để trở thành hội viên chính thức hoặc tham gia ban cố vấn chuyên môn của Diễn đàn.
           </p>
         </div>
@@ -168,7 +168,7 @@ export const AboutPage: React.FC = () => {
             variant="primary"
             size="lg"
             onClick={() => navigateTo(isLoggedIn ? 'profile' : 'register-member')}
-            className="bg-brand-primary text-white hover:bg-brand-primary-hover"
+            className="min-h-16 text-base bg-brand-primary text-white hover:bg-brand-primary-hover"
           >
             {isLoggedIn ? 'Xem Hồ Sơ Hội Viên' : 'Đăng Ký Thành Viên VCF'}
           </CustomButton>
