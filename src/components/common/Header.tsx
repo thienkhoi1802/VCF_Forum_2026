@@ -17,8 +17,7 @@ import { CustomButton } from './CustomButton';
 type MegaMenu = 'activities' | 'knowledge' | null;
 
 export const Header: React.FC = () => {
-  const { currentRoute, navigateTo, isLoggedIn, currentUser, logout } = useApp();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { currentRoute, navigateTo, isLoggedIn, currentUser, logout, mobileMenuOpen, setMobileMenuOpen } = useApp();
   const [mobileActivitiesOpen, setMobileActivitiesOpen] = useState(false);
   const [mobileKnowledgeOpen, setMobileKnowledgeOpen] = useState(false);
   const [activeMegaMenu, setActiveMegaMenu] = useState<MegaMenu>(null);
@@ -87,7 +86,7 @@ export const Header: React.FC = () => {
     }`;
 
   return (
-    <header className={mobileMenuOpen ? 'fixed top-0 inset-x-0 z-50 w-full' : (currentRoute === 'event-detail' ? 'relative z-40 w-full' : 'sticky top-0 z-40 w-full')}>
+    <header className={mobileMenuOpen ? 'fixed top-0 inset-x-0 z-50 w-full' : (['event-detail', 'article-detail'].includes(currentRoute) ? 'relative z-40 w-full' : 'sticky top-0 z-40 w-full')}>
       <div className={`border-b border-black/8 transition-colors ${mobileMenuOpen ? 'bg-white' : 'bg-white/88 backdrop-blur-xl'}`}>
         <div className="vcf-container flex h-16 items-center justify-between gap-6">
           <button
@@ -133,21 +132,48 @@ export const Header: React.FC = () => {
                 <ChevronDown className={`size-3.5 transition-transform ${activeMegaMenu === 'knowledge' ? 'rotate-180' : ''}`} />
               </button>
               {activeMegaMenu === 'knowledge' ? (
-                <div id="knowledge-menu" className="absolute left-0 top-full w-[420px] rounded-lg border border-hairline bg-white p-3 animate-fadeIn">
-                  <p className="px-3 pb-2 pt-1 text-xs font-medium text-ink-secondary">Kho tri thức lãnh đạo và quản trị</p>
+                <div id="knowledge-menu" className="absolute left-0 top-full w-[400px] rounded-none border border-neutral-200 bg-white p-3 shadow-lg animate-fadeIn z-50">
+                  <div className="flex items-center justify-between px-3 pb-2 pt-1 border-b border-neutral-100 mb-1">
+                    <p className="text-xs font-semibold text-neutral-500">Kho tri thức lãnh đạo và quản trị</p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveMegaMenu(null);
+                        navigateTo('knowledge', { category: 'all' });
+                      }}
+                      className="text-xs font-semibold text-[#E31309] hover:underline cursor-pointer"
+                    >
+                      Xem tất cả →
+                    </button>
+                  </div>
                   {[
-                    ['hung-bt', 'Tác giả BT. Nguyễn Mạnh Hùng', 'Triết lý lãnh đạo, văn hóa và tầm nhìn'],
-                    ['other-authors', 'Góc nhìn chuyên gia', 'Kinh tế, quản trị, pháp lý và thị trường'],
-                    ['derived-knowledge', 'Tri thức phái sinh', 'Case study, sách và nghiên cứu ứng dụng'],
-                  ].map(([category, title, description]) => (
+                    {
+                      category: 'hung-bt' as const,
+                      title: 'Tác giả BT. Nguyễn Mạnh Hùng',
+                      description: 'Triết lý lãnh đạo, văn hóa và tầm nhìn',
+                    },
+                    {
+                      category: 'other-authors' as const,
+                      title: 'Góc nhìn chuyên gia',
+                      description: 'Kinh tế, quản trị, pháp lý và thị trường',
+                    },
+                    {
+                      category: 'derived-knowledge' as const,
+                      title: 'Tri thức phái sinh',
+                      description: 'Case study, sách và nghiên cứu ứng dụng',
+                    },
+                  ].map(({ category, title, description }) => (
                     <button
                       key={category}
                       type="button"
-                      onClick={() => navigateTo('knowledge-category', { category: category as KnowledgeCategoryType })}
-                      className="block w-full rounded-md px-3 py-3 text-left hover:bg-parchment"
+                      onClick={() => {
+                        setActiveMegaMenu(null);
+                        navigateTo('knowledge', { category });
+                      }}
+                      className="block w-full rounded-none px-3 py-3 text-left hover:bg-neutral-50 group cursor-pointer transition-colors border-b border-neutral-100 last:border-b-0"
                     >
-                      <span className="block text-sm font-medium text-ink">{title}</span>
-                      <span className="mt-0.5 block text-xs text-ink-secondary">{description}</span>
+                      <span className="block text-sm font-semibold text-neutral-900 group-hover:text-[#E31309] transition-colors">{title}</span>
+                      <span className="mt-0.5 block text-xs text-neutral-500">{description}</span>
                     </button>
                   ))}
                 </div>
@@ -400,36 +426,23 @@ export const Header: React.FC = () => {
               </div>
               {mobileKnowledgeOpen ? (
                 <div className="mb-4 space-y-1 border-l-2 border-brand-primary pl-4">
-                  <button 
-                    type="button" 
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      navigateTo('knowledge-category', { category: 'hung-bt' });
-                    }} 
-                    className="block min-h-11 w-full text-left text-sm text-neutral-700 hover:text-brand-primary"
-                  >
-                    Tác giả BT. Nguyễn Mạnh Hùng
-                  </button>
-                  <button 
-                    type="button" 
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      navigateTo('knowledge-category', { category: 'other-authors' });
-                    }} 
-                    className="block min-h-11 w-full text-left text-sm text-neutral-700 hover:text-brand-primary"
-                  >
-                    Góc nhìn chuyên gia
-                  </button>
-                  <button 
-                    type="button" 
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      navigateTo('knowledge-category', { category: 'derived-knowledge' });
-                    }} 
-                    className="block min-h-11 w-full text-left text-sm text-neutral-700 hover:text-brand-primary"
-                  >
-                    Tri thức phái sinh
-                  </button>
+                  {[
+                    { category: 'hung-bt' as const, title: 'Tác giả BT. Nguyễn Mạnh Hùng' },
+                    { category: 'other-authors' as const, title: 'Góc nhìn chuyên gia' },
+                    { category: 'derived-knowledge' as const, title: 'Tri thức phái sinh' },
+                  ].map(({ category, title }) => (
+                    <button
+                      key={category}
+                      type="button"
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        navigateTo('knowledge', { category });
+                      }}
+                      className="block min-h-10 w-full text-left text-sm text-neutral-800 hover:text-brand-primary font-medium py-1.5"
+                    >
+                      {title}
+                    </button>
+                  ))}
                 </div>
               ) : null}
             </div>

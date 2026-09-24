@@ -1458,24 +1458,19 @@ export const EventDetailPage: React.FC = () => {
 
               {/* Direct venue layout */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
-                <div className="flex items-start gap-3.5">
-                  <div className="size-11 rounded-xl bg-red-50 text-brand-primary flex items-center justify-center shrink-0 mt-0.5">
-                    <Building className="w-5 h-5" />
+                <div>
+                  <div className="font-bold text-lg sm:text-xl text-ink">
+                    {event.venueDetails?.hall || event.location}
                   </div>
-                  <div>
-                    <div className="font-bold text-lg sm:text-xl text-ink">
-                      {event.venueDetails?.hall || event.location}
-                    </div>
-                    <div className="text-base text-neutral-700 mt-1 leading-relaxed">
-                      {event.venueDetails?.address || event.location}
-                    </div>
-                    {event.venueDetails?.notes && (
-                      <div className="text-sm text-neutral-600 mt-1.5 flex items-center gap-1.5">
-                        <span className="inline-block size-1.5 rounded-full bg-neutral-400" />
-                        <span>{event.venueDetails.notes}</span>
-                      </div>
-                    )}
+                  <div className="text-base text-neutral-700 mt-1 leading-relaxed">
+                    {event.venueDetails?.address || event.location}
                   </div>
+                  {event.venueDetails?.notes && (
+                    <div className="text-sm text-neutral-600 mt-1.5 flex items-center gap-1.5">
+                      <span className="inline-block size-1.5 rounded-full bg-neutral-400" />
+                      <span>{event.venueDetails.notes}</span>
+                    </div>
+                  )}
                 </div>
 
                 <a

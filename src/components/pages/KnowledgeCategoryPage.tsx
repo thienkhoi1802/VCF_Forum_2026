@@ -27,7 +27,7 @@ export const KnowledgeCategoryPage: React.FC = () => {
         };
       case 'other-authors':
         return {
-          title: 'Bài viết của các tác giả khác',
+          title: 'Góc nhìn chuyên gia',
           desc: 'Tuyển tập các góc nhìn, phân tích quản trị công ty, tài chính vĩ mô từ các chuyên gia hàng đầu.',
           code: 'Thư mục 2 / 3'
         };
@@ -83,7 +83,7 @@ export const KnowledgeCategoryPage: React.FC = () => {
               onClick={() => navigateTo('knowledge-category', { category: 'other-authors' })}
               className={`px-3 py-1 text-xs rounded-full border transition-all duration-150 ${selectedKnowledgeCategory === 'other-authors' ? 'bg-brand-primary text-white border-brand-primary font-semibold' : 'bg-white text-neutral-700 border-hairline hover:bg-parchment'}`}
             >
-              Tác giả khác
+              Góc nhìn chuyên gia
             </button>
             <button
               onClick={() => navigateTo('knowledge-category', { category: 'derived-knowledge' })}

@@ -25,12 +25,15 @@ interface AppContextType {
     searchQuery?: string;
     eventId?: string;
     timingFilter?: 'all' | 'upcoming' | 'ongoing' | 'past';
+    subCategory?: string;
   }) => void;
   selectedActivityId: ActivityId;
   selectedArticleId: string;
   selectedProgramId: string;
   selectedKnowledgeCategory: KnowledgeTabType;
   setSelectedKnowledgeCategory: (cat: KnowledgeTabType) => void;
+  selectedKnowledgeSubCategory: string;
+  setSelectedKnowledgeSubCategory: (sub: string) => void;
   selectedEventId: string;
   setSelectedEventId: (id: string) => void;
   eventTimingFilter: 'all' | 'upcoming' | 'ongoing' | 'past';
@@ -113,6 +116,10 @@ interface AppContextType {
   notification: string | null;
   notificationMessage: string | null;
   showNotification: (msg: string) => void;
+
+  // Global Mobile Menu
+  mobileMenuOpen: boolean;
+  setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -123,6 +130,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [selectedArticleId, setSelectedArticleId] = useState<string>('article-hung-bt-01');
   const [selectedProgramId, setSelectedProgramId] = useState<string>('program-ceo-lgm-mastery');
   const [selectedKnowledgeCategory, setSelectedKnowledgeCategory] = useState<KnowledgeTabType>('all');
+  const [selectedKnowledgeSubCategory, setSelectedKnowledgeSubCategory] = useState<string>('all');
   const [selectedEventId, setSelectedEventId] = useState<string>('event-summit-2026');
   const [eventTimingFilter, setEventTimingFilter] = useState<'all' | 'upcoming' | 'ongoing' | 'past'>('all');
   const [searchFilter, setSearchFilter] = useState<SearchFilterState>({ query: '', category: 'all' });
@@ -147,6 +155,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [showSpecAnnotations, setShowSpecAnnotations] = useState<boolean>(false);
   const [viewportMode, setViewportMode] = useState<'desktop' | 'mobile'>('desktop');
   const [notification, setNotification] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   // Popup modal trạng thái hồ sơ sau khi đăng ký sự kiện thành công
   const [eventSuccessModal, setEventSuccessModal] = useState<{
@@ -196,6 +205,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       searchQuery?: string;
       eventId?: string;
       timingFilter?: 'all' | 'upcoming' | 'ongoing' | 'past';
+      subCategory?: string;
     }
   ) => {
     if (params?.activityId) setSelectedActivityId(params.activityId);
@@ -206,6 +216,11 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     } else if (route === 'knowledge') {
       setSelectedKnowledgeCategory('all');
     }
+    if (params?.subCategory !== undefined) {
+      setSelectedKnowledgeSubCategory(params.subCategory);
+    } else if (params?.category || route === 'knowledge') {
+      setSelectedKnowledgeSubCategory('all');
+    }
     if (params?.eventId) setSelectedEventId(params.eventId);
     if (params?.timingFilter) {
       setEventTimingFilter(params.timingFilter);
@@ -214,6 +229,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       setSearchFilter(prev => ({ ...prev, query: params.searchQuery || '' }));
     }
     
+    setMobileMenuOpen(false);
     setCurrentRoute(route);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -610,6 +626,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         selectedProgramId,
         selectedKnowledgeCategory,
         setSelectedKnowledgeCategory,
+        selectedKnowledgeSubCategory,
+        setSelectedKnowledgeSubCategory,
         selectedEventId,
         setSelectedEventId,
         eventTimingFilter,
@@ -660,7 +678,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         closeEventSuccessModal,
         notification,
         notificationMessage: notification,
-        showNotification
+        showNotification,
+        mobileMenuOpen,
+        setMobileMenuOpen
       }}
     >
       {children}
