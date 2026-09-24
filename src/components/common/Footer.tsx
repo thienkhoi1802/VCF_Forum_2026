@@ -148,7 +148,7 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 pt-7 text-xs leading-5 text-ink-secondary md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-4 border-t border-black/10 pt-6 text-xs leading-5 text-ink-secondary md:flex-row md:items-center md:justify-between">
           <p>© 2026 Diễn đàn CEO Việt Nam · VLGM & PTIT.</p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <span className="flex items-center gap-1.5"><ShieldCheck className="size-4 text-brand-primary" />Bảo vệ dữ liệu cá nhân</span>

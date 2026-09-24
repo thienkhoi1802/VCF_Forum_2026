@@ -48,15 +48,15 @@ export const HomePage: React.FC = () => {
 
   const getActivityIcon = (id: ActivityId) => {
     switch (id) {
-      case 'ceo-summit': return <Building2 className="w-5 h-5 text-brand-primary" />;
-      case 'ceo-forum': return <Users className="w-5 h-5 text-brand-primary" />;
-      case 'ceo-mentoring': return <Target className="w-5 h-5 text-brand-primary" />;
-      case 'ceo-peer-group': return <Users className="w-5 h-5 text-brand-primary" />;
-      case 'lgm-school': return <GraduationCap className="w-5 h-5 text-brand-primary" />;
-      case 'knowledge-publication': return <BookOpen className="w-5 h-5 text-brand-primary" />;
-      case 'website-app': return <Globe className="w-5 h-5 text-brand-primary" />;
-      case 'ceo-talk': return <Video className="w-5 h-5 text-brand-primary" />;
-      case 'ceo-club': return <Award className="w-5 h-5 text-brand-primary" />;
+      case 'ceo-summit': return <Building2 className="w-5 h-5" />;
+      case 'ceo-forum': return <Users className="w-5 h-5" />;
+      case 'ceo-mentoring': return <Target className="w-5 h-5" />;
+      case 'ceo-peer-group': return <Users className="w-5 h-5" />;
+      case 'lgm-school': return <GraduationCap className="w-5 h-5" />;
+      case 'knowledge-publication': return <BookOpen className="w-5 h-5" />;
+      case 'website-app': return <Globe className="w-5 h-5" />;
+      case 'ceo-talk': return <Video className="w-5 h-5" />;
+      case 'ceo-club': return <Award className="w-5 h-5" />;
       default: return <Sparkles className="w-5 h-5 text-brand-primary" />;
     }
   };
