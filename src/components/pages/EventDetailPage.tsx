@@ -452,7 +452,7 @@ export const EventDetailPage: React.FC = () => {
           const docHeight = document.documentElement.scrollHeight;
 
           const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
-          const lastTab = (!isPast && isMobile) ? 'tickets' : 'partners';
+          const lastTab = (!isPast && isMobile) ? 'tickets' : 'faq';
           // If scrolled near bottom of page, highlight the last section
           if (scrollY + windowHeight >= docHeight - 80) {
             setActiveTab(lastTab);
@@ -1704,7 +1704,7 @@ export const EventDetailPage: React.FC = () => {
                         )}
                       </div>
                       <div className="space-y-1 min-w-0 flex-1">
-                        <h4 className="text-base font-bold text-ink leading-tight group-hover:text-brand-primary transition-colors truncate">
+                        <h4 className="text-lg font-bold text-ink leading-tight group-hover:text-brand-primary transition-colors truncate">
                           {spk.name}
                         </h4>
                         <div className="text-sm text-neutral-600 font-medium leading-snug line-clamp-2">
@@ -1719,7 +1719,7 @@ export const EventDetailPage: React.FC = () => {
 
             {/* SECTION 4: ĐỊA ĐIỂM */}
             <section id="section-venue" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-4 scroll-mt-16 sm:scroll-mt-20">
-              <div>
+              <div className="-mb-4">
                 <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight">
                   Địa điểm tổ chức
                 </h2>
@@ -1790,7 +1790,7 @@ export const EventDetailPage: React.FC = () => {
                   <div key={index} className="py-3.5">
                     <button
                       onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
-                      className="w-full text-left flex items-center justify-between font-bold text-base text-ink hover:text-brand-primary transition-colors py-1 cursor-pointer"
+                      className="w-full text-left flex items-center justify-between font-bold text-lg text-ink hover:text-brand-primary transition-colors py-1 cursor-pointer"
                     >
                       <span className="flex items-center gap-2">
                         <HelpCircle className="w-4.5 h-4.5 text-neutral-400 shrink-0" />
@@ -1860,7 +1860,7 @@ export const EventDetailPage: React.FC = () => {
                     ? 'Sự kiện đã kín chỗ'
                     : 'Đăng Ký Tham Dự Sự Kiện'}
                 </h3>
-                <p className="text-sm lg:text-xs text-ink-secondary font-sans">
+                <p className="text-sm text-ink-secondary font-sans">
                   {isPast
                     ? `Sự kiện đã diễn ra vào ngày ${event.datetime}. Cổng đăng ký trực tuyến đã đóng.`
                     : isConfirmed
@@ -1949,10 +1949,10 @@ export const EventDetailPage: React.FC = () => {
                       <CheckCircle2 className="w-7 h-7" />
                     </div>
                     <div>
-                      <div className="font-semibold text-base text-emerald-950">
+                      <div className="font-semibold text-lg text-emerald-950">
                         Xác Nhận Giữ Chỗ Thành Công!
                       </div>
-                      <p className="text-xs text-emerald-800 font-sans leading-relaxed mt-1">
+                      <p className="text-sm text-emerald-800 font-sans leading-relaxed mt-1">
                         Ban Thư ký VCF đã phê duyệt tư cách tham dự. Thẻ đại biểu điện tử đã được ghi nhận vào hồ sơ và gửi về email: <strong>{formData.email || currentUser?.email}</strong>
                       </p>
                     </div>
@@ -1980,7 +1980,7 @@ export const EventDetailPage: React.FC = () => {
 
                       <button
                         onClick={() => alert('Đang tạo và tải Thẻ Đại Biểu PDF kèm mã QR Check-in chính thức...')}
-                        className="text-xs text-ink-secondary hover:text-ink font-semibold underline py-1 cursor-pointer"
+                        className="text-sm text-ink-secondary hover:text-ink font-semibold underline py-1 cursor-pointer"
                       >
                         Tải thẻ vé điện tử (PDF)
                       </button>
@@ -1988,7 +1988,7 @@ export const EventDetailPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => resetEventRegistration(event.id)}
-                        className="text-[11px] text-ink-secondary hover:text-red-600 pt-1 underline cursor-pointer"
+                        className="text-xs text-ink-secondary hover:text-red-600 pt-1 underline cursor-pointer"
                       >
                         Làm mới để thử lại luồng đăng ký
                       </button>

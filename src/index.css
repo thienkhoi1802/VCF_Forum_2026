@@ -337,6 +337,10 @@
     padding: 200px 1.25rem 1.5rem;
   }
 
+  .about-hero__copy {
+    padding-top: 110px;
+  }
+
   .about-hero__eyebrow {
     margin-bottom: 1rem;
     font-size: 0.6875rem;

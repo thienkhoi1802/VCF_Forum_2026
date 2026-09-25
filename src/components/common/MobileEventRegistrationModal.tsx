@@ -657,7 +657,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
 
                 <div className="pt-2 border-t border-black/8">
                   <span className="text-ink-secondary block mb-1">Thách thức chia sẻ:</span>
-                  <p className="text-[11px] text-neutral-700 italic bg-white/70 p-2.5 rounded-lg border border-hairline">
+                  <p className="text-[11px] text-neutral-700 bg-white/70 p-2.5 rounded-lg border border-hairline">
                     "{formData.businessPainPoints}"
                   </p>
                 </div>
@@ -1425,12 +1425,12 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                 </div>
                 <div>
                   <span className="text-ink-secondary">Vấn đề trọng tâm:</span>{' '}
-                  <span className="italic">"{formData.businessPainPoints}"</span>
+                  <span>"{formData.businessPainPoints}"</span>
                 </div>
                 {formData.questionForMentor && (
                   <div>
                     <span className="text-ink-secondary">Câu hỏi gửi Mentor:</span>{' '}
-                    <span className="italic">"{formData.questionForMentor}"</span>
+                    <span>"{formData.questionForMentor}"</span>
                   </div>
                 )}
               </div>

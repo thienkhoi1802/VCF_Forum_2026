@@ -255,7 +255,7 @@ export const Header: React.FC = () => {
                   aria-label="Mở hồ sơ hội viên"
                   className="flex size-11 items-center justify-center rounded-full hover:bg-parchment transition-colors"
                 >
-                  <span style={{ borderRadius: '50%' }} className="flex size-8 aspect-square items-center justify-center bg-brand-primary text-xs font-semibold text-white shadow-xs ring-2 ring-white overflow-hidden">
+                  <span className="member-avatar flex size-8 shrink-0 items-center justify-center rounded-full bg-brand-primary text-xs font-semibold text-white shadow-xs ring-2 ring-white overflow-hidden">
                     {currentUser?.fullName?.charAt(0) || 'U'}
                   </span>
                 </button>

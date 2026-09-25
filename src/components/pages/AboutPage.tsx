@@ -40,7 +40,7 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      <div className="vcf-container pt-14 pb-0 md:pt-20 space-y-16 font-sans">
+      <div className="vcf-container mx-6 mb-0.5 md:mx-auto pt-14 pb-0 md:pt-20 space-y-6 md:space-y-16 font-sans">
 
       {/* SECTION 1: TẦM NHÌN & SỨ MỆNH (2 Cột Xen Kẽ) */}
       <div id="about-vision" className="grid scroll-mt-20 grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -59,7 +59,7 @@ export const AboutPage: React.FC = () => {
             Trở thành biểu tượng của trí tuệ quản trị và năng lực lãnh đạo Việt Nam, nơi quy tụ và đồng hành cùng hơn 5.000 CEO, Chủ tịch tập đoàn hàng đầu dẫn dắt công cuộc chuyển đổi số, đổi mới sáng tạo và hội nhập kinh tế toàn cầu.
           </p>
 
-          <div className="p-5 bg-red-50/60 border-l-4 border-brand-primary rounded-r-lg text-base text-neutral-800 italic leading-relaxed">
+          <div className="p-5 bg-red-50/60 border-l-4 border-brand-primary rounded-r-lg text-base text-neutral-800 leading-relaxed">
             "Không có quốc gia hùng cường nếu thiếu vắng những tập đoàn kinh tế mạnh. Không có tập đoàn lớn mạnh nếu thiếu những người thuyền trưởng có tầm nhìn và triết lý phụng sự."
           </div>
         </div>
@@ -76,7 +76,7 @@ export const AboutPage: React.FC = () => {
       </div>
 
       {/* SECTION 2: SỨ MỆNH & ĐỊNH VỊ */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center border-t border-hairline pt-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center border-t border-hairline pt-6 md:pt-12">
         <div className="lg:col-span-6 order-2 lg:order-1">
           <WireframeImage
             label="[Ảnh: Không gian Học thuật & Nghiên cứu Trường phái LGM]"
@@ -121,7 +121,7 @@ export const AboutPage: React.FC = () => {
           <h2 className="text-2xl font-semibold text-ink">
             Đơn vị chủ trì & đối tác phát triển
           </h2>
-          <p className="text-xs text-ink-secondary font-medium">
+          <p className="text-base text-ink-secondary font-medium">
             Sự kết hợp giữa học thuật hàn lâm công nghệ viễn thông và triết lý quản trị tinh hoa
           </p>
         </div>
@@ -168,7 +168,7 @@ export const AboutPage: React.FC = () => {
           <h3 className="text-3xl sm:text-4xl font-semibold tracking-[-0.03em] text-white">
             Đồng hành cùng diễn đàn CEO Việt Nam
           </h3>
-          <p className="text-lg text-white/68 leading-relaxed">
+          <p className="text-base text-white/68 leading-relaxed">
             Đăng ký để trở thành hội viên chính thức hoặc tham gia ban cố vấn chuyên môn của Diễn đàn.
           </p>
         </div>

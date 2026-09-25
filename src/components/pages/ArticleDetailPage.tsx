@@ -394,7 +394,7 @@ export const ArticleDetailPage: React.FC = () => {
             }
             if (paragraph.startsWith('> ')) {
               return (
-                <blockquote key={index} className="my-7 pl-5 border-l-4 border-brand-primary italic text-neutral-800 bg-neutral-50/80 py-4 pr-4 text-[16px] sm:text-[17px] leading-relaxed">
+                <blockquote key={index} className="my-7 pl-5 border-l-4 border-brand-primary text-neutral-800 bg-neutral-50/80 py-4 pr-4 text-[16px] sm:text-[17px] leading-relaxed">
                   {paragraph.replace('> ', '')}
                 </blockquote>
               );
@@ -416,7 +416,7 @@ export const ArticleDetailPage: React.FC = () => {
           {/* Inset Quote Callout */}
           <div className="my-8 p-6 bg-red-50/60 border border-red-200 text-sm space-y-2 rounded-none">
             <div className="font-semibold text-brand-primary uppercase tracking-wider text-xs">TRÍCH ĐOẠN KHUYẾN NGHỊ QUẢN TRỊ LGM</div>
-            <p className="text-neutral-900 italic leading-relaxed font-medium text-base sm:text-[17px]">
+            <p className="text-neutral-900 leading-relaxed font-medium text-base sm:text-[17px]">
               "Lãnh đạo trong nghịch cảnh đòi hỏi sự bình tâm và định hướng rõ ràng. Một khi hệ thống quản trị đủ minh bạch, mọi mắt xích trong tổ chức sẽ tự động vận hành mà không cần sự can thiệp vi mô liên tục của người đứng đầu."
             </p>
           </div>

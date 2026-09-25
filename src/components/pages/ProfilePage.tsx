@@ -66,7 +66,7 @@ export const ProfilePage: React.FC = () => {
   };
 
   return (
-    <div className="vcf-container py-6 pb-24 space-y-8 font-sans">
+    <div className="vcf-container py-6 pb-24 space-y-5 md:space-y-8 font-sans">
       {showSpecAnnotations && (
         <div className="bg-neutral-100 border border-hairline p-2.5 rounded-lg text-xs font-mono flex items-center justify-between flex-wrap gap-2">
           <div className="flex items-center gap-2">
@@ -80,13 +80,13 @@ export const ProfilePage: React.FC = () => {
       )}
 
       {/* Member Header Card */}
-      <div className="bg-white p-4 sm:p-8 rounded-lg shadow-xs flex flex-col md:flex-row items-center text-center md:items-center md:text-left justify-between gap-5 sm:gap-6">
-        <div className="flex w-full min-w-0 flex-col items-center gap-3 text-center md:w-auto md:flex-row md:items-center md:gap-4 md:text-left">
-          <div className="member-avatar size-16 shrink-0 rounded-full bg-neutral-500 text-white flex items-center justify-center font-semibold text-xl font-mono shadow-xs md:bg-brand-primary">
-            {currentUser.fullName.split(' ').map(n => n[0]).slice(-2).join('')}
+      <div className="bg-white px-4 py-[9px] sm:px-8 sm:py-8 md:px-0 rounded-lg shadow-xs flex flex-col md:flex-row items-center text-center md:items-center md:text-left justify-between gap-5 sm:gap-6">
+        <div className="flex w-full min-w-0 flex-col items-center gap-2 text-center md:w-auto md:flex-row md:items-center md:gap-4 md:text-left">
+          <div className="member-avatar size-20 shrink-0 rounded-full bg-neutral-500 text-white flex items-center justify-center font-semibold text-xl font-mono shadow-xs md:bg-brand-primary">
+            {currentUser.fullName.trim().charAt(0) === 'Đ' ? 'D' : currentUser.fullName.trim().charAt(0).toUpperCase()}
           </div>
-          <div className="w-full min-w-0 space-y-1.5 md:flex-1">
-            <h1 className="break-words text-xl sm:text-2xl font-semibold leading-tight text-ink">
+          <div className="w-full min-w-0 space-y-1 md:flex-1">
+            <h1 className="break-words text-2xl font-semibold leading-tight text-ink">
               {currentUser.fullName}
             </h1>
             <div className="text-sm text-ink-secondary font-sans">
@@ -138,7 +138,7 @@ export const ProfilePage: React.FC = () => {
               <h4 className="text-base font-semibold text-ink">
                 Hồ sơ hội viên cơ bản
               </h4>
-              <p className="text-sm text-ink-secondary mt-0.5 leading-relaxed">
+              <p className="text-base text-ink-secondary mt-0.5 leading-relaxed">
                 Bổ sung thông tin để tăng cơ hội kết nối Mentor 1–1 và được ưu tiên tại sự kiện.
               </p>
             </div>
@@ -154,7 +154,7 @@ export const ProfilePage: React.FC = () => {
         </div>
       )}
 
-      <div className="space-y-0 md:space-y-8">
+      <div className="space-y-0">
       {/* Tabs Navigation */}
       <div className="grid grid-cols-2 gap-2 border border-hairline p-1 bg-neutral-100">
         <button
@@ -188,14 +188,14 @@ export const ProfilePage: React.FC = () => {
 
       {/* TAB CONTENT: PROFILE */}
       {activeTab === 'profile' && (
-        <div className="border border-hairline bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-xs space-y-6">
-          <div className="flex items-center justify-between gap-3 pb-4 border-b border-neutral-100">
-            <h3 className="font-semibold text-base text-ink">
+        <div className="border border-hairline bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-xs space-y-0 md:space-y-6">
+          <div className="flex items-center justify-between gap-3 border-b border-neutral-100 pb-0">
+            <h3 className="font-semibold text-xl text-ink">
               Thông tin hồ sơ
             </h3>
             <button
               onClick={() => setIsEditing(!isEditing)}
-              className="flex min-h-11 shrink-0 items-center justify-center gap-2 border border-hairline px-3 text-sm font-semibold text-brand-primary hover:bg-parchment"
+              className="flex h-[30px] min-h-[30px] shrink-0 items-center justify-center gap-2 border border-hairline px-3 text-sm font-semibold text-brand-primary hover:bg-parchment"
             >
               <Edit3 className="w-4 h-4" />
               {isEditing ? 'Hủy chỉnh sửa' : 'Chỉnh sửa'}
@@ -305,7 +305,7 @@ export const ProfilePage: React.FC = () => {
               </section>
             </div>
 
-            <div className="hidden grid-cols-1 gap-4 text-sm md:grid md:grid-cols-2 md:gap-6">
+            <div className="hidden grid-cols-1 gap-4 text-base md:grid md:grid-cols-2 md:gap-6">
               <div className="p-4 sm:p-5 bg-parchment border border-hairline rounded-lg space-y-3">
                 <div className="font-semibold text-ink border-b border-hairline pb-2">
                   Thông tin cá nhân
