@@ -10,30 +10,40 @@ export const AboutPage: React.FC = () => {
 
   return (
     <>
-      <div className="vcf-container py-6 pb-0 space-y-16 font-sans">
       {showSpecAnnotations && (
-        <div className="bg-neutral-100 border border-hairline p-2.5 rounded-lg text-xs font-mono flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <SpecBadge label="C10: Giới thiệu VCF / VLGM [Trang chính]" type="page" />
-            <span className="text-ink-secondary">Tầm nhìn — Sứ mệnh — Định vị | Nội dung tĩnh [S-DEFAULT]</span>
+        <div className="vcf-container py-6">
+          <div className="bg-neutral-100 border border-hairline p-2.5 rounded-lg text-xs font-mono flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <SpecBadge label="C10: Giới thiệu VCF / VLGM [Trang chính]" type="page" />
+              <span className="text-ink-secondary">Tầm nhìn — Sứ mệnh — Định vị | Nội dung tĩnh [S-DEFAULT]</span>
+            </div>
+            <span className="text-ink-secondary">2 Cột Text + Ảnh xen kẽ</span>
           </div>
-          <span className="text-ink-secondary">2 Cột Text + Ảnh xen kẽ</span>
         </div>
       )}
 
       {/* Page Hero */}
-      <div className="space-y-4 max-w-4xl">
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-ink tracking-tight leading-tight">
-          Hội Tụ Tinh Hoa Lãnh Đạo.<br />
-          <span className="text-brand-primary">Phụng Sự Doanh Nghiệp Quốc Gia.</span>
-        </h1>
-        <p className="text-base sm:text-lg text-ink-secondary leading-relaxed font-sans">
-          Diễn đàn CEO Việt Nam (VCF) là sáng kiến hợp tác chiến lược giữa Viện Lãnh đạo & Quản trị Tinh hoa (VLGM) và Học viện Công nghệ Bưu chính Viễn thông (PTIT), nhằm kiến tạo không gian đối thoại, kết nối và chuyển giao tri thức quản trị tầm vóc quốc tế cho cộng đồng doanh nhân Việt Nam.
-        </p>
-      </div>
+      <section className="about-hero" aria-labelledby="about-hero-title">
+        <img
+          className="about-hero__image"
+          src="/images/about/about-hero-leadership.png"
+          alt="Sân khấu Diễn đàn CEO Việt Nam với nhóm lãnh đạo doanh nghiệp"
+        />
+        <div className="about-hero__content">
+          <div className="about-hero__copy">
+            <p className="about-hero__eyebrow">Vietnam CEO Forum · Giới thiệu</p>
+            <h1 id="about-hero-title" className="about-hero__title">
+              <span>Hội Tụ Tinh Hoa Lãnh Đạo.</span>
+              <span className="about-hero__title-accent">Phụng Sự Doanh Nghiệp Quốc Gia.</span>
+            </h1>
+          </div>
+        </div>
+      </section>
+
+      <div className="vcf-container pt-14 pb-0 md:pt-20 space-y-16 font-sans">
 
       {/* SECTION 1: TẦM NHÌN & SỨ MỆNH (2 Cột Xen Kẽ) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center border-t border-hairline pt-12">
+      <div id="about-vision" className="grid scroll-mt-20 grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         <div className="lg:col-span-6 space-y-6">
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-xs font-semibold uppercase text-brand-primary">
