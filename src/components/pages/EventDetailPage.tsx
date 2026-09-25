@@ -48,6 +48,274 @@ import {
   XCircle
 } from 'lucide-react';
 
+interface EventHeroProps {
+  event: typeof MOCK_EVENTS[number];
+  eventTime: string;
+  eventDate: string;
+  venueName: string;
+  venueAddress: string;
+  eventDescription: string;
+  isNearlyFull: boolean;
+  isPast: boolean;
+  isConfirmed: boolean;
+  isPendingApproval: boolean;
+  isWaitlisted: boolean;
+  isFullEffective: boolean;
+  showCalendarMenu: boolean;
+  setShowCalendarMenu: React.Dispatch<React.SetStateAction<boolean>>;
+  copiedLink: boolean;
+  onNavigateToEvents: () => void;
+  onOpenRegistration: () => void;
+  onOpenWaitlist: () => void;
+  onScrollToSection: (tab: 'resources' | 'tickets') => void;
+  onCopyLink: () => void;
+  onAddToGoogleCalendar: () => void;
+  onDownloadIcs: () => void;
+}
+
+const EventHero: React.FC<EventHeroProps> = ({
+  event,
+  eventTime,
+  eventDate,
+  venueName,
+  venueAddress,
+  eventDescription,
+  isNearlyFull,
+  isPast,
+  isConfirmed,
+  isPendingApproval,
+  isWaitlisted,
+  isFullEffective,
+  showCalendarMenu,
+  setShowCalendarMenu,
+  copiedLink,
+  onNavigateToEvents,
+  onOpenRegistration,
+  onOpenWaitlist,
+  onScrollToSection,
+  onCopyLink,
+  onAddToGoogleCalendar,
+  onDownloadIcs
+}) => {
+  const [showShareMenu, setShowShareMenu] = useState(false);
+  const heroTitle = event.title.replace(/^Tọa đàm:\s*/i, '');
+  const displayEventTime = eventTime.replace(/\s-\s/g, ' – ');
+  const availabilityLabel = isPast
+    ? 'Sự kiện đã kết thúc'
+    : isConfirmed
+    ? 'Bạn đã đăng ký'
+    : isPendingApproval
+    ? 'Đang chờ xét duyệt'
+    : isWaitlisted
+    ? 'Đang trong danh sách chờ'
+    : isFullEffective
+    ? 'Hết chỗ'
+    : isNearlyFull
+    ? `Sắp hết chỗ · Còn ${event.availableSeats} chỗ trống`
+    : `Còn ${event.availableSeats} chỗ trống`;
+
+  const availabilityBadge = isPast
+    ? 'ĐÃ KẾT THÚC'
+    : isFullEffective
+    ? 'HẾT CHỖ'
+    : `Còn ${event.availableSeats}/${event.totalSeats} chỗ`;
+
+  const availabilityTone = isPast || isFullEffective
+    ? 'border-neutral-500/70 bg-neutral-900/80 text-neutral-200'
+    : isConfirmed
+    ? 'border-emerald-400/60 bg-emerald-950/70 text-emerald-200'
+    : isPendingApproval || isWaitlisted || isNearlyFull
+    ? 'border-amber-400/60 bg-amber-950/70 text-amber-200'
+    : 'border-emerald-400/60 bg-emerald-950/70 text-emerald-200';
+
+  const availabilityDot = isPast || isFullEffective
+    ? 'bg-neutral-300'
+    : isPendingApproval || isWaitlisted || isNearlyFull
+    ? 'bg-amber-300'
+    : 'bg-emerald-300';
+
+  return (
+    <section className={`event-detail-hero relative z-10 min-h-[calc(100svh-5.5rem)] overflow-visible bg-surface-dark text-white ${showCalendarMenu ? 'z-[60]' : ''}`}>
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <img
+          src={event.imageUrl || 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2000&q=86'}
+          alt={event.title}
+          className="h-full w-full object-cover object-[58%_center] lg:object-center"
+        />
+        <div className="absolute inset-0 bg-black/25" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80" />
+      </div>
+
+      <div className="event-detail-hero-content vcf-container relative z-10 flex min-h-[calc(100svh-5.5rem)] items-center py-8 sm:py-10 lg:min-h-[calc(100svh-5rem)] lg:py-12 xl:py-16">
+        <div className="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-12 xl:grid-cols-[minmax(0,1fr)_400px] xl:gap-16">
+          <div className="max-w-3xl lg:-mt-3 lg:pb-24">
+            <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-sm font-medium text-neutral-200 sm:mb-8">
+              <button
+                type="button"
+                onClick={onNavigateToEvents}
+                aria-label="Quay lại danh sách sự kiện"
+                className="inline-flex min-h-11 items-center gap-2 px-1.5 py-1 text-neutral-100 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info"
+              >
+                <ArrowLeft className="size-4" aria-hidden="true" />
+                <span>Sự kiện</span>
+              </button>
+              <span aria-hidden="true" className="text-neutral-400">/</span>
+              <span>{event.activityName || 'Tọa đàm'}</span>
+            </nav>
+
+            <div className="mb-5 flex flex-wrap items-center gap-3 sm:mb-6">
+              <span className="inline-flex min-h-10 items-center border border-white/30 bg-black px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-white">
+                {(event.activityName || 'Tọa đàm').toUpperCase()}
+              </span>
+              <span className={`inline-flex min-h-10 items-center gap-2 border px-3.5 py-2 text-sm font-semibold ${availabilityTone}`}>
+                <span className={`size-2 rounded-full ${availabilityDot}`} aria-hidden="true" />
+                {availabilityBadge}
+              </span>
+            </div>
+
+            <h1 className="max-w-4xl text-[clamp(2.25rem,4.13vw,3.5rem)] font-extrabold leading-[1.04] tracking-[-0.045em] text-white">
+              {heroTitle}
+            </h1>
+            <p className="mt-6 max-w-3xl text-base font-extralight leading-relaxed text-neutral-200 sm:text-lg">
+              {eventDescription}
+            </p>
+          </div>
+
+          <aside aria-labelledby="event-hero-info" className="relative w-full border border-white/30 bg-black/75 p-5 shadow-2xl backdrop-blur-md sm:p-6 lg:p-7">
+            <h2 id="event-hero-info" className="mb-5 text-base font-bold tracking-wide text-white">
+              THÔNG TIN SỰ KIỆN
+            </h2>
+
+            <div className="space-y-5">
+              <div className="flex items-start gap-4 border-b border-white/20 pb-5">
+                <Calendar className="mt-1 size-7 shrink-0 text-white" aria-hidden="true" />
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-neutral-400">Thời gian</p>
+                  <p className="mt-1 text-2xl font-bold leading-tight text-white">{displayEventTime}</p>
+                  <p className="mt-1 text-sm text-neutral-300">{eventDate}</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 border-b border-white/20 pb-5">
+                <MapPin className="mt-1 size-7 shrink-0 text-white" aria-hidden="true" />
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-neutral-400">Địa điểm</p>
+                  <p className="mt-1 text-xl font-bold leading-tight text-white">{venueName}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-neutral-300">{venueAddress}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 text-base font-semibold text-white">
+                <Users className="size-7 shrink-0 text-white" aria-hidden="true" />
+                <span className={isPast || isFullEffective ? 'text-neutral-200' : isNearlyFull ? 'text-amber-300' : 'text-emerald-300'}>
+                  {availabilityLabel}
+                </span>
+              </div>
+
+              {isPast ? (
+                <button type="button" disabled aria-label="Sự kiện đã kết thúc" className="flex min-h-12 w-full items-center justify-center gap-2 border border-neutral-600 bg-neutral-700 px-4 py-3 text-base font-bold text-neutral-300 disabled:cursor-not-allowed">
+                  <span>Sự kiện đã kết thúc</span>
+                </button>
+              ) : isConfirmed ? (
+                <button type="button" onClick={() => onScrollToSection('tickets')} aria-label="Xem thông tin đăng ký" className="flex min-h-12 w-full items-center justify-center gap-2 border border-emerald-500 bg-emerald-700 px-4 py-3 text-base font-bold text-white transition-colors hover:bg-emerald-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info">
+                  <span>Bạn đã đăng ký</span>
+                  <CheckCircle2 className="size-5" aria-hidden="true" />
+                </button>
+              ) : isPendingApproval ? (
+                <button type="button" onClick={() => onScrollToSection('tickets')} aria-label="Xem trạng thái hồ sơ" className="flex min-h-12 w-full items-center justify-center gap-2 border border-white/30 bg-white/10 px-4 py-3 text-base font-bold text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info">
+                  <span>Xem trạng thái hồ sơ</span>
+                  <ArrowRight className="size-5" aria-hidden="true" />
+                </button>
+              ) : isWaitlisted || isFullEffective ? (
+                <button type="button" onClick={onOpenWaitlist} aria-label="Đăng ký danh sách chờ" className="flex min-h-12 w-full items-center justify-center gap-2 border border-neutral-300 bg-neutral-800 px-4 py-3 text-base font-bold text-white transition-colors hover:bg-neutral-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info">
+                  <span>Đăng ký danh sách chờ</span>
+                  <ArrowRight className="size-5" aria-hidden="true" />
+                </button>
+              ) : (
+                <button type="button" onClick={onOpenRegistration} aria-label="Đăng ký tham dự sự kiện" className="flex min-h-12 w-full items-center justify-center gap-2 border border-brand-primary bg-brand-primary px-4 py-3 text-base font-bold text-white shadow-lg transition-colors hover:bg-brand-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info">
+                  <span>Đăng ký tham dự</span>
+                  <ArrowRight className="size-5" aria-hidden="true" />
+                </button>
+              )}
+
+              <div className="flex flex-row gap-3 max-[380px]:flex-col">
+                {!isPast && (
+                  <div className="relative min-w-0 flex-1">
+                    <button type="button" onClick={() => setShowCalendarMenu((value) => !value)} aria-expanded={showCalendarMenu} aria-haspopup="menu" className="flex min-h-12 w-full min-w-0 items-center justify-center gap-1.5 whitespace-nowrap border border-white/70 bg-transparent px-2 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info">
+                      <CalendarPlus className="size-5" aria-hidden="true" />
+                      <span>Thêm vào lịch</span>
+                      <ChevronDown className="size-4" aria-hidden="true" />
+                    </button>
+                    {showCalendarMenu && (
+                      <>
+                        <div className="fixed inset-0 z-[65]" onClick={() => setShowCalendarMenu(false)} aria-hidden="true" />
+                        <div role="menu" className="absolute bottom-full left-0 z-[70] mb-2 w-full border border-neutral-700 bg-neutral-900 p-1.5 text-sm shadow-2xl sm:top-full sm:bottom-auto sm:mt-2 sm:mb-0">
+                          <button type="button" role="menuitem" onClick={onAddToGoogleCalendar} className="flex min-h-11 w-full items-center justify-between px-3 py-2.5 text-left text-white transition-colors hover:bg-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-info">
+                            <span className="flex items-center gap-2"><span className="size-2 rounded-full bg-red-400" aria-hidden="true" />Google Calendar</span>
+                            <ExternalLink className="size-4 text-neutral-400" aria-hidden="true" />
+                          </button>
+                          <button type="button" role="menuitem" onClick={onDownloadIcs} className="flex min-h-11 w-full items-center justify-between px-3 py-2.5 text-left text-white transition-colors hover:bg-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-info">
+                            <span className="flex items-center gap-2"><span className="size-2 rounded-full bg-blue-400" aria-hidden="true" />Apple / Outlook (.ics)</span>
+                            <Download className="size-4 text-neutral-400" aria-hidden="true" />
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                )}
+                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location || `${venueName}, ${venueAddress}`)}`} target="_blank" rel="noopener noreferrer" aria-label="Mở chỉ đường Google Maps trong tab mới" className="flex min-h-12 min-w-0 flex-1 items-center justify-center gap-1.5 whitespace-nowrap border border-white/70 bg-transparent px-2 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info">
+                  <Navigation className="size-5" aria-hidden="true" />
+                  <span>Chỉ đường</span>
+                  <ExternalLink className="size-4" aria-hidden="true" />
+                </a>
+              </div>
+
+              <div className="relative border-t border-white/20 pt-3">
+                <button
+                  type="button"
+                  onClick={() => setShowShareMenu((open) => !open)}
+                  aria-label="Chia sẻ sự kiện"
+                  aria-expanded={showShareMenu}
+                  aria-haspopup="menu"
+                  className="flex min-h-11 w-full items-center gap-3 text-left text-sm font-semibold text-white underline-offset-4 transition-colors hover:text-neutral-300 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info"
+                >
+                  <Share2 className="size-5" aria-hidden="true" />
+                  <span>{copiedLink ? 'Đã sao chép liên kết!' : 'Chia sẻ sự kiện'}</span>
+                  <ChevronDown className={`ml-auto size-4 transition-transform ${showShareMenu ? 'rotate-180' : ''}`} aria-hidden="true" />
+                </button>
+                {showShareMenu && (
+                  <>
+                    <div className="fixed inset-0 z-[65]" onClick={() => setShowShareMenu(false)} aria-hidden="true" />
+                    <div role="menu" aria-label="Chia sẻ sự kiện" className="absolute bottom-full left-0 z-[70] mb-2 w-full border border-neutral-700 bg-neutral-900 p-1.5 text-sm shadow-2xl">
+                      <button type="button" role="menuitem" onClick={() => { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank', 'noopener,noreferrer'); setShowShareMenu(false); }} className="flex min-h-11 w-full items-center gap-3 px-3 py-2.5 text-left text-white transition-colors hover:bg-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-info">
+                        <span className="flex size-6 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white">f</span>
+                        Facebook
+                      </button>
+                      <button type="button" role="menuitem" onClick={() => { window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(event.title)}`, '_blank', 'noopener,noreferrer'); setShowShareMenu(false); }} className="flex min-h-11 w-full items-center gap-3 px-3 py-2.5 text-left text-white transition-colors hover:bg-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-info">
+                        <span className="flex size-6 items-center justify-center rounded-full bg-black text-xs font-bold text-white">𝕏</span>
+                        X
+                      </button>
+                      <button type="button" role="menuitem" onClick={() => { window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, '_blank', 'noopener,noreferrer'); setShowShareMenu(false); }} className="flex min-h-11 w-full items-center gap-3 px-3 py-2.5 text-left text-white transition-colors hover:bg-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-info">
+                        <span className="flex size-6 items-center justify-center rounded bg-sky-700 text-[10px] font-bold text-white">in</span>
+                        LinkedIn
+                      </button>
+                      <button type="button" role="menuitem" onClick={() => { onCopyLink(); setShowShareMenu(false); }} className="flex min-h-11 w-full items-center gap-3 border-t border-neutral-700 px-3 py-2.5 text-left text-white transition-colors hover:bg-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-info">
+                        <Share2 className="size-4 text-neutral-300" aria-hidden="true" />
+                        Sao chép liên kết
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 export const EventDetailPage: React.FC = () => {
   const { 
     selectedEventId, 
@@ -75,7 +343,7 @@ export const EventDetailPage: React.FC = () => {
   // Find event or fallback to default summit
   const event = MOCK_EVENTS.find(e => e.id === selectedEventId) || MOCK_EVENTS[0];
 
-  const [activeTab, setActiveTab] = useState<'overview' | 'agenda' | 'speakers' | 'tickets' | 'venue' | 'partners'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'resources' | 'agenda' | 'speakers' | 'tickets' | 'venue' | 'partners' | 'faq'>('overview');
   const [selectedPassType, setSelectedPassType] = useState<'member' | 'standard'>('member');
   
   const isManualScrollingRef = React.useRef(false);
@@ -183,24 +451,29 @@ export const EventDetailPage: React.FC = () => {
           const windowHeight = window.innerHeight;
           const docHeight = document.documentElement.scrollHeight;
 
+          const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+          const lastTab = (!isPast && isMobile) ? 'tickets' : 'faq';
           // If scrolled near bottom of page, highlight the last section
           if (scrollY + windowHeight >= docHeight - 80) {
-            setActiveTab('partners');
+            setActiveTab(lastTab);
             ticking = false;
             return;
           }
 
-          const sections: { id: 'overview' | 'agenda' | 'speakers' | 'venue' | 'partners'; el: HTMLElement | null }[] = [
+          const sections: { id: 'overview' | 'resources' | 'agenda' | 'speakers' | 'venue' | 'partners' | 'faq' | 'tickets'; el: HTMLElement | null }[] = [
             { id: 'overview', el: document.getElementById('section-overview') },
+            ...(isPast ? [{ id: 'resources' as const, el: document.getElementById('section-resources') }] : []),
             { id: 'agenda', el: document.getElementById('section-agenda') },
             { id: 'speakers', el: document.getElementById('section-speakers') },
             { id: 'venue', el: document.getElementById('section-venue') },
             { id: 'partners', el: document.getElementById('section-partners') },
+            { id: 'faq', el: document.getElementById('section-faq') },
+            ...(!isPast && isMobile ? [{ id: 'tickets' as const, el: document.getElementById('section-tickets') }] : []),
           ];
 
-          // Offset threshold below sticky subnav (sticky at top-0, height ~52px)
+          // Offset threshold below sticky subnav (sticky at top-0, height ~48px)
           const offset = 85;
-          let currentTab: 'overview' | 'agenda' | 'speakers' | 'venue' | 'partners' = 'overview';
+          let currentTab: 'overview' | 'resources' | 'agenda' | 'speakers' | 'venue' | 'partners' | 'faq' | 'tickets' = 'overview';
 
           for (let i = 0; i < sections.length; i++) {
             const item = sections[i];
@@ -450,12 +723,17 @@ export const EventDetailPage: React.FC = () => {
     }
   };
 
-  const handleCopyLink = () => {
-    setCopiedLink(true);
-    setTimeout(() => setCopiedLink(false), 2000);
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopiedLink(true);
+      setTimeout(() => setCopiedLink(false), 2000);
+    } catch {
+      showNotification('Không thể sao chép liên kết. Vui lòng thử lại.');
+    }
   };
 
-  const scrollToSection = (tab: 'overview' | 'agenda' | 'speakers' | 'tickets' | 'venue' | 'partners') => {
+  const scrollToSection = (tab: 'overview' | 'resources' | 'agenda' | 'speakers' | 'tickets' | 'venue' | 'partners' | 'faq') => {
     setActiveTab(tab);
     isManualScrollingRef.current = true;
     if (manualScrollTimerRef.current) {
@@ -469,9 +747,9 @@ export const EventDetailPage: React.FC = () => {
     const targetId = tab === 'tickets' ? 'section-tickets' : `section-${tab}`;
     const element = document.getElementById(targetId) || document.getElementById('registration-form-container');
     if (element) {
-      const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
-      // Offset: In-page sticky subnav (~52px) + 16px buffer
-      const headerOffset = isMobile ? 60 : 72;
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+      // Offset: In-page sticky subnav (54px desktop / 48px mobile) + buffer
+      const headerOffset = isMobile ? 50 : 63;
       const elementPosition = element.getBoundingClientRect().top;
       const targetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -482,15 +760,30 @@ export const EventDetailPage: React.FC = () => {
     }
   };
 
+  const calendarDateRange = React.useMemo(() => {
+    const [year, month, day] = (event.dateStr || '2026-10-15').split('-').map(Number);
+    const [startTime = '08:00', endTime = '17:30'] = (event.timeStr || '08:00 - 17:30').split(/\s*-\s*/);
+    const toUtcStamp = (time: string) => {
+      const [hours, minutes] = time.split(':').map(Number);
+      const utcDate = new Date(Date.UTC(year, month - 1, day, hours - 7, minutes));
+      return utcDate.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+    };
+
+    return {
+      start: toUtcStamp(startTime),
+      end: toUtcStamp(endTime)
+    };
+  }, [event.dateStr, event.timeStr]);
+
   const handleAddToGoogleCalendar = () => {
     const title = encodeURIComponent(event.title);
     const details = encodeURIComponent(
       `Sự kiện: ${event.title}\nĐơn vị tổ chức: Diễn Đàn CEO Việt Nam (VCF)\nĐịa điểm: ${event.location}\nChương trình quy tụ các chuyên gia kinh tế, nhà hoạch định chính sách và lãnh đạo C-Level hàng đầu.\nThông tin & check-in: ${window.location.href}`
     );
     const location = encodeURIComponent(event.location);
-    // Summit date: 15/10/2026 from 08:00 to 17:30 ICT (UTC+7 -> 01:00Z to 10:30Z)
-    const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261015T010000Z/20261015T103000Z&details=${details}&location=${location}`;
-    window.open(gCalUrl, '_blank');
+    const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${calendarDateRange.start}/${calendarDateRange.end}&details=${details}&location=${location}`;
+    const calendarWindow = window.open(gCalUrl, '_blank', 'noopener,noreferrer');
+    showNotification(calendarWindow ? 'Đã mở Google Calendar trong tab mới.' : 'Không thể mở Google Calendar. Vui lòng cho phép mở tab mới.');
     setShowCalendarMenu(false);
   };
 
@@ -502,10 +795,10 @@ export const EventDetailPage: React.FC = () => {
       'CALSCALE:GREGORIAN',
       'METHOD:PUBLISH',
       'BEGIN:VEVENT',
-      `UID:${event.id || 'ceo-summit-2026'}-20261015@vcf.org.vn`,
+      `UID:${event.id || 'vcf-event'}-${event.dateStr}@vcf.org.vn`,
       `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`,
-      'DTSTART:20261015T010000Z',
-      'DTEND:20261015T103000Z',
+      `DTSTART:${calendarDateRange.start}`,
+      `DTEND:${calendarDateRange.end}`,
       `SUMMARY:${event.title}`,
       `DESCRIPTION:Sự kiện ${event.title} do Diễn Đàn CEO Việt Nam (VCF) tổ chức. Địa điểm: ${event.location}`,
       `LOCATION:${event.location}`,
@@ -521,6 +814,7 @@ export const EventDetailPage: React.FC = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    showNotification('Đã tải lịch sự kiện xuống thiết bị.');
     setShowCalendarMenu(false);
   };
 
@@ -543,8 +837,57 @@ export const EventDetailPage: React.FC = () => {
     }
   ];
 
+  // Dạng địa điểm lớn rút gọn (Macro Location - VD: Trung tâm Hội nghị Quốc gia, Hà Nội)
+  const macroLocation = React.useMemo(() => {
+    if (!event?.location) return 'Hà Nội';
+    const loc = event.location.trim();
+    const parts = loc.split(',').map(s => s.trim()).filter(Boolean);
+    if (parts.length >= 2) {
+      const mainVenue = parts[0];
+      const city = parts[parts.length - 1];
+      return `${mainVenue}, ${city}`;
+    }
+    return loc;
+  }, [event?.location]);
+
+  // Split time & date from event.datetime (e.g. "08:00 - 17:30, Thứ Năm, 15/10/2026")
+  const { eventTime, eventDate } = React.useMemo(() => {
+    if (!event?.datetime) return { eventTime: '08:00 – 17:30', eventDate: 'Thứ Năm, 15/10/2026' };
+    const parts = event.datetime.split(',').map(s => s.trim());
+    if (parts.length >= 2) {
+      return {
+        eventTime: parts[0],
+        eventDate: parts.slice(1).join(', ')
+      };
+    }
+    return {
+      eventTime: event.timeStr || '08:00 – 17:30',
+      eventDate: event.datetime
+    };
+  }, [event?.datetime, event?.timeStr]);
+
+  // Split venue name & address from event.location
+  const { venueName, venueAddress } = React.useMemo(() => {
+    if (!event?.location) return { venueName: 'Trung tâm Hội nghị Quốc gia', venueAddress: 'Đại lộ Thăng Long, Hà Nội' };
+    const parts = event.location.split(',').map(s => s.trim());
+    if (parts.length >= 2) {
+      return {
+        venueName: parts[0],
+        venueAddress: parts.slice(1).join(', ')
+      };
+    }
+    return {
+      venueName: event.location,
+      venueAddress: event.venueDetails?.address || ''
+    };
+  }, [event?.location, event?.venueDetails]);
+
+  const isNearlyFull = !isPast && !isFullEffective && event.availableSeats > 0 && event.availableSeats <= 20;
+  const eventDescription = event.heroDescription || event.subtitle || event.description || 'Sự kiện quy tụ lãnh đạo doanh nghiệp, chuyên gia trong và ngoài nước để cùng thảo luận các xu hướng, giải pháp và cơ hội phát triển bền vững trong kỷ nguyên AI và chuyển đổi xanh.';
+
+
   return (
-    <div className="bg-parchment min-h-screen pb-24 font-sans text-ink">
+    <div className="bg-parchment min-h-screen font-sans text-ink">
       {/* Spec Annotation if enabled */}
       {showSpecAnnotations && (
         <div className="bg-neutral-100 border-b border-hairline px-4 py-2 text-xs font-mono text-neutral-700 flex items-center justify-between flex-wrap gap-2">
@@ -559,96 +902,366 @@ export const EventDetailPage: React.FC = () => {
       )}
 
       {/* =========================================================================
-          HERO BANNER (WAN-IFRA Summit Style)
+          MOBILE HERO BANNER (< lg) — ENLARGED, ACTION-ORIENTED, COMMANDING H1
           ========================================================================= */}
-      <section className="bg-surface-dark text-white relative overflow-hidden">
-        {/* Full-width Event Photo Ambient Background */}
+      <EventHero
+        event={event}
+        eventTime={eventTime}
+        eventDate={eventDate}
+        venueName={venueName}
+        venueAddress={venueAddress}
+        eventDescription={eventDescription}
+        isNearlyFull={isNearlyFull}
+        isPast={isPast}
+        isConfirmed={isConfirmed}
+        isPendingApproval={isPendingApproval}
+        isWaitlisted={isWaitlisted}
+        isFullEffective={isFullEffective}
+        showCalendarMenu={showCalendarMenu}
+        setShowCalendarMenu={setShowCalendarMenu}
+        copiedLink={copiedLink}
+        onNavigateToEvents={() => navigateTo('events')}
+        onOpenRegistration={() => {
+          setIsWaitlistModal(false);
+          setIsMemberModalOpen(true);
+        }}
+        onOpenWaitlist={() => {
+          setIsWaitlistModal(true);
+          setIsMemberModalOpen(true);
+        }}
+        onScrollToSection={scrollToSection}
+        onCopyLink={handleCopyLink}
+        onAddToGoogleCalendar={handleAddToGoogleCalendar}
+        onDownloadIcs={handleDownloadIcs}
+      />
+
+      <section className="hidden">
+        {/* Ambient Background with subtle dark overlay */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <img 
+            src={event.imageUrl || 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80'}
+            alt={event.title}
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/70 to-black/92" />
+        </div>
+
+        <div className="px-5 sm:px-6 pt-6 pb-8 relative z-10 space-y-4">
+          {/* Breadcrumb back link to Events (Above Title) */}
+          <div className="flex items-center justify-between">
+            <button
+              type="button"
+              onClick={() => navigateTo('events')}
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-300 hover:text-white transition-colors cursor-pointer min-h-[32px] -ml-1 px-2 py-1 rounded-md bg-white/10 active:bg-white/20"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 text-white" />
+              <span>Sự kiện</span>
+            </button>
+            <span className="text-[11px] font-semibold text-neutral-300 uppercase tracking-wider">
+              {event.activityName}
+            </span>
+          </div>
+
+          {/* Category & Status badges */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-[11px] font-bold uppercase tracking-wider bg-brand-primary text-white px-3 py-0.5 rounded-full shadow-2xs">
+              {event.activityName}
+            </span>
+
+            {isPast ? (
+              <span className="text-[11px] font-semibold text-neutral-300 bg-neutral-800/90 border border-neutral-700 px-2.5 py-0.5 rounded-full">
+                ĐÃ KẾT THÚC
+              </span>
+            ) : isConfirmed ? (
+              <span className="text-[11px] font-semibold text-emerald-300 bg-emerald-950/90 border border-emerald-500/50 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                <span>ĐÃ XÁC NHẬN</span>
+              </span>
+            ) : isPendingApproval ? (
+              <span className="text-[11px] font-semibold text-amber-300 bg-amber-950/90 border border-amber-500/50 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                <Clock className="w-3 h-3 text-amber-400 animate-pulse" />
+                <span>ĐANG CHỜ DUYỆT</span>
+              </span>
+            ) : isWaitlisted ? (
+              <span className="text-[11px] font-semibold text-amber-300 bg-amber-950/90 border border-amber-500/50 px-2.5 py-0.5 rounded-full">
+                DANH SÁCH CHỜ
+              </span>
+            ) : isFullEffective ? (
+              <span className="text-[11px] font-semibold text-rose-300 bg-rose-950/90 border border-rose-600/70 px-2.5 py-0.5 rounded-full">
+                HẾT CHỖ (WAITLIST)
+              </span>
+            ) : (
+              <span className="text-[11px] font-semibold text-emerald-400 bg-emerald-950/80 border border-emerald-800/80 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Còn chỗ ({event.availableSeats}/{event.totalSeats})</span>
+              </span>
+            )}
+          </div>
+
+          {/* Event Title - Enlarged Commanding H1 */}
+          <h1 className="text-[32px] sm:text-3xl font-extrabold tracking-tight text-white leading-[1.22] font-sans">
+            {event.title}
+          </h1>
+
+          {/* Compact Metadata Rows (No heavy cards, Macro Location) */}
+          <div className="space-y-2 text-xs sm:text-sm text-neutral-300 pt-0.5">
+            <div className="flex items-center gap-2.5">
+              <Clock className="w-4 h-4 text-neutral-400 shrink-0" />
+              <span className="font-semibold text-white">{event.datetime}</span>
+            </div>
+            <div className="flex items-center gap-2.5">
+              <MapPin className="w-4 h-4 text-brand-primary shrink-0" />
+              <span className="font-semibold text-neutral-100">
+                {macroLocation}
+              </span>
+            </div>
+          </div>
+
+          {/* ONE Dominant Primary CTA */}
+          <div className="pt-2">
+            {isPast ? (
+              <button
+                type="button"
+                onClick={() => scrollToSection('resources')}
+                className="w-full min-h-[46px] py-2.5 px-4 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
+              >
+                <FileText className="w-4 h-4" />
+                <span>Xem tài liệu & Kỷ yếu</span>
+              </button>
+            ) : isConfirmed ? (
+              <button
+                type="button"
+                onClick={() => scrollToSection('tickets')}
+                className="w-full min-h-[46px] py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
+              >
+                <QrCode className="w-4 h-4" />
+                <span>Xem thẻ vé & Mã QR check-in</span>
+              </button>
+            ) : (isPendingApproval || isWaitlisted) ? (
+              <button
+                type="button"
+                onClick={() => scrollToSection('tickets')}
+                className="w-full min-h-[46px] py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
+              >
+                <Clock className="w-4 h-4" />
+                <span>Xem tình trạng hồ sơ</span>
+              </button>
+            ) : isFullEffective ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setIsWaitlistModal(true);
+                  setIsMemberModalOpen(true);
+                }}
+                className="w-full min-h-[46px] py-2.5 px-4 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer border border-neutral-700"
+              >
+                <span>Đăng ký danh sách chờ</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  setIsWaitlistModal(false);
+                  setIsMemberModalOpen(true);
+                }}
+                className="w-full min-h-[46px] py-3 px-4 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-[0.99] transition-all cursor-pointer"
+              >
+                <span>Đăng ký tham dự</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+
+          {/* Secondary Actions Row */}
+          <div className="flex items-center gap-2 pt-0.5">
+            {!isPast ? (
+              <>
+                <div className="relative flex-1">
+                  <button
+                    type="button"
+                    onClick={() => setShowCalendarMenu(!showCalendarMenu)}
+                    className="w-full min-h-[42px] px-3 py-2 rounded-lg text-xs font-semibold text-neutral-300 hover:text-white bg-neutral-800/80 border border-neutral-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <CalendarPlus className="w-3.5 h-3.5 text-brand-primary" />
+                    <span>Thêm vào lịch</span>
+                    <ChevronDown className="w-3 h-3 text-neutral-400" />
+                  </button>
+
+                  {showCalendarMenu && (
+                    <>
+                      <div 
+                        className="fixed inset-0 z-[65]"
+                        onClick={() => setShowCalendarMenu(false)} 
+                      />
+                      <div className="absolute left-0 top-full mt-1.5 w-full bg-neutral-900 border border-neutral-700 rounded-xl shadow-2xl p-1.5 z-[70] text-xs font-sans">
+                        <button
+                          type="button"
+                          onClick={handleAddToGoogleCalendar}
+                          className="w-full text-left px-3 py-2.5 rounded-lg text-white hover:bg-neutral-800 flex items-center justify-between transition-colors cursor-pointer"
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-red-500" />
+                            <span className="font-semibold">Google Calendar</span>
+                          </div>
+                          <ExternalLink className="w-3 h-3 text-neutral-400" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleDownloadIcs}
+                          className="w-full text-left px-3 py-2.5 rounded-lg text-white hover:bg-neutral-800 flex items-center justify-between transition-colors cursor-pointer"
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-blue-500" />
+                            <span className="font-semibold">Apple / Outlook (.ics)</span>
+                          </div>
+                          <Download className="w-3 h-3 text-neutral-400" />
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleCopyLink}
+                  className="flex-1 min-h-[42px] px-3 py-2 rounded-lg text-xs font-semibold text-neutral-300 hover:text-white bg-neutral-800/80 border border-neutral-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <Share2 className="w-3.5 h-3.5" />
+                  <span>{copiedLink ? 'Đã chép!' : 'Chia sẻ'}</span>
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={handleCopyLink}
+                  className="flex-1 min-h-[42px] px-3 py-2 rounded-lg text-xs font-semibold text-neutral-300 hover:text-white bg-neutral-800/80 border border-neutral-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <Share2 className="w-3.5 h-3.5" />
+                  <span>{copiedLink ? 'Đã chép!' : 'Chia sẻ'}</span>
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          DESKTOP HERO BANNER (>= lg) (Executive Editorial Summit Style)
+          ========================================================================= */}
+      <section className="hidden">
+        {/* Full-width Event Photo Ambient Background with Directional Gradient */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <img 
             src={event.imageUrl || 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=2000&q=86'}
             alt={event.title}
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-black/68" />
+          {/* Directional Gradient Overlay: Dark on left to protect text, lighter on right to reveal conference venue */}
+          <div 
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(90deg, rgba(4, 10, 16, 0.94) 0%, rgba(4, 10, 16, 0.82) 48%, rgba(4, 10, 16, 0.42) 100%)'
+            }}
+          />
+          <div 
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(180deg, rgba(4, 10, 16, 0.35) 0%, transparent 25%, rgba(4, 10, 16, 0.65) 100%)'
+            }}
+          />
         </div>
         
-        <div className="vcf-container py-16 sm:py-20 relative z-10">
-          <div className="max-w-4xl space-y-6">
-            {/* Event Badges */}
-            <div className="flex flex-wrap items-center gap-2.5">
-              <span className="text-xs font-semibold uppercase tracking-wider bg-brand-primary text-white px-3.5 py-1 rounded-full shadow-xs">
-                {event.activityName}
+        <div className="vcf-container py-12 lg:py-16 xl:py-20 relative z-10">
+          <div className="max-w-4xl xl:max-w-5xl space-y-6">
+            {/* 1. Desktop Breadcrumb (Compact: ← Sự kiện / CEO Summit) */}
+            <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-neutral-400 font-medium">
+              <button
+                type="button"
+                onClick={() => navigateTo('events')}
+                className="inline-flex items-center gap-1.5 text-neutral-300 hover:text-white transition-colors cursor-pointer py-1 px-1.5 -ml-1.5 rounded-md hover:bg-white/10"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Sự kiện</span>
+              </button>
+              <span className="text-neutral-500">/</span>
+              <span className="text-white font-semibold">{event.activityName || 'CEO Summit'}</span>
+            </nav>
+
+            {/* 2. Badges (Category + Availability Status) */}
+            <div className="flex flex-wrap items-center gap-3">
+              {/* Category Badge */}
+              <span className="text-xs font-bold uppercase tracking-wider bg-brand-primary text-white px-3 py-1 rounded shadow-xs">
+                {(event.activityName || 'CEO SUMMIT').toUpperCase()}
               </span>
 
-              {/* Event Status Badges */}
+              {/* Status / Availability Badge */}
               {isPast ? (
-                isConfirmed ? (
-                  <span className="text-xs font-semibold text-neutral-200 bg-neutral-800 border border-neutral-600 px-3.5 py-1 rounded-full flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                    ĐÃ THAM DỰ (VÉ ĐÃ SỬ DỤNG)
-                  </span>
-                ) : (isPendingApproval || isWaitlisted) ? (
-                  <span className="text-xs font-semibold text-amber-300 bg-amber-950/90 border border-amber-500/50 px-3.5 py-1 rounded-full flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5 text-amber-400" />
-                    SỰ KIỆN ĐÃ KẾT THÚC
-                  </span>
-                ) : (
-                  <span className="text-xs font-semibold text-neutral-300 bg-neutral-800 border border-neutral-700 px-3.5 py-1 rounded-full">
-                    SỰ KIỆN ĐÃ KẾT THÚC
-                  </span>
-                )
+                <span className="text-xs font-semibold text-neutral-300 bg-neutral-800/80 border border-neutral-700 px-3 py-1 rounded flex items-center gap-1.5">
+                  Sự kiện đã kết thúc
+                </span>
               ) : isConfirmed ? (
-                <span className="text-xs font-semibold text-emerald-300 bg-emerald-900/90 border border-emerald-500/50 px-3.5 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                  ĐÃ ĐƯỢC DUYỆT (MÃ QR SẴN SÀNG)
+                <span className="text-xs font-semibold text-emerald-300 bg-emerald-950/70 border border-emerald-500/40 px-3 py-1 rounded flex items-center gap-1.5 shadow-xs">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  Đã xác nhận
                 </span>
               ) : isPendingApproval ? (
-                <span className="text-xs font-semibold text-amber-300 bg-amber-950/90 border border-amber-500/50 px-3.5 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
-                  <Clock className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
-                  ĐANG CHỜ DUYỆT
+                <span className="text-xs font-semibold text-blue-300 bg-blue-950/70 border border-blue-500/40 px-3 py-1 rounded flex items-center gap-1.5 shadow-xs">
+                  <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+                  Đang chờ xét duyệt
                 </span>
-              ) : isWaitlisted ? (
-                <span className="text-xs font-semibold text-amber-300 bg-amber-950/90 border border-amber-500/50 px-3.5 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
-                  <Clock className="w-3.5 h-3.5 text-amber-400" />
-                  DANH SÁCH CHỜ (WAITLIST)
+              ) : (isWaitlisted || isFullEffective) ? (
+                <span className="text-xs font-semibold text-neutral-300 bg-neutral-800/80 border border-neutral-600/50 px-3 py-1 rounded flex items-center gap-1.5 shadow-xs">
+                  <span className="w-2 h-2 rounded-full bg-neutral-400" />
+                  Đã đủ số lượng
                 </span>
-              ) : isFullEffective ? (
-                <span className="text-xs font-semibold text-rose-300 bg-rose-950/90 border border-rose-600/70 px-3.5 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
-                  <span className="w-2 h-2 rounded-full bg-rose-500" />
-                  HẾT CHỖ (ĐĂNG KÝ CHỜ)
+              ) : isNearlyFull ? (
+                <span className="text-xs font-semibold text-amber-400 bg-amber-950/70 border border-amber-500/40 px-3 py-1 rounded flex items-center gap-1.5 shadow-xs">
+                  <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                  Còn {event.availableSeats}/{event.totalSeats} chỗ
                 </span>
               ) : (
-                <span className="text-xs font-semibold text-emerald-400 bg-emerald-950/80 border border-emerald-800/80 px-3.5 py-1 rounded-full flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  Còn chỗ ({event.availableSeats}/{event.totalSeats})
+                <span className="text-xs font-semibold text-emerald-400 bg-emerald-950/70 border border-emerald-500/40 px-3 py-1 rounded flex items-center gap-1.5 shadow-xs">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  Còn {event.availableSeats}/{event.totalSeats} chỗ
                 </span>
               )}
             </div>
 
-            {/* Title */}
-            <h1 className="text-[clamp(2.25rem,5vw,3.75rem)] font-semibold tracking-[-0.04em] leading-[1.05] text-white font-sans">
+            {/* 3. Headline (~3 lines on Desktop, 56-60px on large screens) */}
+            <h1 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[54px] 2xl:text-[58px] font-extrabold tracking-tight leading-[1.08] text-white font-sans max-w-4xl">
               {event.title}
             </h1>
 
-            {/* Tối giản thông tin Thời gian & Địa điểm */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
-              {/* Thời gian */}
-              <div className="flex items-start gap-3 p-3.5 rounded-xl bg-neutral-900/80 border border-neutral-800">
-                <div className="w-10 h-10 rounded-lg bg-brand-primary/15 border border-brand-primary/30 flex items-center justify-center shrink-0 text-brand-primary mt-0.5">
-                  <Calendar className="w-5 h-5" />
+            {/* 4. Event Short Description (2-3 lines editorial summary) */}
+            {eventDescription && (
+              <p className="text-neutral-300 text-base lg:text-[17px] leading-relaxed max-w-3xl">
+                {eventDescription}
+              </p>
+            )}
+
+            {/* 5. Metadata Cards (Time & Location side-by-side, compact, content-driven height) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl pt-1">
+              {/* Card 1: Thời gian */}
+              <div className="flex items-start gap-4 p-4 lg:p-5 rounded-xl bg-[#0e1318]/75 backdrop-blur-md border border-white/10 shadow-lg">
+                <div className="w-11 h-11 rounded-lg border border-red-500/35 bg-red-950/30 flex items-center justify-center shrink-0 text-red-500 mt-0.5">
+                  <Calendar className="w-5 h-5 stroke-[2]" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <div className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
-                    Thời gian diễn ra
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-400">
+                    THỜI GIAN
                   </div>
-                  <div className="font-semibold text-white text-sm sm:text-base mt-0.5">
-                    {event.datetime}
+                  <div className="font-bold text-white text-base lg:text-lg mt-0.5 leading-tight">
+                    {eventTime}
                   </div>
-                  <div className="relative mt-2">
+                  <div className="text-xs lg:text-sm text-neutral-300 font-medium mt-0.5">
+                    {eventDate}
+                  </div>
+                  <div className="relative mt-3">
                     <button
                       type="button"
                       onClick={() => setShowCalendarMenu(!showCalendarMenu)}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold text-neutral-300 hover:text-white bg-neutral-800/80 hover:bg-neutral-700 border border-neutral-700 transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-neutral-200 bg-white/10 hover:bg-white/15 border border-white/15 transition-colors cursor-pointer"
                     >
                       <CalendarPlus className="w-3.5 h-3.5 text-brand-primary" />
                       <span>Thêm vào lịch</span>
@@ -658,10 +1271,10 @@ export const EventDetailPage: React.FC = () => {
                     {showCalendarMenu && (
                       <>
                         <div 
-                          className="fixed inset-0 z-20" 
+                          className="fixed inset-0 z-[65]"
                           onClick={() => setShowCalendarMenu(false)} 
                         />
-                        <div className="absolute left-0 top-full mt-1.5 w-52 bg-neutral-900 border border-neutral-700 rounded-xl shadow-2xl p-1.5 z-30 text-xs font-sans">
+                        <div className="absolute left-0 top-full mt-1.5 w-52 bg-neutral-900 border border-neutral-700 rounded-xl shadow-2xl p-1.5 z-[70] text-xs font-sans">
                           <button
                             type="button"
                             onClick={handleAddToGoogleCalendar}
@@ -691,24 +1304,27 @@ export const EventDetailPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Địa điểm */}
-              <div className="flex items-start gap-3 p-3.5 rounded-xl bg-neutral-900/80 border border-neutral-800">
-                <div className="w-10 h-10 rounded-lg bg-brand-primary/15 border border-brand-primary/30 flex items-center justify-center shrink-0 text-brand-primary mt-0.5">
-                  <MapPin className="w-5 h-5" />
+              {/* Card 2: Địa điểm */}
+              <div className="flex items-start gap-4 p-4 lg:p-5 rounded-xl bg-[#0e1318]/75 backdrop-blur-md border border-white/10 shadow-lg">
+                <div className="w-11 h-11 rounded-lg border border-red-500/35 bg-red-950/30 flex items-center justify-center shrink-0 text-red-500 mt-0.5">
+                  <MapPin className="w-5 h-5 stroke-[2]" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <div className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
-                    Địa điểm tổ chức
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-400">
+                    ĐỊA ĐIỂM
                   </div>
-                  <div className="font-semibold text-white text-sm sm:text-base mt-0.5">
-                    {event.location}
+                  <div className="font-bold text-white text-base lg:text-lg mt-0.5 leading-tight truncate" title={venueName}>
+                    {venueName}
                   </div>
-                  <div className="mt-2">
+                  <div className="text-xs lg:text-sm text-neutral-300 font-medium mt-0.5 truncate" title={venueAddress}>
+                    {venueAddress}
+                  </div>
+                  <div className="mt-3">
                     <a
                       href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location || 'Trung tâm Hội nghị Quốc gia, Đại lộ Thăng Long, Hà Nội')}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold text-neutral-300 hover:text-white bg-neutral-800/80 hover:bg-neutral-700 border border-neutral-700 transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-neutral-200 bg-white/10 hover:bg-white/15 border border-white/15 transition-colors cursor-pointer"
                     >
                       <Navigation className="w-3.5 h-3.5 text-brand-primary" />
                       <span>Chỉ đường Google Maps</span>
@@ -719,114 +1335,173 @@ export const EventDetailPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Quick Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
-              <CustomButton
-                variant={
-                  isPast
-                    ? 'secondary'
-                    : registeredItem?.status === 'confirmed'
-                    ? 'success'
-                    : (isFullEffective || registeredItem?.status === 'waitlisted')
-                    ? 'gray'
-                    : 'primary'
-                }
-                size="lg"
-                onClick={() => {
-                  if (isPast) {
-                    scrollToSection('overview');
-                  } else if (isAlreadyRegistered) {
-                    scrollToSection('tickets');
-                  } else if (isFullEffective) {
-                    setIsWaitlistModal(true);
-                    setIsMemberModalOpen(true);
-                  } else {
-                    setIsWaitlistModal(false);
-                    setIsMemberModalOpen(true);
-                  }
-                }}
-                className={isPast ? 'bg-neutral-800 text-neutral-400 border-neutral-700' : ''}
-              >
-                {isPast
-                  ? 'Sự kiện đã kết thúc'
-                  : registeredItem?.status === 'confirmed'
-                  ? 'Đã xác nhận tham dự'
-                  : registeredItem?.status === 'pending_approval'
-                  ? 'Đang chờ Ban tổ chức duyệt'
-                  : registeredItem?.status === 'waitlisted'
-                  ? `Đang trong danh sách chờ (#${registeredItem?.waitlistPosition ? String(registeredItem.waitlistPosition).padStart(2, '0') : '07'})`
-                  : isFullEffective
-                  ? 'Đăng ký danh sách chờ'
-                  : 'Đăng ký sự kiện ngay'}
-              </CustomButton>
+            {/* 6. CTA Hierarchy & Availability Helper */}
+            <div className="space-y-3 pt-2">
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+                {/* Primary CTA */}
+                {isPast ? (
+                  <button
+                    type="button"
+                    onClick={() => scrollToSection('resources')}
+                    className="min-h-[50px] px-7 py-3.5 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white font-bold text-sm sm:text-base flex items-center gap-2 shadow-lg transition-all active:scale-[0.99] cursor-pointer"
+                  >
+                    <FileText className="w-4 h-4" />
+                    <span>Xem tài liệu & Kỷ yếu</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                ) : isConfirmed ? (
+                  <button
+                    type="button"
+                    onClick={() => scrollToSection('tickets')}
+                    className="min-h-[50px] px-7 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm sm:text-base flex items-center gap-2 shadow-lg transition-all active:scale-[0.99] cursor-pointer"
+                  >
+                    <QrCode className="w-4 h-4" />
+                    <span>Xem QR check-in</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                ) : isPendingApproval ? (
+                  <button
+                    type="button"
+                    onClick={() => scrollToSection('tickets')}
+                    className="min-h-[50px] px-7 py-3.5 rounded-xl bg-white/15 hover:bg-white/20 border border-white/25 text-white font-bold text-sm sm:text-base flex items-center gap-2 shadow-lg transition-all active:scale-[0.99] cursor-pointer"
+                  >
+                    <span>Xem hồ sơ của tôi</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                ) : (isWaitlisted || isFullEffective) ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsWaitlistModal(true);
+                      setIsMemberModalOpen(true);
+                    }}
+                    className="min-h-[50px] px-7 py-3.5 rounded-xl bg-neutral-800 hover:bg-neutral-700 border border-neutral-600 text-white font-bold text-sm sm:text-base flex items-center gap-2 shadow-lg transition-all active:scale-[0.99] cursor-pointer"
+                  >
+                    <span>Tham gia danh sách chờ</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsWaitlistModal(false);
+                      setIsMemberModalOpen(true);
+                    }}
+                    className="min-h-[50px] px-7 py-3.5 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white font-bold text-sm sm:text-base flex items-center gap-2 shadow-lg hover:shadow-red-900/30 transition-all active:scale-[0.99] cursor-pointer"
+                  >
+                    <span>Đăng ký tham dự</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                )}
 
-              <button
-                onClick={() => scrollToSection('agenda')}
-                className="px-5 py-3 rounded-full text-xs font-semibold border border-neutral-700 bg-neutral-800/80 hover:bg-neutral-800 text-white transition-colors flex items-center gap-2 cursor-pointer"
-              >
-                <FileText className="w-4 h-4 text-neutral-300" />
-                <span>Xem khung chương trình</span>
-              </button>
+                {/* Tertiary Action (Share) */}
+                <button
+                  type="button"
+                  onClick={handleCopyLink}
+                  className="min-h-[50px] px-3.5 py-2 text-sm font-medium text-neutral-300 hover:text-white flex items-center gap-2 transition-colors cursor-pointer ml-1"
+                  title="Sao chép liên kết sự kiện"
+                >
+                  <Share2 className="w-4 h-4" />
+                  <span>{copiedLink ? 'Đã sao chép!' : 'Chia sẻ'}</span>
+                </button>
+              </div>
 
-              <button
-                onClick={handleCopyLink}
-                className="px-4 py-3 rounded-full text-xs font-medium border border-neutral-700 hover:border-neutral-500 text-neutral-300 transition-colors flex items-center gap-1.5 cursor-pointer"
-                title="Sao chép liên kết sự kiện"
-              >
-                <Share2 className="w-3.5 h-3.5" />
-                <span>{copiedLink ? 'Đã sao chép!' : 'Chia sẻ'}</span>
-              </button>
+              {/* Availability Helper near Primary CTA */}
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-neutral-300 pt-0.5">
+                {isPast ? (
+                  <span className="text-neutral-400">Sự kiện đã diễn ra thành công.</span>
+                ) : isConfirmed ? (
+                  <span className="text-emerald-400 font-medium">Mã QR đã sẵn sàng để check-in tại quầy sự kiện.</span>
+                ) : isPendingApproval ? (
+                  <span className="text-neutral-300 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                    Kết quả sẽ được gửi qua email.
+                  </span>
+                ) : (isWaitlisted || isFullEffective) ? (
+                  <span className="text-neutral-300 flex items-center gap-1.5">
+                    <Users className="w-4 h-4 text-brand-primary shrink-0" />
+                    <span>Chúng tôi sẽ thông báo nếu có suất mới.</span>
+                  </span>
+                ) : (
+                  null
+                )}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Breadcrumb Bar (Ghép ngay dưới Banner - Tiết kiệm khoảng trống màu xám) */}
-      <div className="bg-white border-b border-hairline">
-        <div className="vcf-container py-2.5">
-          <Breadcrumb 
-            className="!border-0 !mb-0 !py-0"
-            items={[
-              { label: 'Sự kiện', route: 'events' },
-              { label: event.title }
-            ]} 
-          />
-        </div>
-      </div>
-
       {/* =========================================================================
           STICKY IN-PAGE NAVIGATION (Menu cấp 2 - Sticky top-0 when scrolling)
           ========================================================================= */}
-      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-hairline shadow-xs transition-shadow">
-        <div className="vcf-container">
-          <div className="flex items-center justify-between py-1 gap-1">
-            {/* Back button to events list */}
-            <div className="flex items-center gap-1.5 shrink-0 pr-2 sm:pr-3 border-r border-hairline my-1">
-              <button
-                type="button"
-                onClick={() => navigateTo('events')}
-                className="flex items-center gap-1.5 text-xs font-semibold text-ink-secondary hover:text-brand-primary transition-colors py-1.5 px-2 rounded-md hover:bg-neutral-100 cursor-pointer"
-                title="Quay lại danh sách sự kiện"
-              >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Sự kiện</span>
-              </button>
-            </div>
+      {/* Mobile Sticky Navigation: NO back arrow inside tab row, never cropped, no scrollbar */}
+      <div className="lg:hidden sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-hairline shadow-xs">
+        <div 
+          ref={navContainerRef}
+          className="flex items-center gap-1.5 overflow-x-auto no-scrollbar px-4 pt-1 pb-0 scroll-smooth"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {(isPast 
+            ? [
+                { id: 'overview', label: 'Tổng quan' },
+                { id: 'resources', label: 'Tài liệu' },
+                { id: 'agenda', label: 'Chương trình' },
+                { id: 'speakers', label: 'Diễn giả' },
+                { id: 'venue', label: 'Địa điểm' },
+                { id: 'partners', label: 'Nhà tài trợ' },
+                { id: 'faq', label: 'Câu hỏi thường gặp' },
+              ]
+            : [
+                { id: 'overview', label: 'Tổng quan' },
+                { id: 'agenda', label: 'Chương trình' },
+                { id: 'speakers', label: 'Diễn giả' },
+                { id: 'venue', label: 'Địa điểm' },
+                { id: 'partners', label: 'Nhà tài trợ' },
+                { id: 'faq', label: 'Câu hỏi thường gặp' },
+                { id: 'tickets', label: isAlreadyRegistered ? 'Thẻ vé' : 'Đăng ký' },
+              ]
+          ).map((tab) => (
+            <button
+              key={tab.id}
+              data-tab={tab.id}
+              onClick={() => scrollToSection(tab.id as any)}
+              className={`px-3.5 py-2.5 text-sm font-semibold whitespace-nowrap transition-colors border-b-2 shrink-0 cursor-pointer min-h-[44px] flex items-center justify-center ${
+                activeTab === tab.id
+                  ? 'border-brand-primary text-brand-primary'
+                  : 'border-transparent text-ink-secondary hover:text-ink'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+          {/* Visual affordance spacing at the end so last tab isn't flush against edge */}
+          <div className="w-6 shrink-0" aria-hidden="true" />
+        </div>
+      </div>
 
+      {/* Desktop Sticky Navigation (No back button, clean tab strip) */}
+      <div className="hidden lg:block sticky top-0 z-50 h-[56px] bg-white border-b border-hairline">
+        <div className="vcf-container h-full">
+          <div className="flex h-full items-center justify-between gap-1">
             {/* Scrollable Tabs */}
-            <div ref={navContainerRef} className="flex items-center gap-1 overflow-x-auto no-scrollbar flex-1 py-1">
+            <div 
+              className="flex h-full items-center gap-1 overflow-x-auto no-scrollbar flex-1"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
               {[
                 { id: 'overview', label: 'Tổng quan' },
+                ...(isPast ? [{ id: 'resources', label: 'Tài liệu & Kỷ yếu' }] : []),
                 { id: 'agenda', label: 'Chương trình nghị sự' },
                 { id: 'speakers', label: 'Diễn giả & Cố vấn' },
                 { id: 'venue', label: 'Địa điểm & Di chuyển' },
-                { id: 'partners', label: 'Ban tổ chức & Đối tác' },
+                { id: 'partners', label: 'Nhà tài trợ' },
+                { id: 'faq', label: 'Câu hỏi thường gặp' },
               ].map((tab) => (
                 <button
                   key={tab.id}
                   data-tab={tab.id}
                   onClick={() => scrollToSection(tab.id as any)}
-                  className={`px-3.5 sm:px-4 py-3 text-xs sm:text-sm font-semibold whitespace-nowrap transition-colors border-b-2 cursor-pointer ${
+                  className={`h-full px-3.5 sm:px-4 text-xs sm:text-sm font-semibold whitespace-nowrap transition-colors border-b-2 cursor-pointer ${
                     activeTab === tab.id
                       ? 'border-brand-primary text-brand-primary'
                       : 'border-transparent text-ink-secondary hover:text-ink hover:border-neutral-300'
@@ -843,26 +1518,24 @@ export const EventDetailPage: React.FC = () => {
       {/* =========================================================================
           MAIN CONTENT AREA (2 Columns WAN-IFRA Layout)
           ========================================================================= */}
-      <div className="vcf-container py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="vcf-container py-6 sm:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           
           {/* =====================================================================
               LEFT COLUMN: DETAILED SECTIONS (~7 COLS)
+              24px (space-y-6) separation between boxes as requested
               ===================================================================== */}
-          <div className="lg:col-span-8 space-y-12">
+          <div className="lg:col-span-8 space-y-6">
             
             {/* SECTION 1: TỔNG QUAN & NỘI DUNG TRỌNG TÂM */}
-            <section id="section-overview" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-6 scroll-mt-16 sm:scroll-mt-20">
+            <section id="section-overview" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
               <div>
-                <span className="text-[11px] uppercase font-semibold tracking-wider text-brand-primary">
-                  Giới thiệu tổng quan
-                </span>
-                <h2 className="text-xl sm:text-2xl font-semibold text-ink tracking-tight mt-1">
+                <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight">
                   Về {event.activityName}
                 </h2>
               </div>
 
-              <div className="prose prose-neutral max-w-none text-sm sm:text-base leading-relaxed text-neutral-700 space-y-4">
+              <div className="prose prose-neutral max-w-none text-base leading-relaxed text-neutral-800 space-y-4 font-sans">
                 <p>
                   {event.description}
                 </p>
@@ -870,104 +1543,193 @@ export const EventDetailPage: React.FC = () => {
               </div>
             </section>
 
+            {/* SECTION 1.5: TÀI LIỆU SAU SỰ KIỆN (Hiển thị ngay sau Tổng quan cho sự kiện đã kết thúc) */}
+            {isPast && (
+              <section id="section-resources" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
+                <div className="border-b border-neutral-100 pb-3">
+                  <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight">
+                    Tài Liệu, Kỷ Yếu & Kế Thừa Tri Thức
+                  </h2>
+                  <p className="text-sm sm:text-base text-neutral-600 mt-1 font-sans">
+                    Tài liệu, hình ảnh và nội dung tổng kết từ chương trình.
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  <div 
+                    onClick={() => navigateTo('knowledge')}
+                    className="p-3.5 sm:p-4 rounded-xl bg-neutral-50/80 hover:bg-neutral-100/80 transition-all flex items-center justify-between gap-3 cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-10 h-10 rounded-lg bg-brand-primary/10 text-brand-primary flex items-center justify-center shrink-0 group-hover:bg-brand-primary group-hover:text-white transition-colors">
+                        <FileText className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h4 className="text-base font-semibold text-ink group-hover:text-brand-primary transition-colors">
+                          Báo cáo & Kỷ yếu hội nghị
+                        </h4>
+                        <p className="text-sm text-neutral-600 mt-0.5">
+                          Kỷ yếu tổng hợp 12 bài tham luận & nghiên cứu (PDF • 18.5 MB)
+                        </p>
+                      </div>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-brand-primary group-hover:translate-x-1 transition-all shrink-0" />
+                  </div>
+
+                  <div 
+                    onClick={() => alert('Bộ ảnh & Video highlights toàn cảnh sự kiện đã sẵn sàng trong thư viện Media VCF.')}
+                    className="p-3.5 sm:p-4 rounded-xl bg-neutral-50/80 hover:bg-neutral-100/80 transition-all flex items-center justify-between gap-3 cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-600 flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                        <Sparkles className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h4 className="text-base font-semibold text-ink group-hover:text-brand-primary transition-colors">
+                          Bộ ảnh & Video toàn cảnh sự kiện
+                        </h4>
+                        <p className="text-sm text-neutral-600 mt-0.5">
+                          Kho 250+ hình ảnh chất lượng cao & video tư liệu chương trình
+                        </p>
+                      </div>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-brand-primary group-hover:translate-x-1 transition-all shrink-0" />
+                  </div>
+
+                  <div 
+                    onClick={() => alert('Đang tải trọn bộ Slide thuyết trình các phiên thảo luận của diễn giả (ZIP • 42 MB)...')}
+                    className="p-3.5 sm:p-4 rounded-xl bg-neutral-50/80 hover:bg-neutral-100/80 transition-all flex items-center justify-between gap-3 cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-600 flex items-center justify-center shrink-0 group-hover:bg-amber-600 group-hover:text-white transition-colors">
+                        <Download className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h4 className="text-base font-semibold text-ink group-hover:text-brand-primary transition-colors">
+                          Slide & tài liệu diễn giả
+                        </h4>
+                        <p className="text-sm text-neutral-600 mt-0.5">
+                          Bản trình chiếu độc quyền từ các chuyên gia & cố vấn
+                        </p>
+                      </div>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-brand-primary group-hover:translate-x-1 transition-all shrink-0" />
+                  </div>
+                </div>
+              </section>
+            )}
+
             {/* SECTION 2: CHƯƠNG TRÌNH NGHỊ SỰ CHI TIẾT */}
-            <section id="section-agenda" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
+            <section id="section-agenda" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-100 pb-4">
                 <div>
-                  <span className="text-[11px] uppercase font-semibold tracking-wider text-brand-primary">
-                    Chương trình nghị sự
-                  </span>
-                  <h2 className="text-xl sm:text-2xl font-semibold text-ink tracking-tight mt-1">
-                    Khung Chương Trình Chi Tiết
+                  <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight">
+                    Chương trình sự kiện
                   </h2>
                 </div>
 
                 <button
                   onClick={() => alert('Đang tạo và tải về tài liệu Agenda PDF bản chuẩn in ấn (5.2 MB)...')}
-                  className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-300 hover:border-black rounded-lg text-xs font-semibold transition-all bg-parchment hover:bg-white cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2 border border-neutral-300 hover:border-black rounded-lg text-sm font-semibold transition-all bg-neutral-50 hover:bg-white cursor-pointer min-h-[44px] w-fit"
                 >
-                  <Download className="w-3.5 h-3.5 text-ink-secondary" />
-                  <span>Tải Agenda (PDF)</span>
+                  <Download className="w-4 h-4 text-ink-secondary" />
+                  <span>↓ Tải Agenda (PDF)</span>
                 </button>
               </div>
 
-              {/* Agenda Timeline: chỉ tiêu đề chính + kèm thời gian + Diễn giả */}
-              <div className="space-y-3 pt-1">
+              {/* Clean Agenda Timeline - Rõ nét, cỡ chữ tối thiểu 16px trên mobile */}
+              <div className="divide-y divide-neutral-100">
                 {event.agenda.map((item, i) => (
-                  <div key={i} className="border border-hairline rounded-lg p-4 hover:border-brand-primary transition-colors bg-parchment/50 space-y-1.5">
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-3.5 h-3.5 text-brand-primary shrink-0" />
-                      <span className="font-mono text-xs font-semibold text-ink">{item.time}</span>
+                  <div 
+                    key={i} 
+                    className="py-4 first:pt-1 last:pb-1 flex flex-col sm:flex-row sm:items-start gap-2.5 sm:gap-6 group hover:bg-neutral-50/70 -mx-3 sm:-mx-4 px-3 sm:px-4 rounded-xl transition-colors"
+                  >
+                    {/* Time Column */}
+                    <div className="sm:w-36 shrink-0 flex items-center gap-2.5 sm:pt-0.5">
+                      <div className="w-2.5 h-2.5 rounded-full bg-brand-primary shrink-0 group-hover:scale-125 transition-transform" />
+                      <span className="font-sans text-lg sm:text-lg font-extralight text-neutral-800 group-hover:text-brand-primary transition-colors" style={{ fontFamily: '"Inter Variable", Arial, sans-serif' }}>
+                        {item.time}
+                      </span>
                     </div>
 
-                    <h4 className="text-sm sm:text-base font-semibold text-ink leading-snug">
-                      {item.topic}
-                    </h4>
-
-                    {item.presenter && (
-                      <div className="pt-1 flex items-center gap-2 text-xs text-neutral-700">
-                        <span className="text-ink-secondary font-medium">Diễn giả:</span>
-                        <strong className="text-ink">{item.presenter}</strong>
-                      </div>
-                    )}
+                    {/* Topic and Speaker - Cỡ chữ tối thiểu 16px trên mobile */}
+                    <div className="flex-1 space-y-1.5">
+                      <h4 className="text-lg font-extralight text-ink leading-snug group-hover:text-neutral-900 transition-colors">
+                        {item.topic}
+                      </h4>
+                      {item.presenter && !item.presenter.includes('Hội đồng Khoa học PTIT') && (
+                        <div className="flex items-center gap-1.5 text-lg text-neutral-600 pt-0.5">
+                          <span className="text-neutral-500 font-medium">Diễn giả:</span>
+                          <span className="font-bold text-neutral-800">{item.presenter}</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
             </section>
 
-            {/* SECTION 3: DIỄN GIẢ & KHÁCH MỜI DANH DỰ (Avatar + Tên + Chức vụ) */}
-            <section id="section-speakers" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-6 scroll-mt-16 sm:scroll-mt-20">
+            {/* SECTION 3: DIỄN GIẢ & KHÁCH MỜI DANH DỰ */}
+            <section id="section-speakers" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-6 scroll-mt-16 sm:scroll-mt-20">
               <div>
-                <span className="text-[11px] uppercase font-semibold tracking-wider text-brand-primary">
-                  Diễn giả & Chuyên gia
-                </span>
-                <h2 className="text-xl sm:text-2xl font-semibold text-ink tracking-tight mt-1">
-                  Đội Ngũ Diễn Giả Hàng Đầu
+                <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight">
+                  Diễn giả
                 </h2>
-                <p className="text-xs text-ink-secondary mt-1 font-sans">
+                <p className="text-sm sm:text-base text-neutral-600 mt-1 font-sans">
                   Quy tụ các nhà hoạch định chính sách, chuyên gia kinh tế và lãnh đạo doanh nghiệp xuất sắc
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {event.speakers.map((spk, idx) => (
-                  <div key={spk.name} className="border border-hairline rounded-lg p-4 flex items-center gap-4 bg-parchment hover:bg-white hover:border-brand-primary transition-all group">
-                    <div className="w-14 h-14 rounded-full bg-neutral-200 border-2 border-white shadow-xs shrink-0 flex items-center justify-center font-semibold text-base text-neutral-700 group-hover:bg-brand-primary group-hover:text-white transition-colors overflow-hidden">
-                      {spk.avatarUrl ? <img src={spk.avatarUrl} alt="" className="h-full w-full object-cover" /> : spk.name.charAt(0)}
-                    </div>
-                    <div className="space-y-0.5">
-                      <h4 className="text-sm font-semibold text-ink leading-tight group-hover:text-brand-primary transition-colors">
-                        {spk.name}
-                      </h4>
-                      <div className="text-xs text-ink-secondary font-medium leading-snug">
-                        {spk.role}
+              {/* Clean Speaker Grid */}
+              <div className="-mx-5 sm:-mx-6 lg:-mx-8 grid grid-cols-1 sm:grid-cols-2 gap-y-3.5 sm:gap-y-4">
+                {event.speakers.map((spk) => {
+                  const initials = spk.name
+                    .split(' ')
+                    .filter(Boolean)
+                    .slice(-2)
+                    .map(n => n.charAt(0))
+                    .join('')
+                    .toUpperCase() || 'SP';
+
+                  return (
+                    <div 
+                      key={spk.name} 
+                      className="px-5 sm:px-6 lg:px-8 py-3.5 sm:py-4 flex items-center gap-3.5 hover:bg-neutral-50/50 transition-colors group"
+                    >
+                      <div className="vcf-avatar w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-neutral-800 to-neutral-950 text-white shadow-xs shrink-0 flex items-center justify-center font-bold text-base tracking-wide group-hover:ring-2 group-hover:ring-brand-primary/50 transition-all overflow-hidden">
+                        {spk.avatarUrl ? (
+                          <img src={spk.avatarUrl} alt={spk.name} className="h-full w-full object-cover" />
+                        ) : (
+                          <span>{initials}</span>
+                        )}
+                      </div>
+                      <div className="space-y-1 min-w-0 flex-1">
+                        <h4 className="text-lg font-bold text-ink leading-tight group-hover:text-brand-primary transition-colors truncate">
+                          {spk.name}
+                        </h4>
+                        <div className="text-sm text-neutral-600 font-medium leading-snug line-clamp-2">
+                          {spk.role}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </section>
 
-            {/* SECTION 4: ĐỊA ĐIỂM (Chỉ giữ địa điểm + button Điều hướng Google Maps) */}
-            <section id="section-venue" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-4 scroll-mt-16 sm:scroll-mt-20">
-              <div>
-                <span className="text-[11px] uppercase font-semibold tracking-wider text-brand-primary">
-                  Địa điểm
-                </span>
-                <h2 className="text-xl sm:text-2xl font-semibold text-ink tracking-tight mt-1">
-                  Địa Điểm Tổ Chức
+            {/* SECTION 4: ĐỊA ĐIỂM */}
+            <section id="section-venue" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-4 scroll-mt-16 sm:scroll-mt-20">
+              <div className="-mb-4">
+                <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight">
+                  Địa điểm tổ chức
                 </h2>
               </div>
 
-              <div className="border border-hairline rounded-lg p-5 bg-parchment flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="flex items-start gap-3">
-                  <Building className="w-5 h-5 text-brand-primary shrink-0 mt-0.5" />
-                  <div>
-                    <div className="font-semibold text-base text-ink">{event.venueDetails?.hall || event.location}</div>
-                    <div className="text-xs text-ink-secondary mt-0.5">
-                      {event.venueDetails?.address || event.location}
-                    </div>
-                    {event.venueDetails?.notes && <div className="text-xs text-ink-secondary mt-1">{event.venueDetails.notes}</div>}
+              {/* Direct venue layout */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
+                <div>
+                  <div className="text-base text-neutral-700 mt-1 leading-relaxed">
+                    {event.venueDetails?.address || event.location}
                   </div>
                 </div>
 
@@ -975,91 +1737,69 @@ export const EventDetailPage: React.FC = () => {
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold text-white bg-brand-primary hover:bg-brand-primary-hover transition-colors shadow-xs shrink-0 cursor-pointer w-fit"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-brand-primary hover:bg-brand-primary-hover transition-colors shadow-xs shrink-0 cursor-pointer min-h-[44px] w-full sm:w-auto"
                 >
                   <Navigation className="w-4 h-4" />
                   <span>Điều hướng Google Maps</span>
-                  <ExternalLink className="w-3 h-3 opacity-80" />
+                  <ExternalLink className="w-3.5 h-3.5 opacity-80" />
                 </a>
               </div>
             </section>
 
-            {/* SECTION 5: ĐƠN VỊ CHỦ TRÌ & NHÀ TÀI TRỢ (Chỉ listing các nhà tài trợ + cắt giảm text tối đa) */}
-            <section id="section-partners" className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-5 scroll-mt-16 sm:scroll-mt-20">
+            {/* SECTION 5: NHÀ TÀI TRỢ */}
+            <section id="section-partners" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 lg:p-8 shadow-xs space-y-6 scroll-mt-16 sm:scroll-mt-20">
               <div>
-                <span className="text-[11px] uppercase font-semibold tracking-wider text-brand-primary">
-                  Hệ sinh thái đồng hành
-                </span>
-                <h2 className="text-xl sm:text-2xl font-semibold text-ink tracking-tight mt-1">
-                  Đơn Vị Chủ Trì & Nhà Tài Trợ
+                <h2 className="text-2xl sm:text-2xl font-bold text-ink tracking-tight">
+                  Nhà tài trợ
                 </h2>
               </div>
 
-              <div className="space-y-3">
-                {/* Đơn vị chủ trì */}
-                <div className="border border-hairline rounded-lg p-3.5 bg-parchment flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 bg-brand-primary text-white rounded-md flex items-center justify-center font-semibold text-sm shrink-0">
-                      VCF
-                    </div>
-                    <div>
-                      <span className="text-[10px] uppercase font-semibold text-neutral-400 block">Đơn vị chủ trì</span>
-                      <strong className="text-sm font-semibold text-ink">Diễn Đàn CEO Việt Nam (Vietnam CEO Forum)</strong>
-                    </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+                {[
+                  { name: 'VINASTEEL', src: '/images/partners/vinasteel-logo.svg' },
+                  { name: 'TECHCOMBANK', src: '/images/partners/techcombank-logo.svg' },
+                  { name: 'FPT', src: '/images/partners/fpt-logo.svg' },
+                  { name: 'Viettel Solutions', src: '/images/partners/viettel-solutions-logo.svg' },
+                  { name: 'THACO GROUP', src: '/images/partners/thaco-logo.svg' },
+                  { name: 'VnExpress', src: '/images/partners/vnexpress-logo.png' },
+                  { name: 'Viện LGM', src: '/images/partners/vlgm-logo.png' },
+                  { name: 'PTIT Academy', src: '/images/partners/ptit-logo.png' }
+                ].map((partner) => (
+                  <div key={partner.name} className="h-20 sm:h-22 px-4 py-3 bg-neutral-50/80 hover:bg-white border border-neutral-200/80 hover:border-neutral-300 rounded-lg flex items-center justify-center transition-all shadow-none hover:shadow-xs">
+                    <img
+                      src={partner.src}
+                      alt={`${partner.name} logo`}
+                      loading="lazy"
+                      className="max-h-12 max-w-full object-contain"
+                    />
                   </div>
-                </div>
-
-                {/* Listing Nhà tài trợ & Đối tác */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
-                  {[
-                    { tier: 'Bảo trợ học thuật', name: 'Viện Quản trị LGM' },
-                    { tier: 'Bảo trợ truyền thông', name: 'VnExpress' },
-                    { tier: 'Tài trợ Kim Cương', name: 'VinaSteel Corp' },
-                    { tier: 'Tài trợ Vàng', name: 'Techcombank' },
-                    { tier: 'Tài trợ Vàng', name: 'FPT Corporation' },
-                    { tier: 'Đối tác Công nghệ', name: 'Viettel Solutions' },
-                    { tier: 'Tài trợ Bạc', name: 'Thaco Group' },
-                    { tier: 'Đồng hành', name: 'PTIT Academy' }
-                  ].map((sponsor, idx) => (
-                    <div key={idx} className="border border-hairline rounded-lg p-3 bg-white hover:border-brand-primary transition-colors text-center">
-                      <span className="text-[10px] font-semibold uppercase tracking-wider text-neutral-400 block mb-1">
-                        {sponsor.tier}
-                      </span>
-                      <span className="text-xs font-semibold text-ink block">
-                        {sponsor.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+                ))}
               </div>
             </section>
 
             {/* SECTION 6: CÂU HỎI THƯỜNG GẶP (FAQ) */}
-            <section className="bg-white border border-hairline rounded-xl p-6 sm:p-8 shadow-xs space-y-4">
+            <section id="section-faq" className="bg-white border border-hairline rounded-xl p-5 sm:p-8 shadow-xs space-y-4 scroll-mt-16 sm:scroll-mt-20">
               <div>
-                <span className="text-[11px] uppercase font-semibold tracking-wider text-brand-primary">
-                  Hỏi đáp
-                </span>
-                <h2 className="text-xl sm:text-2xl font-semibold text-ink tracking-tight mt-1">
-                  Câu Hỏi Thường Gặp Của Đại Biểu
+                <h2 className="text-2xl sm:text-2xl font-semibold text-ink tracking-tight">
+                  Câu hỏi thường gặp
                 </h2>
               </div>
 
               <div className="divide-y divide-neutral-200">
                 {faqs.map((faq, index) => (
-                  <div key={index} className="py-3">
+                  <div key={index} className="py-3.5">
                     <button
                       onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
-                      className="w-full text-left flex items-center justify-between font-semibold text-sm text-ink hover:text-brand-primary transition-colors py-1 cursor-pointer"
+                      className="w-full text-left flex items-center justify-between font-bold text-lg text-ink hover:text-brand-primary transition-colors py-1 cursor-pointer"
                     >
                       <span className="flex items-center gap-2">
-                        <HelpCircle className="w-4 h-4 text-neutral-400 shrink-0" />
+                        <HelpCircle className="w-4.5 h-4.5 text-neutral-400 shrink-0" />
                         {faq.q}
                       </span>
                       <ChevronDown className={`w-4 h-4 text-neutral-400 transition-transform ${openFaqIndex === index ? 'rotate-180' : ''}`} />
                     </button>
                     {openFaqIndex === index && (
-                      <p className="text-xs text-ink-secondary leading-relaxed pt-2 pl-6 font-sans">
+                      <p className="text-base text-neutral-700 leading-relaxed pt-2.5 pl-6 font-sans">
                         {faq.a}
                       </p>
                     )}
@@ -1073,12 +1813,13 @@ export const EventDetailPage: React.FC = () => {
           {/* =====================================================================
               RIGHT COLUMN: STICKY REGISTRATION & PASS WIDGET (~5 COLS)
               (WAN-IFRA Ticket Booking on-page, No popup needed!)
+              Hidden on mobile for ended events to avoid redundant disabled box
               ===================================================================== */}
-          <div id="section-tickets" className="lg:col-span-4 lg:sticky lg:top-20 space-y-6 self-start scroll-mt-16 sm:scroll-mt-20 z-10">
+          <div id="section-tickets" className={`lg:col-span-4 lg:sticky lg:top-20 space-y-6 self-start scroll-mt-16 sm:scroll-mt-20 z-10 ${isPast ? 'hidden lg:block' : ''}`}>
             
             {/* Registration Card */}
             <div id="registration-form-container" className="bg-white border border-hairline rounded-xl p-5 sm:p-6 shadow-sm relative overflow-hidden scroll-mt-16 sm:scroll-mt-20">
-              <div className={`absolute top-0 right-0 text-white text-[10px] font-semibold px-3 py-1 rounded-bl-lg uppercase tracking-wider ${
+              {(isPast || isConfirmed || isPendingApproval || isWaitlisted || isFullEffective) && <div className={`absolute top-0 right-0 text-white text-[10px] font-semibold px-3 py-1 rounded-bl-lg uppercase tracking-wider ${
                 isPast 
                   ? 'bg-neutral-700' 
                   : isConfirmed 
@@ -1101,25 +1842,25 @@ export const EventDetailPage: React.FC = () => {
                   ? 'Danh sách chờ' 
                   : isFullEffective 
                   ? 'Đã đầy chỗ' 
-                  : 'Mở đăng ký'}
-              </div>
+                  : null}
+              </div>}
 
               <div className="space-y-1 mb-5">
-                <h3 className="text-lg font-semibold text-ink tracking-tight flex items-center gap-2">
+                <h3 className="text-xl font-semibold text-ink tracking-tight flex items-center gap-2">
                   <UserCheck className="w-5 h-5 text-brand-primary" />
                   {isPast
                     ? 'Sự Kiện Đã Kết Thúc'
                     : isConfirmed 
                     ? 'Thẻ Vé Đại Biểu' 
                     : isPendingApproval 
-                    ? 'Tình Trạng Hồ Sơ Đăng Ký' 
+                    ? 'Tình trạng hồ sơ'
                     : isWaitlisted
                     ? 'Danh Sách Chờ Tham Dự'
                     : isFullEffective
-                    ? 'Sự Kiện Đã Kín Chỗ'
+                    ? 'Sự kiện đã kín chỗ'
                     : 'Đăng Ký Tham Dự Sự Kiện'}
                 </h3>
-                <p className="text-xs text-ink-secondary font-sans">
+                <p className="text-sm text-ink-secondary font-sans">
                   {isPast
                     ? `Sự kiện đã diễn ra vào ngày ${event.datetime}. Cổng đăng ký trực tuyến đã đóng.`
                     : isConfirmed
@@ -1208,10 +1949,10 @@ export const EventDetailPage: React.FC = () => {
                       <CheckCircle2 className="w-7 h-7" />
                     </div>
                     <div>
-                      <div className="font-semibold text-base text-emerald-950">
+                      <div className="font-semibold text-lg text-emerald-950">
                         Xác Nhận Giữ Chỗ Thành Công!
                       </div>
-                      <p className="text-xs text-emerald-800 font-sans leading-relaxed mt-1">
+                      <p className="text-sm text-emerald-800 font-sans leading-relaxed mt-1">
                         Ban Thư ký VCF đã phê duyệt tư cách tham dự. Thẻ đại biểu điện tử đã được ghi nhận vào hồ sơ và gửi về email: <strong>{formData.email || currentUser?.email}</strong>
                       </p>
                     </div>
@@ -1239,7 +1980,7 @@ export const EventDetailPage: React.FC = () => {
 
                       <button
                         onClick={() => alert('Đang tạo và tải Thẻ Đại Biểu PDF kèm mã QR Check-in chính thức...')}
-                        className="text-xs text-ink-secondary hover:text-ink font-semibold underline py-1 cursor-pointer"
+                        className="text-sm text-ink-secondary hover:text-ink font-semibold underline py-1 cursor-pointer"
                       >
                         Tải thẻ vé điện tử (PDF)
                       </button>
@@ -1247,7 +1988,7 @@ export const EventDetailPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => resetEventRegistration(event.id)}
-                        className="text-[11px] text-ink-secondary hover:text-red-600 pt-1 underline cursor-pointer"
+                        className="text-xs text-ink-secondary hover:text-red-600 pt-1 underline cursor-pointer"
                       >
                         Làm mới để thử lại luồng đăng ký
                       </button>
@@ -1269,7 +2010,7 @@ export const EventDetailPage: React.FC = () => {
                           TRẠNG THÁI HỒ SƠ
                         </span>
                         <h4 className="text-sm font-bold text-ink mt-0.5">
-                          Đăng ký đang chờ xét duyệt
+                          Đang chờ xét duyệt
                         </h4>
                       </div>
                     </div>
@@ -1302,26 +2043,11 @@ export const EventDetailPage: React.FC = () => {
                       </CustomButton>
                     </div>
 
-                    <div className="flex gap-2">
-                      {/* Nút Hủy đăng ký theo Spec 3.2 */}
-                      <button
-                        type="button"
-                        onClick={() => {
-                          if (registeredItem) {
-                            cancelRegistration(registeredItem.id);
-                          } else {
-                            resetEventRegistration(event.id);
-                          }
-                        }}
-                        className="flex-1 py-2 px-3 text-xs border border-red-200 text-red-700 hover:bg-red-50 rounded-lg font-medium transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-                      >
-                        <XCircle className="w-3.5 h-3.5 text-red-500" />
-                        Hủy đăng ký
-                      </button>
+                    <div className="flex">
                       <button
                         type="button"
                         onClick={() => navigateTo('profile')}
-                        className="flex-1 py-2 px-3 text-xs bg-neutral-900 text-white hover:bg-neutral-800 rounded-lg font-medium transition-colors cursor-pointer"
+                        className="w-full py-2 px-3 text-sm bg-neutral-900 text-white hover:bg-neutral-800 rounded-lg font-medium transition-colors cursor-pointer"
                       >
                         Xem trong Hồ sơ →
                       </button>
@@ -1384,10 +2110,10 @@ export const EventDetailPage: React.FC = () => {
                    STATE 4: FULL -> WAITLIST CTA
                    ========================================================= */
                 <div className="bg-neutral-100 border border-neutral-300 rounded-xl p-6 text-center space-y-3">
-                  <div className="font-semibold text-base text-ink">
-                    Sự Kiện Đã Đạt Số Lượng Đại Biểu Tối Đa
+                  <div className="font-semibold text-lg text-ink">
+                    Hết vé
                   </div>
-                  <p className="text-xs text-ink-secondary font-sans leading-relaxed">
+                  <p className="text-sm text-ink-secondary font-sans leading-relaxed">
                     Khán phòng đã được đăng ký kín. Quý vị vui lòng đăng ký danh sách chờ (Waitlist) để nhận thông báo sớm khi có đại biểu thay đổi lịch.
                   </p>
                   <CustomButton
@@ -1411,7 +2137,7 @@ export const EventDetailPage: React.FC = () => {
                 <div className="space-y-4">
                   {/* Pass Type Preview */}
                   <div className="space-y-2">
-                    <label className="text-xs font-semibold text-neutral-800 block">
+                    <label className="text-sm font-semibold text-neutral-800 block">
                       Đặc quyền loại vé tham dự:
                     </label>
 
@@ -1426,7 +2152,7 @@ export const EventDetailPage: React.FC = () => {
                           MIỄN PHÍ
                         </span>
                       </div>
-                      <div className="text-[11px] text-ink-secondary mt-1.5 font-sans space-y-0.5">
+              <div className="text-xs text-ink-secondary mt-1.5 font-sans space-y-0.5">
                         <div className="flex items-center gap-1 text-emerald-700 font-semibold">
                           <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                           <span>Hàng ghế VIP khán phòng chính</span>
@@ -2099,17 +2825,17 @@ export const EventDetailPage: React.FC = () => {
 
             {/* Delegate Support Box */}
             <div className="bg-white border border-hairline rounded-xl p-5 shadow-xs space-y-3 text-xs">
-              <div className="font-semibold text-sm text-ink flex items-center gap-2">
+              <div className="font-semibold text-base text-ink flex items-center gap-2">
                 <Phone className="w-4 h-4 text-brand-primary" />
                 Hỗ Trợ Đại Biểu & Ban Thư Ký
               </div>
-              <p className="text-ink-secondary font-sans leading-relaxed">
+              <p className="text-base lg:text-sm text-ink-secondary font-sans leading-relaxed">
                 Ban Thư ký sự kiện Diễn Đàn CEO Việt Nam sẵn sàng hỗ trợ sắp xếp chỗ ngồi VIP, đón tiếp đại biểu hoặc xuất hoá đơn GTGT.
               </p>
-              <div className="space-y-1.5 pt-1 text-neutral-700 font-medium">
+              <div className="space-y-1.5 pt-1 text-base text-neutral-700 font-medium">
                 <div className="flex items-center gap-2">
                   <Phone className="w-3.5 h-3.5 text-neutral-400" />
-                  <span>Hotline: <strong>024.3756.8888</strong> (Nhánh 102)</span>
+                  <span>Hotline: <strong>024.3756.8888</strong></span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="w-3.5 h-3.5 text-neutral-400" />
@@ -2122,6 +2848,135 @@ export const EventDetailPage: React.FC = () => {
 
         </div>
       </div>
+
+      {/* =========================================================================
+          MOBILE STICKY BOTTOM BAR (< lg)
+          Sticky Registration / Status Action Bar with Lifecycle Adaptation
+          ========================================================================= */}
+      <aside 
+        aria-label="Đăng ký sự kiện"
+        className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-hairline px-4 py-3 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] pb-[max(0.75rem,env(safe-area-inset-bottom))]"
+      >
+        <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
+          {/* Left: Event status / seat info */}
+          <div className="min-w-0 flex-1">
+            {isPast ? (
+              <div className="space-y-0.5">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
+                  Trạng thái
+                </span>
+                <span className="text-xs font-bold text-neutral-700 flex items-center gap-1 truncate">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-neutral-500 shrink-0" />
+                  <span>Sự kiện đã kết thúc</span>
+                </span>
+              </div>
+            ) : isConfirmed ? (
+              <div className="space-y-0.5">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 block">
+                  Đã xác nhận
+                </span>
+                <span className="text-xs font-bold text-ink flex items-center gap-1 truncate">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>Mã QR đã sẵn sàng</span>
+                </span>
+              </div>
+            ) : isPendingApproval ? (
+              <div className="space-y-0.5">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-amber-600 block">
+                  Đang xét duyệt
+                </span>
+                <span className="text-sm font-bold text-ink flex items-center gap-1 truncate">
+                  <Clock className="w-3.5 h-3.5 text-amber-500 shrink-0 animate-pulse" />
+                  <span>Hồ sơ đang chờ duyệt</span>
+                </span>
+              </div>
+            ) : isWaitlisted ? (
+              <div className="space-y-0.5">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-amber-600 block">
+                  Danh sách chờ
+                </span>
+                <span className="text-sm font-bold text-ink truncate block">
+                  Hàng đợi chờ duyệt
+                </span>
+              </div>
+            ) : isFullEffective ? (
+              <div className="space-y-0.5">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-rose-600 block">
+                  Đã hết chỗ
+                </span>
+                <span className="text-sm font-bold text-ink truncate block">
+                  Cổng đăng ký chờ mở
+                </span>
+              </div>
+            ) : (
+              <div className="space-y-0.5">
+                <span className="text-[11px] font-bold tracking-normal text-emerald-700 block">
+                  Còn {event.availableSeats}/{event.totalSeats} chỗ
+                </span>
+                <span className="text-sm font-bold text-ink truncate block">
+                  Miễn phí
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Right: Primary Action Button */}
+          <div className="shrink-0">
+            {isPast ? (
+              <button
+                type="button"
+                onClick={() => scrollToSection('resources')}
+                className="px-4 py-2.5 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white font-semibold text-sm flex items-center gap-1.5 shadow-sm min-h-[44px] cursor-pointer"
+              >
+                <FileText className="w-4 h-4" />
+                <span>Xem tài liệu & kỷ yếu</span>
+              </button>
+            ) : isConfirmed ? (
+              <button
+                type="button"
+                onClick={() => scrollToSection('tickets')}
+                className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm flex items-center gap-1.5 shadow-sm min-h-[44px] cursor-pointer"
+              >
+                <QrCode className="w-4 h-4" />
+                <span>Xem vé & QR</span>
+              </button>
+            ) : isPendingApproval || isWaitlisted ? (
+              <button
+                type="button"
+                onClick={() => scrollToSection('tickets')}
+                className="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm flex items-center gap-1.5 shadow-sm min-h-[44px] cursor-pointer"
+              >
+                <Clock className="w-4 h-4" />
+                <span>Xem hồ sơ</span>
+              </button>
+            ) : isFullEffective ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setIsWaitlistModal(true);
+                  setIsMemberModalOpen(true);
+                }}
+                className="px-4 py-2.5 rounded-xl bg-neutral-900 hover:bg-black text-white font-semibold text-sm flex items-center gap-1.5 shadow-sm min-h-[44px] cursor-pointer"
+              >
+                <span>Đăng ký chờ</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  setIsWaitlistModal(false);
+                  setIsMemberModalOpen(true);
+                }}
+                className="px-5 py-2.5 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white font-bold text-sm flex items-center gap-1.5 shadow-md min-h-[44px] cursor-pointer active:scale-98 transition-all"
+              >
+                <span>Đăng ký sự kiện ngay</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+        </div>
+      </aside>
 
       {/* Step-by-Step Membership & Event Registration Modal */}
       <StepByStepMemberModal

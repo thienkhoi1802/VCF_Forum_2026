@@ -26,7 +26,6 @@ import { AboutPage } from './components/pages/AboutPage';
 import { AuthPage } from './components/pages/AuthPage';
 import { ProfilePage } from './components/pages/ProfilePage';
 import { SearchResultsPage } from './components/pages/SearchResultsPage';
-import { AdminUsersPage } from './components/pages/AdminUsersPage';
 
 const AppContent: React.FC = () => {
   const { currentRoute, notificationMessage } = useApp();
@@ -68,8 +67,6 @@ const AppContent: React.FC = () => {
         return <ProfilePage />;
       case 'search':
         return <SearchResultsPage />;
-      case 'admin-users':
-        return <AdminUsersPage />;
       default:
         return <HomePage />;
     }

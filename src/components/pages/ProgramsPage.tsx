@@ -3,7 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { ProgramCard } from '../common/ProgramCard';
 import { SpecBadge } from '../wireframe/SpecBadge';
 import { MOCK_PROGRAMS } from '../../data/mockData';
-import { GraduationCap, Award, CheckCircle2, Users } from 'lucide-react';
+import { Award, CheckCircle2, Users } from 'lucide-react';
 
 export const ProgramsPage: React.FC = () => {
   const { showSpecAnnotations } = useApp();
@@ -22,11 +22,6 @@ export const ProgramsPage: React.FC = () => {
 
       {/* Page Hero */}
       <div className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase bg-red-50 text-brand-primary border border-red-200 px-3 py-1 rounded-full">
-          <GraduationCap className="w-4 h-4" />
-          <span>Học Viện Lãnh Đạo & Quản Trị Tinh Hoa (VLGM / PTIT)</span>
-        </div>
-
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-ink tracking-tight">
           Chương Trình Đào Tạo Giám Đốc Điều Hành (CEO)
         </h1>
@@ -43,8 +38,8 @@ export const ProgramsPage: React.FC = () => {
             <Award className="w-5 h-5 text-brand-primary" />
           </div>
           <div className="space-y-1">
-            <div className="font-semibold text-ink text-sm">Hội Đồng Giảng Viên Đẳng Cấp</div>
-            <div className="text-xs text-ink-secondary leading-relaxed">Các nguyên Viện trưởng, Chuyên gia Kinh tế & CEO tập đoàn trực tiếp giảng dạy.</div>
+            <div className="font-semibold text-ink text-base">Hội Đồng Giảng Viên Đẳng Cấp</div>
+            <div className="text-sm text-ink-secondary leading-relaxed">Các nguyên Viện trưởng, Chuyên gia Kinh tế & CEO tập đoàn trực tiếp giảng dạy.</div>
           </div>
         </div>
         <div className="flex items-start gap-3.5">
@@ -52,8 +47,8 @@ export const ProgramsPage: React.FC = () => {
             <CheckCircle2 className="w-5 h-5 text-brand-primary" />
           </div>
           <div className="space-y-1">
-            <div className="font-semibold text-ink text-sm">Phương Pháp Case-Method</div>
-            <div className="text-xs text-ink-secondary leading-relaxed">Học qua giải quyết bài toán thực tế của chính doanh nghiệp học viên.</div>
+            <div className="font-semibold text-ink text-base">Phương Pháp Case-Method</div>
+            <div className="text-sm text-ink-secondary leading-relaxed">Học qua giải quyết bài toán thực tế của chính doanh nghiệp học viên.</div>
           </div>
         </div>
         <div className="flex items-start gap-3.5">
@@ -61,8 +56,8 @@ export const ProgramsPage: React.FC = () => {
             <Users className="w-5 h-5 text-brand-primary" />
           </div>
           <div className="space-y-1">
-            <div className="font-semibold text-ink text-sm">Mạng Lưới Alumni VCF</div>
-            <div className="text-xs text-ink-secondary leading-relaxed">Gia nhập cộng đồng cựu học viên CEO với hơn 1.000 doanh nhân toàn quốc.</div>
+            <div className="font-semibold text-ink text-base">Mạng Lưới Alumni VCF</div>
+            <div className="text-sm text-ink-secondary leading-relaxed">Gia nhập cộng đồng cựu học viên CEO với hơn 1.000 doanh nhân toàn quốc.</div>
           </div>
         </div>
       </div>

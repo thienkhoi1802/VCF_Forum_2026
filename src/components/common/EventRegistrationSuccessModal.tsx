@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Clock, Mail, X, CheckCircle2, ArrowRight } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { Clock, Mail, X, Check, ArrowRight } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
 export interface EventRegistrationSuccessModalProps {
@@ -13,7 +13,6 @@ export interface EventRegistrationSuccessModalProps {
 export const EventRegistrationSuccessModal: React.FC<EventRegistrationSuccessModalProps> = ({
   isOpen: propIsOpen,
   onClose: propOnClose,
-  eventTitle: propEventTitle,
   email: propEmail,
   isWaitlist: propIsWaitlist,
 }) => {
@@ -21,31 +20,17 @@ export const EventRegistrationSuccessModal: React.FC<EventRegistrationSuccessMod
     eventSuccessModal, 
     closeEventSuccessModal, 
     navigateTo, 
-    currentUser, 
-    updateUserProfile, 
-    showNotification 
+    currentUser 
   } = useApp();
 
   const isOpen = propIsOpen !== undefined ? propIsOpen : eventSuccessModal.isOpen;
   const onClose = propOnClose || closeEventSuccessModal;
-  const fallbackEmail = propEmail || eventSuccessModal.email || currentUser?.email || 'duc.pham@vinasteel.com.vn';
+  const currentEmail = propEmail || eventSuccessModal.email || currentUser?.email || 'thienkhoiart@gmail.com';
   const isWaitlist = propIsWaitlist !== undefined ? propIsWaitlist : eventSuccessModal.isWaitlist;
-
-  const [currentEmail, setCurrentEmail] = useState(fallbackEmail);
-  const [isEditingEmail, setIsEditingEmail] = useState(false);
-  const [editedEmail, setEditedEmail] = useState(fallbackEmail);
 
   const modalRef = useRef<HTMLDivElement>(null);
   const primaryButtonRef = useRef<HTMLButtonElement>(null);
   const previousActiveElement = useRef<HTMLElement | null>(null);
-
-  // Sync email when prop or context changes
-  useEffect(() => {
-    if (fallbackEmail) {
-      setCurrentEmail(fallbackEmail);
-      setEditedEmail(fallbackEmail);
-    }
-  }, [fallbackEmail]);
 
   // Accessibility: Focus trap, Esc key listener, return focus on close
   useEffect(() => {
@@ -99,21 +84,6 @@ export const EventRegistrationSuccessModal: React.FC<EventRegistrationSuccessMod
 
   if (!isOpen) return null;
 
-  const handleSaveEmail = (e: React.FormEvent) => {
-    e.preventDefault();
-    const trimmed = editedEmail.trim();
-    if (!trimmed || !trimmed.includes('@')) {
-      showNotification('Vui lòng nhập địa chỉ email hợp lệ');
-      return;
-    }
-    setCurrentEmail(trimmed);
-    setIsEditingEmail(false);
-    if (updateUserProfile) {
-      updateUserProfile({ email: trimmed });
-    }
-    showNotification('Đã cập nhật email tiếp nhận kết quả thành công');
-  };
-
   const handleViewStatus = () => {
     onClose();
     navigateTo('profile');
@@ -121,145 +91,152 @@ export const EventRegistrationSuccessModal: React.FC<EventRegistrationSuccessMod
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-xs animate-fadeIn"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-fadeIn overflow-y-auto"
       onClick={onClose}
     >
-      {/* Modal Dialog Container: 640px max width on desktop, 90vw max, max 90vh with scroll for 393px mobile */}
+      {/* Modal Dialog Container: Properly centered and constrained on all screen sizes with inline style guarantee */}
       <div
         ref={modalRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="registration-status-modal-title"
-        className="relative w-full max-w-[640px] max-w-[90vw] max-h-[90vh] overflow-y-auto bg-white rounded-2xl shadow-2xl p-5 sm:p-8 space-y-5 sm:space-y-6 border border-hairline my-auto"
+        style={{ maxWidth: '480px', width: '100%' }}
+        className="relative w-full max-w-[480px] bg-white rounded-2xl shadow-2xl p-5 sm:p-7 border border-hairline my-auto overflow-hidden mx-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* 1. Nút đóng ở góc trên bên phải (Hit area >= 44x44px, không chạm viền) */}
+        {/* Close icon button at top right */}
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 sm:top-6 sm:right-6 min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-full text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-colors cursor-pointer"
-          title="Đóng thông báo"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 size-8 inline-flex items-center justify-center rounded-full text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-colors cursor-pointer z-20"
+          title="Đóng"
           aria-label="Đóng"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4" />
         </button>
 
-        {/* 2 + 3 + 4 + 5. Header & Trạng thái: Eyebrow + Tiêu đề + Nội dung */}
-        <div className="space-y-3 sm:space-y-3.5 pr-8">
-          {/* Eyebrow Label & Status Icon (Khối nền vàng nhạt duy nhất biểu thị trạng thái chờ) */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-amber-900">
-            <Clock className="w-4 h-4 text-amber-700 shrink-0 stroke-[2.2]" />
-            <span className="text-xs font-semibold uppercase tracking-wider">
-              TRẠNG THÁI HỒ SƠ
-            </span>
+        {/* 1. Success Icon with subtle celebration dots */}
+        <div className="relative mx-auto w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center">
+          <span className="absolute -top-0.5 -left-0.5 size-1.5 rounded-full bg-amber-400 animate-pulse" />
+          <span className="absolute top-3 -left-2.5 size-1 rounded-full bg-orange-400" />
+          <span className="absolute -bottom-0.5 -left-1.5 size-1.5 rounded-full bg-amber-300" />
+          <span className="absolute -top-1 right-1 size-1 rounded-full bg-sky-400" />
+          <span className="absolute top-2.5 -right-2.5 size-1.5 rounded-full bg-rose-400" />
+          <span className="absolute -bottom-0.5 -right-1 size-1 rounded-full bg-teal-400" />
+
+          {/* Main Success Circle */}
+          <div className="size-12 sm:size-14 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 shadow-2xs">
+            <Check className="w-6 h-6 sm:w-7 sm:h-7 stroke-[3]" />
           </div>
-
-          {/* Tiêu đề: Desktop 30px (sm:text-[30px]), mobile 24px (text-2xl) */}
-          <h2
-            id="registration-status-modal-title"
-            className="text-2xl sm:text-[30px] sm:leading-[36px] font-bold text-ink tracking-tight"
-          >
-            {isWaitlist ? 'Đăng ký đang trong danh sách chờ' : 'Đăng ký đang chờ xét duyệt'}
-          </h2>
-
-          {/* Nội dung chính: Body text 16px, line-height >= 24px */}
-          <p className="text-base leading-relaxed text-neutral-700">
-            {isWaitlist
-              ? 'Ban Thư ký đã tiếp nhận đăng ký của quý vị vào danh sách chờ và đang xác minh thông tin tư cách đại biểu.'
-              : 'Ban Thư ký đã tiếp nhận đăng ký và đang xác minh tư cách đại biểu của quý vị.'}
-          </p>
         </div>
 
-        {/* 6 + 7. Khối thông tin email: Nền xám trung tính / xanh rất nhạt */}
-        <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-4 sm:p-5 space-y-2.5">
-          <div className="flex items-start gap-3">
-            <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-600 shrink-0 mt-0.5 shadow-2xs">
-              <Mail className="w-4 h-4" />
+        {/* 2. Main confirmation headline */}
+        <h2
+          id="registration-status-modal-title"
+          className="text-xl sm:text-[22px] font-extrabold text-ink tracking-tight text-center mt-2 sm:mt-2.5 leading-snug"
+        >
+          Đã gửi đăng ký thành công
+        </h2>
+
+        {/* 3. Current status badge */}
+        <div className="flex justify-center mt-1.5">
+          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-50 border border-amber-200/90 text-amber-800 text-[11px] sm:text-xs font-semibold shadow-2xs">
+            <Clock className="w-3 h-3 text-amber-600 stroke-[2.4]" />
+            <span>{isWaitlist ? 'Danh sách chờ' : 'Đang chờ xét duyệt'}</span>
+          </div>
+        </div>
+
+        {/* 4. Short supporting explanation */}
+        <p className="text-[11.5px] sm:text-xs text-neutral-600 text-center max-w-sm mx-auto leading-relaxed mt-1.5">
+          Ban Thư ký đã nhận hồ sơ của bạn và đang kiểm tra thông tin đăng ký. Chúng tôi sẽ thông báo qua email ngay khi có kết quả.
+        </p>
+
+        {/* 5. Three-step status/progress indicator: Horizontal on ALL screens */}
+        <div className="mt-4 px-1 sm:px-2">
+          <div className="relative flex items-start justify-between">
+            {/* Background connecting track connecting centers of circles */}
+            <div className="absolute top-2.5 left-7 right-7 h-0.5 bg-neutral-200 -z-0">
+              <div className="h-full bg-emerald-500 w-1/2" />
             </div>
-            <div className="flex-1 min-w-0 space-y-1.5">
-              <p className="text-[14.5px] sm:text-base leading-relaxed text-neutral-700">
-                Kết quả sẽ được gửi đến{' '}
-                <span className="font-semibold text-ink font-mono break-all">{currentEmail}</span>. Sau
-                khi được duyệt, mã QR check-in sẽ xuất hiện trong mục{' '}
-                <strong className="font-semibold text-ink">Hồ sơ của tôi</strong> và được gửi qua
-                email.
-              </p>
 
-              {/* Email update inline toggle/form */}
-              {!isEditingEmail ? (
-                <div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setEditedEmail(currentEmail);
-                      setIsEditingEmail(true);
-                    }}
-                    className="text-xs font-medium text-brand-primary hover:text-brand-primary-hover hover:underline cursor-pointer inline-flex items-center gap-1"
-                  >
-                    <span>Email chưa đúng? Cập nhật</span>
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSaveEmail} className="pt-2 flex flex-wrap items-center gap-2">
-                  <input
-                    type="email"
-                    value={editedEmail}
-                    onChange={(e) => setEditedEmail(e.target.value)}
-                    placeholder="Nhập email chính xác..."
-                    className="flex-1 min-w-[200px] text-xs font-mono px-3 py-1.5 bg-white border border-neutral-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary"
-                    autoFocus
-                  />
-                  <button
-                    type="submit"
-                    className="px-3 py-1.5 text-xs font-medium text-white bg-neutral-800 hover:bg-neutral-900 rounded-lg transition-colors cursor-pointer"
-                  >
-                    Lưu
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setIsEditingEmail(false)}
-                    className="px-2.5 py-1.5 text-xs text-neutral-600 hover:text-neutral-900 cursor-pointer"
-                  >
-                    Hủy
-                  </button>
-                </form>
-              )}
+            {/* Step 1: Completed */}
+            <div className="relative z-10 flex flex-col items-center text-center flex-1 max-w-[110px]">
+              <div className="size-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-xs">
+                <Check className="w-3 h-3 stroke-[3]" />
+              </div>
+              <span className="text-[10px] sm:text-[11px] font-semibold text-neutral-800 mt-1 leading-tight">
+                Đã gửi đăng ký
+              </span>
+            </div>
 
-              {/* Dòng phụ: Vui lòng kiểm tra cả hộp thư Spam */}
-              <p className="text-xs text-neutral-500 pt-0.5">
-                Vui lòng kiểm tra cả hộp thư Spam.
-              </p>
+            {/* Step 2: Current (Highlighted) */}
+            <div className="relative z-10 flex flex-col items-center text-center flex-1 max-w-[110px]">
+              <div className="size-5 rounded-full border-2 border-amber-500 bg-white flex items-center justify-center shadow-xs">
+                <div className="size-2 rounded-full bg-amber-500" />
+              </div>
+              <span className="text-[10px] sm:text-[11px] font-bold text-amber-900 mt-1 leading-tight">
+                Đang xét duyệt
+              </span>
+            </div>
+
+            {/* Step 3: Upcoming */}
+            <div className="relative z-10 flex flex-col items-center text-center flex-1 max-w-[110px]">
+              <div className="size-5 rounded-full border-2 border-neutral-300 bg-white flex items-center justify-center">
+                <div className="size-1.5 rounded-full bg-neutral-300" />
+              </div>
+              <span className="text-[10px] sm:text-[11px] font-medium text-neutral-500 mt-1 leading-tight">
+                Nhận kết quả & QR
+              </span>
             </div>
           </div>
         </div>
 
-        {/* 8 + 9. CTA Buttons:
-            Trên mobile xếp dọc, CTA chính nằm trên và full-width;
-            Trên desktop xếp ngang, CTA chính nổi bật màu đỏ thương hiệu, CTA phụ trung tính.
-            Các nút cao tối thiểu 44px (min-h-[44px]). */}
-        <div className="pt-1 flex flex-col sm:flex-row-reverse sm:items-center sm:justify-start gap-3">
-          {/* CTA chính: “Xem trạng thái hồ sơ” (Màu đỏ thương hiệu, min-h-[44px]) */}
-          <button
-            ref={primaryButtonRef}
-            type="button"
-            onClick={handleViewStatus}
-            className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 text-sm sm:text-base font-semibold text-white bg-brand-primary hover:bg-brand-primary-hover rounded-xl shadow-xs transition-colors cursor-pointer flex items-center justify-center gap-2"
-          >
-            <span>Xem trạng thái hồ sơ</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+        {/* 6. Email information card: Compact, no "Đổi email" button */}
+        <div className="bg-slate-50/90 border border-slate-200/90 rounded-xl p-2.5 sm:p-3 mt-3 sm:mt-3.5 space-y-1.5 text-left shadow-2xs">
+          <div className="flex items-center gap-2">
+            <div className="size-6 rounded-md bg-white border border-slate-200 flex items-center justify-center text-slate-600 shrink-0 shadow-2xs">
+              <Mail className="w-3.5 h-3.5" />
+            </div>
+            <div className="min-w-0 flex-1 flex items-baseline gap-1.5 flex-wrap">
+              <span className="text-[11px] sm:text-xs text-neutral-500">Kết quả gửi tới:</span>
+              <span className="font-bold text-ink text-xs sm:text-[13px] break-all">
+                {currentEmail}
+              </span>
+            </div>
+          </div>
 
-          {/* CTA phụ: “Đóng” (Nút outline/text trung tính, min-h-[44px]) */}
+          <div className="pl-8 space-y-0.5">
+            <p className="text-[10.5px] sm:text-[11.5px] text-neutral-600 leading-normal">
+              Khi được duyệt, mã QR check-in sẽ xuất hiện trong <strong className="font-semibold text-ink">Hồ sơ của tôi</strong> và gửi qua email.
+            </p>
+            <p className="text-[10px] sm:text-[10.5px] text-neutral-400 font-medium">
+              * Vui lòng kiểm tra cả thư mục Spam.
+            </p>
+          </div>
+        </div>
+
+        {/* 7. Primary CTA */}
+        <button
+          ref={primaryButtonRef}
+          type="button"
+          onClick={handleViewStatus}
+          className="w-full min-h-[44px] py-2.5 px-4 text-xs sm:text-sm font-bold text-white bg-brand-primary hover:bg-brand-primary-hover active:scale-[0.99] rounded-xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-1.5 mt-3 sm:mt-3.5"
+        >
+          <span>Xem hồ sơ của tôi</span>
+          <ArrowRight className="w-3.5 h-3.5 stroke-[2.4]" />
+        </button>
+
+        {/* 8. Secondary Action */}
+        <div className="text-center mt-1.5 sm:mt-2">
           <button
             type="button"
             onClick={onClose}
-            className="w-full sm:w-auto min-h-[44px] px-5 py-2.5 text-sm sm:text-base font-medium text-neutral-700 hover:text-neutral-900 bg-white hover:bg-neutral-100 border border-neutral-300 rounded-xl transition-colors cursor-pointer flex items-center justify-center"
+            className="text-[11.5px] sm:text-xs font-semibold text-blue-600 hover:text-blue-700 hover:underline cursor-pointer py-0.5 transition-colors"
           >
-            Đóng
+            Tiếp tục xem sự kiện
           </button>
         </div>
       </div>
     </div>
   );
 };
-

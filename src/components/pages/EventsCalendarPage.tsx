@@ -22,30 +22,50 @@ export const EventsCalendarPage: React.FC = () => {
     showSpecAnnotations,
     simulatedState,
     navigateTo,
-    registeredEvents
+    registeredEvents,
+    eventTimingFilter: timingFilter,
+    setEventTimingFilter: setTimingFilter
   } = useApp();
 
   const [viewMode, setViewMode] = useState<'calendar' | 'list'>('list');
-  const [timingFilter, setTimingFilter] = useState<'all' | 'upcoming' | 'past'>('all');
   const [selectedMonth, setSelectedMonth] = useState<number>(10); // October
   const [selectedYear, setSelectedYear] = useState<number>(2026);
   // Default to null: When opening calendar tab, no date is active until user clicks a date
   const [selectedDateStr, setSelectedDateStr] = useState<string | null>(null);
+  const [hideMobileViewTabs, setHideMobileViewTabs] = useState(false);
 
   const TODAY_STR = '2026-10-15';
 
   const isLoading = simulatedState === 'S-LOADING';
   const isEmptySimulated = simulatedState === 'S-EMPTY';
 
+  useEffect(() => {
+    const updateMobileTabVisibility = () => {
+      setHideMobileViewTabs(window.innerWidth < 768 && window.scrollY > 80);
+    };
+
+    updateMobileTabVisibility();
+    window.addEventListener('scroll', updateMobileTabVisibility, { passive: true });
+    window.addEventListener('resize', updateMobileTabVisibility);
+
+    return () => {
+      window.removeEventListener('scroll', updateMobileTabVisibility);
+      window.removeEventListener('resize', updateMobileTabVisibility);
+    };
+  }, []);
+
   // Separate upcoming, ongoing, past
   const ongoingEvents = useMemo(() => MOCK_EVENTS.filter(evt => evt.status === 'ongoing'), []);
-  const upcomingEvents = useMemo(() => MOCK_EVENTS.filter(evt => evt.status === 'upcoming' || evt.status === 'ongoing'), []);
+  const upcomingEvents = useMemo(() => MOCK_EVENTS.filter(evt => evt.status === 'upcoming'), []);
   const pastEvents = useMemo(() => MOCK_EVENTS.filter(evt => evt.status === 'past'), []);
 
   // Filtered events based on timing filter
   const filteredEvents = useMemo(() => {
     if (timingFilter === 'upcoming') {
-      return MOCK_EVENTS.filter(evt => evt.status === 'upcoming' || evt.status === 'ongoing');
+      return MOCK_EVENTS.filter(evt => evt.status === 'upcoming');
+    }
+    if (timingFilter === 'ongoing') {
+      return MOCK_EVENTS.filter(evt => evt.status === 'ongoing');
     }
     if (timingFilter === 'past') {
       return MOCK_EVENTS.filter(evt => evt.status === 'past');
@@ -214,90 +234,90 @@ export const EventsCalendarPage: React.FC = () => {
 
       {/* Header Info */}
       <div className="space-y-1.5 sm:space-y-2">
-        <span className="text-xs font-semibold uppercase bg-red-50 text-brand-primary border border-red-200 px-3 py-1 rounded-full inline-block">
-          Hoạt Động & Sự Kiện VCF
-        </span>
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-ink tracking-tight">
-          Lịch Sự Kiện & Hội Nghị VCF
+        <h1 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-ink tracking-tight">
+          Sự kiện
         </h1>
         <p className="text-xs sm:text-sm text-ink-secondary font-sans max-w-2xl">
           Toàn bộ lịch trình các kỳ Summit, Diễn đàn chuyên ngành, Talkshow và sinh hoạt câu lạc bộ
         </p>
       </div>
 
-      {/* KHU VỰC ĐIỀU HƯỚNG & BỘ LỌC */}
-      <div className="space-y-2 lg:space-y-0">
-        {/* Desktop: 2 tab view và 3 filter nằm trên cùng một hàng; mobile vẫn xếp dọc. */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 lg:gap-4 items-center">
-          <div className="grid grid-cols-2 gap-2 sm:gap-3 max-w-md w-full lg:max-w-none lg:col-span-2">
+      {/* MENU SỰ KIỆN: sticky khi cuộn */}
+      <div className="sticky top-16 z-30 flex flex-col gap-2.5 border-b border-neutral-200 bg-white py-2 backdrop-blur-md sm:gap-3 md:top-[55px] md:flex-row md:items-center md:justify-between">
+        {/* TABS: Danh sách & Lịch tháng - Rộng sang bằng grid tối đa trên mobile */}
+        <div className={`grid grid-cols-2 w-full md:w-auto md:flex md:items-center gap-2 sm:gap-2.5 ${hideMobileViewTabs ? 'hidden md:grid' : ''}`}>
           <button
             type="button"
             onClick={() => setViewMode('list')}
-            className={`flex items-center justify-center gap-2 py-2 px-4 text-xs sm:text-sm font-semibold rounded-xl border transition-all cursor-pointer select-none ${
+            className={`flex items-center justify-center gap-2 py-2.5 px-3 sm:px-4 text-xs sm:text-sm font-semibold rounded-xl border transition-all cursor-pointer select-none w-full md:w-auto ${
               viewMode === 'list'
-                ? 'border-brand-primary text-brand-primary bg-white shadow-2xs'
+                ? 'border-brand-primary text-brand-primary bg-white shadow-2xs font-bold'
                 : 'border-neutral-200 text-neutral-600 bg-white hover:border-neutral-300 hover:text-neutral-900'
             }`}
           >
-            <List className="w-4 h-4" />
+            <List className="w-4 h-4 shrink-0" />
             <span>Danh sách</span>
           </button>
 
           <button
             type="button"
             onClick={() => setViewMode('calendar')}
-            className={`flex items-center justify-center gap-2 py-2 px-4 text-xs sm:text-sm font-semibold rounded-xl border transition-all cursor-pointer select-none ${
+            className={`flex items-center justify-center gap-2 py-2.5 px-3 sm:px-4 text-xs sm:text-sm font-semibold rounded-xl border transition-all cursor-pointer select-none w-full md:w-auto ${
               viewMode === 'calendar'
-                ? 'border-brand-primary text-brand-primary bg-white shadow-2xs'
+                ? 'border-brand-primary text-brand-primary bg-white shadow-2xs font-bold'
                 : 'border-neutral-200 text-neutral-600 bg-white hover:border-neutral-300 hover:text-neutral-900'
             }`}
           >
-            <CalendarIcon className="w-4 h-4" />
+            <CalendarIcon className="w-4 h-4 shrink-0" />
             <span>Lịch tháng</span>
           </button>
-          </div>
-
-          {/* 3 trạng thái dạng chip; sticky khi cuộn ở mobile, inline trên desktop */}
-          <div className="sticky top-16 z-30 -mx-4 px-4 sm:mx-0 sm:px-0 py-1.5 sm:py-2 lg:py-0 bg-white/95 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none border-b border-black/5 sm:border-b-0 lg:border-b-0 transition-all lg:static lg:col-span-3">
-            <div className="grid grid-cols-3 gap-1.5 sm:gap-2 max-w-md w-full lg:max-w-none">
-            <button
-              type="button"
-              onClick={() => setTimingFilter('all')}
-              className={`min-h-[32px] sm:min-h-[36px] flex items-center justify-center px-1 text-center text-xs sm:text-sm font-semibold rounded-full transition-all cursor-pointer truncate ${
-                timingFilter === 'all'
-                  ? 'bg-brand-primary text-white shadow-xs'
-                  : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
-              }`}
-            >
-              Tất cả ({MOCK_EVENTS.length})
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setTimingFilter('upcoming')}
-              className={`min-h-[32px] sm:min-h-[36px] flex items-center justify-center px-1 text-center text-xs sm:text-sm font-semibold transition-all cursor-pointer truncate ${
-                timingFilter === 'upcoming'
-                  ? 'bg-brand-primary text-white shadow-xs'
-                  : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
-              }`}
-            >
-              Sắp diễn ra ({upcomingEvents.length})
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setTimingFilter('past')}
-              className={`min-h-[32px] sm:min-h-[36px] flex items-center justify-center px-1 text-center text-xs sm:text-sm font-semibold transition-all cursor-pointer truncate ${
-                timingFilter === 'past'
-                  ? 'bg-brand-primary text-white shadow-xs'
-                  : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
-              }`}
-            >
-              Đã diễn ra ({pastEvents.length})
-            </button>
-            </div>
-          </div>
         </div>
+
+      {/* BỘ LỌC TRẠNG THÁI */}
+      <div
+        role="group"
+        aria-label="Lọc sự kiện theo trạng thái"
+        className="grid w-full min-w-0 grid-cols-3 gap-1 py-1.5 sm:gap-2 md:flex md:w-fit md:items-center"
+      >
+          <button
+            type="button"
+            onClick={() => setTimingFilter('all')}
+            aria-pressed={timingFilter === 'all'}
+            className={`flex min-h-9 min-w-0 w-full items-center justify-center whitespace-nowrap px-0 text-center text-xs sm:px-1 md:w-auto md:px-3 md:text-sm font-semibold rounded-full transition-all cursor-pointer ${
+              timingFilter === 'all'
+                ? 'bg-brand-primary text-white shadow-xs'
+                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+            }`}
+          >
+            Tất cả ({MOCK_EVENTS.length})
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setTimingFilter('upcoming')}
+            aria-pressed={timingFilter === 'upcoming'}
+            className={`flex min-h-9 min-w-0 w-full items-center justify-center whitespace-nowrap px-0 text-center text-xs sm:px-1 md:w-auto md:px-3 md:text-sm font-semibold rounded-full transition-all cursor-pointer ${
+              timingFilter === 'upcoming'
+                ? 'bg-brand-primary text-white shadow-xs'
+                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+            }`}
+          >
+            Sắp diễn ra ({upcomingEvents.length})
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setTimingFilter('past')}
+            aria-pressed={timingFilter === 'past'}
+            className={`flex min-h-9 min-w-0 w-full items-center justify-center whitespace-nowrap px-0 text-center text-xs sm:px-1 md:w-auto md:px-3 md:text-sm font-semibold rounded-full transition-all cursor-pointer ${
+              timingFilter === 'past'
+                ? 'bg-brand-primary text-white shadow-xs'
+                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+            }`}
+          >
+            Đã kết thúc ({pastEvents.length})
+          </button>
+      </div>
       </div>
 
       {/* STATE DISPLAY: LOADING OR EMPTY */}
@@ -324,8 +344,8 @@ export const EventsCalendarPage: React.FC = () => {
       ) : viewMode === 'calendar' ? (
         /* CALENDAR VIEW - 2-COLUMN LAYOUT ON DESKTOP (~38% LEFT, ~62% RIGHT) & STACKED ON MOBILE */
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          {/* CỘT TRÁI: LỊCH THÁNG (~38% to 42%) */}
-          <div className="w-full lg:col-span-5 bg-white border border-neutral-200 rounded-2xl p-5 sm:p-6 shadow-xs space-y-4">
+          {/* CỘT TRÁI: LỊCH THÁNG (~38% to 42%) - STICKY KHI SCROLL */}
+          <div className="w-full lg:col-span-5 lg:sticky lg:top-20 self-start bg-white border border-neutral-200 rounded-2xl p-5 sm:p-6 shadow-xs space-y-4">
             {/* Month Navigation: < Tháng M, YYYY > */}
             <div className="flex items-center justify-between pb-2 border-b border-neutral-100">
               <button
@@ -435,7 +455,7 @@ export const EventsCalendarPage: React.FC = () => {
               })}
             </div>
 
-            {/* CHÚ THÍCH (LEGEND): Sắp diễn ra, Đang diễn ra, Đã diễn ra, Hôm nay (nền xám) */}
+            {/* CHÚ THÍCH (LEGEND): Sắp diễn ra, Đang diễn ra, Đã diễn ra */}
             <div className="flex items-center justify-start flex-wrap gap-x-3.5 sm:gap-x-4 gap-y-2 pt-3.5 text-xs text-neutral-600 border-t border-neutral-100">
               <div className="flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
@@ -449,50 +469,36 @@ export const EventsCalendarPage: React.FC = () => {
                 <span className="w-2 h-2 rounded-full bg-neutral-400 shrink-0" />
                 <span>Đã diễn ra</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <span className="w-5 h-5 rounded-full bg-neutral-200 border border-neutral-300 text-[10px] font-bold text-neutral-800 flex items-center justify-center shrink-0 leading-none">
-                  15
-                </span>
-                <span>Hôm nay (nền xám)</span>
-              </div>
             </div>
           </div>
 
           {/* CỘT PHẢI: KẾT QUẢ SỰ KIỆN THEO NGÀY ĐƯỢC CHỌN HOẶC TOÀN BỘ THÁNG (~58% to 62%) */}
           <div className="w-full lg:col-span-7 bg-white border border-neutral-200 rounded-2xl p-5 sm:p-6 shadow-xs flex flex-col justify-between min-h-[440px]">
             <div>
-              {/* Header: Hiển thị ngày đã chọn hoặc Toàn bộ tháng kèm nút bỏ chọn */}
-              <div className="flex items-center justify-between pb-3.5 border-b border-neutral-100 mb-4 gap-2 flex-wrap">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <h3 className="text-base sm:text-lg font-bold text-neutral-900">
-                    {selectedDateStr ? formatWeekdayAndDate(selectedDateStr) : `Sự kiện Tháng ${selectedMonth}, ${selectedYear}`}
-                  </h3>
-                  {selectedDateStr && (
-                    <button
-                      type="button"
-                      onClick={() => setSelectedDateStr(null)}
-                      className="text-[11px] font-semibold text-brand-primary hover:text-red-700 bg-red-50 hover:bg-red-100 px-2.5 py-0.5 rounded-full border border-red-200 transition-colors cursor-pointer"
-                    >
-                      ✕ Xem cả tháng
-                    </button>
-                  )}
+              {/* Header: Tiêu đề chính to rõ ràng, hiển thị ngày đã chọn hoặc Toàn bộ tháng */}
+              <div className="flex items-center justify-between pb-4 border-b border-neutral-100 mb-5 gap-3 flex-wrap">
+                <div>
+                  <div className="flex items-center gap-2.5 flex-wrap">
+                    <h3 className="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">
+                      {selectedDateStr ? formatWeekdayAndDate(selectedDateStr) : `Sự kiện Tháng ${selectedMonth}, ${selectedYear}`}
+                    </h3>
+                    {selectedDateStr && (
+                      <button
+                        type="button"
+                        onClick={() => setSelectedDateStr(null)}
+                        className="text-xs font-semibold text-brand-primary hover:text-red-700 bg-red-50 hover:bg-red-100 px-3 py-1 rounded-full border border-red-200 transition-colors cursor-pointer"
+                      >
+                        ✕ Xem cả tháng
+                      </button>
+                    )}
+                  </div>
+                  <p className="text-xs sm:text-sm text-neutral-500 mt-1">
+                    {selectedDateStr
+                      ? `Danh sách sự kiện diễn ra trong ngày`
+                      : 'Tất cả sự kiện trong tháng • Bấm một ngày trên lịch để lọc'}
+                  </p>
                 </div>
-                <span className="text-xs sm:text-sm font-medium text-neutral-500 shrink-0">
-                  {selectedDateStr
-                    ? `${selectedDayEvents.length} sự kiện`
-                    : `${monthEvents.length} sự kiện`}
-                </span>
               </div>
-
-              {/* Gợi ý khi chưa chọn ngày nào */}
-              {!selectedDateStr && (
-                <div className="bg-neutral-50 border border-neutral-200/70 rounded-xl p-3 mb-4 text-xs text-neutral-600 flex items-center gap-2">
-                  <span className="text-amber-500 font-bold shrink-0">💡</span>
-                  <span>
-                    Chưa chọn ngày nào. Bấm vào một ngày trên lịch để lọc riêng sự kiện ngày đó, hoặc xem danh sách sự kiện trong tháng bên dưới:
-                  </span>
-                </div>
-              )}
 
               {/* Danh sách sự kiện: Ngày được chọn HOẶC Toàn bộ tháng */}
               {selectedDateStr ? (
@@ -502,22 +508,22 @@ export const EventsCalendarPage: React.FC = () => {
                     <div className="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-400 mb-3">
                       <CalendarIcon className="w-6 h-6" />
                     </div>
-                    <h4 className="text-sm sm:text-base font-bold text-neutral-800 mb-1">
+                    <h4 className="text-base sm:text-lg font-bold text-neutral-800 mb-1">
                       Không có sự kiện trong ngày này.
                     </h4>
-                    <p className="text-xs sm:text-sm text-neutral-500 max-w-sm mb-3">
+                    <p className="text-xs sm:text-sm text-neutral-500 max-w-sm mb-4">
                       Hãy chọn ngày khác trên lịch để xem danh sách sự kiện.
                     </p>
                     <button
                       type="button"
                       onClick={() => setSelectedDateStr(null)}
-                      className="text-xs font-semibold text-brand-primary hover:underline cursor-pointer"
+                      className="text-xs sm:text-sm font-semibold text-brand-primary hover:underline cursor-pointer"
                     >
                       Xem tất cả sự kiện trong tháng ({monthEvents.length}) →
                     </button>
                   </div>
                 ) : (
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     {selectedDayEvents.map(evt => {
                       const isSummit = evt.activityId === 'ceo-summit';
                       const isTalkshow = evt.activityId === 'ceo-talk' || evt.activityName?.toLowerCase().includes('talk');
@@ -525,41 +531,30 @@ export const EventsCalendarPage: React.FC = () => {
                       const timeDisplay = times.length >= 2 ? `${times[0]} – ${times[1]}` : evt.timeStr;
                       const isUpcoming = evt.status === 'upcoming';
                       const isOngoing = evt.status === 'ongoing';
-
-                      const speakerSummary = evt.speakers && evt.speakers.length > 0
-                        ? `${evt.speakers[0].name}${evt.speakers.length > 1 ? ` (+${evt.speakers.length - 1} diễn giả khác)` : ''}`
-                        : 'Ban chuyên gia VCF';
+                      const dateFormatted = evt.dateStr.slice(8, 10) + '/' + evt.dateStr.slice(5, 7);
 
                       return (
                         <div
                           key={evt.id}
                           onClick={() => handleGoToEventDetail(evt)}
-                          className="group cursor-pointer hover:bg-neutral-50/80 p-2 sm:p-3 -mx-2 sm:-mx-3 rounded-xl transition-all flex items-center justify-between gap-3 sm:gap-4 border-b border-neutral-100 last:border-b-0 pb-4 last:pb-0"
+                          className="group cursor-pointer hover:bg-neutral-50/90 p-3 sm:p-4 -mx-2 sm:-mx-3 rounded-xl transition-all flex items-center gap-3.5 sm:gap-5 border-b border-neutral-100 last:border-b-0 pb-4 last:pb-0"
                         >
-                          {/* Thumbnail ảnh sự kiện */}
-                          <div className="w-28 sm:w-36 md:w-44 h-20 sm:h-24 md:h-26 rounded-xl overflow-hidden shrink-0 bg-neutral-100 border border-neutral-200 relative">
-                            {evt.imageUrl ? (
-                              <img
-                                src={evt.imageUrl}
-                                alt={evt.title}
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                              />
-                            ) : (
-                              <div className="w-full h-full flex items-center justify-center bg-neutral-100 text-neutral-400">
-                                <CalendarIcon className="w-6 h-6" />
-                              </div>
-                            )}
+                          {/* 1. Thumbnail chỉ hiển thị ở Desktop */}
+                          <div className="hidden md:block w-36 lg:w-44 h-24 lg:h-28 rounded-xl overflow-hidden shrink-0 bg-neutral-100 border border-neutral-200/80 relative">
+                            <WireframeImage
+                              label={evt.imagePlaceholder}
+                              imageUrl={evt.imageUrl}
+                              aspectRatio="16:9"
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
                           </div>
 
-                          {/* Thông tin sự kiện */}
-                          <div className="flex-1 min-w-0 space-y-1 sm:space-y-1.5">
-                            {/* Thời gian + Badge hoạt động + Trạng thái */}
-                            <div className="flex items-center gap-2 flex-wrap text-xs">
-                              <span className="font-bold text-neutral-900 text-xs sm:text-sm">
-                                {timeDisplay}
-                              </span>
+                          {/* 2. Thông tin sự kiện */}
+                          <div className="flex-1 min-w-0 space-y-2">
+                            {/* Badge hoạt động + Trạng thái */}
+                            <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap">
                               <span
-                                className={`font-bold text-[10px] sm:text-[11px] px-2 py-0.5 rounded tracking-wide uppercase ${
+                                className={`font-bold text-[10px] sm:text-[11px] px-2.5 py-0.5 rounded tracking-wide uppercase ${
                                   isSummit
                                     ? 'bg-red-50 text-brand-primary'
                                     : isTalkshow
@@ -570,12 +565,12 @@ export const EventsCalendarPage: React.FC = () => {
                                 {evt.activityName || 'SỰ KIỆN'}
                               </span>
                               <span
-                                className={`flex items-center gap-1 text-[11px] sm:text-xs font-medium px-2 py-0.5 rounded-full ${
+                                className={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-0.5 rounded-full ${
                                   isOngoing
-                                    ? 'bg-amber-50 text-amber-700'
+                                    ? 'bg-amber-50 text-amber-700 border border-amber-200/70'
                                     : isUpcoming
-                                    ? 'bg-emerald-50 text-emerald-700'
-                                    : 'bg-neutral-100 text-neutral-600'
+                                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200/70'
+                                    : 'bg-neutral-100 text-neutral-600 border border-neutral-200/70'
                                 }`}
                               >
                                 <span
@@ -587,26 +582,18 @@ export const EventsCalendarPage: React.FC = () => {
                               </span>
                             </div>
 
-                            {/* Tiêu đề */}
-                            <h4 className="text-xs sm:text-sm md:text-base font-bold text-neutral-900 group-hover:text-brand-primary transition-colors line-clamp-2 leading-snug">
+                            {/* Tiêu đề chính to rõ ràng, hiển thị đầy đủ KHÔNG bị cắt ngắn '....' */}
+                            <h4 className="text-base sm:text-lg font-bold text-neutral-900 group-hover:text-brand-primary transition-colors leading-snug">
                               {evt.title}
                             </h4>
 
-                            {/* Địa điểm & Diễn giả */}
-                            <div className="space-y-0.5 text-[11px] sm:text-xs text-neutral-600">
-                              <div className="flex items-center gap-1.5 truncate">
-                                <MapPin className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
-                                <span className="truncate">{evt.location}</span>
-                              </div>
-                              <div className="flex items-center gap-1.5 truncate">
-                                <User className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
-                                <span className="truncate">{speakerSummary}</span>
-                              </div>
+                            {/* Thời gian sự kiện: Đặt dưới tiêu đề chính */}
+                            <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-neutral-900">
+                              <Clock className="w-3.5 h-3.5 text-brand-primary shrink-0" />
+                              <span>{dateFormatted} • {timeDisplay}</span>
                             </div>
                           </div>
 
-                          {/* Chevron mũi tên */}
-                          <ChevronRight className="w-4 sm:w-5 h-4 sm:h-5 text-neutral-400 group-hover:text-neutral-900 group-hover:translate-x-0.5 transition-all shrink-0" />
                         </div>
                       );
                     })}
@@ -619,7 +606,7 @@ export const EventsCalendarPage: React.FC = () => {
                     <div className="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-400 mb-3">
                       <CalendarIcon className="w-6 h-6" />
                     </div>
-                    <h4 className="text-sm sm:text-base font-bold text-neutral-800 mb-1">
+                    <h4 className="text-base sm:text-lg font-bold text-neutral-800 mb-1">
                       Không có sự kiện nào trong Tháng {selectedMonth}/{selectedYear}.
                     </h4>
                     <p className="text-xs sm:text-sm text-neutral-500 max-w-sm">
@@ -627,7 +614,7 @@ export const EventsCalendarPage: React.FC = () => {
                     </p>
                   </div>
                 ) : (
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     {monthEvents.map(evt => {
                       const isSummit = evt.activityId === 'ceo-summit';
                       const isTalkshow = evt.activityId === 'ceo-talk' || evt.activityName?.toLowerCase().includes('talk');
@@ -637,44 +624,28 @@ export const EventsCalendarPage: React.FC = () => {
                       const isOngoing = evt.status === 'ongoing';
                       const dateFormatted = evt.dateStr.slice(8, 10) + '/' + evt.dateStr.slice(5, 7);
 
-                      const speakerSummary = evt.speakers && evt.speakers.length > 0
-                        ? `${evt.speakers[0].name}${evt.speakers.length > 1 ? ` (+${evt.speakers.length - 1} diễn giả khác)` : ''}`
-                        : 'Ban chuyên gia VCF';
-
                       return (
                         <div
                           key={evt.id}
                           onClick={() => handleGoToEventDetail(evt)}
-                          className="group cursor-pointer hover:bg-neutral-50/80 p-2 sm:p-3 -mx-2 sm:-mx-3 rounded-xl transition-all flex items-center justify-between gap-3 sm:gap-4 border-b border-neutral-100 last:border-b-0 pb-4 last:pb-0"
+                          className="group cursor-pointer hover:bg-neutral-50/90 p-3 sm:p-4 -mx-2 sm:-mx-3 rounded-xl transition-all flex items-center gap-3.5 sm:gap-5 border-b border-neutral-100 last:border-b-0 pb-4 last:pb-0"
                         >
-                          {/* Thumbnail ảnh sự kiện */}
-                          <div className="w-28 sm:w-36 md:w-44 h-20 sm:h-24 md:h-26 rounded-xl overflow-hidden shrink-0 bg-neutral-100 border border-neutral-200 relative">
-                            {evt.imageUrl ? (
-                              <img
-                                src={evt.imageUrl}
-                                alt={evt.title}
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                              />
-                            ) : (
-                              <div className="w-full h-full flex items-center justify-center bg-neutral-100 text-neutral-400">
-                                <CalendarIcon className="w-6 h-6" />
-                              </div>
-                            )}
-                            {/* Date chip badge over thumbnail */}
-                            <div className="absolute top-1.5 left-1.5 bg-neutral-900/80 backdrop-blur-xs text-white text-[10px] font-bold px-1.5 py-0.5 rounded">
-                              {dateFormatted}
-                            </div>
+                          {/* 1. Thumbnail chỉ hiển thị ở Desktop */}
+                          <div className="hidden md:block w-36 lg:w-44 h-24 lg:h-28 rounded-xl overflow-hidden shrink-0 bg-neutral-100 border border-neutral-200/80 relative">
+                            <WireframeImage
+                              label={evt.imagePlaceholder}
+                              imageUrl={evt.imageUrl}
+                              aspectRatio="16:9"
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
                           </div>
 
-                          {/* Thông tin sự kiện */}
-                          <div className="flex-1 min-w-0 space-y-1 sm:space-y-1.5">
-                            {/* Thời gian + Badge hoạt động + Trạng thái */}
-                            <div className="flex items-center gap-2 flex-wrap text-xs">
-                              <span className="font-bold text-neutral-900 text-xs sm:text-sm">
-                                {dateFormatted} • {timeDisplay}
-                              </span>
+                          {/* 2. Thông tin sự kiện */}
+                          <div className="flex-1 min-w-0 space-y-2">
+                            {/* Badge hoạt động + Trạng thái */}
+                            <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap">
                               <span
-                                className={`font-bold text-[10px] sm:text-[11px] px-2 py-0.5 rounded tracking-wide uppercase ${
+                                className={`font-bold text-[10px] sm:text-[11px] px-2.5 py-0.5 rounded tracking-wide uppercase ${
                                   isSummit
                                     ? 'bg-red-50 text-brand-primary'
                                     : isTalkshow
@@ -685,12 +656,12 @@ export const EventsCalendarPage: React.FC = () => {
                                 {evt.activityName || 'SỰ KIỆN'}
                               </span>
                               <span
-                                className={`flex items-center gap-1 text-[11px] sm:text-xs font-medium px-2 py-0.5 rounded-full ${
+                                className={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-0.5 rounded-full ${
                                   isOngoing
-                                    ? 'bg-amber-50 text-amber-700'
+                                    ? 'bg-amber-50 text-amber-700 border border-amber-200/70'
                                     : isUpcoming
-                                    ? 'bg-emerald-50 text-emerald-700'
-                                    : 'bg-neutral-100 text-neutral-600'
+                                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200/70'
+                                    : 'bg-neutral-100 text-neutral-600 border border-neutral-200/70'
                                 }`}
                               >
                                 <span
@@ -702,26 +673,18 @@ export const EventsCalendarPage: React.FC = () => {
                               </span>
                             </div>
 
-                            {/* Tiêu đề */}
-                            <h4 className="text-xs sm:text-sm md:text-base font-bold text-neutral-900 group-hover:text-brand-primary transition-colors line-clamp-2 leading-snug">
+                            {/* Tiêu đề chính to rõ ràng, hiển thị đầy đủ KHÔNG bị cắt ngắn '....' */}
+                            <h4 className="text-base sm:text-lg font-bold text-neutral-900 group-hover:text-brand-primary transition-colors leading-snug">
                               {evt.title}
                             </h4>
 
-                            {/* Địa điểm & Diễn giả */}
-                            <div className="space-y-0.5 text-[11px] sm:text-xs text-neutral-600">
-                              <div className="flex items-center gap-1.5 truncate">
-                                <MapPin className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
-                                <span className="truncate">{evt.location}</span>
-                              </div>
-                              <div className="flex items-center gap-1.5 truncate">
-                                <User className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
-                                <span className="truncate">{speakerSummary}</span>
-                              </div>
+                            {/* Thời gian sự kiện: Đặt dưới tiêu đề chính */}
+                            <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-neutral-900">
+                              <Clock className="w-3.5 h-3.5 text-brand-primary shrink-0" />
+                              <span>{dateFormatted} • {timeDisplay}</span>
                             </div>
                           </div>
 
-                          {/* Chevron mũi tên */}
-                          <ChevronRight className="w-4 sm:w-5 h-4 sm:h-5 text-neutral-400 group-hover:text-neutral-900 group-hover:translate-x-0.5 transition-all shrink-0" />
                         </div>
                       );
                     })}
@@ -729,23 +692,6 @@ export const EventsCalendarPage: React.FC = () => {
                 )
               )}
             </div>
-
-            {/* Hộp gợi ý bên dưới danh sách: Không có sự kiện khác trong ngày này */}
-            {selectedDateStr && selectedDayEvents.length > 0 && (
-              <div className="bg-neutral-50 border border-neutral-100 rounded-xl p-3.5 sm:p-4 flex items-center gap-3.5 mt-5">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white border border-neutral-200 flex items-center justify-center text-neutral-500 shrink-0 shadow-2xs">
-                  <CalendarIcon className="w-4 sm:w-5 h-4 sm:h-5 text-neutral-600" />
-                </div>
-                <div className="min-w-0">
-                  <h5 className="font-bold text-xs sm:text-sm text-neutral-900">
-                    Không có sự kiện khác trong ngày này
-                  </h5>
-                  <p className="text-[11px] sm:text-xs text-neutral-500">
-                    Hãy chọn ngày khác trên lịch để xem danh sách sự kiện.
-                  </p>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       ) : (

@@ -12,7 +12,7 @@ export const SpecBadge: React.FC<SpecBadgeProps> = ({ label, type = 'prd', class
   if (type === 'state') {
     styleClasses = 'bg-ink text-white border-black font-mono shadow-xs';
   } else if (type === 'source') {
-    styleClasses = 'bg-parchment text-ink-secondary border-neutral-300 font-mono italic';
+    styleClasses = 'bg-parchment text-ink-secondary border-neutral-300 font-mono';
   } else if (type === 'page') {
     styleClasses = 'bg-brand-primary text-white border-brand-primary font-semibold shadow-xs';
   }

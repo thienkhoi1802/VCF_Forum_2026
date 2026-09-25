@@ -9,33 +9,41 @@ export const AboutPage: React.FC = () => {
   const { navigateTo, showSpecAnnotations, isLoggedIn } = useApp();
 
   return (
-    <div className="vcf-container py-6 pb-24 space-y-16 font-sans">
+    <>
       {showSpecAnnotations && (
-        <div className="bg-neutral-100 border border-hairline p-2.5 rounded-lg text-xs font-mono flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <SpecBadge label="C10: Giới thiệu VCF / VLGM [Trang chính]" type="page" />
-            <span className="text-ink-secondary">Tầm nhìn — Sứ mệnh — Định vị | Nội dung tĩnh [S-DEFAULT]</span>
+        <div className="vcf-container py-6">
+          <div className="bg-neutral-100 border border-hairline p-2.5 rounded-lg text-xs font-mono flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <SpecBadge label="C10: Giới thiệu VCF / VLGM [Trang chính]" type="page" />
+              <span className="text-ink-secondary">Tầm nhìn — Sứ mệnh — Định vị | Nội dung tĩnh [S-DEFAULT]</span>
+            </div>
+            <span className="text-ink-secondary">2 Cột Text + Ảnh xen kẽ</span>
           </div>
-          <span className="text-ink-secondary">2 Cột Text + Ảnh xen kẽ</span>
         </div>
       )}
 
       {/* Page Hero */}
-      <div className="space-y-4 max-w-4xl">
-        <span className="text-xs font-semibold uppercase bg-red-50 text-brand-primary border border-red-200 px-3 py-1 rounded-full">
-          Về Diễn Đàn CEO Việt Nam
-        </span>
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-ink tracking-tight leading-tight">
-          Hội Tụ Tinh Hoa Lãnh Đạo.<br />
-          <span className="text-brand-primary">Phụng Sự Doanh Nghiệp Quốc Gia.</span>
-        </h1>
-        <p className="text-base sm:text-lg text-ink-secondary leading-relaxed font-sans">
-          Diễn đàn CEO Việt Nam (VCF) là sáng kiến hợp tác chiến lược giữa Viện Lãnh đạo & Quản trị Tinh hoa (VLGM) và Học viện Công nghệ Bưu chính Viễn thông (PTIT), nhằm kiến tạo không gian đối thoại, kết nối và chuyển giao tri thức quản trị tầm vóc quốc tế cho cộng đồng doanh nhân Việt Nam.
-        </p>
-      </div>
+      <section className="about-hero" aria-labelledby="about-hero-title">
+        <img
+          className="about-hero__image"
+          src="/images/about/about-hero-leadership.png"
+          alt="Sân khấu Diễn đàn CEO Việt Nam với nhóm lãnh đạo doanh nghiệp"
+        />
+        <div className="about-hero__content">
+          <div className="about-hero__copy">
+            <p className="about-hero__eyebrow">Vietnam CEO Forum · Giới thiệu</p>
+            <h1 id="about-hero-title" className="about-hero__title">
+              <span>Hội Tụ Tinh Hoa Lãnh Đạo.</span>
+              <span className="about-hero__title-accent">Phụng Sự Doanh Nghiệp Quốc Gia.</span>
+            </h1>
+          </div>
+        </div>
+      </section>
+
+      <div className="vcf-container mx-6 mb-0.5 md:mx-auto pt-14 pb-0 md:pt-20 space-y-6 md:space-y-16 font-sans">
 
       {/* SECTION 1: TẦM NHÌN & SỨ MỆNH (2 Cột Xen Kẽ) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center border-t border-hairline pt-12">
+      <div id="about-vision" className="grid scroll-mt-20 grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         <div className="lg:col-span-6 space-y-6">
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-xs font-semibold uppercase text-brand-primary">
@@ -43,15 +51,15 @@ export const AboutPage: React.FC = () => {
               <span>Tầm Nhìn 2030</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-semibold text-ink">
-              Diễn Đàn Lãnh Đạo Doanh Nghiệp Uy Tín Hàng Đầu Khu Vực
+              Diễn đàn lãnh đạo doanh nghiệp uy tín hàng đầu khu vực
             </h2>
           </div>
 
-          <p className="text-sm text-ink-secondary leading-relaxed">
+          <p className="text-base text-ink-secondary leading-relaxed">
             Trở thành biểu tượng của trí tuệ quản trị và năng lực lãnh đạo Việt Nam, nơi quy tụ và đồng hành cùng hơn 5.000 CEO, Chủ tịch tập đoàn hàng đầu dẫn dắt công cuộc chuyển đổi số, đổi mới sáng tạo và hội nhập kinh tế toàn cầu.
           </p>
 
-          <div className="p-5 bg-red-50/60 border-l-4 border-brand-primary rounded-r-lg text-xs text-neutral-800 italic leading-relaxed">
+          <div className="p-5 bg-red-50/60 border-l-4 border-brand-primary rounded-r-lg text-base text-neutral-800 leading-relaxed">
             "Không có quốc gia hùng cường nếu thiếu vắng những tập đoàn kinh tế mạnh. Không có tập đoàn lớn mạnh nếu thiếu những người thuyền trưởng có tầm nhìn và triết lý phụng sự."
           </div>
         </div>
@@ -59,6 +67,8 @@ export const AboutPage: React.FC = () => {
         <div className="lg:col-span-6">
           <WireframeImage
             label="[Ảnh: Hội đồng Cố vấn Cấp cao và Ban Điều hành VCF]"
+            imageUrl="/images/about/leadership-forum.jpg"
+            alt="Các lãnh đạo doanh nghiệp tại Diễn đàn CEO Việt Nam"
             aspectRatio="4:3"
             className="w-full border border-hairline rounded-lg overflow-hidden shadow-xs"
           />
@@ -66,10 +76,12 @@ export const AboutPage: React.FC = () => {
       </div>
 
       {/* SECTION 2: SỨ MỆNH & ĐỊNH VỊ */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center border-t border-hairline pt-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center border-t border-hairline pt-6 md:pt-12">
         <div className="lg:col-span-6 order-2 lg:order-1">
           <WireframeImage
             label="[Ảnh: Không gian Học thuật & Nghiên cứu Trường phái LGM]"
+            imageUrl="/images/about/mission-lgm.jpg"
+            alt="Lãnh đạo doanh nghiệp làm việc trong không gian công nghệ"
             aspectRatio="4:3"
             className="w-full border border-hairline rounded-lg overflow-hidden shadow-xs"
           />
@@ -82,11 +94,11 @@ export const AboutPage: React.FC = () => {
               <span>Sứ Mệnh Cốt Lõi</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-semibold text-ink">
-              Hệ Thống Hóa & Lan Tỏa Trường Phái Quản Trị LGM
+              Hệ thống hóa & lan tỏa trường phái quản trị LGM
             </h2>
           </div>
 
-          <ul className="space-y-3 text-xs text-neutral-700 font-sans">
+          <ul className="space-y-3 text-base text-neutral-700 font-sans">
             <li className="flex items-start gap-2.5">
               <Award className="w-4 h-4 text-brand-primary mt-0.5 shrink-0" />
               <span><strong className="text-ink">Đúc kết tri thức thực chiến:</strong> Nghiên cứu và số hóa các bài học thành bại của doanh nhân Việt Nam qua các thời kỳ.</span>
@@ -107,63 +119,72 @@ export const AboutPage: React.FC = () => {
       <div className="border-t border-hairline pt-12 space-y-8">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
           <h2 className="text-2xl font-semibold text-ink">
-            Đơn Vị Chủ Trì & Đối Tác Phát Triển
+            Đơn vị chủ trì & đối tác phát triển
           </h2>
-          <p className="text-xs text-ink-secondary font-medium">
+          <p className="text-base text-ink-secondary font-medium">
             Sự kết hợp giữa học thuật hàn lâm công nghệ viễn thông và triết lý quản trị tinh hoa
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="border border-hairline p-6 bg-white rounded-lg shadow-xs space-y-3">
-            <div className="w-12 h-12 rounded-lg bg-brand-primary text-white flex items-center justify-center font-semibold font-mono shadow-xs">
-              PTIT
+            <div className="h-12 flex items-center">
+              <img src="/images/partners/ptit-logo.png" alt="Logo PTIT" className="h-12 w-auto object-contain" />
             </div>
-            <h3 className="font-semibold text-base text-ink">Học Viện CN Bưu Chính Viễn Thông</h3>
-            <p className="text-xs text-ink-secondary leading-relaxed font-sans">
+            <h3 className="font-semibold text-lg text-ink">Học viện Bưu Chính Viễn Thông</h3>
+            <p className="text-sm text-ink-secondary leading-relaxed font-sans">
               Trường đại học trọng điểm quốc gia về Công nghệ thông tin và Truyền thông, đơn vị bảo trợ học thuật và nền tảng hạ tầng công nghệ số cho VCF.
             </p>
           </div>
 
           <div className="border border-hairline p-6 bg-white rounded-lg shadow-xs space-y-3">
-            <div className="w-12 h-12 rounded-lg bg-ink text-white flex items-center justify-center font-semibold font-mono shadow-xs">
-              VLGM
+            <div className="h-12 flex items-center">
+              <img src="/images/partners/vlgm-logo.png" alt="Logo Viện lãnh đạo và Quản trị LGM" className="h-12 w-auto object-contain" />
             </div>
-            <h3 className="font-semibold text-base text-ink">Viện Lãnh Đạo & Quản Trị LGM</h3>
-            <p className="text-xs text-ink-secondary leading-relaxed font-sans">
+            <h3 className="font-semibold text-lg text-ink">Viện lãnh đạo & Quản trị LGM</h3>
+            <p className="text-sm text-ink-secondary leading-relaxed font-sans">
               Viện nghiên cứu và tư vấn chiến lược chuyên sâu về phương pháp luận quản trị doanh nghiệp và bồi dưỡng lãnh đạo tinh hoa.
             </p>
           </div>
 
           <div className="border border-hairline p-6 bg-white rounded-lg shadow-xs space-y-3">
-            <div className="w-12 h-12 rounded-lg bg-brand-primary text-white flex items-center justify-center font-semibold font-mono shadow-xs">
-              VNE
+            <div className="h-12 flex items-center">
+              <img src="/images/partners/vnexpress-logo.png" alt="Logo VnExpress" className="h-12 w-auto object-contain" />
             </div>
-            <h3 className="font-semibold text-base text-ink">Báo Điện Tử VnExpress</h3>
-            <p className="text-xs text-ink-secondary leading-relaxed font-sans">
+            <h3 className="font-semibold text-lg text-ink">Báo điện tử VnExpress</h3>
+            <p className="text-sm text-ink-secondary leading-relaxed font-sans">
               Đối tác chiến lược thiết kế trải nghiệm người dùng, truyền thông và lan tỏa các giá trị học thuật tới cộng đồng độc giả doanh nhân.
             </p>
           </div>
         </div>
       </div>
 
-      {/* CTA Bottom */}
-      <div className="bg-parchment border border-hairline p-8 md:p-10 rounded-lg text-center space-y-4 max-w-3xl mx-auto shadow-xs">
-        <h3 className="text-2xl font-semibold text-ink">
-          Đồng Hành Cùng Diễn Đàn CEO Việt Nam
-        </h3>
-        <p className="text-xs text-ink-secondary max-w-lg mx-auto leading-relaxed">
-          Đăng ký để trở thành hội viên chính thức hoặc tham gia ban cố vấn chuyên môn của Diễn đàn.
-        </p>
-        <CustomButton
-          variant="primary"
-          size="md"
-          className="shadow-xs"
-          onClick={() => navigateTo(isLoggedIn ? 'profile' : 'register-member')}
-        >
-          {isLoggedIn ? 'Xem Hồ Sơ Hội Viên' : 'Đăng Ký Thành Viên VCF'}
-        </CustomButton>
       </div>
-    </div>
+
+    {/* CTA Bottom */}
+    <section className="vcf-section mt-16 md:mt-[120px] bg-surface-dark text-white">
+      <div className="vcf-container flex flex-col md:flex-row items-center justify-between gap-10">
+        <div className="space-y-3 max-w-2xl">
+          <h3 className="text-3xl sm:text-4xl font-semibold tracking-[-0.03em] text-white">
+            Đồng hành cùng diễn đàn CEO Việt Nam
+          </h3>
+          <p className="text-base text-white/68 leading-relaxed">
+            Đăng ký để trở thành hội viên chính thức hoặc tham gia ban cố vấn chuyên môn của Diễn đàn.
+          </p>
+        </div>
+
+        <div className="shrink-0 flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+          <CustomButton
+            variant="primary"
+            size="lg"
+            onClick={() => navigateTo(isLoggedIn ? 'profile' : 'register-member')}
+            className="min-h-16 text-base bg-brand-primary text-white hover:bg-brand-primary-hover"
+          >
+            {isLoggedIn ? 'Xem Hồ Sơ Hội Viên' : 'Đăng Ký Thành Viên VCF'}
+          </CustomButton>
+        </div>
+      </div>
+    </section>
+  </>
   );
 };
