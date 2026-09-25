@@ -329,7 +329,7 @@ export const ArticleDetailPage: React.FC = () => {
                 loading="eager"
               />
             </div>
-            <figcaption className="text-xs sm:text-sm text-neutral-500 italic text-center font-sans">
+            <figcaption className="text-xs sm:text-sm text-neutral-500 text-left font-sans">
               {article.imagePlaceholder ? article.imagePlaceholder.replace(/^\[|\]$/g, '') : `Ảnh tư liệu: ${article.title}`}
             </figcaption>
           </figure>
@@ -367,7 +367,7 @@ export const ArticleDetailPage: React.FC = () => {
                       />
                     </div>
                     {caption && (
-                      <figcaption className="text-xs sm:text-sm text-neutral-500 italic text-center font-sans">
+                      <figcaption className="text-xs sm:text-sm text-neutral-500 text-left font-sans">
                         {caption}
                       </figcaption>
                     )}
