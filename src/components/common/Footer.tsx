@@ -60,10 +60,10 @@ export const Footer: React.FC = () => {
             <div className={`${openSection === 'knowledge' ? 'block' : 'hidden'} md:block`}>
               <h2 className="mb-4 hidden text-sm font-semibold md:block">Hệ tri thức</h2>
               <ul className="space-y-1.5 pb-3 text-sm text-ink-secondary md:pb-0">
-                <li><button type="button" onClick={() => navigateTo('knowledge-category', { category: 'hung-bt' })} className="min-h-9 text-left hover:text-brand-primary">BT Nguyễn Mạnh Hùng</button></li>
-                <li><button type="button" onClick={() => navigateTo('knowledge-category', { category: 'other-authors' })} className="min-h-9 text-left hover:text-brand-primary">Góc nhìn chuyên gia</button></li>
-                <li><button type="button" onClick={() => navigateTo('knowledge-category', { category: 'derived-knowledge' })} className="min-h-9 text-left hover:text-brand-primary">Tri thức phái sinh</button></li>
-                <li><button type="button" onClick={() => navigateTo('events')} className="min-h-9 text-left hover:text-brand-primary">Lịch sự kiện</button></li>
+                <li><button type="button" onClick={() => navigateTo('knowledge', { category: 'hung-bt' })} className="min-h-9 text-left hover:text-brand-primary">Tác giả BT. Nguyễn Mạnh Hùng</button></li>
+                <li><button type="button" onClick={() => navigateTo('knowledge', { category: 'other-authors' })} className="min-h-9 text-left hover:text-brand-primary">Góc nhìn chuyên gia</button></li>
+                <li><button type="button" onClick={() => navigateTo('knowledge', { category: 'derived-knowledge' })} className="min-h-9 text-left hover:text-brand-primary">Tri thức phái sinh</button></li>
+                <li><button type="button" onClick={() => navigateTo('knowledge', { category: 'all' })} className="min-h-9 text-left hover:text-brand-primary">Kho bài viết &amp; Nghiên cứu</button></li>
               </ul>
             </div>
           </div>
