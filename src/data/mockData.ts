@@ -14,7 +14,7 @@ export const MOCK_ACTIVITIES: Activity[] = [
     frequency: 'Thường niên (1 lần/năm vào Quý IV)',
     hasEvents: true,
     coverImagePlaceholder: '[Ảnh: Toàn cảnh Đại hội CEO Summit thường niên tại Trung tâm Hội nghị Quốc gia]',
-    imageUrl: '/images/activities/01-ceo-summit.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80',
     type: 'event-based'
   },
   {
@@ -30,7 +30,7 @@ export const MOCK_ACTIVITIES: Activity[] = [
     frequency: 'Hàng quý (4 kỳ/năm)',
     hasEvents: true,
     coverImagePlaceholder: '[Ảnh: Tọa đàm bàn tròn CEO Forum chuyên đề Quản trị Chuỗi cung ứng]',
-    imageUrl: '/images/activities/02-ceo-forum.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80',
     type: 'event-based'
   },
   {
@@ -46,7 +46,7 @@ export const MOCK_ACTIVITIES: Activity[] = [
     frequency: 'Chương trình 6 tháng / mùa cố vấn',
     hasEvents: true,
     coverImagePlaceholder: '[Ảnh: Phiên cố vấn 1-1 giữa Mentor cao cấp và Mentee]',
-    imageUrl: '/images/activities/03-ceo-mentoring.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=1200&q=80',
     type: 'mentoring'
   },
   {
@@ -62,7 +62,7 @@ export const MOCK_ACTIVITIES: Activity[] = [
     frequency: 'Sinh hoạt hàng tháng (1 buổi/tháng)',
     hasEvents: true,
     coverImagePlaceholder: '[Ảnh: Buổi sinh hoạt kín bàn tròn CEO Peer Group]',
-    imageUrl: '/images/activities/04-ceo-peer-group.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80',
     type: 'peer-group'
   },
   {
@@ -78,7 +78,7 @@ export const MOCK_ACTIVITIES: Activity[] = [
     frequency: 'Nghiên cứu liên tục & Xuất bản chuyên đề',
     hasEvents: false,
     coverImagePlaceholder: '[Ảnh: Hội đồng Nghiên cứu Trường phái LGM thảo luận chuyên đề]',
-    imageUrl: '/images/activities/05-lgm-school.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
     type: 'academic'
   },
   {
@@ -94,7 +94,7 @@ export const MOCK_ACTIVITIES: Activity[] = [
     frequency: 'Phát hành định kỳ Quý / Năm',
     hasEvents: false,
     coverImagePlaceholder: '[Ảnh: Bộ sách và ấn phẩm chuyên khảo Quản trị LGM]',
-    imageUrl: '/images/activities/06-knowledge-publication.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=1200&q=80',
     type: 'publication'
   },
   {
@@ -110,7 +110,7 @@ export const MOCK_ACTIVITIES: Activity[] = [
     frequency: 'Vận hành 24/7',
     hasEvents: false,
     coverImagePlaceholder: '[Ảnh: Giao diện nền tảng số hóa Diễn đàn CEO Việt Nam]',
-    imageUrl: '/images/activities/07-website-app.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
     type: 'platform'
   },
   {
@@ -126,7 +126,7 @@ export const MOCK_ACTIVITIES: Activity[] = [
     frequency: 'Phát sóng 2 số / tháng (Video & Podcast)',
     hasEvents: true,
     coverImagePlaceholder: '[Ảnh: Không gian ghi hình trường quay CEO Talk chuyên sâu]',
-    imageUrl: '/images/activities/08-ceo-talk.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=1200&q=80',
     type: 'media'
   },
   {
@@ -142,7 +142,7 @@ export const MOCK_ACTIVITIES: Activity[] = [
     frequency: 'Sinh hoạt định kỳ 2 tuần/lần',
     hasEvents: true,
     coverImagePlaceholder: '[Ảnh: Hoạt động giao lưu thực địa của Hội viên CEO Club]',
-    imageUrl: '/images/activities/09-ceo-club.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80',
     type: 'club'
   }
 ];
@@ -165,12 +165,12 @@ export const MOCK_EVENTS: EventItem[] = [
     speakers: [
       {
         name: 'Nguyễn Mạnh Hùng',
-        role: 'Bộ trưởng Bộ TT&TT',
+        role: 'Bộ trưởng Bộ TT&TT, Chủ tịch Danh dự Hội đồng Cố vấn VLGM',
         avatarPlaceholder: '[Ảnh chân dung: Diễn giả Nguyễn Mạnh Hùng]'
       },
       {
         name: 'PGS. TS. Vũ Văn San',
-        role: 'Giám đốc Học viện',
+        role: 'Giám đốc Học viện Công nghệ Bưu chính Viễn thông (PTIT)',
         avatarPlaceholder: '[Ảnh chân dung: PGS. TS. Vũ Văn San]'
       },
       {
@@ -206,14 +206,14 @@ export const MOCK_EVENTS: EventItem[] = [
     agenda: [
       { time: '08:00 - 08:30', topic: 'Đón tiếp đại biểu & Check-in qua mã QR định danh' },
       { time: '08:30 - 09:15', topic: 'Phát biểu khai mạc & Báo cáo Tổng quan Kinh tế Lãnh đạo 2026-2030' },
-      { time: '09:15 - 10:30', topic: 'Phiên 1: Tái cấu trúc tổ chức bằng Trí tuệ Nhân tạo thực chiến' },
+      { time: '09:15 - 10:30', topic: 'Phiên 1: Tái cấu trúc tổ chức bằng Trí tuệ Nhân tạo thực chiến', presenter: 'Hội đồng Khoa học PTIT & Chuyên gia AI' },
       { time: '10:45 - 12:00', topic: 'Tọa đàm bàn tròn: Vốn, Năng lượng sạch và Chuỗi cung ứng mới' },
       { time: '13:30 - 15:30', topic: 'Phiên chuyên đề phân nhánh: Sản xuất thông minh & Bán lẻ đa kênh' },
       { time: '15:45 - 17:00', topic: 'Đối thoại mở: Thách thức thế hệ kế nghiệp doanh nghiệp tư nhân' },
       { time: '17:00 - 17:30', topic: 'Tổng kết & Công bố Thông điệp Lãnh đạo VCF 2026' }
     ],
     imagePlaceholder: '[Ảnh sự kiện: Toàn cảnh khán phòng CEO Summit 2026]',
-    imageUrl: '/images/events/ceo-summit-2026.png'
+    imageUrl: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=600&q=80'
   },
   {
     id: 'event-talk-finance',
@@ -253,7 +253,7 @@ export const MOCK_EVENTS: EventItem[] = [
       { time: '15:15 - 16:00', topic: 'Tọa đàm bàn tròn cùng các lãnh đạo ngân hàng hàng đầu' }
     ],
     imagePlaceholder: '[Ảnh sự kiện: Tòa nhà tài chính ngân hàng]',
-    imageUrl: '/images/events/talkshow-ai-finance.png'
+    imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80'
   },
   {
     id: 'event-forum-fintech',
@@ -281,16 +281,14 @@ export const MOCK_EVENTS: EventItem[] = [
         avatarPlaceholder: '[Ảnh chân dung: Bà Nguyễn Thị Phương Thảo]'
       }
     ],
-    description: 'Phiên diễn đàn bàn tròn chuyên sâu quy tụ 80 CEO, lãnh đạo tài chính và chuyên gia kinh tế để cùng nhìn lại những thay đổi lớn trong quản trị dòng tiền, bảo toàn biên lợi nhuận và kiểm soát rủi ro tín dụng. Trong bối cảnh lãi suất, tỷ giá và chi phí vốn liên tục biến động, nhiều doanh nghiệp phải đồng thời xử lý áp lực thanh khoản ngắn hạn, tái cơ cấu các khoản nợ đến hạn và duy trì nguồn lực cho hoạt động tăng trưởng. Chương trình tập trung vào những quyết định thực tế mà ban điều hành cần đưa ra khi thị trường thay đổi nhanh: xác định ngưỡng an toàn dòng tiền, phân bổ vốn cho các đơn vị kinh doanh, thương lượng lại điều khoản tín dụng và xây dựng kịch bản ứng phó khi doanh thu hoặc biên lợi nhuận giảm. Các diễn giả sẽ phân tích những trường hợp doanh nghiệp đã vượt qua giai đoạn căng thẳng nhờ kỷ luật ngân sách, hệ thống cảnh báo sớm và cơ chế phối hợp chặt chẽ giữa hội đồng quản trị, ban điều hành và bộ phận tài chính. Nội dung cũng đề cập đến vai trò của công cụ phái sinh trong phòng ngừa rủi ro lãi suất, tỷ giá và giá nguyên vật liệu, đồng thời nhấn mạnh yêu cầu quản trị minh bạch, giới hạn sử dụng đòn bẩy và kiểm soát rủi ro đối tác. Bên cạnh phần trình bày chuyên đề, phiên thảo luận dành thời gian cho các CEO trao đổi trực tiếp về cách cân bằng giữa bảo vệ dòng tiền và đầu tư cho chuyển đổi số, mở rộng thị trường. Người tham dự sẽ nhận được một khung tham chiếu thực hành gồm các chỉ số cần theo dõi, câu hỏi cần đặt ra trước mỗi quyết định vay vốn và phương pháp xây dựng kịch bản tài chính cho 12 đến 18 tháng tiếp theo.',
-    heroDescription: 'Phiên thảo luận dành cho các CEO cùng chia sẻ kinh nghiệm quản trị dòng tiền, bảo toàn biên lợi nhuận và kiểm soát rủi ro tín dụng. Chương trình tập trung vào giải pháp thực tế giúp doanh nghiệp duy trì thanh khoản, chủ động trước biến động lãi suất và chuẩn bị cho chu kỳ tăng trưởng mới.',
+    description: 'Phiên diễn đàn bàn tròn chuyên sâu 80 CEO về phương pháp bảo toàn biên lợi nhuận, tái cơ cấu nợ và áp dụng công cụ phái sinh tài chính trong bối cảnh lãi suất biến động.',
     agenda: [
       { time: '13:30 - 14:00', topic: 'Đón tiếp và giao lưu đầu giờ' },
       { time: '14:00 - 15:00', topic: 'Phân tích bức tranh kinh tế vĩ mô & Thanh khoản thị trường' },
       { time: '15:15 - 16:45', topic: 'Tọa đàm bàn tròn & Thảo luận trực tiếp các case study doanh nghiệp' },
       { time: '16:45 - 17:00', topic: 'Đúc kết khuyến nghị quản trị dòng tiền ngắn hạn' }
     ],
-    imagePlaceholder: '[Ảnh sự kiện: Phòng hội thảo bàn tròn CEO Forum]',
-    imageUrl: '/images/events/ceo-forum-finance.png'
+    imagePlaceholder: '[Ảnh sự kiện: Phòng hội thảo bàn tròn CEO Forum]'
   },
   {
     id: 'event-talk-ep14',
@@ -602,7 +600,7 @@ export const MOCK_EVENTS: EventItem[] = [
 export const MOCK_ARTICLES: ArticleItem[] = [
   {
     id: 'article-hung-bt-01',
-    title: 'Triết lý lãnh đạo phụng sự và sứ mệnh kiến tạo tương lai quốc gia của doanh nhân việt.',
+    title: 'Triết lý Lãnh đạo Phụng sự và Sứ mệnh Kiến tạo Tương lai Quốc gia của Doanh nhân Việt',
     sapo: 'Lãnh đạo không phải là người đứng trên tất cả để nhận đặc quyền, mà là người cúi xuống để nâng đỡ và gánh vác trách nhiệm lớn hơn chính mình.',
     content: [
       'Một dân tộc muốn hùng cường bắt buộc phải sở hữu những doanh nghiệp hùng mạnh và có năng lực cạnh tranh toàn cầu. Nhưng doanh nghiệp không tự nhiên lớn mạnh; sự trường tồn của một tổ chức luôn bắt nguồn từ tâm thức của những người thuyền trưởng dám dấn thân, biết đặt lợi ích quốc gia và cộng đồng song hành cùng sự thịnh vượng kinh doanh bền vững.',
@@ -610,7 +608,6 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       'Lịch sử kinh tế của các quốc gia phát triển như Nhật Bản, Hàn Quốc hay Singapore đều minh chứng rằng: Động lực đưa một đất nước vượt qua bẫy thu nhập trung bình nằm ở tầng lớp doanh nhân dân tộc mang trong mình lý tưởng phụng sự. Họ không xem kinh doanh đơn thuần là bài toán cộng trừ dòng tiền ngắn hạn, mà là hành trình kiến tạo năng lực tự chủ cho đất nước.',
       'Thế hệ doanh nhân Việt Nam hôm nay đang đứng trước một cơ hội lịch sử chưa từng có. Chúng ta không thể mãi tự hào với lợi thế nhân công giá rẻ hay xuất khẩu tài nguyên thô. Khát vọng vươn mình của dân tộc đòi hỏi doanh nghiệp Việt phải làm chủ công nghệ lõi, xây dựng chuỗi cung ứng độc lập và xác lập vị thế dẫn đầu trong các ngành kinh tế mũi nhọn.',
       '> "Doanh nghiệp chỉ thực sự vĩ đại khi giải quyết được những nỗi đau lớn của xã hội và gánh vác những sứ mệnh vượt ra ngoài khuôn khổ của báo cáo tài chính thường niên."',
-      '![Ảnh 2: Diễn đàn bàn tròn chiến lược quy tụ hơn 500 nhà lãnh đạo doanh nghiệp tại CEO Summit](https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80)',
       '## II. Bản chất của Lãnh đạo Phụng sự (Servant Leadership)',
       'Triết lý LGM (Leadership & Governance Mastery) mà chúng ta theo đuổi không bắt đầu từ kỹ trị hay công cụ cơ bắp, mà bắt đầu từ Tâm thế người đứng đầu. Khi người thuyền trưởng có tâm thế phụng sự, mọi quyết định dù khó khăn đến đâu cũng sẽ tìm được con đường sáng và nhận được sự đồng lòng từ tập thể.',
       'Lãnh đạo phụng sự hoàn toàn không đồng nghĩa với sự nhu nhược hay thiếu quyết đoán. Ngược lại, đó là cảnh giới cao nhất của bản lĩnh quản trị. Người lãnh đạo đích thực không đòi hỏi nhân viên phải phục vụ mình, mà tự đặt câu hỏi mỗi ngày: "Tôi đã dọn dẹp những rào cản nào để đội ngũ của tôi có thể tỏa sáng rực rỡ nhất?".',
@@ -621,7 +618,6 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       '• Biến nghịch cảnh và khủng hoảng thành cơ hội tái cấu trúc toàn diện mô hình vận hành.',
       '• Đầu tư chiều sâu vào nghiên cứu phát triển (R&D) thay vì chỉ chạy theo những thương vụ kiếm lời chớp nhoáng.',
       '• Kiên định với sứ mệnh dài hạn 10-20 năm ngay cả khi đối mặt với áp lực lợi nhuận trước mắt.',
-      '![Ảnh 3: Không gian đối thoại mở giữa các nhà sáng lập và cố vấn chiến lược LGM](https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1200&q=80)',
       '## IV. Văn hóa Kỷ luật và Trách nhiệm trong Kỷ nguyên AI',
       'Trong thời đại công nghệ số và trí tuệ nhân tạo phát triển như vũ bão, thứ giữ cho doanh nghiệp không bị lạc lối không phải là các thuật toán tự động, mà là Hệ giá trị cốt lõi và Bản sắc văn hóa. Công nghệ có thể mua được, vốn có thể vay được, quy trình có thể học được. Thứ duy nhất đối thủ không thể sao chép là Tinh thần kỷ luật và Lòng trung thành của con người.',
       'AI đang giải phóng chúng ta khỏi những công việc thủ công, lặp lại. Đây là thời khắc vàng để người lãnh đạo quay trở về với những phẩm chất người nhất: sự thấu cảm, khả năng truyền cảm hứng, tính trung thực và lòng dũng cảm bảo vệ lẽ phải. Một tổ chức thông minh là nơi con người biết làm chủ công nghệ để phụng sự khách hàng tốt hơn, chứ không phải để biến nhân viên thành những cỗ máy vô cảm.',
@@ -641,7 +637,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
+    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
     subCategory: 'Triết lý Lãnh đạo',
     publishedDate: '12/08/2026',
     readTime: '8 phút đọc',
@@ -660,21 +656,13 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       'Trong nền kinh tế mở, công nghệ có thể chuyển giao, vốn có thể huy động từ các quỹ đầu tư, quy trình có thể thuê các hãng tư vấn quốc tế xây dựng. Thứ duy nhất đối thủ không thể sao chép hay mua chuộc là Bản sắc Văn hóa và Tinh thần kỷ luật của tổ chức.',
       'Một văn hóa doanh nghiệp mạnh được định hình bởi những gì người ta làm khi không có ai giám sát. Đó là những nguyên tắc ứng xử bất thành văn, là lòng tự trọng nghề nghiệp và tinh thần trách nhiệm đến cùng với lời hứa dành cho khách hàng.',
       '> "Văn hóa ăn chiến lược vào bữa sáng. Nếu không có một nền tảng văn hóa vững chãi, mọi kế hoạch kinh doanh tham vọng nhất cũng sẽ đổ vỡ ngay tại khâu thực thi."',
-      '![Ảnh 2: Tọa đàm xây dựng bản sắc văn hóa doanh nghiệp trong kỷ nguyên số](https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80)',
       '## II. Cân Bằng Giữa Kỷ Luật Sắt và Lòng Trắc Ẩn',
       'Một tổ chức kỷ luật mà thiếu lòng trắc ẩn sẽ trở thành một bộ máy xơ cứng, ngột ngạt và triệt tiêu sức sáng tạo. Ngược lại, một tổ chức tràn ngập ý tưởng và sự thoải mái nhưng thiếu tính kỷ luật thực thi sẽ nhanh chóng rơi vào hỗn loạn và tan rã.',
       'Nghệ thuật của người thuyền trưởng là duy trì kỷ luật sắt trong mục tiêu và cam kết chất lượng, nhưng bao bọc bằng tình yêu thương và sự tôn trọng đối với phẩm giá của từng cộng sự. Nhân viên chỉ dám thử nghiệm cái mới và cống hiến hết mình khi họ biết rằng tổ chức luôn là điểm tựa an toàn khi vấp ngã.',
       '## III. Ba Chuyển Dịch Văn Hóa Cốt Lõi Trong Kỷ Nguyên Số',
-      'Để chuyển hóa từ mô hình quản trị truyền thống sang tổ chức thích ứng cao, doanh nghiệp cần thực hiện 3 bước chuyển dịch mang tính cấu trúc:',
-      '• 1. Từ tư duy bảo thủ sở hữu sang tư duy cởi mở chia sẻ dữ liệu và tri thức liên phòng ban.',
-      '• 2. Từ văn hóa đổ lỗi sang văn hóa phân tích nguyên nhân gốc rễ và học tập từ sai lầm.',
-      '• 3. Từ mô hình phân cấp hành chính cứng nhắc sang các nhóm tinh gọn tự chủ (agile pods) vận hành linh hoạt.',
-      '![Ảnh 3: Đội ngũ nhân sự cấp cao cùng thảo luận và tinh chỉnh mô hình làm việc cộng tác đa chức năng](https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80)',
-      '## IV. Đưa Văn Hóa Vào Từng Chỉ Số Vận Hành (KPI / OKR)',
-      'Văn hóa không thể chỉ là những khẩu hiệu treo trên tường hay các cuốn cẩm nang dày cộp không ai đọc. Văn hóa phải trở thành thước đo cụ thể trong việc tuyển dụng, đánh giá hiệu quả công việc và thăng tiến cán bộ.',
-      'Khi một nhân sự xuất sắc về doanh số nhưng vi phạm các chuẩn mực đạo đức hoặc chà đạp lên đồng nghiệp, người lãnh đạo có dám từ chối khen thưởng hay sa thải người đó không? Câu trả lời cho tình huống ấy chính là định nghĩa thực sự về văn hóa của doanh nghiệp bạn.',
-      '## V. Thông Điệp Dành Cho Nhà Lãnh Đạo',
-      'Người lãnh đạo chính là tấm gương phản chiếu văn hóa rõ nhất. Muốn cấp dưới trung thực, người đứng đầu phải dũng cảm nói sự thật. Muốn tổ chức học tập liên tục, người đứng đầu phải không ngừng đọc sách và lắng nghe. Doanh nghiệp chỉ có thể đi xa khi văn hóa đủ sâu và rễ bám đủ chắc vào lòng người.'
+      '• Từ tư duy bảo thủ sở hữu sang tư duy cởi mở chia sẻ dữ liệu và tri thức liên phòng ban.',
+      '• Từ văn hóa đổ lỗi sang văn hóa phân tích nguyên nhân gốc rễ và học tập từ sai lầm.',
+      '• Từ mô hình phân cấp hành chính cứng nhắc sang các nhóm tinh gọn tự chủ (agile pods) vận hành linh hoạt.'
     ],
     author: {
       name: 'Nguyễn Mạnh Hùng',
@@ -684,7 +672,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
+    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
     subCategory: 'Văn hóa Doanh nghiệp',
     publishedDate: '01/08/2026',
     readTime: '6 phút đọc',
@@ -698,20 +686,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
     sapo: 'Không có cách nào luyện nên cơ bắp nếu chỉ tập tạ nhẹ. Doanh nghiệp chỉ có thể lớn lên khi dám nhận những bài toán hóc búa nhất của thị trường quốc tế.',
     content: [
       'Lịch sử kinh tế thế giới chứng minh rằng các quốc gia vươn mình hóa rồng đều dựa trên những tập đoàn công nghệ tiên phong sẵn sàng dấn thân vào thị trường toàn cầu.',
-      'Doanh nghiệp công nghệ số Việt Nam mang trong mình gen sáng tạo, bền bỉ và tốc độ thích ứng đáng kinh ngạc. Khi kết hợp cùng tầm nhìn chiến lược dài hạn, chúng ta hoàn toàn có thể tạo nên những sản phẩm Make in Viet Nam được thế giới tôn trọng.',
-      '## I. Định Vị Lại Giá Trị: Từ Gia Công Sang Làm Chủ Công Nghệ',
-      'Nếu chỉ mãi làm gia công phần mềm hay lắp ráp thiết bị, chúng ta sẽ mãi mắc kẹt ở đáy chữ U của chuỗi giá trị toàn cầu. Giá trị thặng dư lớn nhất luôn nằm ở khâu thiết kế giải pháp và sở hữu tài sản trí tuệ.',
-      'Thế hệ doanh nhân công nghệ hôm nay phải có dũng khí đầu tư vào công nghệ nền tảng: từ điện toán đám mây, an ninh mạng đến bán dẫn và AI chuyên ngành. Không có con đường tắt nào dẫn tới sự vĩ đại ngoài việc tự tay giải quyết những bài toán khó nhất.',
-      '> "Muốn đi xa phải đi cùng nhau, nhưng muốn dẫn đầu thì phải dám đi vào những vùng đất chưa ai từng đặt chân đến."',
-      '![Ảnh 2: Hệ sinh thái công nghệ số và trung tâm dữ liệu hiện đại của doanh nghiệp Việt Nam](https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80)',
-      '## II. Chiến Lược Ra Biển Lớn (Go Global)',
-      'Thị trường Việt Nam với 100 triệu dân là cái nôi tuyệt vời để thử nghiệm, nhưng biển lớn thế giới mới là đấu trường rèn giũa năng lực cạnh tranh thực thụ. Một sản phẩm cạnh tranh sòng phẳng tại Mỹ, Nhật hay Châu Âu sẽ tự khắc khẳng định được vị thế số một tại quê nhà.',
-      '• 1. Tận dụng thế mạnh nguồn nhân lực toán học và kỹ thuật phần mềm chất lượng cao.',
-      '• 2. Xây dựng văn hóa chuẩn mực quốc tế: tuân thủ bản quyền, an toàn dữ liệu và cam kết SLA khắt khe.',
-      '• 3. Chủ động hợp tác liên minh với các đối tác bản địa thay vì đơn thương độc mã.',
-      '![Ảnh 3: Lễ ký kết hợp tác chiến lược giữa doanh nghiệp công nghệ Việt và các tập đoàn quốc tế](https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=1200&q=80)',
-      '## III. Lời Kêu Gọi Thế Hệ Doanh Nhân Trẻ',
-      'Đất nước trao cho chúng ta hòa bình, ổn định và một thế hệ dân số vàng thông minh, hiếu học. Trách nhiệm của các nhà lãnh đạo doanh nghiệp là biến những tiềm năng đó thành tài sản quốc gia, đưa thương hiệu Việt Nam rạng danh trên bản đồ công nghệ số thế giới.'
+      'Doanh nghiệp công nghệ số Việt Nam mang trong mình gen sáng tạo, bền bỉ và tốc độ thích ứng đáng kinh ngạc. Khi kết hợp cùng tầm nhìn chiến lược dài hạn, chúng ta hoàn toàn có thể tạo nên những sản phẩm Make in Viet Nam được thế giới tôn trọng.'
     ],
     author: {
       name: 'Nguyễn Mạnh Hùng',
@@ -721,7 +696,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
+    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
     subCategory: 'Khát vọng Việt Nam',
     publishedDate: '25/07/2026',
     readTime: '7 phút đọc',
@@ -735,19 +710,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
     sapo: 'AI không thay thế nhà lãnh đạo, nhưng nhà lãnh đạo biết tận dụng sức mạnh của AI sẽ thay thế những người chần chừ và hoài nghi.',
     content: [
       'Trí tuệ nhân tạo đang giải phóng con người khỏi những công việc lặp lại, những bảng tính nhàm chán. Đây là cơ hội vàng để người lãnh đạo quay trở lại với bản chất cốt lõi: Kết nối cảm xúc, nuôi dưỡng cảm hứng và kiến tạo giá trị nhân văn.',
-      'Một tổ chức thông minh là tổ chức biết sử dụng AI để mở rộng năng lực tính toán và thu thập tri thức, nhưng giữ nguyên sự sắc sảo về trực giác và lòng trắc ẩn trong mỗi quyết định liên quan đến số phận con người.',
-      '## I. Làn Sóng GenAI Trong Tái Cấu Trúc Vận Hành',
-      'Chúng ta không còn bàn cãi liệu AI có tác động đến doanh nghiệp hay không, mà câu hỏi duy nhất lúc này là: Doanh nghiệp bạn sẽ là người tiên phong kiến tạo hay là nạn nhân bị đào thải bởi làn sóng tự động hóa?',
-      'Tại các tập đoàn hàng đầu thế giới, các tác vụ phân tích tài chính phức tạp, dự báo nhu cầu thị trường và tối ưu tuyến vận tải đã được các mô hình AI giải quyết trong vài giây, giảm thiểu 80% thời gian xử lý sự vụ so với cách làm thủ công.',
-      '> "AI là trợ lý siêu đẳng, nhưng người cầm lái và chịu trách nhiệm đạo đức tối hậu luôn là nhà lãnh đạo."',
-      '![Ảnh 2: Tích hợp trí tuệ nhân tạo vào quy trình phân tích dữ liệu và điều hành doanh nghiệp](https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80)',
-      '## II. Ba Trụ Cột Triển Khai AI Cho Nhà Quản Trị',
-      '• 1. Quản trị Dữ liệu Sạch (Data Governance): AI chỉ thông minh khi nguồn cấp dữ liệu chuẩn hóa, không bị phân mảnh hay sai lệch.',
-      '• 2. Đào tạo Nâng cao Năng lực Đội ngũ (Upskilling): Giúp nhân sự làm chủ kỹ năng Prompt Engineering và tư duy phản biện khi sử dụng kết quả từ AI.',
-      '• 3. Khung Đạo đức và Bảo mật (AI Ethics & Compliance): Thiết lập hàng rào bảo vệ thông tin mật của khách hàng và sở hữu trí tuệ nội bộ.',
-      '![Ảnh 3: Hội thảo chuyên đề ứng dụng AI trong tài chính và quản trị nhân sự cấp cao](https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80)',
-      '## III. Định Nghĩa Lại Vai Trò Người Lãnh Đạo',
-      'Khi máy móc xử lý xong logic và con số, điều làm nên giá trị của một CEO chính là khả năng quy tụ lòng người, định hướng chiến lược bằng tầm nhìn đạo đức và thắp sáng niềm tin trong những thời khắc tăm tối nhất.'
+      'Một tổ chức thông minh là tổ chức biết sử dụng AI để mở rộng năng lực tính toán và thu thập tri thức, nhưng giữ nguyên sự sắc sảo về trực giác và lòng trắc ẩn trong mỗi quyết định liên quan đến số phận con người.'
     ],
     author: {
       name: 'Nguyễn Mạnh Hùng',
@@ -757,7 +720,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
+    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
     subCategory: 'Chuyển đổi số & AI',
     publishedDate: '18/07/2026',
     readTime: '9 phút đọc',
@@ -781,7 +744,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
+    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
     subCategory: 'Triết lý Lãnh đạo',
     publishedDate: '09/07/2026',
     readTime: '6 phút đọc',
@@ -805,7 +768,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
+    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
     subCategory: 'Tầm nhìn Quốc gia',
     publishedDate: '02/07/2026',
     readTime: '8 phút đọc',
@@ -829,7 +792,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
+    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
     subCategory: 'Triết lý Lãnh đạo',
     publishedDate: '24/06/2026',
     readTime: '6 phút đọc',
@@ -845,21 +808,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
     sapo: 'Phân tích cơ chế kiểm soát và cân bằng quyền lực giữa Chủ tịch HĐQT và Tổng Giám đốc trong các tập đoàn tư nhân niêm yết.',
     content: [
       'Mâu thuẫn giữa tầm nhìn chiến lược dài hạn của HĐQT và áp lực chỉ số kinh doanh ngắn hạn của Ban Điều hành là bài toán kinh điển của mọi doanh nghiệp đang tăng trưởng nóng.',
-      'Để giải quyết vấn đề này, doanh nghiệp cần thiết lập Quy chế Phân quyền (Authority Matrix) minh bạch, dựa trên các ngưỡng giá trị tài chính và mức độ rủi ro chiến lược, thay vì phụ thuộc vào cảm tính cá nhân.',
-      '## I. Nguyên Tắc Cân Bằng Quyền Lực (Checks & Balances)',
-      'Trong các công ty gia đình hoặc doanh nghiệp tư nhân quy mô vừa, người sáng lập thường kiêm nhiệm cả hai vai trò: Chủ tịch HĐQT và CEO. Tuy nhiên, khi quy mô vốn vượt ngưỡng 1.000 tỷ đồng hoặc tiến tới niêm yết công chúng, sự tách bạch giữa người định hướng (Chairman) và người thực thi (CEO) là yêu cầu sống còn.',
-      'Chủ tịch HĐQT chịu trách nhiệm bảo vệ lợi ích dài hạn của cổ đông, kiểm soát rủi ro chiến lược và lựa chọn nhân sự cấp cao. Trong khi đó, Tổng Giám đốc nắm toàn quyền điều hành tác nghiệp hàng ngày và chịu trách nhiệm với các chỉ số P&L (Lợi nhuận & Lỗ) được giao.',
-      '> "Hội đồng Quản trị cầm lái nhưng không thò chân đạp ga hay giẫm phanh của Ban Điều hành."',
-      '![Ảnh 2: Phiên họp Đại hội đồng Cổ đông và phiên thảo luận chiến lược Hội đồng Quản trị](https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80)',
-      '## II. Thiết Lập Ma Trận Phân Quyền (Delegation of Authority Matrix)',
-      'Một ma trận phân quyền hiệu quả cần lượng hóa rõ ràng 4 cấp độ phê duyệt tương ứng với giá trị giao dịch:',
-      '• Cấp độ 1 (Dưới 500 triệu VNĐ): Giám đốc Khối / Giám đốc Chi nhánh tự chủ quyết định.',
-      '• Cấp độ 2 (Từ 500 triệu đến 5 tỷ VNĐ): Tổng Giám đốc phê duyệt và báo cáo tóm tắt định kỳ.',
-      '• Cấp độ 3 (Từ 5 tỷ đến 50 tỷ VNĐ): Ủy ban Chiến lược & Đầu tư trực thuộc HĐQT thông qua.',
-      '• Cấp độ 4 (Trên 50 tỷ VNĐ hoặc vượt 10% tổng tài sản): Toàn thể HĐQT bỏ phiếu biểu quyết chính thức.',
-      '![Ảnh 3: Bản mẫu cấu trúc ma trận phân quyền điều hành doanh nghiệp minh bạch](https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80)',
-      '## III. Vai Trò Của Thành Viên HĐQT Độc Lập',
-      'Thành viên HĐQT độc lập không hưởng lương điều hành mà đóng vai trò phản biện khách quan, bảo vệ quyền lợi cổ đông thiểu số và đưa ra góc nhìn đa chiều từ thị trường quốc tế. Doanh nghiệp Việt Nam cần chủ động tăng tỷ lệ thành viên độc lập lên ít nhất 1/3 để đáp ứng chuẩn mực quản trị ASEAN Corporate Governance Scorecard.'
+      'Để giải quyết vấn đề này, doanh nghiệp cần thiết lập Quy chế Phân quyền (Authority Matrix) minh bạch, dựa trên các ngưỡng giá trị tài chính và mức độ rủi ro chiến lược, thay vì phụ thuộc vào cảm tính cá nhân.'
     ],
     author: {
       name: 'PGS. TS. Trần Đình Thiên',
@@ -883,21 +832,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
     sapo: 'Mô hình 5 trụ cột năng lực giúp CEO dẫn dắt tổ chức vượt qua các cú sốc chuỗi cung ứng và biến đổi địa chính trị.',
     content: [
       'Thế giới VUCA đòi hỏi nhà lãnh đạo không chỉ có IQ và EQ cao mà phải có AQ (Chỉ số Vượt nghịch cảnh) và Năng lực ra quyết định trong điều kiện thông tin không hoàn hảo.',
-      'Bài viết đúc kết khung 5 năng lực then chốt từ nghiên cứu thực tiễn trên 120 CEO Việt Nam giai đoạn 2023-2026: Tư duy hệ thống, Nhận diện tín hiệu yếu, Giao quyền nhanh, Khả năng hồi phục tâm lý và Quản trị năng lượng cá nhân.',
-      '## I. Từ Lãnh Đạo Tác Tác Sang Lãnh Đạo Thích Ứng',
-      'Trong thời kỳ ổn định, lãnh đạo tác nghiệp tập trung vào tối ưu hóa quy trình có sẵn. Nhưng khi thị trường rơi vào biến động địa chính trị và đứt gãy chuỗi cung ứng, những công thức thành công trong quá khứ thường trở thành cái bẫy nguy hiểm nhất.',
-      'Lãnh đạo thích ứng là khả năng phân biệt rõ đâu là bài toán kỹ thuật (đã có lời giải sẵn) và đâu là thách thức thích ứng (chưa từng có tiền lệ, đòi hỏi toàn tổ chức phải thay đổi niềm tin và thói quen cốt lõi).',
-      '> "Trong cơn bão, chim ưng không trốn chạy mà dang rộng đôi cánh mượn chính sức gió để vút bay lên cao hơn."',
-      '![Ảnh 2: Tọa đàm chuyên sâu về năng lực phục hồi tổ chức và chỉ số thích ứng AQ](https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80)',
-      '## II. Năm Trụ Cột Năng Lực Cốt Lõi',
-      '• 1. Nhận diện tín hiệu yếu (Weak Signals): Khả năng phát hiện những thay đổi tinh vi trong hành vi người tiêu dùng và động thái chính sách trước khi chúng bùng phát thành xu hướng lớn.',
-      '• 2. Tư duy hệ thống (Systems Thinking): Không nhìn nhận vấn đề đơn lẻ mà phân tích mối tương quan nhân quả giữa tài chính, nhân sự và chuỗi cung ứng.',
-      '• 3. Phân cấp ra quyết định chớp nhoáng (Decentralized Speed): Trao quyền cho các cấp thực thi tại tuyến đầu thay vì bắt mọi quyết định phải chờ chữ ký của người đứng đầu.',
-      '• 4. Phục hồi tâm lý sau thất bại (Emotional Resilience): Giữ vững tâm thế bình thản và truyền năng lượng lạc quan cho toàn bộ tổ chức.',
-      '• 5. Quản trị năng lượng thay vì quản trị thời gian: Duy trì nhịp sinh học lành mạnh và không để bản thân rơi vào trạng thái kiệt sức (burnout).',
-      '![Ảnh 3: Khung đánh giá năng lực thích ứng của lãnh đạo doanh nghiệp LGM](https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1200&q=80)',
-      '## III. Lời Khuyên Dành Cho Các CEO Đang Đối Mặt Nghịch Cảnh',
-      'Thay vì cố gắng kiểm soát mọi thứ, hãy học cách chấp nhận sự bất định như một phần tự nhiên của cuộc chơi kinh doanh. Khi người thuyền trưởng vững tay chèo và sở hữu tâm thế thích ứng linh hoạt, con tàu doanh nghiệp sẽ luôn tìm thấy luồng gió mới để tiến về phía trước.'
+      'Bài viết đúc kết khung 5 năng lực then chốt từ nghiên cứu thực tiễn trên 120 CEO Việt Nam giai đoạn 2023-2026: Tư duy hệ thống, Nhận diện tín hiệu yếu, Giao quyền nhanh, Khả năng hồi phục tâm lý và Quản trị năng lượng cá nhân.'
     ],
     author: {
       name: 'TS. Nguyễn Thanh Tùng',
@@ -1043,19 +978,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
     sapo: 'Nghiên cứu điển hình do Ban Nghiên cứu VLGM biên soạn và phân tích từ tài liệu tái cơ cấu nội bộ.',
     content: [
       'Nghiên cứu này tổng hợp quá trình cắt giảm 35% chi phí vận hành cố định, tái thương lượng hợp đồng mặt bằng và số hóa 100% quy trình kiểm kho trong vòng 18 tháng.',
-      'Các bài học rút ra được lượng hóa thành bộ chỉ số cảnh báo sớm (Early Warning KPIs) mà các CEO doanh nghiệp quy mô tương tự có thể áp dụng ngay.',
-      '## I. Bối Cảnh Khủng Hoảng và Điểm Nghẽn Thanh Khoản',
-      'Đầu năm 2024, doanh nghiệp đối mặt với cuộc khủng hoảng dòng tiền nghiêm trọng: nợ ngắn hạn gấp 2.4 lần vốn chủ sở hữu, chuỗi 150 siêu thị ghi nhận biên lợi nhuận ròng tụt xuống dưới 0.8% do chi phí mặt bằng tăng vọt và tỷ lệ hàng cận date vượt ngưỡng kiểm soát.',
-      'Nếu không có biện pháp can thiệp phẫu thuật khẩn cấp, dòng tiền tự do (FCF) sẽ cạn kiệt trong vòng 90 ngày. Ban lãnh đạo đã quyết định thành lập Ban Đặc nhiệm Tái cấu trúc (Restructuring Task Force) dưới sự hỗ trợ chuyên môn của Viện LGM.',
-      '> "Trong tái cấu trúc, việc cắt giảm chi phí không phải là thắt lưng buộc bụng mù quáng, mà là cắt bỏ các mô thừa hoại tử để cứu sống các tế bào khỏe mạnh của doanh nghiệp."',
-      '![Ảnh 2: Sơ đồ dòng luân chuyển hàng hóa và tối ưu chuỗi cung ứng bán lẻ](https://images.unsplash.com/photo-1556742049-0a67c5574f73?auto=format&fit=crop&w=1200&q=80)',
-      '## II. Ba Đòn Bẩy Tái Sinh Vận Hành',
-      '• 1. Tái đàm phán mặt bằng: Đóng cửa 25 điểm bán không đạt EBITDA dương, chuyển đổi mô hình thuê từ chi phí cố định sang cơ chế chia sẻ doanh thu (revenue sharing) với chủ mặt bằng.',
-      '• 2. Số hóa kiểm soát hàng tồn kho theo thời gian thực (Real-time Inventory): Áp dụng thuật toán dự báo nhu cầu bằng AI giúp giảm 42% lượng hàng lưu kho đọng vốn.',
-      '• 3. Tinh gọn bộ máy quản trị trung gian: Cắt giảm từ 6 tầng nấc báo cáo xuống 3 tầng nấc, trao quyền đặt hàng trực tiếp cho các cửa hàng trưởng.',
-      '![Ảnh 3: Bảng theo dõi chỉ số sức khỏe tài chính và cảnh báo thanh khoản theo thời gian thực](https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80)',
-      '## III. Kết Quả Sau 500 Ngày Thực Thi',
-      'Đến quý II/2026, EBITDA toàn chuỗi tăng trưởng trở lại đạt 7.2%, vòng quay hàng tồn kho rút ngắn từ 68 ngày xuống còn 34 ngày. Doanh nghiệp đã tất toán toàn bộ các khoản nợ quá hạn và chuẩn bị tiếp nhận vòng đầu tư chiến lược mới trị giá 30 triệu USD.'
+      'Các bài học rút ra được lượng hóa thành bộ chỉ số cảnh báo sớm (Early Warning KPIs) mà các CEO doanh nghiệp quy mô tương tự có thể áp dụng ngay.'
     ],
     author: {
       name: 'Ban Nghiên cứu & Phát triển Tri thức VLGM',
@@ -1085,21 +1008,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
     sapo: 'Bản đúc kết cô đọng các nguyên lý thiết lập mục tiêu đột phá kết hợp kiểm soát an toàn vận hành nhà máy.',
     content: [
       'Khác với doanh nghiệp công nghệ, việc áp dụng OKR vào nhà máy sản xuất đòi hỏi sự linh hoạt trong việc phân tầng mục tiêu: tách biệt rõ mục tiêu duy trì (KPIs) và mục tiêu đổi mới bứt phá (OKRs).',
-      'Tài liệu phái sinh cung cấp biểu mẫu mẫu và hướng dẫn họp CFR (Conversation - Feedback - Recognition) định kỳ hàng tuần cho quản đốc phân xưởng.',
-      '## I. Sai Lầm Phổ Biến Khi Đánh Đồng OKR và KPI Trong Nhà Máy',
-      'Nhiều doanh nghiệp sản xuất vội vàng thay thế KPI bằng OKR khiến dây chuyền sản xuất rơi vào rối loạn. KPI là chỉ số duy trì mặt đất an toàn (tỷ lệ sản phẩm lỗi, an toàn lao động, sản lượng định mức). OKR là bệ phóng tên lửa đưa doanh nghiệp lên tầm cao mới (cải tiến quy trình, tự động hóa khâu đóng gói, giảm thời gian chuyển đổi khuôn mẫu).',
-      '> "Giữ vững kỷ luật vận hành bằng KPI, nhưng khai phá tiềm năng sáng tạo của công nhân viên bằng OKR tham vọng."',
-      '![Ảnh 2: Áp dụng phương pháp bảng quản trị trực quan Visual Management và OKR tại phân xưởng sản xuất](https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80)',
-      '## II. Chu Trình Thực Thi CFR Hàng Tuần',
-      '• Conversation (Đối thoại): Quản đốc và tổ trưởng ngồi lại 15 phút đầu tuần để tháo gỡ điểm nghẽn vật tư.',
-      '• Feedback (Phản hồi): Phản hồi mang tính xây dựng ngay khi phát hiện tỷ lệ hao hụt nguyên liệu vượt mức.',
-      '• Recognition (Ghi nhận): Tuyên dương tức thì các sáng kiến Kaizen giúp tiết kiệm từ vài giây thao tác.',
-      '![Ảnh 3: Biểu mẫu theo dõi tiến độ OKRs và đối thoại CFR tại nhà máy thông minh](https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=1200&q=80)',
-      '## III. Bộ Mẫu Thiết Lập Mục Tiêu Chuẩn Cho Quản Đốc',
-      'Mục tiêu (Objective): Rút ngắn thời gian giao hàng cho đơn hàng xuất khẩu khó tính nhất.',
-      '• KR 1: Giảm thời gian Setup máy in từ 45 phút xuống dưới 15 phút (SMED technique).',
-      '• KR 2: Đạt tỷ lệ giao hàng đúng hẹn (OTIF) từ 91% lên 98.5%.',
-      '• KR 3: Không có bất kỳ sự cố an toàn lao động nghiêm trọng nào trong suốt quý.'
+      'Tài liệu phái sinh cung cấp biểu mẫu mẫu và hướng dẫn họp CFR (Conversation - Feedback - Recognition) định kỳ hàng tuần cho quản đốc phân xưởng.'
     ],
     author: {
       name: 'Tổ Biên dịch & Hiệu đính Học viện PTIT',
@@ -1289,7 +1198,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
+    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
     subCategory: 'Tầm nhìn Quốc gia',
     publishedDate: '28/04/2026',
     readTime: '7 phút đọc',
@@ -1385,7 +1294,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
+    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
     subCategory: 'Triết lý Lãnh đạo',
     publishedDate: '10/04/2026',
     readTime: '6 phút đọc',
@@ -1505,7 +1414,7 @@ export const MOCK_ARTICLES: ArticleItem[] = [
       avatarUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     },
     category: 'hung-bt',
-    categoryName: 'Tác giả BT. Nguyễn Mạnh Hùng',
+    categoryName: 'Bài viết của BT Nguyễn Mạnh Hùng',
     subCategory: 'Văn hóa Doanh nghiệp',
     publishedDate: '10/03/2026',
     readTime: '7 phút đọc',
@@ -1597,11 +1506,11 @@ export const MOCK_PROGRAMS: TrainingProgram[] = [
     duration: '6 tháng (12 chuyên đề cuối tuần)',
     format: 'Trực tiếp tại Hà Nội & Thực địa doanh nghiệp',
     nextCohort: 'Khóa 08 — Khai giảng ngày 14/11/2026',
-    tuitionFee: 'Liên hệ để nhận thông tin học phí & học bổng',
+    tuitionFee: '120.000.000 VNĐ / Học viên (Bao gồm tài liệu, ăn trưa và chi phí thực địa)',
     scholarshipInfo: 'Học bổng 20% dành cho Hội viên Doanh nghiệp VCF đăng ký trước 30/09/2026.',
     externalUrl: 'https://daotao.ptit.edu.vn/khoa-hoc/ceo-lgm-mastery-demo',
-    imagePlaceholder: '[Ảnh chương trình: Lớp học CEO LGM Mastery cao cấp]',
-    imageUrl: '/images/programs/01-ceo-lgm-mastery.jpg',
+    imagePlaceholder: '[Ảnh chương trình: Không gian Blue Bottle Coffee Flagship Store]',
+    imageUrl: '/images/ceo-lgm-mastery.jpeg',
     objectives: [
       'Làm chủ tư duy quản trị hệ thống và hoạch định chiến lược kinh doanh 5 năm',
       'Hoàn thiện cấu trúc tài chính, dòng tiền và kiểm soát rủi ro pháp lý toàn diện',
@@ -1668,10 +1577,9 @@ export const MOCK_PROGRAMS: TrainingProgram[] = [
     duration: '3 tháng (6 chuyên đề cuối tuần)',
     format: 'Hybrid (Trực tiếp kết hợp Trực tuyến chất lượng cao)',
     nextCohort: 'Khóa 05 — Khai giảng ngày 20/10/2026',
-    tuitionFee: 'Liên hệ để nhận thông tin học phí & học bổng',
+    tuitionFee: '65.000.000 VNĐ / Học viên',
     externalUrl: 'https://daotao.ptit.edu.vn/khoa-hoc/strategic-cfo-demo',
     imagePlaceholder: '[Ảnh chương trình: Khóa đào tạo Strategic CFO]',
-    imageUrl: '/images/programs/02-strategic-cfo.jpg',
     objectives: [
       'Thiết lập hệ thống kiểm soát tài chính tự động hóa bằng công nghệ',
       'Nắm vững kỹ thuật M&A, định giá và cấu trúc thương vụ đầu tư',

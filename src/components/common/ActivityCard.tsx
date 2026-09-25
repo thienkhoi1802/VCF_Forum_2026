@@ -41,20 +41,18 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({ activity, showCover 
   return (
     <div
       onClick={() => navigateTo('activity-detail', { activityId: activity.id })}
-      className="vcf-card flex flex-col cursor-pointer group overflow-hidden"
+      className="vcf-card flex flex-col justify-between p-5 cursor-pointer group"
     >
-      {showCover && (
-        <WireframeImage
-          label={activity.coverImagePlaceholder}
-          imageUrl={activity.imageUrl}
-          alt={activity.title}
-          aspectRatio="16:9"
-          className="w-full rounded-none"
-        />
-      )}
-
-      <div className="flex flex-1 flex-col justify-between p-5 pt-6">
-        <div className="space-y-3">
+      <div className="space-y-3">
+        {showCover && (
+          <WireframeImage
+            label={activity.coverImagePlaceholder}
+            imageUrl={activity.imageUrl}
+            alt={activity.title}
+            aspectRatio="16:9"
+            className="mb-4 rounded-lg"
+          />
+        )}
 
         <div className="flex items-start justify-between gap-2">
           <div className="w-11 h-11 bg-brand-soft rounded-md flex items-center justify-center shrink-0">
@@ -64,7 +62,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({ activity, showCover 
         </div>
 
         <div>
-          <h3 className="font-semibold text-xl text-ink leading-snug group-hover:text-brand-primary transition-colors">
+          <h3 className="font-semibold text-base text-ink leading-snug group-hover:text-brand-primary transition-colors">
             {activity.title}
           </h3>
           <div className="text-xs text-ink-secondary mt-1">
@@ -77,10 +75,9 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({ activity, showCover 
         </p>
       </div>
 
-        <div className="pt-4 mt-5 border-t border-hairline flex items-center justify-between text-sm text-brand-primary font-medium">
-          <span>Chi tiết hoạt động</span>
-          <span>→</span>
-        </div>
+      <div className="pt-4 mt-5 border-t border-hairline flex items-center justify-between text-sm text-brand-primary font-medium">
+        <span>Chi tiết hoạt động</span>
+        <span>→</span>
       </div>
     </div>
   );

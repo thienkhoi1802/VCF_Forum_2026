@@ -22,8 +22,8 @@ export const KnowledgeFeaturedGrid: React.FC<KnowledgeFeaturedGridProps> = ({
   // Khi danh sách chỉ có 3 bài viết (như trên Trang Chủ theo yêu cầu người dùng)
   if (articles.length <= 3) {
     return (
-      <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 items-stretch ${className}`}>
-        {articles.slice(0, 3).map((article, idx) => (
+      <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch ${className}`}>
+        {articles.slice(0, 3).map((article) => (
           <div
             key={article.id}
             onClick={() => navigateTo('article-detail', { articleId: article.id })}
@@ -41,17 +41,26 @@ export const KnowledgeFeaturedGrid: React.FC<KnowledgeFeaturedGridProps> = ({
                 />
               </div>
 
-              {/* Nội dung: Bỏ tag đỏ, bỏ mô tả bài viết, show full toàn bộ title */}
-              <div className="p-3.5 sm:p-5">
-                {/* Title: cùng style đồng nhất 20px trên mobile, show full toàn bộ */}
-                <h3 className="text-[20px] sm:text-lg lg:text-xl font-bold text-ink leading-snug tracking-tight group-hover:text-brand-primary transition-colors">
+              {/* Badge, Headline & Sapo */}
+              <div className="p-6 space-y-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-brand-primary font-semibold text-xs bg-red-50 px-2.5 py-0.5 rounded-full border border-red-100">
+                    {article.subCategory || article.categoryName}
+                  </span>
+                </div>
+
+                <h3 className="text-lg sm:text-xl font-bold text-ink leading-snug tracking-tight group-hover:text-brand-primary transition-colors line-clamp-2">
                   {article.title}
                 </h3>
+
+                <p className="text-xs sm:text-sm text-ink-secondary leading-relaxed line-clamp-3">
+                  {article.sapo}
+                </p>
               </div>
             </div>
 
-            {/* Action Footer - Padding thu gọn */}
-            <div className="px-3.5 py-2.5 sm:px-5 sm:py-3 border-t border-neutral-100 flex items-center justify-between bg-parchment/40 mt-auto">
+            {/* Action Footer */}
+            <div className="px-6 py-4 border-t border-neutral-100 flex items-center justify-between bg-parchment/40 mt-auto">
               <div className="flex items-center gap-2 text-xs text-ink-secondary">
                 <span>{article.publishedDate || '15/10/2026'}</span>
               </div>
@@ -70,7 +79,7 @@ export const KnowledgeFeaturedGrid: React.FC<KnowledgeFeaturedGridProps> = ({
   const companionArticles = articles.slice(1, 5);
 
   return (
-    <div className={`grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 items-stretch ${className}`}>
+    <div className={`grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch ${className}`}>
       {/* 1 LEAD ARTICLE LỚN (6 COLS ON DESKTOP) */}
       {leadArticle && (
         <div className="lg:col-span-6 flex flex-col">
@@ -90,19 +99,26 @@ export const KnowledgeFeaturedGrid: React.FC<KnowledgeFeaturedGridProps> = ({
                 />
               </div>
 
-              {/* Headline and article summary */}
-              <div className="p-3.5 sm:p-5">
-                <h2 className="text-[24px] sm:text-2xl lg:text-[26px] font-bold text-ink leading-snug tracking-tight group-hover:text-brand-primary transition-colors">
+              {/* Badge, Headline & Sapo (Phần nội dung có padding chuẩn 24px) */}
+              <div className="p-6 space-y-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-brand-primary font-semibold text-xs bg-red-50 px-2.5 py-0.5 rounded-full border border-red-100">
+                    {leadArticle.subCategory || leadArticle.categoryName}
+                  </span>
+                </div>
+
+                <h2 className="text-xl sm:text-2xl font-bold text-ink leading-snug tracking-tight group-hover:text-brand-primary transition-colors">
                   {leadArticle.title}
                 </h2>
-                <p className="mt-3 text-sm sm:text-base text-ink-secondary leading-relaxed">
+
+                <p className="text-xs sm:text-sm text-ink-secondary leading-relaxed line-clamp-3">
                   {leadArticle.sapo}
                 </p>
               </div>
             </div>
 
-            {/* Clean Action Footer - Padding thu gọn */}
-            <div className="px-3.5 py-2.5 sm:px-5 sm:py-3 border-t border-neutral-100 flex items-center justify-between bg-parchment/40 mt-auto">
+            {/* Clean Action Footer (Padding ngang 24px) */}
+            <div className="px-6 py-4 border-t border-neutral-100 flex items-center justify-between bg-parchment/40 mt-auto">
               <div className="flex items-center gap-2 text-xs text-ink-secondary">
                 <span>{leadArticle.publishedDate || '15/10/2026'}</span>
               </div>
@@ -117,7 +133,7 @@ export const KnowledgeFeaturedGrid: React.FC<KnowledgeFeaturedGridProps> = ({
 
       {/* 4 COMPANION STORIES (6 COLS ON DESKTOP, 2x2 GRID) */}
       <div className="lg:col-span-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 h-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5 h-full">
           {companionArticles.map((article, idx) => {
             const isHiddenOnMobile = Boolean(mobileLimit && (idx + 1) >= mobileLimit);
             return (
@@ -140,16 +156,28 @@ export const KnowledgeFeaturedGrid: React.FC<KnowledgeFeaturedGridProps> = ({
                   />
                 </div>
 
-                {/* Content - Bỏ tag đỏ, bỏ mô tả, show full toàn bộ title */}
-                <div className="p-3.5 sm:p-4">
-                  <h3 className="text-[20px] sm:text-sm lg:text-[15px] font-bold sm:font-semibold text-ink leading-snug group-hover:text-brand-primary transition-colors">
+                {/* Content (Phần nội dung có padding) */}
+                <div className="p-5 sm:p-6 space-y-2">
+                  {article.subCategory && (
+                    <div>
+                      <span className="font-semibold text-brand-primary bg-red-50 border border-red-100 px-2.5 py-0.5 rounded-full text-[10px] inline-block">
+                        {article.subCategory}
+                      </span>
+                    </div>
+                  )}
+
+                  <h3 className="font-semibold text-xs sm:text-sm text-ink leading-snug line-clamp-2 group-hover:text-brand-primary transition-colors">
                     {article.title}
                   </h3>
+
+                  <p className="text-xs text-ink-secondary leading-relaxed line-clamp-2">
+                    {article.sapo}
+                  </p>
                 </div>
               </div>
 
-              {/* Action Footer - Padding thu gọn */}
-              <div className="px-3.5 sm:px-4 py-2 sm:py-2.5 border-t border-neutral-100 flex items-center justify-between mt-auto">
+              {/* Action Footer */}
+              <div className="px-5 sm:px-6 pb-4 pt-3 border-t border-neutral-100 flex items-center justify-between mt-auto">
                 <span className="text-[11px] text-ink-secondary">
                   {article.publishedDate || '2026'}
                 </span>

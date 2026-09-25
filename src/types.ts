@@ -13,7 +13,8 @@ export type PageRoute =
   | 'about' // C10
   | 'login' // C11
   | 'profile' // C12
-  | 'search'; // C13
+  | 'search' // C13
+  | 'admin-users'; // Admin: quản lý hội viên
 
 export type KnowledgeCategoryType = 'hung-bt' | 'other-authors' | 'derived-knowledge';
 export type KnowledgeTabType = 'all' | KnowledgeCategoryType;
@@ -66,7 +67,6 @@ export interface EventItem {
   agenda: { time: string; topic: string; presenter?: string }[];
   imagePlaceholder: string;
   imageUrl?: string;
-  heroDescription?: string;
   subtitle?: string;
   highlights?: string[];
   targetAudience?: string[];
@@ -166,7 +166,7 @@ export interface UserProfile {
   companyName: string;
   industry: string;
   companySize: string; // Free text as per 04-progressive-profile spec
-  membershipStatus: 'approved' | 'pending' | 'expired';
+  membershipStatus: 'approved' | 'pending' | 'expired' | 'rejected';
   memberId: string;
   joinedDate: string;
   interestedActivities: ActivityId[];
@@ -175,6 +175,7 @@ export interface UserProfile {
   leadSource?: string;
   businessPainPoints?: string;
   questionForMentor?: string;
+  isAdmin?: boolean;
 }
 
 export type RegistrationStatus = 'pending_approval' | 'confirmed' | 'waitlisted' | 'attended' | 'cancelled';

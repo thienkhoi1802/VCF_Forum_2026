@@ -9,13 +9,11 @@ interface EventCardProps {
   event: EventItem;
   layout?: 'grid' | 'list';
   showFullDetails?: boolean;
-  showListBadges?: boolean;
 }
 
 export const EventCard: React.FC<EventCardProps> = ({
   event,
-  layout = 'grid',
-  showListBadges = true
+  layout = 'grid'
 }) => {
   const { navigateTo, registeredEvents, simulatedState } = useApp();
 
@@ -43,29 +41,25 @@ export const EventCard: React.FC<EventCardProps> = ({
               <span className="text-[10px] font-semibold uppercase bg-red-50 text-brand-primary px-3 py-1 border border-red-200 rounded-full">
                 {event.activityName}
               </span>
-              {showListBadges && (
-                <>
-                  <span className="text-[10px] text-ink-secondary border border-hairline px-3 py-1 rounded-full font-semibold">
-                    {event.type}
-                  </span>
-                  {isFullEffective ? (
-                    <span className="text-[10px] font-semibold text-rose-800 bg-rose-100 border border-rose-300 px-3 py-1 rounded-full flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-rose-600 shrink-0" />
-                      Hết chỗ
-                    </span>
-                  ) : (
-                    <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-100/90 border border-emerald-300 px-3 py-1 rounded-full flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0" />
-                      Còn {event.availableSeats}/{event.totalSeats} chỗ
-                    </span>
-                  )}
-                  {isRegistered && (
-                    <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-300 px-3 py-1 rounded-full flex items-center gap-1">
-                      <CheckCircle2 className="w-3 h-3 text-emerald-600" />
-                      Đã đăng ký
-                    </span>
-                  )}
-                </>
+              <span className="text-[10px] text-ink-secondary border border-hairline px-3 py-1 rounded-full font-semibold">
+                {event.type}
+              </span>
+              {isFullEffective ? (
+                <span className="text-[10px] font-semibold text-rose-800 bg-rose-100 border border-rose-300 px-3 py-1 rounded-full flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-600 shrink-0" />
+                  Hết chỗ
+                </span>
+              ) : (
+                <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-100/90 border border-emerald-300 px-3 py-1 rounded-full flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0" />
+                  Còn {event.availableSeats}/{event.totalSeats} chỗ
+                </span>
+              )}
+              {isRegistered && (
+                <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-300 px-3 py-1 rounded-full flex items-center gap-1">
+                  <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                  Đã đăng ký
+                </span>
               )}
             </div>
 
@@ -90,7 +84,7 @@ export const EventCard: React.FC<EventCardProps> = ({
           </div>
 
           <div className="pt-4 mt-3 border-t border-neutral-100 flex items-center justify-between gap-4">
-            <div className="text-xs text-ink-secondary">
+            <div className="text-[11px] text-ink-secondary">
               {event.speakers.length > 0 && (
                 <span>Diễn giả: <strong className="text-ink">{event.speakers[0].name}</strong></span>
               )}
@@ -157,7 +151,7 @@ export const EventCard: React.FC<EventCardProps> = ({
 
         {/* Card Body */}
         <div className="p-5 space-y-3">
-          <div className="flex items-center justify-between text-sm">
+          <div className="flex items-center justify-between text-[11px]">
             <span className="flex items-center gap-1 text-ink-secondary font-semibold">
               <Calendar className="w-3.5 h-3.5 text-brand-primary" />
               {event.timeStr}, {event.dateStr}

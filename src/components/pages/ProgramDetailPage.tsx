@@ -173,17 +173,13 @@ export const ProgramDetailPage: React.FC = () => {
           {/* Block 4: Tuition & Scholarship */}
           <div className="border-t border-hairline pt-8 space-y-4">
             <h3 className="text-xl font-semibold text-ink uppercase tracking-wide">
-              4. Học Phí, Học Bổng & Thời Lượng Đào Tạo
+              4. Học Phí & Chính Sách Học Bổng
             </h3>
 
-            <div className="p-5 border border-hairline bg-parchment rounded-lg space-y-3 text-xs">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                <span className="font-semibold text-neutral-700 text-sm">Thời lượng chương trình:</span>
-                <span className="font-bold text-sm text-ink">{program.duration}</span>
-              </div>
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pt-2 border-t border-hairline">
-                <span className="font-semibold text-neutral-700 text-sm">Chính sách học phí:</span>
-                <span className="font-semibold text-sm text-brand-primary">{program.tuitionFee}</span>
+            <div className="p-5 border border-hairline bg-parchment rounded-lg space-y-2 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-neutral-700 text-sm">Học phí niêm yết:</span>
+                <span className="font-semibold text-base text-brand-primary">{program.tuitionFee}</span>
               </div>
               {program.scholarshipInfo && (
                 <div className="pt-2 border-t border-hairline text-ink-secondary">

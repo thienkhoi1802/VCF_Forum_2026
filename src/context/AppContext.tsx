@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import type { User as SupabaseUser } from '@supabase/supabase-js';
 import { 
   PageRoute, 
   ActivityId, 
@@ -13,6 +14,51 @@ import {
 import { MOCK_LOGGED_USER, MOCK_REGISTRATIONS } from '../data/mockData';
 
 import { checkEmailExists } from '../utils/eventWorkflow';
+import { isSupabaseConfigured, supabase } from '../lib/supabase';
+
+type ProfileRow = {
+  id: string;
+  email: string | null;
+  full_name: string;
+  phone: string | null;
+  job_title: string | null;
+  company_name: string | null;
+  industry: string | null;
+  company_size: string | null;
+  membership_status: UserProfile['membershipStatus'];
+  member_id: string;
+  interested_activities: string[];
+  is_profile_complete: boolean;
+  lead_source: string | null;
+  business_pain_points: string | null;
+  question_for_mentor: string | null;
+  created_at: string;
+};
+
+const userProfileFromAuth = (user: SupabaseUser, profile?: ProfileRow | null): UserProfile => {
+  const metadata = user.user_metadata || {};
+  const fallbackName = user.email?.split('@')[0] || 'Hội viên VCF';
+
+  return {
+    id: user.id,
+    fullName: profile?.full_name || metadata.full_name || fallbackName,
+    email: profile?.email || user.email || '',
+    phone: profile?.phone || metadata.phone || '',
+    jobTitle: profile?.job_title || '',
+    companyName: profile?.company_name || '',
+    industry: profile?.industry || '',
+    companySize: profile?.company_size || '',
+    membershipStatus: profile?.membership_status || 'pending',
+    memberId: profile?.member_id || `VCF-MBR-${user.id.slice(0, 8).toUpperCase()}`,
+    joinedDate: profile?.created_at || new Date().toISOString(),
+    interestedActivities: (profile?.interested_activities || []) as ActivityId[],
+    isProfileComplete: profile?.is_profile_complete || false,
+    leadSource: profile?.lead_source || '',
+    businessPainPoints: profile?.business_pain_points || '',
+    questionForMentor: profile?.question_for_mentor || '',
+    isAdmin: user.app_metadata?.role === 'admin'
+  };
+};
 
 interface AppContextType {
   // Navigation
@@ -24,20 +70,14 @@ interface AppContextType {
     category?: KnowledgeTabType;
     searchQuery?: string;
     eventId?: string;
-    timingFilter?: 'all' | 'upcoming' | 'ongoing' | 'past';
-    subCategory?: string;
   }) => void;
   selectedActivityId: ActivityId;
   selectedArticleId: string;
   selectedProgramId: string;
   selectedKnowledgeCategory: KnowledgeTabType;
   setSelectedKnowledgeCategory: (cat: KnowledgeTabType) => void;
-  selectedKnowledgeSubCategory: string;
-  setSelectedKnowledgeSubCategory: (sub: string) => void;
   selectedEventId: string;
   setSelectedEventId: (id: string) => void;
-  eventTimingFilter: 'all' | 'upcoming' | 'ongoing' | 'past';
-  setEventTimingFilter: (filter: 'all' | 'upcoming' | 'ongoing' | 'past') => void;
   searchFilter: SearchFilterState;
   setSearchFilter: React.Dispatch<React.SetStateAction<SearchFilterState>>;
   searchQuery: string;
@@ -47,8 +87,15 @@ interface AppContextType {
   isLoggedIn: boolean;
   login: () => void;
   loginWithAccount: (email: string, fullName?: string, companyName?: string) => void;
+  loginWithPassword: (email: string, password: string) => Promise<{ ok: boolean; error?: string }>;
   logout: () => void;
   registerMember: (data: Partial<UserProfile>) => UserProfile;
+  registerWithEmail: (params: { email: string; password: string; fullName: string }) => Promise<{
+    ok: boolean;
+    requiresEmailConfirmation: boolean;
+    error?: string;
+  }>;
+  refreshAuthSession: () => Promise<boolean>;
   signupLite: (method: 'google' | 'facebook' | 'email', data?: { fullName?: string; email?: string; phone?: string }) => void;
   verifyEmailAndActivate: (tempData?: Partial<UserProfile>) => void;
   updateUserProfile: (updated: Partial<UserProfile>) => void;
@@ -116,10 +163,6 @@ interface AppContextType {
   notification: string | null;
   notificationMessage: string | null;
   showNotification: (msg: string) => void;
-
-  // Global Mobile Menu
-  mobileMenuOpen: boolean;
-  setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -130,9 +173,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [selectedArticleId, setSelectedArticleId] = useState<string>('article-hung-bt-01');
   const [selectedProgramId, setSelectedProgramId] = useState<string>('program-ceo-lgm-mastery');
   const [selectedKnowledgeCategory, setSelectedKnowledgeCategory] = useState<KnowledgeTabType>('all');
-  const [selectedKnowledgeSubCategory, setSelectedKnowledgeSubCategory] = useState<string>('all');
   const [selectedEventId, setSelectedEventId] = useState<string>('event-summit-2026');
-  const [eventTimingFilter, setEventTimingFilter] = useState<'all' | 'upcoming' | 'ongoing' | 'past'>('all');
   const [searchFilter, setSearchFilter] = useState<SearchFilterState>({ query: '', category: 'all' });
   
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
@@ -155,7 +196,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [showSpecAnnotations, setShowSpecAnnotations] = useState<boolean>(false);
   const [viewportMode, setViewportMode] = useState<'desktop' | 'mobile'>('desktop');
   const [notification, setNotification] = useState<string | null>(null);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   // Popup modal trạng thái hồ sơ sau khi đăng ký sự kiện thành công
   const [eventSuccessModal, setEventSuccessModal] = useState<{
@@ -185,6 +225,56 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     setTimeout(() => setNotification(null), 4000);
   };
 
+  const hydrateAuthUser = async (authUser: SupabaseUser | null): Promise<UserProfile | null> => {
+    if (!authUser) {
+      setCurrentUser(null);
+      return null;
+    }
+
+    let profile: ProfileRow | null = null;
+    if (supabase) {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', authUser.id)
+        .maybeSingle();
+
+      if (error) {
+        console.warn('Không thể tải hồ sơ Supabase:', error.message);
+      } else {
+        profile = data as ProfileRow | null;
+      }
+    }
+
+    const user = userProfileFromAuth(authUser, profile);
+    setCurrentUser(user);
+    return user;
+  };
+
+  useEffect(() => {
+    if (!supabase) return;
+
+    let isActive = true;
+    const loadSession = async () => {
+      const { data } = await supabase.auth.getSession();
+      if (isActive) {
+        await hydrateAuthUser(data.session?.user || null);
+      }
+    };
+
+    void loadSession();
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (isActive) {
+        void hydrateAuthUser(session?.user || null);
+      }
+    });
+
+    return () => {
+      isActive = false;
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
+
   const setSimulatedState = (state: SimulatedState) => {
     setSimulatedStateState(state);
     if (state === 'S-LOGGED-IN') {
@@ -204,8 +294,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       category?: KnowledgeTabType;
       searchQuery?: string;
       eventId?: string;
-      timingFilter?: 'all' | 'upcoming' | 'ongoing' | 'past';
-      subCategory?: string;
     }
   ) => {
     if (params?.activityId) setSelectedActivityId(params.activityId);
@@ -216,20 +304,11 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     } else if (route === 'knowledge') {
       setSelectedKnowledgeCategory('all');
     }
-    if (params?.subCategory !== undefined) {
-      setSelectedKnowledgeSubCategory(params.subCategory);
-    } else if (params?.category || route === 'knowledge') {
-      setSelectedKnowledgeSubCategory('all');
-    }
     if (params?.eventId) setSelectedEventId(params.eventId);
-    if (params?.timingFilter) {
-      setEventTimingFilter(params.timingFilter);
-    }
     if (params?.searchQuery !== undefined) {
       setSearchFilter(prev => ({ ...prev, query: params.searchQuery || '' }));
     }
     
-    setMobileMenuOpen(false);
     setCurrentRoute(route);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -274,13 +353,84 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     showNotification(`Đăng nhập thành công! Chào mừng ${user.fullName}.`);
   };
 
+  const loginWithPassword = async (email: string, password: string) => {
+    if (!supabase || !isSupabaseConfigured) {
+      return { ok: false, error: 'Supabase chưa được cấu hình cho ứng dụng.' };
+    }
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email.trim().toLowerCase(),
+      password
+    });
+
+    if (error || !data.user) {
+      return { ok: false, error: error?.message || 'Không thể đăng nhập tài khoản.' };
+    }
+
+    await hydrateAuthUser(data.user);
+    setRegisteredEvents([]);
+    return { ok: true };
+  };
+
   const logout = () => {
+    if (supabase) {
+      void supabase.auth.signOut();
+    }
     setCurrentUser(null);
     setRegisteredEvents([]);
     if (simulatedState === 'S-LOGGED-IN') {
       setSimulatedStateState('S-DEFAULT');
     }
     showNotification('Đã đăng xuất khỏi hệ thống.');
+  };
+
+  const registerWithEmail = async ({ email, password, fullName }: {
+    email: string;
+    password: string;
+    fullName: string;
+  }) => {
+    if (!supabase || !isSupabaseConfigured) {
+      return {
+        ok: false,
+        requiresEmailConfirmation: false,
+        error: 'Supabase chưa được cấu hình cho ứng dụng.'
+      };
+    }
+
+    const { data, error } = await supabase.auth.signUp({
+      email: email.trim().toLowerCase(),
+      password,
+      options: {
+        data: { full_name: fullName.trim() },
+        emailRedirectTo: window.location.origin
+      }
+    });
+
+    if (error || !data.user) {
+      return {
+        ok: false,
+        requiresEmailConfirmation: false,
+        error: error?.message || 'Không thể tạo tài khoản.'
+      };
+    }
+
+    if (data.session) {
+      await hydrateAuthUser(data.user);
+      setRegisteredEvents([]);
+    }
+
+    return {
+      ok: true,
+      requiresEmailConfirmation: !data.session
+    };
+  };
+
+  const refreshAuthSession = async () => {
+    if (!supabase) return false;
+    const { data } = await supabase.auth.getSession();
+    if (!data.session?.user) return false;
+    await hydrateAuthUser(data.session.user);
+    return true;
   };
 
   const registerMember = (data: Partial<UserProfile>): UserProfile => {
@@ -389,7 +539,25 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const updateUserProfile = (updated: Partial<UserProfile>) => {
     if (currentUser) {
-      setCurrentUser({ ...currentUser, ...updated });
+      const nextUser = { ...currentUser, ...updated };
+      setCurrentUser(nextUser);
+
+      if (supabase) {
+        void supabase.from('profiles').update({
+          email: nextUser.email,
+          full_name: nextUser.fullName,
+          phone: nextUser.phone,
+          job_title: nextUser.jobTitle,
+          company_name: nextUser.companyName,
+          industry: nextUser.industry,
+          company_size: nextUser.companySize,
+          interested_activities: nextUser.interestedActivities,
+          is_profile_complete: nextUser.isProfileComplete,
+          lead_source: nextUser.leadSource || null,
+          business_pain_points: nextUser.businessPainPoints || null,
+          question_for_mentor: nextUser.questionForMentor || null
+        }).eq('id', currentUser.id);
+      }
       showNotification('Cập nhật thông tin hồ sơ thành công.');
     }
   };
@@ -626,12 +794,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         selectedProgramId,
         selectedKnowledgeCategory,
         setSelectedKnowledgeCategory,
-        selectedKnowledgeSubCategory,
-        setSelectedKnowledgeSubCategory,
         selectedEventId,
         setSelectedEventId,
-        eventTimingFilter,
-        setEventTimingFilter,
         searchFilter,
         setSearchFilter,
         searchQuery: searchFilter.query,
@@ -639,8 +803,11 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         isLoggedIn: Boolean(currentUser) || simulatedState === 'S-LOGGED-IN',
         login,
         loginWithAccount,
+        loginWithPassword,
         logout,
         registerMember,
+        registerWithEmail,
+        refreshAuthSession,
         signupLite,
         verifyEmailAndActivate,
         updateUserProfile,
@@ -678,9 +845,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         closeEventSuccessModal,
         notification,
         notificationMessage: notification,
-        showNotification,
-        mobileMenuOpen,
-        setMobileMenuOpen
+        showNotification
       }}
     >
       {children}

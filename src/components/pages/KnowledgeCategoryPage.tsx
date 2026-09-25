@@ -21,13 +21,13 @@ export const KnowledgeCategoryPage: React.FC = () => {
     switch (cat) {
       case 'hung-bt':
         return {
-          title: 'Tác giả BT. Nguyễn Mạnh Hùng',
+          title: 'Bài viết của Bộ trưởng Nguyễn Mạnh Hùng',
           desc: 'Các bài viết chuyên sâu về triết lý người đứng đầu, văn hóa kỷ luật thực thi và chiến lược phụng sự quốc gia.',
           code: 'Thư mục 1 / 3'
         };
       case 'other-authors':
         return {
-          title: 'Góc nhìn chuyên gia',
+          title: 'Bài viết của các tác giả khác',
           desc: 'Tuyển tập các góc nhìn, phân tích quản trị công ty, tài chính vĩ mô từ các chuyên gia hàng đầu.',
           code: 'Thư mục 2 / 3'
         };
@@ -65,9 +65,9 @@ export const KnowledgeCategoryPage: React.FC = () => {
   };
 
   return (
-    <div className="vcf-container py-4 sm:py-6 pb-16 sm:pb-24 space-y-5 sm:space-y-8 font-sans">
+    <div className="vcf-container py-6 pb-24 space-y-8 font-sans">
       {/* Category Header */}
-      <div className="space-y-3 sm:space-y-4 pb-5 sm:pb-6 border-b border-hairline">
+      <div className="space-y-4 pb-6 border-b border-hairline">
         <div className="flex items-center justify-between flex-wrap gap-3">
           <span className="text-xs font-semibold uppercase bg-red-50 text-brand-primary border border-red-200 px-3 py-1 rounded-full inline-block">
             {currentCatInfo.code}
@@ -77,13 +77,13 @@ export const KnowledgeCategoryPage: React.FC = () => {
               onClick={() => navigateTo('knowledge-category', { category: 'hung-bt' })}
               className={`px-3 py-1 text-xs rounded-full border transition-all duration-150 ${selectedKnowledgeCategory === 'hung-bt' ? 'bg-brand-primary text-white border-brand-primary font-semibold' : 'bg-white text-neutral-700 border-hairline hover:bg-parchment'}`}
             >
-              Tác giả BT. Nguyễn Mạnh Hùng
+              BT N.M.Hùng
             </button>
             <button
               onClick={() => navigateTo('knowledge-category', { category: 'other-authors' })}
               className={`px-3 py-1 text-xs rounded-full border transition-all duration-150 ${selectedKnowledgeCategory === 'other-authors' ? 'bg-brand-primary text-white border-brand-primary font-semibold' : 'bg-white text-neutral-700 border-hairline hover:bg-parchment'}`}
             >
-              Góc nhìn chuyên gia
+              Tác giả khác
             </button>
             <button
               onClick={() => navigateTo('knowledge-category', { category: 'derived-knowledge' })}
@@ -94,7 +94,7 @@ export const KnowledgeCategoryPage: React.FC = () => {
           </div>
         </div>
 
-        <h1 className="text-[24px] sm:text-3xl lg:text-4xl font-bold sm:font-semibold text-ink tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
           {currentCatInfo.title}
         </h1>
         <p className="text-sm text-ink-secondary leading-relaxed max-w-3xl font-sans">
@@ -161,7 +161,7 @@ export const KnowledgeCategoryPage: React.FC = () => {
           </CustomButton>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredArticles.map((art) => (
             <ArticleCard key={art.id} article={art} />
           ))}

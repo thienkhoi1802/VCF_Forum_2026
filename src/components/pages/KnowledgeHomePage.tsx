@@ -24,11 +24,11 @@ export const KnowledgeHomePage: React.FC = () => {
     setSelectedKnowledgeCategory 
   } = useApp();
   
-  // Subfolders: Tất cả / Tác giả BT. Nguyễn Mạnh Hùng / Góc nhìn chuyên gia / Tri thức phái sinh
+  // Tabs: Tất cả / Bài viết của BT Nguyễn Mạnh Hùng / Tác giả khác / Tri thức phái sinh
   const [activeTab, setActiveTab] = useState<TabKey>(selectedKnowledgeCategory || 'all');
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  // Synchronize when selectedKnowledgeCategory changes from AppContext
+  // Synchronize when selectedKnowledgeCategory changes from AppContext (e.g. back button from article or breadcrumb)
   useEffect(() => {
     if (selectedKnowledgeCategory) {
       setActiveTab(selectedKnowledgeCategory);
@@ -41,12 +41,12 @@ export const KnowledgeHomePage: React.FC = () => {
 
   const tabs: { key: TabKey; label: string }[] = [
     { key: 'all', label: 'Tất cả' },
-    { key: 'hung-bt', label: 'Tác giả BT. Nguyễn Mạnh Hùng' },
-    { key: 'other-authors', label: 'Góc nhìn chuyên gia' },
+    { key: 'hung-bt', label: 'Bài viết của BT Nguyễn Mạnh Hùng' },
+    { key: 'other-authors', label: 'Tác giả khác' },
     { key: 'derived-knowledge', label: 'Tri thức phái sinh' }
   ];
 
-  // Filter articles by active subfolder
+  // Filter articles by active tab
   const filteredArticles = useMemo(() => {
     let list = [...MOCK_ARTICLES];
 
@@ -85,19 +85,14 @@ export const KnowledgeHomePage: React.FC = () => {
   };
 
   return (
-    <div className="vcf-container py-4 sm:py-6 pb-16 sm:pb-24 space-y-5 sm:space-y-8 font-sans">
-      {/* Header: Title chính: Hệ tri thức LGM -> Phân subfolder tabs */}
-      <div className="space-y-3 sm:space-y-4">
-        <div className="flex items-center justify-between flex-wrap gap-2">
-          <h1 className="text-[24px] sm:text-3xl lg:text-5xl font-bold sm:font-semibold text-ink tracking-tight">
-            Hệ tri thức LGM
-          </h1>
-          <span className="text-xs text-neutral-500 font-medium">
-            Kho tri thức lãnh đạo, quản trị và chiến lược VCF
-          </span>
-        </div>
+    <div className="vcf-container py-6 pb-24 space-y-8 font-sans">
+      {/* Header: Title chính: Hệ tri thức LGM -> Bên dưới phân tab (Tất cả / Tác giả Bộ trưởng Nguyễn Mạnh Hùng / Tác giả khác / Tri thức phái sinh) */}
+      <div className="space-y-4">
+        <h1 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
+          Hệ tri thức LGM
+        </h1>
 
-        {/* Subfolder Navigation Tabs: Tất cả / BT. Nguyễn Mạnh Hùng / Góc nhìn chuyên gia / Tri thức phái sinh */}
+        {/* Navigation Tabs */}
         <div className="flex items-center gap-2 sm:gap-6 border-b border-hairline overflow-x-auto scrollbar-none">
           {tabs.map(tab => {
             const isActive = activeTab === tab.key;
@@ -105,9 +100,9 @@ export const KnowledgeHomePage: React.FC = () => {
               <button
                 key={tab.key}
                 onClick={() => handleTabChange(tab.key)}
-                className={`pb-2.5 sm:pb-3 pt-1 text-xs sm:text-sm font-semibold whitespace-nowrap transition-all border-b-2 -mb-px shrink-0 cursor-pointer ${
+                className={`pb-3 pt-1 text-sm font-semibold whitespace-nowrap transition-all border-b-2 -mb-px shrink-0 ${
                   isActive
-                    ? 'border-[#AB071E] text-[#AB071E]'
+                    ? 'border-brand-primary text-brand-primary'
                     : 'border-transparent text-ink-secondary hover:text-ink hover:border-neutral-300'
                 }`}
               >
@@ -121,22 +116,20 @@ export const KnowledgeHomePage: React.FC = () => {
       {isLoading ? (
         <SkeletonLoader variant="card" count={4} />
       ) : isEmpty || filteredArticles.length === 0 ? (
-        <div className="border border-hairline bg-white rounded-none p-8 sm:p-12 text-center space-y-4 shadow-xs">
-          <div className="w-12 h-12 rounded-none bg-red-50 text-[#AB071E] flex items-center justify-center mx-auto font-semibold text-lg">
+        <div className="border border-hairline bg-white rounded-xl p-12 text-center space-y-4 shadow-xs">
+          <div className="w-12 h-12 rounded-full bg-red-50 text-brand-primary flex items-center justify-center mx-auto font-semibold text-lg">
             !
           </div>
-          <div className="font-semibold text-base sm:text-lg text-ink">Chưa có bài viết nào trong danh mục này</div>
+          <div className="font-semibold text-lg text-ink">Chưa có bài viết nào trong mục này</div>
           <button 
-            onClick={() => {
-              handleTabChange('all');
-            }}
-            className="px-5 py-2.5 rounded-none text-xs font-semibold text-white bg-[#AB071E] hover:bg-[#8E0518] transition-colors cursor-pointer"
+            onClick={() => handleTabChange('all')}
+            className="px-5 py-2.5 rounded-lg text-xs font-semibold text-white bg-brand-primary hover:bg-brand-primary-hover transition-colors"
           >
             Xem tất cả bài viết
           </button>
         </div>
       ) : (
-        <div className="space-y-6 sm:space-y-10">
+        <div className="space-y-10">
           {/* =========================================================================
               3. CỤM 5 BÀI VIẾT NỔI BẬT: 1 TIN LỚN DẪN ĐẦU + 4 TIN NHỎ (2x2 GRID)
               ========================================================================= */}
@@ -148,9 +141,9 @@ export const KnowledgeHomePage: React.FC = () => {
               4. 15 BÀI VIẾT CÒN LẠI + PAGE NUMBER PHÂN TRANG (PAGINATED ARTICLE FEED)
               ========================================================================= */}
           {remainingArticles.length > 0 && (
-            <section id="articles-feed" className="space-y-5 sm:space-y-8 pt-4 sm:pt-6 border-t border-hairline scroll-mt-16">
+            <section id="articles-feed" className="space-y-8 pt-6 border-t border-hairline scroll-mt-16">
               {/* Articles Grid (15 items per page) */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {currentArticles.map(art => (
                   <ArticleCard key={art.id} article={art} />
                 ))}
@@ -180,6 +173,7 @@ export const KnowledgeHomePage: React.FC = () => {
                       aria-label="Trang trước"
                     >
                       <ChevronLeft className="w-4 h-4" />
+                      <span className="hidden sm:inline">Trang trước</span>
                     </button>
 
                     {/* Numbered Page Buttons */}
@@ -212,6 +206,7 @@ export const KnowledgeHomePage: React.FC = () => {
                       }`}
                       aria-label="Trang sau"
                     >
+                      <span className="hidden sm:inline">Trang sau</span>
                       <ChevronRight className="w-4 h-4" />
                     </button>
                   </div>

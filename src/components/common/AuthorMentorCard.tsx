@@ -18,7 +18,7 @@ export const AuthorMentorCard: React.FC<AuthorMentorCardProps> = ({
     <div className="border border-hairline bg-white p-5 flex flex-col justify-between hover:border-brand-primary hover:shadow-xs transition-all duration-150 rounded-lg">
       <div className="space-y-3">
         {/* Portrait 1:1 ratio */}
-        <div className="vcf-avatar w-full aspect-square max-w-[140px] mx-auto rounded-full overflow-hidden border border-hairline">
+        <div className="w-full aspect-square max-w-[140px] mx-auto rounded-lg overflow-hidden border border-hairline">
           <WireframeImage
             label={mentor.avatarPlaceholder}
             imageUrl={mentor.avatarUrl}

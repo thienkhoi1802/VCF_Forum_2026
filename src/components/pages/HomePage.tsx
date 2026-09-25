@@ -48,15 +48,15 @@ export const HomePage: React.FC = () => {
 
   const getActivityIcon = (id: ActivityId) => {
     switch (id) {
-      case 'ceo-summit': return <Building2 className="w-5 h-5" />;
-      case 'ceo-forum': return <Users className="w-5 h-5" />;
-      case 'ceo-mentoring': return <Target className="w-5 h-5" />;
-      case 'ceo-peer-group': return <Users className="w-5 h-5" />;
-      case 'lgm-school': return <GraduationCap className="w-5 h-5" />;
-      case 'knowledge-publication': return <BookOpen className="w-5 h-5" />;
-      case 'website-app': return <Globe className="w-5 h-5" />;
-      case 'ceo-talk': return <Video className="w-5 h-5" />;
-      case 'ceo-club': return <Award className="w-5 h-5" />;
+      case 'ceo-summit': return <Building2 className="w-5 h-5 text-brand-primary" />;
+      case 'ceo-forum': return <Users className="w-5 h-5 text-brand-primary" />;
+      case 'ceo-mentoring': return <Target className="w-5 h-5 text-brand-primary" />;
+      case 'ceo-peer-group': return <Users className="w-5 h-5 text-brand-primary" />;
+      case 'lgm-school': return <GraduationCap className="w-5 h-5 text-brand-primary" />;
+      case 'knowledge-publication': return <BookOpen className="w-5 h-5 text-brand-primary" />;
+      case 'website-app': return <Globe className="w-5 h-5 text-brand-primary" />;
+      case 'ceo-talk': return <Video className="w-5 h-5 text-brand-primary" />;
+      case 'ceo-club': return <Award className="w-5 h-5 text-brand-primary" />;
       default: return <Sparkles className="w-5 h-5 text-brand-primary" />;
     }
   };
@@ -92,8 +92,8 @@ export const HomePage: React.FC = () => {
                   <SpecBadge label="Chỉ hiện Thumb + Title + Subfolder" type="source" />
                 </div>
               )}
-              <h2 className="vcf-section-title vcf-home-section-title">
-                Bài viết tri thức
+              <h2 className="vcf-section-title">
+                Bài Viết Tri Thức Nổi Bật
               </h2>
               <p className="vcf-lead mt-2">
                 Tri thức lãnh đạo, quản trị thực chiến và góc nhìn vĩ mô từ Hội đồng Cố vấn & chuyên gia
@@ -107,7 +107,7 @@ export const HomePage: React.FC = () => {
                 size="sm"
                 onClick={() => navigateTo('knowledge')}
               >
-                Khám phá thêm
+                Khám phá Hệ tri thức LGM →
               </CustomButton>
             </div>
           </div>
@@ -128,7 +128,7 @@ export const HomePage: React.FC = () => {
                   onClick={() => navigateTo('knowledge')}
                   className="border-neutral-300 hover:border-black text-sm font-semibold shadow-xs py-3"
                 >
-                  Khám phá thêm
+                  Khám phá Hệ tri thức LGM →
                 </CustomButton>
               </div>
             </>
@@ -152,8 +152,8 @@ export const HomePage: React.FC = () => {
                 <SpecBadge label="Data: Module Sự kiện (lọc sắp diễn ra, sort ngày gần nhất)" type="source" />
               </div>
             )}
-            <h2 className="vcf-section-title vcf-home-section-title">
-              Sự kiện
+            <h2 className="vcf-section-title">
+              Sự Kiện Sắp Diễn Ra
             </h2>
             <p className="vcf-lead mt-2">
               Các phiên hội nghị thượng đỉnh, tọa đàm bàn tròn chuyên đề và sinh hoạt hội viên đang mở đăng ký
@@ -171,20 +171,20 @@ export const HomePage: React.FC = () => {
               </p>
             </div>
           ) : (
-            <div>
+            <div className="space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {MOCK_EVENTS.slice(0, 3).map((evt) => (
                   <EventCard key={evt.id} event={evt} />
                 ))}
               </div>
 
-              {/* Button "Xem tất cả lịch sự kiện" ở dưới 3 sự kiện chính: cách box Sự kiện đúng 24px trên mobile */}
-              <div className="text-center mt-6 sm:mt-8">
+              {/* Button "Xem tất cả lịch sự kiện" ở dưới 3 sự kiện chính */}
+              <div className="text-center pt-2">
                 <CustomButton
                   variant="secondary"
                   size="lg"
                   onClick={() => navigateTo('events')}
-                  className="w-full sm:w-auto -mt-2.5 sm:mt-0 px-8 py-3 rounded-full border-neutral-300 hover:border-black text-sm font-semibold shadow-xs"
+                  className="w-full sm:w-auto px-8 py-3 rounded-full border-neutral-300 hover:border-black text-sm font-semibold shadow-xs"
                 >
                   Xem tất cả lịch sự kiện →
                 </CustomButton>
@@ -210,11 +210,11 @@ export const HomePage: React.FC = () => {
                   <SpecBadge label="Grid đủ 9 Activity Card • Dữ liệu tĩnh cố định" type="source" />
                 </div>
               )}
-              <h2 className="vcf-section-title vcf-home-section-title">
-                Hoạt động của diễn đàn
+              <h2 className="vcf-section-title">
+                Hoạt Động Của Diễn Đàn CEO Việt Nam
               </h2>
               <p className="vcf-lead mt-2">
-                9 trụ cột đồng bộ: hội nghị, cố vấn 1-1, đào tạo và sinh hoạt
+                9 trụ cột hoạt động đồng bộ từ hội nghị thượng đỉnh, cố vấn 1-1 tới đào tạo và sinh hoạt định kỳ
               </p>
             </div>
 
@@ -225,7 +225,7 @@ export const HomePage: React.FC = () => {
                 size="sm"
                 onClick={() => navigateTo('activities')}
               >
-                Xem chi tiết
+                Xem trang tổng quan 9 hoạt động →
               </CustomButton>
             </div>
           </div>
@@ -250,7 +250,7 @@ export const HomePage: React.FC = () => {
                     </span>
                   </div>
 
-                  <h3 className="font-semibold text-xl text-ink group-hover:text-brand-primary transition-colors flex items-center gap-2">
+                  <h3 className="font-semibold text-lg text-ink group-hover:text-brand-primary transition-colors flex items-center gap-2">
                     <span>{act.title}</span>
                     <ArrowUpRight className="w-4 h-4 text-neutral-400 group-hover:text-brand-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
                   </h3>
@@ -277,7 +277,7 @@ export const HomePage: React.FC = () => {
               onClick={() => navigateTo('activities')}
               className="border-neutral-300 hover:border-black text-sm font-semibold shadow-xs py-3"
             >
-              Xem chi tiết
+              Xem trang tổng quan 9 hoạt động →
             </CustomButton>
           </div>
         </div>
@@ -298,11 +298,11 @@ export const HomePage: React.FC = () => {
                 <SpecBadge label="2-3 Program Card" type="source" />
               </div>
             )}
-            <h2 className="vcf-section-title vcf-home-section-title">
+            <h2 className="vcf-section-title">
               Chương Trình Đào Tạo CEO
             </h2>
             <p className="vcf-lead mt-2">
-              Khóa học chuyên sâu đồng thiết kế bởi VLGM - PTIT
+              Các khóa bồi dưỡng chuyên sâu do Hội đồng Chuyên gia VLGM và Học viện PTIT đồng thiết kế
             </p>
           </div>
         </div>
