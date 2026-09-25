@@ -134,7 +134,7 @@ const EventHero: React.FC<EventHeroProps> = ({
     : 'bg-emerald-300';
 
   return (
-    <section className={`relative z-10 min-h-[calc(100svh-5.5rem)] overflow-visible bg-surface-dark text-white ${showCalendarMenu ? 'z-[60]' : ''}`}>
+    <section className={`event-detail-hero relative z-10 min-h-[calc(100svh-5.5rem)] overflow-visible bg-surface-dark text-white ${showCalendarMenu ? 'z-[60]' : ''}`}>
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <img
           src={event.imageUrl || 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2000&q=86'}
@@ -146,7 +146,7 @@ const EventHero: React.FC<EventHeroProps> = ({
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80" />
       </div>
 
-      <div className="vcf-container relative z-10 flex min-h-[calc(100svh-5.5rem)] items-center py-8 sm:py-10 lg:min-h-[calc(100svh-5rem)] lg:py-12 xl:py-16">
+      <div className="event-detail-hero-content vcf-container relative z-10 flex min-h-[calc(100svh-5.5rem)] items-center py-8 sm:py-10 lg:min-h-[calc(100svh-5rem)] lg:py-12 xl:py-16">
         <div className="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-12 xl:grid-cols-[minmax(0,1fr)_400px] xl:gap-16">
           <div className="max-w-3xl lg:-mt-3 lg:pb-24">
             <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-sm font-medium text-neutral-200 sm:mb-8">
