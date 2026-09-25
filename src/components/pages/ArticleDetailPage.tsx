@@ -249,7 +249,7 @@ export const ArticleDetailPage: React.FC = () => {
         return 'text-[20.5px] sm:text-[22px] leading-[1.9] text-neutral-800';
       case 'base':
       default:
-        return 'text-base sm:text-[17.5px] leading-[1.8] text-neutral-700';
+        return 'text-[17px] sm:text-[17.5px] leading-[1.8] text-neutral-700';
     }
   };
 
@@ -263,7 +263,7 @@ export const ArticleDetailPage: React.FC = () => {
         return 'text-[20.5px] sm:text-[22px] leading-[1.9] text-neutral-800 ml-5 sm:ml-6 list-disc py-0.5';
       case 'base':
       default:
-        return 'text-base sm:text-[17.5px] leading-relaxed text-neutral-700 ml-5 sm:ml-6 list-disc py-0.5';
+        return 'text-[17px] sm:text-[17.5px] leading-relaxed text-neutral-700 ml-5 sm:ml-6 list-disc py-0.5';
     }
   };
 
@@ -287,13 +287,13 @@ export const ArticleDetailPage: React.FC = () => {
             3. Thời gian xuất bản (Bỏ 8 phút đọc, bỏ tác giả, bỏ social share trên mobile) */}
         <header className="space-y-2 sm:space-y-2.5">
           {/* 1. Title bài viết */}
-          <h1 className="text-[32px] sm:text-[32px] lg:text-[36px] font-bold text-neutral-900 tracking-tight leading-[1.28]">
+          <h1 className="text-[36px] font-bold text-neutral-900 tracking-tight leading-[1.28]">
             {article.title}
           </h1>
 
           {/* 2. Mô tả bài viết (Sapo) - Nằm sát ngay dưới Title */}
           {article.sapo && (
-            <p className="text-[15px] sm:text-[17.5px] text-neutral-600 font-normal leading-relaxed pt-0.5">
+            <p className="text-[17px] sm:text-[17.5px] text-neutral-600 font-normal leading-relaxed pt-0.5">
               {article.sapo}
             </p>
           )}
