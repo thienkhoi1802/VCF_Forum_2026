@@ -235,7 +235,7 @@ export const EventsCalendarPage: React.FC = () => {
       {/* Header Info */}
       <div className="space-y-1.5 sm:space-y-2">
         <h1 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-ink tracking-tight">
-          Lịch Sự Kiện & Hội Nghị VCF
+          Sự kiện
         </h1>
         <p className="text-xs sm:text-sm text-ink-secondary font-sans max-w-2xl">
           Toàn bộ lịch trình các kỳ Summit, Diễn đàn chuyên ngành, Talkshow và sinh hoạt câu lạc bộ

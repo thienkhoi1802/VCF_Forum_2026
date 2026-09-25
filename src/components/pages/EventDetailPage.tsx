@@ -97,6 +97,7 @@ const EventHero: React.FC<EventHeroProps> = ({
   onAddToGoogleCalendar,
   onDownloadIcs
 }) => {
+  const [showShareMenu, setShowShareMenu] = useState(false);
   const heroTitle = event.title.replace(/^Tọa đàm:\s*/i, '');
   const displayEventTime = eventTime.replace(/\s-\s/g, ' – ');
   const availabilityLabel = isPast
@@ -270,10 +271,43 @@ const EventHero: React.FC<EventHeroProps> = ({
                 </a>
               </div>
 
-              <button type="button" onClick={onCopyLink} aria-label="Chia sẻ sự kiện" className="flex min-h-11 w-full items-center gap-3 border-t border-white/20 pt-4 text-left text-sm font-semibold text-white underline-offset-4 transition-colors hover:text-neutral-300 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info">
-                <Share2 className="size-5" aria-hidden="true" />
-                <span>{copiedLink ? 'Đã sao chép liên kết!' : 'Chia sẻ sự kiện'}</span>
-              </button>
+              <div className="relative border-t border-white/20 pt-3">
+                <button
+                  type="button"
+                  onClick={() => setShowShareMenu((open) => !open)}
+                  aria-label="Chia sẻ sự kiện"
+                  aria-expanded={showShareMenu}
+                  aria-haspopup="menu"
+                  className="flex min-h-11 w-full items-center gap-3 text-left text-sm font-semibold text-white underline-offset-4 transition-colors hover:text-neutral-300 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info"
+                >
+                  <Share2 className="size-5" aria-hidden="true" />
+                  <span>{copiedLink ? 'Đã sao chép liên kết!' : 'Chia sẻ sự kiện'}</span>
+                  <ChevronDown className={`ml-auto size-4 transition-transform ${showShareMenu ? 'rotate-180' : ''}`} aria-hidden="true" />
+                </button>
+                {showShareMenu && (
+                  <>
+                    <div className="fixed inset-0 z-[65]" onClick={() => setShowShareMenu(false)} aria-hidden="true" />
+                    <div role="menu" aria-label="Chia sẻ sự kiện" className="absolute bottom-full left-0 z-[70] mb-2 w-full border border-neutral-700 bg-neutral-900 p-1.5 text-sm shadow-2xl">
+                      <button type="button" role="menuitem" onClick={() => { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank', 'noopener,noreferrer'); setShowShareMenu(false); }} className="flex min-h-11 w-full items-center gap-3 px-3 py-2.5 text-left text-white transition-colors hover:bg-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-info">
+                        <span className="flex size-6 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white">f</span>
+                        Facebook
+                      </button>
+                      <button type="button" role="menuitem" onClick={() => { window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(event.title)}`, '_blank', 'noopener,noreferrer'); setShowShareMenu(false); }} className="flex min-h-11 w-full items-center gap-3 px-3 py-2.5 text-left text-white transition-colors hover:bg-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-info">
+                        <span className="flex size-6 items-center justify-center rounded-full bg-black text-xs font-bold text-white">𝕏</span>
+                        X
+                      </button>
+                      <button type="button" role="menuitem" onClick={() => { window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, '_blank', 'noopener,noreferrer'); setShowShareMenu(false); }} className="flex min-h-11 w-full items-center gap-3 px-3 py-2.5 text-left text-white transition-colors hover:bg-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-info">
+                        <span className="flex size-6 items-center justify-center rounded bg-sky-700 text-[10px] font-bold text-white">in</span>
+                        LinkedIn
+                      </button>
+                      <button type="button" role="menuitem" onClick={() => { onCopyLink(); setShowShareMenu(false); }} className="flex min-h-11 w-full items-center gap-3 border-t border-neutral-700 px-3 py-2.5 text-left text-white transition-colors hover:bg-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-info">
+                        <Share2 className="size-4 text-neutral-300" aria-hidden="true" />
+                        Sao chép liên kết
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
           </aside>
         </div>
@@ -689,9 +723,14 @@ export const EventDetailPage: React.FC = () => {
     }
   };
 
-  const handleCopyLink = () => {
-    setCopiedLink(true);
-    setTimeout(() => setCopiedLink(false), 2000);
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopiedLink(true);
+      setTimeout(() => setCopiedLink(false), 2000);
+    } catch {
+      showNotification('Không thể sao chép liên kết. Vui lòng thử lại.');
+    }
   };
 
   const scrollToSection = (tab: 'overview' | 'resources' | 'agenda' | 'speakers' | 'tickets' | 'venue' | 'partners' | 'faq') => {

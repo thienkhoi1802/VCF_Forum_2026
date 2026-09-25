@@ -516,7 +516,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
               <h1 id="mobile-reg-title" className="text-[32px] font-extrabold tracking-tight text-ink leading-tight">
                 {isWaitlist ? 'Đăng ký danh sách chờ' : 'Đăng ký tham dự'}
               </h1>
-              <p className="text-sm text-ink-secondary font-medium line-clamp-2 mt-1 leading-snug">
+              <p className="text-[18px] text-ink-secondary font-medium line-clamp-2 mt-1 leading-snug">
                 {eventTitle}
               </p>
             </div>
@@ -543,10 +543,10 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                   style={{ left: `${50 / (currentUser ? 4 : 5)}%`, right: `${50 / (currentUser ? 4 : 5)}%` }}
                 />
                 {[
-                  { step: 1, label: 'Đại biểu', fullLabel: 'Đại biểu' },
+                  { step: 1, label: 'Thông tin', fullLabel: 'Thông tin' },
                   { step: 2, label: 'Công ty', fullLabel: 'Doanh nghiệp' },
                   { step: 3, label: 'Quan tâm', fullLabel: 'Quan tâm' },
-                  { step: 4, label: 'Cố vấn', fullLabel: 'Chuyên gia' },
+                  { step: 4, label: 'Câu hỏi', fullLabel: 'Câu hỏi' },
                   ...(!currentUser ? [{ step: 5, label: 'Tài khoản', fullLabel: 'Tài khoản' }] : [])
                 ].map(item => {
                   const isCompleted = currentStep > item.step;
@@ -710,7 +710,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                   <h2 className="text-base font-bold text-ink">
                     Thông tin đại biểu
                   </h2>
-                  <span className="shrink-0 text-sm font-sans font-bold text-brand-primary uppercase tracking-wider" style={{ fontFamily: '"Inter Variable", Arial, sans-serif' }}>
+                  <span className="shrink-0 text-[11px] font-sans font-bold text-brand-primary uppercase tracking-wider" style={{ fontFamily: '"Inter Variable", Arial, sans-serif' }}>
                     Bước 1/{currentUser ? '4' : '5'}
                   </span>
                 </div>
@@ -749,7 +749,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                         errors.fullName ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-brand-primary'
                       }`}
                     />
-                    {errors.fullName && <p className="text-[11px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.fullName}</p>}
+                    {errors.fullName && <p className="text-[14px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.fullName}</p>}
                   </div>
 
                   {/* Email nhận vé & thông báo */}
@@ -786,7 +786,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                         errors.phone ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-brand-primary'
                       }`}
                     />
-                    {errors.phone && <p className="text-[11px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.phone}</p>}
+                    {errors.phone && <p className="text-[14px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.phone}</p>}
                   </div>
 
                   {/* Chức danh / Vai trò * */}
@@ -813,7 +813,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                         </option>
                       ))}
                     </select>
-                    {errors.jobTitle && <p className="text-[11px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.jobTitle}</p>}
+                    {errors.jobTitle && <p className="text-[14px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.jobTitle}</p>}
                   </div>
                 </div>
 
@@ -823,7 +823,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                     <button
                       type="button"
                       onClick={onSwitchToLogin}
-                      className="text-sm text-ink-secondary hover:text-brand-primary underline cursor-pointer"
+                      className="text-[15px] text-ink-secondary hover:text-brand-primary underline cursor-pointer"
                     >
                       Đã có tài khoản Hội viên? Đăng nhập
                     </button>
@@ -863,7 +863,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                         errors.companyName ? 'border-red-500 ring-1 ring-red-500' : 'border-neutral-300 focus:border-brand-primary'
                       }`}
                     />
-                    {errors.companyName && <p className="text-[11px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.companyName}</p>}
+                    {errors.companyName && <p className="text-[14px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.companyName}</p>}
                   </div>
 
                   {/* Lĩnh vực hoạt động * */}
@@ -891,7 +891,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                       <option value="Dịch vụ & Tư vấn quản trị">Dịch vụ & Tư vấn quản trị</option>
                       <option value="Khác">Khác...</option>
                     </select>
-                    {errors.industry && <p className="text-[11px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.industry}</p>}
+                    {errors.industry && <p className="text-[14px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.industry}</p>}
                   </div>
 
                   {/* Quy mô nhân sự * */}
@@ -915,7 +915,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                       <option value="Từ 500 - 1.000 nhân sự">Từ 500 - 1.000 nhân sự (Tập đoàn lớn)</option>
                       <option value="Trên 1.000 nhân sự">Trên 1.000 nhân sự (Tập đoàn quy mô lớn / Đa quốc gia)</option>
                     </select>
-                    {errors.companySize && <p className="text-[11px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.companySize}</p>}
+                    {errors.companySize && <p className="text-[14px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.companySize}</p>}
                   </div>
                 </div>
               </div>
@@ -984,7 +984,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                       })}
                     </div>
                     {errors.interestedActivities && (
-                      <p className="text-[11px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.interestedActivities}</p>
+                      <p className="text-[14px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.interestedActivities}</p>
                     )}
                   </div>
 
@@ -1047,7 +1047,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                       Nêu vắn tắt thách thức lớn nhất để BTC xếp nhóm bàn tròn thảo luận phù hợp.
                     </p>
                     {errors.businessPainPoints && (
-                      <p className="text-[11px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.businessPainPoints}</p>
+                      <p className="text-[14px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.businessPainPoints}</p>
                     )}
                   </div>
 
@@ -1099,7 +1099,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                       </span>
                     </label>
                     {errors.agreedToTerms && (
-                      <p className="text-[11px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.agreedToTerms}</p>
+                      <p className="text-[14px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.agreedToTerms}</p>
                     )}
 
                     {/* Inline Collapsible Terms */}
@@ -1175,7 +1175,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                       }`}
                     />
                     {errors.email && (
-                      <p className="text-[11px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.email}</p>
+                      <p className="text-[14px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.email}</p>
                     )}
 
                     {userExists && (
@@ -1237,7 +1237,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                       </button>
                     </div>
                     {errors.password && (
-                      <p className="text-[11px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.password}</p>
+                      <p className="text-[14px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.password}</p>
                     )}
                   </div>
 
@@ -1293,7 +1293,7 @@ export const MobileEventRegistrationModal: React.FC<MobileEventRegistrationModal
                         </p>
                       )}
                       {errors.confirmPassword && (
-                        <p className="text-[11px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.confirmPassword}</p>
+                        <p className="text-[14px] text-red-600 mt-1 flex items-center gap-1"><AlertCircle className="size-3" />{errors.confirmPassword}</p>
                       )}
                     </div>
                   )}
